@@ -16,7 +16,9 @@
 :root{--navy:#1B2A4A;--navy2:#2C3D63;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--gold-t:#FBF4E2;--blush:#F8E1DD;
 --a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--b-t:#FCE9E3;--c:#6D5BD0;--c-t:#ECE9FA;--d:#E9B44C;--d-t:#FBF2DC;--x-t:#EEF0F5;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4;--fs:16px;--r:18px}
 *{box-sizing:border-box}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,video,iframe{max-width:100%;height:auto}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px)}
 body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:var(--fs);-webkit-font-smoothing:antialiased}
 body.big{--fs:19px}
@@ -45,14 +47,15 @@ nav.main a[aria-current="page"]::after{content:"";position:absolute;left:13px;ri
 .iconbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;font:600 14px 'Poppins',system-ui,sans-serif;padding:0 11px;text-decoration:none;color:var(--navy)}
 .iconbtn:hover{border-color:var(--navy)}
 .iconbtn[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
-.logo .lt{min-width:0}.logo .short{display:none}
+.logo .lt{min-width:0;overflow:hidden}.logo b{overflow:hidden;text-overflow:ellipsis}.logo .short{display:none}
+@media (max-width:400px){.lvl{display:none}}
 @media (max-width:560px){.logo .full{display:none}.logo .short{display:inline}}
 @media (max-width:900px){nav.main{display:none}.logo small{display:none}.hide-s{display:none}}
 
 /* bottom tab bar */
 nav.tabs{display:none}
 @media (max-width:900px){
- nav.tabs{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:40;background:rgba(27,42,74,.96);backdrop-filter:blur(10px);border-radius:22px;padding:6px;box-shadow:0 10px 30px rgba(27,42,74,.28)}
+ nav.tabs{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:40;background:rgba(27,42,74,.96);backdrop-filter:blur(10px);border-radius:22px;padding:6px;box-shadow:0 10px 30px rgba(27,42,74,.28)}
  nav.tabs a{display:grid;justify-items:center;gap:2px;text-decoration:none;color:#C9D0E2;font-size:11px;font-weight:600;padding:8px 2px;border-radius:16px;min-height:52px}
  nav.tabs a svg.i{width:22px;height:22px}
  nav.tabs a[aria-current="page"]{background:#fff;color:var(--navy)}
@@ -74,7 +77,7 @@ nav.tabs{display:none}
 .search .res small{display:block;color:var(--ink2)}
 
 /* layout */
-main{max-width:1180px;margin:0 auto;padding:26px 18px 130px;min-height:70vh;outline:none}
+main{max-width:1180px;margin:0 auto;padding:26px 18px 130px;min-height:70vh;min-height:70dvh;outline:none}
 h1{font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.1;margin:0 0 10px;letter-spacing:-.02em;text-wrap:balance}
 h2{font-size:clamp(1.25rem,3vw,1.65rem);margin:34px 0 12px;line-height:1.25}
 h3{font-size:1.05rem;margin:0;line-height:1.35}
@@ -105,8 +108,11 @@ a.card:hover{border-color:var(--navy);transform:translateY(-1px)}
 .units{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 
 /* session strip */
-.strip{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px 12px;margin-bottom:20px;overflow-x:auto}
-.dots{display:flex;gap:6px;flex:1;justify-content:center;min-width:max-content}
+.strip{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px 12px;margin-bottom:20px}
+.strip>.iconbtn{flex-shrink:0}
+.dots{display:flex;gap:6px;flex:1;justify-content:safe center;min-width:0;overflow-x:auto;padding:4px 2px;scrollbar-width:none}
+.dots::-webkit-scrollbar{display:none}
+.dots a{flex-shrink:0}
 .dots a{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;text-decoration:none;background:var(--u-t);color:var(--navy);border:2px solid transparent}
 .dots a[aria-current="page"]{background:var(--u);color:#fff;transform:scale(1.12)}
 .dots a.exam{background:var(--x-t)}.dots a.exam[aria-current="page"]{background:var(--navy)}
@@ -174,6 +180,15 @@ textarea.ta{width:100%;min-height:110px;border:1.5px solid #B9BFCC;border-radius
 .choice button:hover{border-color:var(--navy)}
 .fb{margin-top:8px;padding:10px 14px;border-radius:12px;font-size:14px}.fb.right{background:var(--ok-t)}.fb.wrong{background:var(--no-t)}
 
+/* Short screens (phones held sideways): give the content the height */
+@media (max-height:500px){
+ header.top{position:static}
+ html{scroll-padding-top:0}
+ nav.tabs{bottom:calc(6px + env(safe-area-inset-bottom,0px));padding:4px;border-radius:18px}
+ nav.tabs a{display:flex;justify-content:center;align-items:center;gap:6px;min-height:40px;padding:4px 2px;font-size:12px}
+ nav.tabs a svg.i{width:18px;height:18px}
+ main{padding-bottom:90px}
+}
 footer{max-width:1180px;margin:0 auto;padding:22px 18px 120px;border-top:1px solid var(--line);font-size:13px;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between}
 footer a{color:var(--ink2)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -477,6 +492,7 @@ function route(){const parts=location.hash.replace(/^#\/?/,"").split(/[#/]/);con
  let html;
  if(p==="lab"&&a&&V[a])html=V[a]();else{const map={"":"home",sessions:"sessions",session:"session",models:"models",model:"model",lab:"lab",quizzes:"quizzes",study:"study",progress:"progress",tools:"tools",syllabus:"syllabus",glossary:"glossary",downloads:"downloads",help:"help",install:"install"};html=V[map[p]!=null?map[p]:"notfound"](a,b)}
  $("#main").innerHTML=html;
+ const cur=document.querySelector(".dots [aria-current]");if(cur){const d=cur.parentElement;d.scrollLeft=cur.offsetLeft-d.offsetLeft-(d.clientWidth-cur.offsetWidth)/2}
  const t=TAB[p]||"";document.querySelectorAll("nav.main a,nav.tabs a").forEach(x=>x.getAttribute("href")===t?x.setAttribute("aria-current","page"):x.removeAttribute("aria-current"));
  closeAll();
  if(p==="study")flash(a);if(p==="progress")tracker();if(p==="session"&&b==="slides")viewer(a);
