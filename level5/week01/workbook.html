@@ -57,13 +57,14 @@ label.q{font-weight:600;display:block;margin-top:14px}
 <h1>Session 1 workbook</h1>
 <p class="muted">Every task follows the Session 1 slides. Check your answers as you go. Your capstone writing is saved on this device only.</p>
 <nav class="toc" aria-label="Workbook tasks">
-<a href="#t1">1 Key terms</a><a href="#t2">2 Before, during, after</a><a href="#t3">3 Internal or external</a><a href="#t4">4 The chain</a><a href="#t5">5 ROI</a><a href="#t6">6 Grace's case</a><a href="#t7">7 Channels</a><a href="#t8">8 AI or person</a><a href="#t9">Capstone step 1</a>
+<a href="#t0">A Level 4 or 5</a><a href="#t00">B Costs</a><a href="#t1">1 Key terms</a><a href="#t2">2 Before, during, after</a><a href="#t3">3 Internal or external</a><a href="#t4">4 The chain</a><a href="#t5">5 ROI</a><a href="#t6">6 Grace's case</a><a href="#t7">7 Channels</a><a href="#t8">8 AI or person</a><a href="#t9">Capstone step 1</a><a href="#submit">Submit</a>
 </nav>
+<div id="tasks0"></div>
 <div id="tasks"></div>
 
 <section class="task" id="t4" style="--tc:var(--b)">
 <h2>Task 4 · Put the Service-Profit Chain in order</h2>
-<p class="meta">Slide 15 · Tap the six links in the correct order, from the start of the chain to the end.</p>
+<p class="meta">Slide 25 · Tap the six links in the correct order, from the start of the chain to the end.</p>
 <div class="chain" id="chainPool"></div>
 <div class="chainout" id="chainOut" aria-live="polite"></div>
 <div class="actions"><button class="btn" type="button" id="chainCheck">Check my order</button><button class="btn ghost" type="button" id="chainReset">Start again</button><span class="result" id="chainRes" aria-live="polite"></span></div>
@@ -71,7 +72,7 @@ label.q{font-weight:600;display:block;margin-top:14px}
 
 <section class="task" id="t5" style="--tc:var(--b)">
 <h2>Task 5 · Calculate the ROI of service</h2>
-<p class="meta">Slide 17 · ROI = (Gain − Cost) ÷ Cost</p>
+<p class="meta">Slide 28 · ROI = (Gain − Cost) ÷ Cost</p>
 <p>A hotel spends <b>QAR 4,000</b> on customer care training. Over the next three months, returning guests bring <b>QAR 6,000</b> extra profit. What is the ROI? (Example figures)</p>
 <div class="row"><label for="roi">ROI in %</label><input type="number" id="roi" inputmode="decimal" placeholder="Type a number"></div>
 <div class="actions"><button class="btn" type="button" id="roiCheck">Check</button><span class="result" id="roiRes" aria-live="polite"></span></div>
@@ -81,7 +82,7 @@ label.q{font-weight:600;display:block;margin-top:14px}
 
 <section class="task" id="t9" style="--tc:var(--gold)">
 <h2>Capstone step 1 · Analyse how service affects your organisation's profit</h2>
-<p class="meta">Slides 27 and 28 · About 150 words in total. Use the sentence frames.</p>
+<p class="meta">Slides 41 and 42 · About 150 words in total. Use the sentence frames.</p>
 <label class="q" for="c1">1. Your organisation and its customers</label>
 <div class="frame">"I chose ___. Its main external customers are ___. Its internal customers include ___."</div>
 <textarea id="c1"></textarea>
@@ -93,27 +94,40 @@ label.q{font-weight:600;display:block;margin-top:14px}
 <textarea id="c3"></textarea>
 <div class="actions"><button class="btn" type="button" id="copy">Copy my answers</button><button class="btn ghost" type="button" onclick="window.print()">Print this workbook</button><span class="result" id="saved" aria-live="polite"></span></div>
 </section>
+<section class="task" id="submit" style="--tc:var(--navy)">
+<h2>Submit to Ms. Maria</h2>
+<p class="meta">When you have checked every task and written your capstone step, send your results. You can submit again to update them.</p>
+<div id="who"></div>
+<p id="sumline" style="font-weight:600;margin-top:10px"></p>
+<div class="actions"><button class="btn" type="button" id="sendWb" style="min-width:220px">Submit my workbook</button><span class="result" id="wbMsg" aria-live="polite"></span></div>
+</section>
 </main>
 
 <script>
+const TASKS0=[
+{id:"t0",c:"var(--gold)",title:"Task A · Level 4 or Level 5?",meta:"Slides 5 to 7 · Choose the level for each action.",type:"pick",options:["Level 4","Level 5"],
+ items:[["Handle a customer's complaint politely","Level 4"],["Analyse why complaints increased this month","Level 5"],["Explain what good service is","Level 4"],["Compare two feedback methods and recommend one, with evidence","Level 5"],["Design a new complaints process and justify it","Level 5"]]},
+{id:"t00",c:"var(--a)",title:"Task B · Poor service costs money",meta:"Slide 21 · Choose the correct figure.",type:"select",options:["65%","10","25% to 85%"],
+ items:[["Share of lost business caused by staff who seem uninterested","65%"],["How many people typically hear about it when a customer is unhappy","10"],["Profit increase when 5% fewer customers leave","25% to 85%"]]}];
 const TASKS=[
-{id:"t1",c:"var(--d)",title:"Task 1 · Match each meaning to its key term",meta:"Slide 6 · Choose the key term for each meaning.",type:"select",
+{id:"t1",c:"var(--d)",title:"Task 1 · Match each meaning to its key term",meta:"Slide 14 · Choose the key term for each meaning.",type:"select",
  options:["Customer care","Customer experience","External customer","Internal customer","Touchpoint","Customer retention","ROI","Omnichannel"],
  items:[["Looking after customers before, during and after a sale","Customer care"],["How the customer feels about every contact with the business","Customer experience"],["A person or business that buys from you","External customer"],["A colleague or team that depends on your work","Internal customer"],["Any point where a customer meets the business","Touchpoint"],["Keeping customers so they come back again","Customer retention"],["What you gain compared with what you spend","ROI"],["All channels connected, so the customer gets one smooth experience","Omnichannel"]]},
-{id:"t2",c:"var(--a)",title:"Task 2 · Before, during or after the sale?",meta:"Slide 8 · Choose when each action happens.",type:"select",options:["Before","During","After"],
+{id:"t2",c:"var(--a)",title:"Task 2 · Before, during or after the sale?",meta:"Slide 17 · Choose when each action happens.",type:"select",options:["Before","During","After"],
  items:[["Answering a WhatsApp question about prices","Before"],["Serving the customer with a positive attitude","During"],["Calling the customer to check the problem is solved","After"],["Making the website easy to use","Before"],["Handling a complaint about a faulty product","After"],["Delivering the order on time","During"]]},
-{id:"t3",c:"var(--a)",title:"Task 3 · Internal or external customer?",meta:"Slide 10 · Choose the type of customer.",type:"pick",options:["Internal","External"],
+{id:"t3",c:"var(--a)",title:"Task 3 · Internal or external customer?",meta:"Slide 19 · Choose the type of customer.",type:"pick",options:["Internal","External"],
  items:[["A guest checking in at a hotel","External"],["Housekeeping, who need the front desk to report check-outs","Internal"],["A company that buys training from Learnovate","External"],["The kitchen, who depend on the waiter's orders","Internal"],["A patient booking a clinic appointment online","External"]]}];
 const TASKS2=[
-{id:"t6",c:"var(--d)",title:"Task 6 · Grace and the phone shop",meta:"Slides 25 and 26 · Match each problem to its link in the Service-Profit Chain.",type:"select",
+{id:"t6",c:"var(--d)",title:"Task 6 · Grace and the phone shop",meta:"Slides 38 and 39 · Match each problem to its link in the Service-Profit Chain.",type:"select",
  caseText:"Grace's phone stopped working. Her WhatsApp message got no reply for two days. On the phone she waited 20 minutes. In the shop, staff had no record of her message. She wrote a one-star review. The manager had added WhatsApp but never decided who should answer it.",
  options:["Link 1 · Support for staff","Link 3 · Service value","Link 4 · Satisfied customers","Link 5 · Loyal customers"],
  items:[["Nobody was told to answer WhatsApp or given a shared record","Link 1 · Support for staff"],["Grace waited two days and explained her problem twice","Link 3 · Service value"],["Grace wrote a one-star online review","Link 4 · Satisfied customers"],["Grace will probably buy her next phone somewhere else","Link 5 · Loyal customers"]]},
-{id:"t7",c:"var(--c)",title:"Task 7 · Multichannel or omnichannel?",meta:"Slide 21 · Choose the type of service.",type:"pick",options:["Multichannel","Omnichannel"],
+{id:"t7",c:"var(--c)",title:"Task 7 · Multichannel or omnichannel?",meta:"Slide 33 · Choose the type of service.",type:"pick",options:["Multichannel","Omnichannel"],
  items:[["The customer emails, then phones, and has to explain everything again","Multichannel"],["The agent on the phone can see the customer's chat from this morning","Omnichannel"],["The app, website and shop each give different prices for the same item","Multichannel"],["A customer starts an order on the app and finishes it in the shop","Omnichannel"]]},
-{id:"t8",c:"var(--c)",title:"Task 8 · AI or a person?",meta:"Slide 23 · Who should handle each situation?",type:"pick",options:["AI","Person"],
+{id:"t8",c:"var(--c)",title:"Task 8 · AI or a person?",meta:"Slide 35 · Who should handle each situation?",type:"pick",options:["AI","Person"],
  items:[["\"What time do you open on Friday?\"","AI"],["An angry customer whose wedding cake order was wrong","Person"],["\"Where is my order?\"","AI"],["A customer asking for a refund outside the normal policy","Person"],["Sending a message to the right team","AI"]]}];
 
+const RES={};
 function renderTask(t,host){
  const s=document.createElement("section");s.className="task";s.id=t.id;s.style.setProperty("--tc",t.c);
  s.innerHTML=`<h2>${t.title}</h2><p class="meta">${t.meta}</p>${t.caseText?`<div class="case"><b>The case:</b> ${t.caseText}</div>`:""}<div class="rows"></div><div class="actions"><button class="btn" type="button">Check my answers</button><button class="btn ghost" type="button">Clear</button><span class="result" aria-live="polite"></span></div>`;
@@ -128,9 +142,10 @@ function renderTask(t,host){
   rows.querySelectorAll(".row").forEach((r,i)=>{const ans=t.items[i][1];const v=t.type==="select"?r.querySelector("select").value:state[i];
    r.classList.remove("right","wrong");r.querySelector(".mark")?.remove();
    if(v===ans){c++;r.classList.add("right")}else{r.classList.add("wrong");const m=document.createElement("p");m.className="mark";m.textContent=v?`Correct answer: ${ans}`:`Choose an answer. Correct answer: ${ans}`;r.appendChild(m)}});
-  res.textContent=`${c} of ${t.items.length} correct`});
+  res.textContent=`${c} of ${t.items.length} correct`;RES[t.id]=[c,t.items.length,t.title.split(" · ")[0]]});
  clear.addEventListener("click",()=>{rows.querySelectorAll(".row").forEach(r=>{r.classList.remove("right","wrong");r.querySelector(".mark")?.remove();const sel=r.querySelector("select");if(sel)sel.value="";r.querySelectorAll(".pick").forEach(x=>x.setAttribute("aria-pressed","false"))});for(const k in state)delete state[k];res.textContent=""});
  host.appendChild(s)}
+TASKS0.forEach(t=>renderTask(t,document.getElementById("tasks0")));
 TASKS.forEach(t=>renderTask(t,document.getElementById("tasks")));
 TASKS2.forEach(t=>renderTask(t,document.getElementById("tasks2")));
 
@@ -144,12 +159,12 @@ function chain(){const pool=document.getElementById("chainPool"),out=document.ge
 document.getElementById("chainReset").addEventListener("click",chain);
 document.getElementById("chainCheck").addEventListener("click",()=>{const r=document.getElementById("chainRes");
  if(picked.length<6){r.textContent=`Tap all six links first (${picked.length} of 6).`;return}
- const c=picked.filter((l,i)=>l===LINKS[i]).length;r.textContent=c===6?"6 of 6 in the right order.":`${c} of 6 in the right place. Remember: the chain starts with staff. Review slide 15.`});
+ const c=picked.filter((l,i)=>l===LINKS[i]).length;RES.t4=[c,6,"Task 4"];r.textContent=c===6?"6 of 6 in the right order.":`${c} of 6 in the right place. Remember: the chain starts with staff. Review slide 25.`});
 chain();
 
 document.getElementById("roiCheck").addEventListener("click",()=>{const v=parseFloat(document.getElementById("roi").value);const r=document.getElementById("roiRes");
  if(isNaN(v)){r.textContent="Type a number first.";return}
- r.textContent=Math.abs(v-50)<0.01?"Correct: (6,000 − 4,000) ÷ 4,000 = 0.5, which is 50%.":"Not quite. Subtract the cost from the gain first, then divide by the cost."});
+ RES.t5=[Math.abs(v-50)<0.01?1:0,1,"Task 5"];r.textContent=Math.abs(v-50)<0.01?"Correct: (6,000 − 4,000) ÷ 4,000 = 0.5, which is 50%.":"Not quite. Subtract the cost from the gain first, then divide by the cost."});
 
 const KEY="ccl5-w1-capstone";
 function loadCap(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
@@ -157,6 +172,28 @@ const cap=loadCap();["c1","c2","c3"].forEach(id=>{const t=document.getElementByI
  t.addEventListener("input",()=>{cap[id]=t.value;try{localStorage.setItem(KEY,JSON.stringify(cap));document.getElementById("saved").textContent="Saved on this device"}catch(e){document.getElementById("saved").textContent="Could not save on this device. Copy your answers before you leave."}})});
 document.getElementById("copy").addEventListener("click",async()=>{const txt=["1. "+(cap.c1||""),"2. "+(cap.c2||""),"3. "+(cap.c3||"")].join("\n\n");
  try{await navigator.clipboard.writeText(txt);document.getElementById("saved").textContent="Copied. Paste it into your capstone folder."}catch(e){document.getElementById("saved").textContent="Copy is blocked here. Select the text and copy it by hand."}});
+
+const API="https://script.google.com/macros/s/AKfycbw70SpO16Qai-KTVcs9K_cWGShT-jFZMWI47BGMAEgBm1BcXKk3AKCCrS_rI9La98okIQ/exec";
+const ALLTASKS=[...TASKS0,...TASKS,...TASKS2].map(t=>[t.id,t.items.length,t.title.split(" · ")[0]]).concat([["t4",6,"Task 4"],["t5",1,"Task 5"]]);
+let auth=null;try{auth=JSON.parse(localStorage.getItem("ccl5-auth")||"null")}catch(e){}
+const who=document.getElementById("who");
+const codeBox='<label class="q" for="wbCode">Your access code</label><input id="wbCode" autocomplete="off" autocapitalize="characters" spellcheck="false" style="width:100%;min-height:46px;border:1.5px solid #B9BFCC;border-radius:10px;padding:8px 12px;font:600 16px Poppins,system-ui,sans-serif;text-transform:uppercase;letter-spacing:2px">';
+who.innerHTML=auth&&auth.code?`<p>Submitting as <b>${String(auth.name).replace(/[<>&]/g,"")}</b>. <a href="#" id="wbChg">Use a different code</a></p>`:codeBox;
+const ch=document.getElementById("wbChg");if(ch)ch.onclick=e=>{e.preventDefault();auth=null;who.innerHTML=codeBox};
+function summary(){let s=0,t=0,missing=[];ALLTASKS.forEach(([id,n,name])=>{t+=n;if(RES[id])s+=RES[id][0];else missing.push(name)});return {s,t,missing}}
+setInterval(()=>{const m=summary();document.getElementById("sumline").textContent=`Score so far: ${m.s} of ${m.t}`+(m.missing.length?` · Not checked yet: ${m.missing.join(", ")}`:" · All tasks checked")},1000);
+document.getElementById("sendWb").onclick=async()=>{const msg=document.getElementById("wbMsg"),b=document.getElementById("sendWb");
+ const code=(auth&&auth.code)||((document.getElementById("wbCode")||{}).value||"").trim().toUpperCase();
+ if(!code){msg.textContent="Type your access code first.";return}
+ const m=summary();if(m.missing.length&&!confirm(`You have not checked: ${m.missing.join(", ")}. Submit anyway?`))return;
+ const tasks=ALLTASKS.map(([id,n,name])=>`${name}: ${RES[id]?RES[id][0]:0}/${n}`).join(" · ");
+ const cap=(()=>{try{return JSON.parse(localStorage.getItem("ccl5-w1-capstone")||"{}")}catch(e){return {}}})();
+ const written=["1. "+(cap.c1||""),"2. "+(cap.c2||""),"3. "+(cap.c3||"")].join("\n");
+ b.disabled=true;b.textContent="Sending…";
+ try{const r=await fetch(API,{method:"POST",body:JSON.stringify({action:"workbook",code,level:"5",session:1,score:m.s,total:m.t,tasks,written})}).then(r=>r.json());
+  msg.textContent=r.ok?`Sent to Ms. Maria${r.updated?" (updated)":""}. Well done${r.name?", "+r.name.split(" ")[0]:""}.`:(r.error||"Not sent. Check your code.")}
+ catch(e){msg.textContent="Not sent: no connection. Your work is saved on this phone. Try again later."}
+ b.disabled=false;b.textContent="Submit my workbook"};
 </script>
 </body>
 </html>

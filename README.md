@@ -20,6 +20,8 @@ level5/
     quiz.html           Session 1 practice quiz
     exit.html           exit ticket (answers go to the Exit_Tickets tab of the Sheet)
   week02/ ... week12/   same file names each week
+  reviews/
+    unitA.html ... unitD.html   unit reviews (open automatically when uploaded)
 ```
 
 Each week's buttons switch on by themselves when its files are in the folder. Use exactly these file names, all lowercase.
