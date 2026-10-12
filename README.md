@@ -14,6 +14,7 @@ level5/
     syllabus.pdf        Level 5 syllabus, exported as PDF
   week01/
     slides.pdf          Session 1 deck, downloaded as PDF
+    slides/             slide images for the in-page viewer (01.jpg, 02.jpg ... + count.txt)
     workbook.html       Session 1 e-workbook
     quiz.html           Session 1 practice quiz
     form.txt            one line: the link to the graded Google Form
@@ -35,7 +36,9 @@ Capital letters in the link matter. Share it through the QR code.
 
 ## Every week (Level 5)
 
-Upload the new week folder into `level5/` (for example `level5/week02/`) with `slides.pdf`, `workbook.html`, `quiz.html` and `form.txt`.
+Upload the week's zip and slide PDF to the repository, then give the cloud session this instruction (change the week number):
+
+Unzip the uploaded week zip into level5/weekNN/. Move the uploaded slide PDF to level5/weekNN/slides.pdf. Convert slides.pdf into JPG images, one per page, 1600 px wide, named 01.jpg, 02.jpg and so on, in level5/weekNN/slides/, and create level5/weekNN/slides/count.txt containing only the number of pages. Commit to main and push.
 
 ## Rules
 
