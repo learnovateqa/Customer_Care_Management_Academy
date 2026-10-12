@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Session 1 practice quiz · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.q{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
+.q h2{font-size:1.05rem;margin:0 0 12px;font-weight:600}
+.q h2 span{display:inline-block;background:var(--a-t);border-radius:8px;padding:0 10px;margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--ok-t);border-color:var(--ok)}
+.opt.wrong{background:var(--no-t);border-color:var(--no)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.right{background:var(--ok-t)}
+.fb.wrong{background:var(--no-t)}
+.slide{font-size:13px;color:var(--ink2);margin-top:6px}
+.score{position:sticky;bottom:0;margin-top:24px;background:var(--navy);color:#fff;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:none;background:#fff;color:var(--navy);font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/session/1">Back to Session 1</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Session 1 · Customer care in context</p>
+<h1>Practice quiz</h1>
+<p class="muted">10 questions from the Session 1 slides. Choose an answer to see if it is right. This quiz does not count toward your grade.</p>
+<div id="quiz"></div>
+<div class="score" aria-live="polite"><span id="scoreText">Score: 0 of 10 · 10 to go</span><button class="btn" id="reset" type="button">Start again</button></div>
+</main>
+<script>
+const Q=[
+{q:"What does customer care cover?",o:["Only the moment the customer pays","Before, during and after the sale","Only handling complaints","Only face-to-face service"],a:1,e:"Customer care is how an organisation looks after its customers before, during and after the sale.",s:"Slide 17"},
+{q:"The finance team needs your sales report every Friday. What kind of customer are they?",o:["External customer","Internal customer","Not a customer","Potential customer"],a:1,e:"An internal customer is a colleague or team that depends on your work.",s:"Slides 14 and 19"},
+{q:"According to Session 1, an unhappy customer typically tells about how many other people?",o:["2","5","10","50"],a:2,e:"Session 1 showed that an unhappy customer typically tells 10 others, and online it can spread in one click.",s:"Slide 21"},
+{q:"According to Session 1, reducing the number of customers who leave by 5% can increase profit by how much?",o:["1% to 5%","5% to 10%","25% to 85%","Over 200%"],a:2,e:"Research quoted from the Harvard Business Review: 5% fewer customers leaving can raise profit by 25% to 85%.",s:"Slide 21"},
+{q:"According to Session 1, what influences the quality of service most?",o:["Advertising","The price","Your people","The building"],a:2,e:"Session 1 showed that service quality is influenced by one thing: your people, and their attitude and enthusiasm.",s:"Slide 22"},
+{q:"Where does the Service-Profit Chain start?",o:["Profit and growth","Satisfied customers","Good support for staff","Advertising"],a:2,e:"The chain starts inside the organisation, with good support for staff. Satisfied staff give better service.",s:"Slide 25"},
+{q:"In the Doha restaurant example, staff were never trained on a new ordering app. What should the manager do first?",o:["Apologise to every customer","Give customers a discount","Train the staff on the app","Spend more on advertising"],a:2,e:"The weakest link is link 1, support for staff. Fixing the cause stops the later problems. Apologising only treats the symptom.",s:"Slide 29"},
+{q:"Training costs QAR 2,000 and brings QAR 3,000 extra profit. What is the ROI?",o:["150%","50%","33%","1,000%"],a:1,e:"ROI = (Gain − Cost) ÷ Cost = (3,000 − 2,000) ÷ 2,000 = 0.5, which is 50%.",s:"Slide 28"},
+{q:"Which is an example of omnichannel service?",o:["A customer must repeat their story on every channel","The phone agent can see the customer's WhatsApp message from earlier","The business only has a website","Each channel has a different phone number"],a:1,e:"In omnichannel service, channels are connected, so staff see the history and the customer explains once.",s:"Slide 33"},
+{q:"Which situation should go to a person, not to AI?",o:["Checking opening hours","Checking order status","An upset customer asking for a refund","Sending a message to the right team"],a:2,e:"People handle upset customers, complex problems and decisions about money or policy. AI handles routine questions.",s:"Slide 35"}];
+let answered={};
+function render(){const box=document.getElementById("quiz");box.innerHTML="";answered={};
+Q.forEach((it,i)=>{const d=document.createElement("div");d.className="q";
+d.innerHTML=`<h2><span>${i+1}</span>${it.q}</h2><div class="opts" role="group" aria-label="Question ${i+1} options"></div><div class="fb" hidden aria-live="polite"></div>`;
+const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");
+it.o.forEach((t,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=t;
+b.addEventListener("click",()=>{if(i in answered)return;answered[i]=j===it.a;
+opts.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===it.a)x.classList.add("right")});
+if(j!==it.a)b.classList.add("wrong");
+fb.hidden=false;fb.className="fb "+(j===it.a?"right":"wrong");
+fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slide">Review: ${it.s}</div>`;score()});
+opts.appendChild(b)});box.appendChild(d)});score()}
+function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
+if(n===Q.length){try{const k="ccl5-quiz-w1",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
+if(n===Q.length){try{const au=JSON.parse(localStorage.getItem("ccl5-auth")||"null");if(au&&au.code){fetch("https://script.google.com/macros/s/AKfycbw70SpO16Qai-KTVcs9K_cWGShT-jFZMWI47BGMAEgBm1BcXKk3AKCCrS_rI9La98okIQ/exec",{method:"POST",body:JSON.stringify({action:"score",code:au.code,level:"5",session:1,score:c,total:Q.length})}).catch(()=>{})}}catch(e){}}
+document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=8?"Well prepared for the exit ticket.":"Review the slides shown, then try again."}`}
+document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>

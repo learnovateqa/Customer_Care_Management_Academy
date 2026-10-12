@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B2A4A">
+<meta name="robots" content="noindex">
+<title>Teacher portal · Customer Care Management</title>
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--b-t:#FCE9E3;--c:#6D5BD0;--c-t:#ECE9FA;--d:#E9B44C;--d-t:#FBF2DC;--x-t:#EEF0F5;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.55;font-size:15px}
+p{margin:0}button,input,select,textarea{font:inherit;color:var(--navy)}
+:is(button,a,input,select,textarea):focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--navy);color:#fff}
+header::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+.bar{max-width:1180px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.bar b{font-size:16px}.bar small{opacity:.75}
+.tabs{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.tabs button{background:transparent;border:0;color:#C9D0E2;padding:9px 14px;border-radius:10px;font-weight:600;cursor:pointer}
+.tabs button[aria-selected="true"]{background:#fff;color:var(--navy)}
+main{max-width:1180px;margin:0 auto;padding:22px 18px 80px}
+h1{font-size:1.9rem;margin:0 0 6px;line-height:1.15}h2{font-size:1.2rem;margin:22px 0 10px}
+.muted{color:var(--ink2)}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.stat b{font-size:2rem;display:block;line-height:1.1}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 16px;border-radius:12px;border:1.5px solid var(--navy);background:#fff;font-weight:600;cursor:pointer;text-decoration:none;color:var(--navy)}
+.btn.primary{background:var(--navy);color:#fff}
+.btn:disabled{opacity:.5;cursor:wait}
+input.f,select.f,textarea.f{width:100%;min-height:44px;border:1.5px solid #B9BFCC;border-radius:11px;padding:8px 12px;background:#fff}
+textarea.f{min-height:70px;resize:vertical}
+label.l{display:block;font-size:13px;font-weight:600;margin:10px 0 4px}
+.tablewrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:18px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+th{background:var(--x-t);text-align:left;padding:10px 12px;font-weight:600;position:sticky;top:0}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px}
+.yes{background:var(--ok-t)}.no{background:var(--no-t)}
+.dots{display:flex;gap:3px;flex-wrap:wrap}
+.dots span{width:22px;height:22px;border-radius:6px;font-size:11px;font-weight:700;display:grid;place-items:center;background:var(--x-t);color:#8A93A8}
+.dots span.on{background:var(--a);color:#fff}
+.sess{display:grid;gap:12px}
+.sess .card{display:grid;gap:4px}
+.sess .head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px;font-weight:600;z-index:50;box-shadow:0 8px 24px rgba(27,42,74,.3)}
+.login{max-width:420px;margin:10vh auto 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:640px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="bar"><span><b>Teacher portal</b><br><small>Customer Care Management · Level 5</small></span>
+<nav class="tabs" id="tabs" hidden role="tablist"><button role="tab" data-v="dash" aria-selected="true">Dashboard</button><button role="tab" data-v="sessions" aria-selected="false">Sessions</button><button role="tab" data-v="learners" aria-selected="false">Learners</button><button id="out" type="button">Sign out</button></nav></div></header>
+<main id="main"></main>
+<div class="toast" id="toast" hidden role="status"></div>
+<script>
+const API="https://script.google.com/macros/s/AKfycbw70SpO16Qai-KTVcs9K_cWGShT-jFZMWI47BGMAEgBm1BcXKk3AKCCrS_rI9La98okIQ/exec";
+const LEVEL="5";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let PIN=null,D=null,view="dash";
+try{PIN=sessionStorage.getItem("ccm-teacher")}catch(e){}
+function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2600)}
+async function call(b){const r=await fetch(API,{method:"POST",body:JSON.stringify(Object.assign({pin:PIN,level:LEVEL},b))});return r.json()}
+
+function loginView(msg){$("#tabs").hidden=true;$("#main").innerHTML=`<div class="login card"><h1>Teacher sign-in</h1><p class="muted">Enter the teacher PIN from the Settings tab of your Sheet.</p><label class="l" for="pin">Teacher PIN</label><input class="f" id="pin" type="password" autocomplete="current-password"><p id="msg" role="alert" style="min-height:1.4em;margin-top:8px;color:var(--no)">${esc(msg||"")}</p><button class="btn primary" id="go" type="button" style="width:100%">Sign in</button><p class="muted" style="margin-top:12px;font-size:13px">This page is only for Ms. Maria. Learners use the course app.</p></div>`;
+ const go=async()=>{PIN=$("#pin").value.trim();if(!PIN)return;$("#go").disabled=true;$("#msg").textContent="Checking…";await load();};
+ $("#go").onclick=go;$("#pin").onkeydown=e=>{if(e.key==="Enter")go()};$("#pin").focus()}
+
+async function load(){try{const r=await call({action:"teacherDashboard"});if(!r.ok){PIN=null;try{sessionStorage.removeItem("ccm-teacher")}catch(e){}return loginView(r.error)}
+ D=r;try{sessionStorage.setItem("ccm-teacher",PIN)}catch(e){}$("#tabs").hidden=false;render()}catch(e){loginView("Can't reach your teacher portal script. Check the internet and try again.")}}
+
+function render(){document.querySelectorAll("#tabs [data-v]").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===view));({dash,sessions,learners})[view]()}
+document.querySelectorAll("#tabs [data-v]").forEach(b=>b.onclick=()=>{view=b.dataset.v;render()});
+$("#out").onclick=()=>{PIN=null;D=null;try{sessionStorage.removeItem("ccm-teacher")}catch(e){}loginView()};
+
+const lvlHas=(s,l)=>String(s.level).indexOf(l)>-1;
+function dash(){const st=D.students.filter(s=>lvlHas(s,LEVEL)),act=st.filter(s=>s.active.toLowerCase()==="yes");
+ const signed=act.filter(s=>D.progress[s.code]||D.scores[s.code]).length;
+ const quizzes=Object.values(D.scores).reduce((n,o)=>n+Object.keys(o).length,0);
+ $("#main").innerHTML=`<h1>Dashboard</h1><p class="muted">Level ${LEVEL} · <a href="#" id="refresh">Refresh</a></p>
+ <div class="grid" style="margin-top:14px"><div class="card stat"><b>${act.length}</b>Active learners</div><div class="card stat"><b>${signed}</b>Have used the app</div><div class="card stat"><b>${quizzes}</b>Practice quizzes finished</div><div class="card stat"><b>${D.sessions.filter(s=>s.visible!=="No").length}</b>Sessions not closed</div></div>
+ <h2>Learner progress</h2><div class="tablewrap"><table><tr><th>Learner</th><th>Code</th><th>Capstone steps</th><th>Practice quizzes (best)</th><th>E-workbook</th><th>Exit tickets</th><th>Practice Lab</th><th>Last active</th></tr>
+ ${act.map(s=>{const p=D.progress[s.code]||{},sc=D.scores[s.code]||{},ex=(D.exits||{})[s.code]||[],wb=(D.workbooks||{})[s.code]||[],done=String(p.steps||"").split(",").map(x=>+x).filter(Boolean);let lab={};try{lab=JSON.parse(p.lab||"{}")}catch(e){}
+  return `<tr><td><b>${esc(s.name)}</b></td><td>${esc(s.code)}</td><td><div class="dots">${[1,2,3,4,5,6,8,9,10,11,12].map(n=>`<span class="${done.includes(n)?"on":""}">${n}</span>`).join("")}</div></td><td>${Object.keys(sc).length?Object.entries(sc).map(([n,v])=>`S${n}: ${v.best}/${v.total}`).join("<br>"):'<span class="muted">None yet</span>'}</td><td>${wb.length?wb.sort((x,y)=>x.n-y.n).map(e=>`S${e.n}: ${e.score}/${e.total}`).join("<br>"):'<span class="muted">None yet</span>'}</td><td>${ex.length?ex.sort((x,y)=>x.n-y.n).map(e=>`S${e.n}${e.mark?`: ${esc(e.mark)}/10`:" · to mark"}`).join("<br>"):'<span class="muted">None yet</span>'}</td><td>${lab.tickets?"Tickets ✓<br>":""}${lab.chat?`Chat ${lab.chat}%<br>`:""}${lab.deescalate?`De-escalation ${lab.deescalate}/6`:""}${!lab.tickets&&!lab.chat&&!lab.deescalate?'<span class="muted">None yet</span>':""}</td><td>${esc(p.updated||"")||'<span class="muted">Not yet</span>'}</td></tr>`}).join("")||`<tr><td colspan="8" class="muted">No active Level ${LEVEL} learners yet. Add them in the Learners tab.</td></tr>`}</table></div>
+ <p class="muted" style="margin-top:10px;font-size:13px">Progress appears when a learner signs in to the app with their code. Workbook details and written answers are in the Workbook_Results tab. Read and mark exit tickets in the Exit_Tickets tab of your Sheet (columns Mark and Teacher comment).</p>`;
+ $("#refresh").onclick=e=>{e.preventDefault();load()}}
+
+function sessions(){$("#main").innerHTML=`<h1>Sessions</h1><p class="muted">A session opens for learners when its files are uploaded. "Closed" hides it again. Changes save to your Sheet.</p><div class="sess" style="margin-top:14px">${D.sessions.map(s=>`<div class="card" data-n="${s.n}"><div class="head"><b>Session ${s.n} · ${esc(s.title)}</b><span class="pill ${s.visible==="No"?"no":"yes"}">${s.visible==="No"?"Closed":"Not closed"}</span></div>
+ <div class="two"><div><label class="l" for="sl${s.n}">Slides link (Canva, view-only)</label><input class="f" id="sl${s.n}" value="${esc(s.slides)}" placeholder="https://www.canva.com/design/…"></div><div><label class="l" for="fm${s.n}">Exit ticket link (Google Form)</label><input class="f" id="fm${s.n}" value="${esc(s.form)}" placeholder="https://forms.gle/…"></div></div>
+ <label class="l" for="nt${s.n}">Announcement</label><textarea class="f" id="nt${s.n}" placeholder="Shown at the top of the session page">${esc(s.note)}</textarea>
+ <div class="row" style="margin-top:10px"><label class="l" for="vs${s.n}" style="margin:0">Status</label><select class="f" id="vs${s.n}" style="width:auto"><option${s.visible!=="No"?" selected":""}>Yes</option><option${s.visible==="No"?" selected":""}>No</option></select><span class="muted" style="font-size:13px">Yes = normal · No = closed</span><button class="btn primary" type="button" data-save="${s.n}" style="margin-left:auto">Save Session ${s.n}</button></div></div>`).join("")}</div>`;
+ document.querySelectorAll("[data-save]").forEach(b=>b.onclick=async()=>{const n=+b.dataset.save;b.disabled=true;b.textContent="Saving…";
+  const body={action:"teacherSaveSession",n,slides:$("#sl"+n).value,form:$("#fm"+n).value,note:$("#nt"+n).value,visible:$("#vs"+n).value};
+  try{const r=await call(body);if(r.ok){Object.assign(D.sessions.find(s=>s.n===n),{slides:body.slides,form:body.form,note:body.note,visible:body.visible});toast(`Session ${n} saved`);sessions()}else{toast(r.error||"Not saved");b.disabled=false;b.textContent=`Save Session ${n}`}}catch(e){toast("No connection. Not saved.");b.disabled=false;b.textContent=`Save Session ${n}`}})}
+
+function suggest(name){const ini=String(name).trim().split(/\s+/).map(w=>w[0]||"").join("").toUpperCase().replace(/[^A-Z]/g,"").slice(0,3)||"CC";let c;do{c=ini+String(Math.floor(10+Math.random()*90))}while(D.students.some(s=>s.code===c));return c}
+function learners(){const st=D.students;
+ $("#main").innerHTML=`<h1>Learners</h1><p class="muted">Add learners and give them their code. Set Active to No to remove access.</p>
+ <div class="card" style="margin-top:14px"><h2 style="margin-top:0">Add a learner</h2><div class="two"><div><label class="l" for="nn">Full name</label><input class="f" id="nn"></div><div><label class="l" for="nc">Access code</label><div class="row"><input class="f" id="nc" style="flex:1;text-transform:uppercase" maxlength="10"><button class="btn" id="sug" type="button">Suggest</button></div></div></div>
+ <div class="two"><div><label class="l" for="nl">Level</label><select class="f" id="nl"><option>5</option><option>4</option><option>4 and 5</option></select></div><div style="display:flex;align-items:flex-end"><button class="btn primary" id="add" type="button" style="width:100%">Add learner</button></div></div></div>
+ <h2>All learners</h2><div class="tablewrap"><table><tr><th>Name</th><th>Code</th><th>Level</th><th>Active</th><th></th></tr>${st.map((s,i)=>`<tr><td>${esc(s.name)}</td><td><b>${esc(s.code)}</b></td><td><select class="f" data-l="${i}" style="min-width:110px">${["5","4","4 and 5"].map(o=>`<option${o===s.level?" selected":""}>${o}</option>`).join("")}</select></td><td><select class="f" data-a="${i}" style="min-width:90px"><option${s.active.toLowerCase()==="yes"?" selected":""}>Yes</option><option${s.active.toLowerCase()!=="yes"?" selected":""}>No</option></select></td><td><button class="btn" data-u="${i}" type="button">Save</button></td></tr>`).join("")||'<tr><td colspan="5" class="muted">No learners yet.</td></tr>'}</table></div>`;
+ $("#nn").oninput=()=>{if(!$("#nc").dataset.touched)$("#nc").value=$("#nn").value.trim()?suggest($("#nn").value):""};
+ $("#nc").oninput=()=>{$("#nc").dataset.touched=1};$("#sug").onclick=()=>{$("#nc").value=suggest($("#nn").value||"CC")};
+ $("#add").onclick=async()=>{const b=$("#add");const body={action:"teacherSaveStudent",isNew:true,name:$("#nn").value,code:$("#nc").value.trim().toUpperCase(),level:$("#nl").value,active:"Yes"};b.disabled=true;
+  try{const r=await call(body);if(r.ok){D.students.push({name:body.name.trim(),code:body.code,level:body.level,active:"Yes",notes:""});toast(`${body.name.trim()} added · code ${body.code}`);learners()}else{toast(r.error);b.disabled=false}}catch(e){toast("No connection. Not saved.");b.disabled=false}};
+ document.querySelectorAll("[data-u]").forEach(b=>b.onclick=async()=>{const i=+b.dataset.u,s=st[i];const body={action:"teacherSaveStudent",name:s.name,code:s.code,level:document.querySelector(`[data-l="${i}"]`).value,active:document.querySelector(`[data-a="${i}"]`).value};b.disabled=true;
+  try{const r=await call(body);if(r.ok){s.level=body.level;s.active=body.active;toast(`${s.name} saved`)}else toast(r.error)}catch(e){toast("No connection. Not saved.")}b.disabled=false})}
+
+PIN?load():loginView();
+</script>
+</body>
+</html>
