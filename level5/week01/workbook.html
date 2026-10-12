@@ -191,6 +191,7 @@ document.getElementById("sendWb").onclick=async()=>{const msg=document.getElemen
  const written=["1. "+(cap.c1||""),"2. "+(cap.c2||""),"3. "+(cap.c3||"")].join("\n");
  b.disabled=true;b.textContent="Sending…";
  try{const r=await fetch(API,{method:"POST",body:JSON.stringify({action:"workbook",code,level:"5",session:1,score:m.s,total:m.t,tasks,written})}).then(r=>r.json());
+  if(r.ok){try{localStorage.setItem("ccl5-wb-done-w1","1")}catch(x){}}
   msg.textContent=r.ok?`Sent to Ms. Maria${r.updated?" (updated)":""}. Well done${r.name?", "+r.name.split(" ")[0]:""}.`:(r.error||"Not sent. Check your code.")}
  catch(e){msg.textContent="Not sent: no connection. Your work is saved on this phone. Try again later."}
  b.disabled=false;b.textContent="Submit my workbook"};

@@ -50,6 +50,7 @@ nav.main a[aria-current="page"]::after{content:"";position:absolute;left:13px;ri
 .iconbtn[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
 .logo .lt{min-width:0}.logo .short{display:none}
 @media (max-width:560px){.logo .full{display:none}.logo .short{display:inline}}
+@media (max-width:440px){.logo .lt{display:none}.tile{min-height:104px;padding:14px}.sec{padding:16px}}
 nav.main a,.iconbtn{white-space:nowrap}
 @media (max-width:1240px){nav.main a svg.i{display:none}nav.main a{padding:9px 10px}.logo small{display:none}}
 @media (max-width:900px){nav.main{display:none}.logo small{display:none}.hide-s{display:none}}
@@ -179,8 +180,57 @@ textarea.ta{width:100%;min-height:110px;border:1.5px solid #B9BFCC;border-radius
 .choice button:hover{border-color:var(--navy)}
 .fb{margin-top:8px;padding:10px 14px;border-radius:12px;font-size:14px}.fb.right{background:var(--ok-t)}.fb.wrong{background:var(--no-t)}
 
-footer{max-width:1180px;margin:0 auto;padding:22px 18px 120px;border-top:1px solid var(--line);font-size:13px;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between}
-footer a{color:var(--ink2)}
+
+/* ===== visual upgrade ===== */
+.card{box-shadow:0 1px 2px rgba(27,42,74,.04)}
+a.card:hover{box-shadow:0 10px 24px rgba(27,42,74,.10)}
+.welcome{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:28px;padding:30px 32px;position:relative;overflow:hidden}
+@media (max-width:900px){.welcome{grid-template-columns:1fr;padding:24px}}
+.ringbig{width:200px;height:200px;border-radius:50%;background:conic-gradient(var(--a) 0 25%,var(--b) 0 50%,var(--c) 0 75%,var(--d) 0);display:grid;place-items:center;justify-self:center}
+.ringbig div{width:128px;height:128px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;line-height:1.15}
+.ringbig b{font-size:2.4rem;display:block}.ringbig span{font-size:12px;color:var(--ink2);font-weight:600}
+@media (max-width:900px){.ringbig{width:150px;height:150px}.ringbig div{width:96px;height:96px}.ringbig b{font-size:1.8rem}}
+.journey{display:flex;align-items:flex-start;overflow-x:auto;padding:8px 4px 14px;gap:0}
+.jn{flex:1 0 74px;display:grid;justify-items:center;gap:6px;text-decoration:none;position:relative;min-width:74px}
+.jn::before{content:"";position:absolute;top:21px;left:-50%;right:50%;height:4px;background:var(--line);z-index:0}
+.jn:first-child::before{display:none}
+.jn.done::before,.jn.cur::before{background:var(--jc)}
+.jn i{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:15px;z-index:1;background:#fff;border:3px solid var(--line);color:#9AA3B8}
+.jn.open i{border-color:var(--jc);color:var(--navy)}
+.jn.done i{background:var(--jc);border-color:var(--jc);color:#fff}
+.jn.cur i{background:var(--navy);border-color:var(--navy);color:#fff;transform:scale(1.15);box-shadow:0 0 0 5px var(--jt)}
+.jn small{font-size:11.5px;text-align:center;line-height:1.25;color:var(--ink2);max-width:80px}
+.jn.cur small{color:var(--navy);font-weight:600}
+.pring{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
+.pring span{width:46px;height:46px;border-radius:50%;background:var(--navy);display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff}
+.banner{border-radius:26px;padding:26px 28px;display:flex;gap:22px;align-items:center;margin-bottom:6px}
+.banner .num{font-size:4.2rem;font-weight:700;line-height:1;flex-shrink:0;color:var(--navy);opacity:.9}
+@media (max-width:600px){.banner{padding:20px;gap:14px}.banner .num{font-size:3rem}}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}
+.tile{position:relative;display:grid;gap:8px;align-content:start;background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:16px;text-decoration:none;color:var(--navy);min-height:118px;transition:box-shadow .15s,border-color .15s}
+a.tile:hover{border-color:var(--navy);box-shadow:0 10px 24px rgba(27,42,74,.10)}
+.tile .ti{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--u-t,var(--x-t))}
+.tile .ti svg.i{width:22px;height:22px}
+.tile b{font-size:15px}
+.badge{position:absolute;top:12px;right:12px;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--x-t)}
+.badge.ok{background:var(--ok-t);color:var(--ok)}.badge.go{background:var(--navy);color:#fff}
+.tile.off{opacity:.55;border-style:dashed}
+/* footer */
+footer.site{background:var(--navy);color:#DCE2F0;margin-top:40px}
+footer.site::before{content:"";display:block;height:6px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+footer.site .in{max-width:1180px;margin:0 auto;padding:34px 18px 24px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px}
+@media (max-width:900px){footer.site .in{grid-template-columns:1fr 1fr}footer.site .brandcol{grid-column:1/-1}}
+footer.site h4{color:#fff;font-size:14px;margin:0 0 10px}
+footer.site a{color:#DCE2F0;text-decoration:none;display:block;padding:4px 0;font-size:14px}
+footer.site a:hover{color:#fff;text-decoration:underline}
+footer.site .fb{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+footer.site .fb b{color:#fff;font-size:16px;display:block}
+footer.site .mark::after{background:var(--navy)}
+footer.site .ibtn{display:inline-flex;align-items:center;gap:8px;margin-top:12px;background:#fff;color:var(--navy);padding:9px 16px;border-radius:12px;font-weight:600}
+footer.site .ibtn:hover{color:var(--navy);text-decoration:none}
+footer.site .bottom{max-width:1180px;margin:0 auto;padding:16px 18px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;font-size:12.5px;color:#AEB8D0}
+footer.site .bottom a{display:inline;color:#AEB8D0;font-size:12.5px;padding:0}
+@media (max-width:900px){footer.site .bottom{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}main{padding-bottom:40px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -202,6 +252,7 @@ footer a{color:var(--ink2)}
 <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
 <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></symbol>
 <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 10v4h3l5 4V6L7 10z"/><path d="M16 9a4 4 0 0 1 0 6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="m8 12 3 3 5-6"/></symbol>
 </defs></svg>
 
 <header class="top">
@@ -284,7 +335,19 @@ footer a{color:var(--ink2)}
   </div>
  </div>
 </div>
-<footer><span>© 2026 Elevate with Ms. Maria · Learnovate Qatar</span><span><a href="#/syllabus">Syllabus</a> · <a href="#/help">Help</a> · <a href="../">All programs</a> · <a href="teacher.html">Teacher portal</a></span></footer>
+<footer class="site">
+ <div class="in">
+  <div class="brandcol">
+   <div class="fb"><span class="mark" aria-hidden="true"></span><span><b>Elevate with Ms. Maria</b>Customer Care Management · Level 5</span></div>
+   <p style="font-size:14px;max-width:34ch;color:#C7CFE2">Manage, measure and improve customer service, one session at a time.</p>
+   <a class="ibtn" href="#/install"><svg class="i"><use href="#i-down"/></svg>Install the app</a>
+  </div>
+  <div><h4>Learn</h4><a href="#/sessions">Sessions</a><a href="#/models">My 11 models</a><a href="#/lab">Practice Lab</a><a href="#/quizzes">Quizzes and reviews</a><a href="#/study">Study</a></div>
+  <div><h4>Tools</h4><a href="#/progress">My progress</a><a href="#/syllabus">Syllabus</a><a href="#/glossary">Glossary</a><a href="#/downloads">Downloads</a></div>
+  <div><h4>Help</h4><a href="#/help">How to use this site</a><a href="mailto:maria@me.learnovateqa.com?subject=Customer%20Care%20L5%20question">Ask Ms. Maria</a><a href="../">All programs</a></div>
+ </div>
+ <div class="bottom"><span>© 2026 Elevate with Ms. Maria · Learnovate Qatar</span><span><a href="teacher.html">Teacher portal</a></span></div>
+</footer>
 <script>
 /* ===== COURSE DATA (Level 5). Key terms are added to a session when its materials are built. ===== */
 const UNITS={A:{name:"Understanding the Customer",c:"#2A9D8F",t:"#E2F3F1"},B:{name:"Leading and Measuring Service",c:"#E76F51",t:"#FCE9E3"},C:{name:"Communicating in Every Channel",c:"#6D5BD0",t:"#ECE9FA"},D:{name:"Recovering and Retaining Customers",c:"#E9B44C",t:"#FBF2DC"},X:{name:"Exams",c:"#1B2A4A",t:"#EEF0F5"}};
@@ -421,6 +484,24 @@ function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Chec
  b.push(a.ex?`<a class="btn" href="${a.dir}exit.html">Exit ticket</a>`:form?`<a class="btn" href="${esc(form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
  return `<div class="btns">${b.join("")}</div>`}
 
+
+/* ---------- visual helpers ---------- */
+const flag=(k)=>store.get(k,null);
+const SHORT={1:"In context",2:"Fundamentals",3:"Customer needs",4:"Leadership",5:"Measuring",6:"Internal customer",7:"Midterm",8:"Barriers",9:"Channels",10:"Complaints",11:"Loyalty",12:"Final"};
+const sessDone=n=>!!flag(`ccl5-exit-done-w${n}`);
+function journey(){const L=latest();return `<div class="journey" role="list">${SESSIONS.map(s=>{const u=U(s),open=isOpen(s.n),done=sessDone(s.n),cur=L&&L.n===s.n&&!done;
+ const cls=done?"done":cur?"cur":open?"open":"locked";const inner=done?"✓":s.n;
+ const tag=open?"a":"div";return `<${tag} role="listitem" class="jn ${cls}" ${open?`href="#/session/${s.n}"`:""} style="--jc:${u.c};--jt:${u.t}" title="Session ${s.n}: ${esc(s.t)}${open?"":" (locked)"}"><i>${inner}</i><small>${SHORT[s.n]}</small></${tag}>`}).join("")}</div>`}
+function tiles(n){const a=avail[n]||{},s=S(n),u=U(s),form=(SHEET[n]&&SHEET[n].form)||a.form,qb=flag(`ccl5-quiz-w${n}`);
+ const T=[];const t=(key,label,icon,href,ok,done,ext)=>T.push(`${ok?`<a class="tile" href="${href}" data-seen="${n}-${key}"${ext?' target="_blank" rel="noopener"':""}>`:'<div class="tile off">'}<span class="badge ${done?"ok":ok?"go":""}">${done?"Done ✓":ok?"Open":"Soon"}</span><span class="ti" style="--u-t:${u.t}">${ic(icon)}</span><b>${label}</b>${ok?"</a>":"</div>"}`);
+ t("slides","Slides","sessions",`#/session/${n}/slides`,!!(canvaFor(n)||a.slides||a.f&&a.f[0]),!!flag(`ccl5-seen-${n}-slides`));
+ t("handout","Handout","book",`${a.dir}handout.pdf`,!!a.ho,!!flag(`ccl5-seen-${n}-handout`),true);
+ t("workbook","E-workbook","study",`${a.dir}workbook.html`,!!(a.f&&a.f[1]),!!flag(`ccl5-wb-done-w${n}`));
+ t("quiz","Practice quiz","check",`${a.dir}quiz.html`,!!(a.f&&a.f[2]),!!qb);
+ t("exit","Exit ticket","right",a.ex?`${a.dir}exit.html`:(form||"#"),!!(a.ex||form),sessDone(n),!a.ex&&!!form);
+ return `<div class="tiles">${T.join("")}</div>`}
+document.addEventListener("click",e=>{const el=e.target.closest("[data-seen]");if(el)store.set("ccl5-seen-"+el.dataset.seen,1)});
+
 /* ---------- shared bits ---------- */
 const crumbs=(...p)=>`<nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Level 5</a>${p.map(x=>`<span aria-hidden="true">›</span>${x[1]?`<a href="${x[1]}">${x[0]}</a>`:`<span aria-current="page">${x[0]}</span>`}`).join("")}</nav>`;
 function strip(n,sub=""){const prev=S(n-1),next=S(n+1);
@@ -434,18 +515,21 @@ const sessCard=s=>{const u=U(s);if(!isOpen(s.n))return `<div class="card top" st
 
 /* ---------- views ---------- */
 const V={
-home(){const L=latest();const done=store.get(K.cap,[]).length,total=SESSIONS.filter(s=>s.cap).length;
- return `<div class="hero"><div style="padding:6px 0"><p class="muted" style="font-weight:600">Learnovate Qatar · 12 sessions · 2 hours each</p><h1>Customer Care Management, Level 5</h1><p class="lede">Manage, measure and improve customer service like a manager. Your slides, e-workbooks, practice quizzes, Level 5 models and Practice Lab, all in one place.</p><p class="muted" style="margin-top:12px;font-size:.88em">Built and taught by Ms. Maria F. Tongga, BSN, RN, RM</p>
- <div class="row" style="margin-top:18px"><a class="btn primary" href="#/sessions">${ic("sessions")}Go to sessions</a><a class="btn" href="#/lab">${ic("lab")}Practice Lab</a></div></div>
- <div class="now"><p style="font-weight:600;opacity:.85">This week</p>${L?`<h3 style="font-size:1.25rem">Session ${L.n} · ${L.t}</h3>${matBtns(L.n)}<a href="#/session/${L.n}">Open the session page</a>`:`<h3 style="font-size:1.2rem">Materials appear here after Session 1.</h3>`}
- <div style="margin-top:6px"><p style="font-size:13px;opacity:.85">Capstone: ${done} of ${total} steps</p><div class="prog" style="background:rgba(255,255,255,.18)"><div style="width:${done/total*100}%"></div></div></div></div></div>
- <h2>Four units</h2><div class="units">${["A","B","C","D"].map(k=>{const u=UNITS[k],ss=SESSIONS.filter(s=>s.u===k).map(s=>s.n);return `<a class="card top" style="--u:${u.c}" href="#/sessions#u${k}"><span class="muted" style="font-size:.82em;font-weight:600">Unit ${k} · Sessions ${ss[0]}–${ss[ss.length-1]}</span><h3>${u.name}</h3></a>`}).join("")}</div>
+home(){const L=latest();const done=store.get(K.cap,[]).length,total=SESSIONS.filter(s=>s.cap).length,pct=Math.round(done/total*100);
+ const first=(typeof AUTH!=="undefined"&&AUTH&&AUTH.name)?AUTH.name.split(" ")[0]:null;const openN=SESSIONS.filter(s=>isOpen(s.n)).length;
+ return `<section class="welcome"><div><p class="muted" style="font-weight:600">${first?`Welcome back, ${esc(first)}`:"Welcome"} · Learnovate Qatar</p><h1 style="margin-top:6px">Customer Care Management, Level 5</h1><p class="lede">Manage, measure and improve customer service like a manager: slides, handouts, e-workbooks, quizzes, models and the Practice Lab, all in one place.</p>
+ <div class="row" style="margin-top:18px">${L?`<a class="btn primary" href="#/session/${L.n}">${ic("sessions")}Continue Session ${L.n}</a>`:`<a class="btn primary" href="#/sessions">${ic("sessions")}Go to sessions</a>`}<a class="btn" href="#/lab">${ic("lab")}Practice Lab</a></div>
+ <p class="muted" style="margin-top:14px;font-size:.85em">Taught by Ms. Maria F. Tongga, BSN, RN, RM</p></div>
+ <div class="ringbig" aria-hidden="true"><div><span>SESSIONS OPEN</span><b>${openN}/12</b></div></div></section>
+ <h2>Your course journey</h2><div class="card" style="padding:16px 12px">${journey()}</div>
+ <div class="hero" style="margin-top:22px"><div class="now"><p style="font-weight:600;opacity:.85">This week</p>${L?`<h3 style="font-size:1.25rem">Session ${L.n} · ${L.t}</h3>${matBtns(L.n)}<a href="#/session/${L.n}">Open the session page</a>`:`<h3 style="font-size:1.2rem">Materials appear here after Session 1.</h3>`}</div>
+ <a class="card" href="#/progress" style="display:flex;gap:16px;align-items:center"><span class="pring" style="background:conic-gradient(var(--gold) ${pct}%,var(--x-t) 0)"><span>${pct}%</span></span><span><span class="chip">${ic("progress")}Capstone</span><h3 style="margin-top:6px">${done} of ${total} steps done</h3><p class="muted" style="font-size:.9em">Your Digital-Ready Customer Care Improvement Plan</p></span></a></div>
  <h2>Explore</h2><div class="grid"><a class="card" href="#/models"><span class="chip">${ic("book")}Level 5</span><h3>My 11 models</h3><p class="muted">The tools you use to analyse a situation and justify a recommendation.</p></a><a class="card" href="#/lab"><span class="chip" style="--u-t:var(--b-t)">${ic("lab")}Hands-on</span><h3>Practice Lab</h3><p class="muted">Ticket queue, live chat simulator and de-escalation practice.</p></a><a class="card" href="#/study"><span class="chip" style="--u-t:var(--a-t)">${ic("study")}Revise</span><h3>Study</h3><p class="muted">Key-term flashcards and sentence frames.</p></a><a class="card" href="#/install"><span class="chip" style="--u-t:var(--d-t)">${ic("down")}App</span><h3>Install the app</h3><p class="muted">Put Customer Care on your home screen. Works offline too.</p></a></div>`},
 sessions(){return crumbs(["Sessions"])+`<h1>Sessions</h1><p class="lede muted">Each session page has slides, an e-workbook, a practice quiz and the exit ticket. Buttons switch on when Ms. Maria uploads the materials.</p>`+["A","B","X1","C","D","X2"].map(k=>{let list=k==="X1"?[S(7)]:k==="X2"?[S(12)]:SESSIONS.filter(s=>s.u===k);const u=UNITS[k[0]];const title=k==="X1"?"Midterm":k==="X2"?"Final":`Unit ${k} · ${u.name}`;return `<h2 id="u${k}" style="display:flex;align-items:center;gap:10px"><i style="width:10px;height:26px;border-radius:4px;background:${u.c};display:inline-block"></i>${title}</h2><div class="grid">${list.map(sessCard).join("")}${REVIEWS[k]?revCard(k):""}</div>`}).join("")},
 session(n,sub){const s=S(n);if(!s)return V.notfound();if(!isOpen(n))return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div class="empty" style="margin-top:10px"><h1 style="font-size:1.6rem">Session ${s.n} · ${s.t}</h1><p>This session is locked. ${lockMsg(s)}.</p><div class="row" style="justify-content:center;margin-top:14px"><a class="btn primary" href="#/sessions">Back to sessions</a></div></div>`;if(sub==="slides")return V.slides(n);const u=U(s),m=MODELS[s.model];document.documentElement.style.setProperty("--accent",u.c);
- return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div style="--u-t:${u.t}"><span class="chip">${s.exam?"Exam session":"Unit "+s.u+" · "+u.name}</span><h1 style="margin-top:10px">Session ${s.n} · ${s.t}</h1></div>
+ return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div class="banner" style="background:${u.t}"><span class="num">${pad(s.n)}</span><div><span class="chip" style="background:#fff">${s.exam?"Exam session":"Unit "+s.u+" · "+u.name}</span><h1 style="margin:8px 0 0">${s.t}</h1>${MODELS[s.model]&&!s.exam?`<p class="muted" style="margin-top:4px">Level 5 model: ${MODELS[s.model].t}</p>`:""}</div></div>
  ${SHEET[s.n]&&SHEET[s.n].note?`<div class="sec" style="background:var(--gold-t);border-color:var(--gold)"><h2>Announcement from Ms. Maria</h2><p>${esc(SHEET[s.n].note)}</p></div>`:""}
- <div class="sec"><h2>${ic("sessions")}Materials</h2><div style="max-width:620px">${matBtns(s.n)}</div></div>
+ <div class="sec"><h2>${ic("sessions")}Your materials</h2>${tiles(s.n)}</div>
  <div class="two">
   <div class="sec"><h2>${ic("book")}Core content <span class="tag">Handout</span></h2><p>Your handout and workbook from Ms. Maria cover the core content for this session.${avail[s.n]&&avail[s.n].ho?` <a href="${avail[s.n].dir}handout.pdf" target="_blank" rel="noopener">Open the handout PDF</a>.`:""}</p><p class="muted" style="margin-top:6px;font-size:.92em">Level 5 builds on it with the model, reading and capstone below.</p></div>
   ${m?`<div class="sec"><h2>${ic("book")}Level 5 reading</h2><div class="read"><small>${esc(m.src)}</small><p>${m.read}</p></div></div>`:`<div class="sec"><h2>What to expect</h2><p>${s.n===7?"Hour 1: guided review of Sessions 1–6. Hour 2: a case-study exam. You read a short workplace situation, analyse it with the course models and recommend action.":""}</p></div>`}

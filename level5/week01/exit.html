@@ -67,7 +67,7 @@ document.getElementById("send").onclick=async()=>{
  if(answers.some(a=>a.length<3))return msg("Answer all three questions first.");
  const b=document.getElementById("send");b.disabled=true;b.textContent="Sending…";
  try{const r=await fetch(API,{method:"POST",body:JSON.stringify({action:"exitTicket",code,level:LEVEL,session:SESSION,answers})}).then(r=>r.json());
-  if(r.ok){msg(`Thank you${r.name?", "+r.name.split(" ")[0]:""}. Your exit ticket was ${r.updated?"updated":"sent"} to Ms. Maria.`,true);b.textContent="Sent. Tap to update your answers";}
+  if(r.ok){try{localStorage.setItem("ccl5-exit-done-w1","1")}catch(x){}msg(`Thank you${r.name?", "+r.name.split(" ")[0]:""}. Your exit ticket was ${r.updated?"updated":"sent"} to Ms. Maria.`,true);b.textContent="Sent. Tap to update your answers";}
   else{msg(r.error||"It was not sent. Check your code.");b.textContent="Submit my exit ticket"}}
  catch(e){msg("It was not sent: no connection. Your answers are saved on this phone. Try again when you are online.");b.textContent="Submit my exit ticket"}
  b.disabled=false};
