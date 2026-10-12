@@ -45,3 +45,8 @@ Unzip the uploaded week zip into level5/weekNN/. Move the uploaded slide PDF to 
 - The site is public. Never upload exam questions, answer keys, grades or learner names.
 - Keep each file under 25 MB.
 - Graded exit tickets go in Google Forms, not on this site.
+
+## Installable app
+
+The site is an installable web app (manifest.webmanifest, sw.js, icons/). Learners install it from the "Install the app" page.
+If you ever change sw.js, change the CACHE name inside it (for example ccm-app-v2) so phones pick up the new version.
