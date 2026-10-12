@@ -32,7 +32,7 @@ button,input,select,textarea{font-family:inherit;color:var(--navy)}
 /* top bar */
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(251,250,247,.9);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
 header.top::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
-.bar{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.bar{max-width:1240px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
 .mark{width:36px;height:36px;border-radius:9px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%231B2A4A'/%3E%3Cg transform='translate(256 256) scale(1) translate(-256 -256)'%3E%3Cpath d='M270.46 90.63 A166 166 0 0 1 421.36 241.53' stroke='%232A9D8F' stroke-width='44' fill='none' stroke-linecap='round'/%3E%3Cpath d='M421.36 270.46 A166 166 0 0 1 270.46 421.36' stroke='%23E76F51' stroke-width='44' fill='none' stroke-linecap='round'/%3E%3Cpath d='M241.53 421.36 A166 166 0 0 1 90.63 270.46' stroke='%236D5BD0' stroke-width='44' fill='none' stroke-linecap='round'/%3E%3Cpath d='M90.63 241.53 A166 166 0 0 1 241.53 90.63' stroke='%23E9B44C' stroke-width='44' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='206' cy='220' r='24' fill='%23FBFAF7'/%3E%3Ccircle cx='306' cy='220' r='24' fill='%23FBFAF7'/%3E %3Cpath d='M178 286 Q256 366 334 286' stroke='%23FBFAF7' stroke-width='30' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E") center/100% no-repeat;flex-shrink:0;display:block}
 .logo b{font-size:15px;line-height:1.15;display:block;white-space:nowrap}
@@ -51,6 +51,10 @@ nav.main a[aria-current="page"]::after{content:"";position:absolute;left:13px;ri
 @media (max-width:560px){.logo .full{display:none}.logo .short{display:inline}}
 @media (max-width:440px){.logo .lt{display:none}.tile{min-height:104px;padding:14px}.sec{padding:16px}}
 nav.main a,.iconbtn{white-space:nowrap}
+/* header never overlaps: logo, badge and buttons keep their size; tighter layouts kick in by width */
+.logo,.lvl,.actions{flex-shrink:0}nav.main{min-width:0}
+@media (max-width:1100px){.logo .full{display:none}.logo .short{display:inline}.hide-s{display:none}}
+@media (max-width:480px){.lvl{display:none}}
 @media (max-width:1240px){nav.main a svg.i{display:none}nav.main a{padding:9px 10px}.logo small{display:none}}
 @media (max-width:900px){nav.main{display:none}.logo small{display:none}.hide-s{display:none}}
 
