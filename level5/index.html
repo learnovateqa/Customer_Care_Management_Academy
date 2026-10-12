@@ -284,7 +284,7 @@ footer a{color:var(--ink2)}
   </div>
  </div>
 </div>
-<footer><span>© 2026 Elevate with Ms. Maria · Learnovate Qatar</span><span><a href="#/syllabus">Syllabus</a> · <a href="#/help">Help</a> · <a href="../">All programs</a></span></footer>
+<footer><span>© 2026 Elevate with Ms. Maria · Learnovate Qatar</span><span><a href="#/syllabus">Syllabus</a> · <a href="#/help">Help</a> · <a href="../">All programs</a> · <a href="teacher.html">Teacher portal</a></span></footer>
 <script>
 /* ===== COURSE DATA (Level 5). Key terms are added to a session when its materials are built. ===== */
 const UNITS={A:{name:"Understanding the Customer",c:"#2A9D8F",t:"#E2F3F1"},B:{name:"Leading and Measuring Service",c:"#E76F51",t:"#FCE9E3"},C:{name:"Communicating in Every Channel",c:"#6D5BD0",t:"#ECE9FA"},D:{name:"Recovering and Retaining Customers",c:"#E9B44C",t:"#FBF2DC"},X:{name:"Exams",c:"#1B2A4A",t:"#EEF0F5"}};
@@ -396,17 +396,20 @@ const S=n=>SESSIONS.find(x=>x.n==n);
 const avail={};
 async function head(u){try{const r=await fetch(u,{method:"HEAD",cache:"no-store"});return r.ok}catch(e){return false}}
 async function text(u){try{const r=await fetch(u,{cache:"no-store"});return r.ok?(await r.text()).trim():null}catch(e){return null}}
+function canvaEmbed(t){if(!t)return null;const m=String(t).trim().match(/https:\/\/(www\.)?canva\.com\/design\/([A-Za-z0-9_-]+)\/([A-Za-z0-9_-]+)/);
+ if(m)return `https://www.canva.com/design/${m[2]}/${m[3]}/view?embed`;const n=String(t).trim().match(/https:\/\/(www\.)?canva\.com\/design\/([A-Za-z0-9_-]+)/);return n?`https://www.canva.com/design/${n[2]}/view?embed`:null}
 const ready=Promise.all(SESSIONS.map(async s=>{const dir=`week${pad(s.n)}/`;
  const f=await Promise.all(FILES.map(([x])=>head(dir+x)));
- const form=await text(dir+"form.txt");const ho=await head(dir+"handout.pdf");const cnt=parseInt(await text(dir+"slides/count.txt"),10);
- avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0,ho}}));
-function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.form||a.slides||(SHEET[n]&&SHEET[n].form))}
+ const form=await text(dir+"form.txt");const ho=await head(dir+"handout.pdf");const cv=await text(dir+"slides.txt");const cnt=parseInt(await text(dir+"slides/count.txt"),10);
+ avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0,ho,canva:canvaEmbed(cv)}}));
+function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.form||a.slides||a.canva||(SHEET[n]&&SHEET[n].form))}
+function canvaFor(n){return (SHEET[n]&&SHEET[n].slides?canvaEmbed(SHEET[n].slides):null)||(avail[n]&&avail[n].canva)||null}
 function isOpen(n){const a=avail[n];if(!a)return false;if(SHEET[n]&&SHEET[n].visible===false)return false;return has(n)}
 const lockMsg=s=>`Opens when Ms. Maria starts Session ${s.n}`;
 function latest(){let L=null;SESSIONS.forEach(s=>{if(isOpen(s.n))L=s});return L}
 function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Checking materials…</p>`;
  const b=[];
- b.push(a.slides||a.f[0]?`<a class="btn primary" href="#/session/${n}/slides">${ic("sessions")}Slides</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Slides · soon</a>`);
+ b.push(canvaFor(n)||a.slides||a.f[0]?`<a class="btn primary" href="#/session/${n}/slides">${ic("sessions")}Slides</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Slides · soon</a>`);
  b.push(a.f[1]?`<a class="btn" href="${a.dir}workbook.html">E-workbook</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">E-workbook · soon</a>`);
  b.push(a.f[2]?`<a class="btn" href="${a.dir}quiz.html">Practice quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Practice quiz · soon</a>`);
  b.push(a.ho?`<a class="btn" href="${a.dir}handout.pdf" target="_blank" rel="noopener">Handout PDF</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Handout · soon</a>`);
@@ -445,7 +448,7 @@ session(n,sub){const s=S(n);if(!s)return V.notfound();if(!isOpen(n))return crumb
  ${m?`<div class="sec"><h2>${ic("lab")}Level 5 model</h2><a class="card top" style="--u:${u.c};max-width:620px" href="#/model/${s.model}"><h3>${m.t}</h3><p class="muted">${m.what}</p></a></div>`:""}
  ${s.cap?`<div class="sec"><h2>${ic("progress")}Capstone step</h2><div class="frame" style="max-width:680px">${s.cap}</div><div class="row" style="margin-top:12px"><a class="btn soft" href="#/progress">Tick it in My progress</a></div></div>`:""}`},
 slides(n){const s=S(n),a=avail[n]||{};
- const body=a.slides?`<div class="viewer" id="viewer"><div class="stage" id="stage"><img id="slideImg" alt=""></div><div class="ctl"><button class="iconbtn" id="sPrev" type="button" aria-label="Previous slide">${ic("left")}</button><span id="sCount" aria-live="polite"></span><button class="iconbtn" id="sNext" type="button" aria-label="Next slide">${ic("right")}</button><button class="iconbtn" id="sFull" type="button" aria-label="Full screen">${ic("full")}</button></div></div>
+ const cv=canvaFor(n);const body=cv?`<div class="viewer"><div class="stage" style="background:#fff"><iframe src="${esc(cv)}" title="Session ${n} slides" loading="lazy" allow="fullscreen" allowfullscreen style="width:100%;height:100%;border:0"></iframe></div></div><p class="muted" style="margin-top:10px;font-size:.9em">Use the arrows inside the slides. <a href="${esc(cv.replace('?embed',''))}" target="_blank" rel="noopener">Open in Canva full screen</a>.</p>`:a.slides?`<div class="viewer" id="viewer"><div class="stage" id="stage"><img id="slideImg" alt=""></div><div class="ctl"><button class="iconbtn" id="sPrev" type="button" aria-label="Previous slide">${ic("left")}</button><span id="sCount" aria-live="polite"></span><button class="iconbtn" id="sNext" type="button" aria-label="Next slide">${ic("right")}</button><button class="iconbtn" id="sFull" type="button" aria-label="Full screen">${ic("full")}</button></div></div>
  <p class="muted" style="margin-top:10px;font-size:.9em">Swipe, tap the arrows or use the arrow keys.</p>`:a.f&&a.f[0]?`<div class="empty"><p>The slides for this session are available as a PDF.</p></div>`:`<div class="empty"><p>The slides for this session are coming soon.</p></div>`;
  return crumbs(["Sessions","#/sessions"],[`Session ${n}`,`#/session/${n}`],["Slides"])+strip(n,"/slides")+`<h1>Session ${n} slides</h1><p class="muted" style="margin-bottom:16px">${s.t}</p>${body}
  <div class="row" style="margin-top:14px">${a.f&&a.f[0]?`<a class="btn" href="${a.dir}slides.pdf" target="_blank" rel="noopener">${ic("down")}Download PDF</a>`:""}<a class="btn soft" href="#/session/${n}">Back to Session ${n}</a></div>`},
