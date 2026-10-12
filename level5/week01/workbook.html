@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Session 1 workbook · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--blush:#F8E1DD;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--b-t:#FCE9E3;--c:#6D5BD0;--c-t:#ECE9FA;--d:#E9B44C;--d-t:#FBF2DC;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:820px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+h2{font-size:1.25rem;margin:0 0 4px;line-height:1.3}
+p{margin:0}
+.muted{color:var(--ink2)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.toc a{font-size:14px;font-weight:500;padding:6px 12px;border-radius:999px;background:#fff;border:1.5px solid var(--line);color:var(--navy);text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
+.task{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:22px;margin-top:20px;border-top:8px solid var(--tc,var(--a))}
+.task .meta{font-size:14px;color:var(--ink2);margin-bottom:14px}
+.row{display:grid;grid-template-columns:1fr minmax(160px,220px);gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:none}
+@media (max-width:560px){.row{grid-template-columns:1fr}}
+select,input[type=number],textarea{font:500 15px 'Poppins',system-ui,sans-serif;color:var(--navy);border:1.5px solid #B9BFCC;border-radius:10px;padding:10px 12px;background:#fff;min-height:44px;width:100%}
+textarea{min-height:110px;resize:vertical;line-height:1.5}
+.row.right select,.row.right .pick{border-color:var(--ok);background:var(--ok-t)}
+.row.wrong select{border-color:var(--no);background:var(--no-t)}
+.mark{font-size:14px;margin-top:4px;grid-column:1/-1}
+.pickset{display:flex;gap:8px;flex-wrap:wrap}
+.pick{min-height:44px;padding:8px 14px;border-radius:10px;border:1.5px solid #B9BFCC;background:#fff;font:500 15px 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.pick[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:1.5px solid var(--navy);background:var(--navy);color:#fff;font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--navy)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.result{font-weight:600}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.chain{display:flex;flex-wrap:wrap;gap:8px}
+.chainout{display:grid;gap:6px;margin-top:12px;counter-reset:c}
+.chainout div{background:var(--b-t);border-radius:10px;padding:8px 12px;counter-increment:c}
+.chainout div::before{content:counter(c) ". ";font-weight:700}
+.case{background:var(--d-t);border-radius:14px;padding:14px 16px;margin-bottom:12px;font-size:15px}
+.frame{background:var(--blush);border-radius:10px;padding:8px 12px;font-size:14px;margin:6px 0 8px}
+label.q{font-weight:600;display:block;margin-top:14px}
+@media print{.back,.toc,.actions,.stripe{display:none}.task{break-inside:avoid;border-top-width:4px}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/session/1">Back to Session 1</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Session 1 · Customer care in context</p>
+<h1>Session 1 workbook</h1>
+<p class="muted">Every task follows the Session 1 slides. Check your answers as you go. Your capstone writing is saved on this device only.</p>
+<nav class="toc" aria-label="Workbook tasks">
+<a href="#t1">1 Key terms</a><a href="#t2">2 Before, during, after</a><a href="#t3">3 Internal or external</a><a href="#t4">4 The chain</a><a href="#t5">5 ROI</a><a href="#t6">6 Grace's case</a><a href="#t7">7 Channels</a><a href="#t8">8 AI or person</a><a href="#t9">Capstone step 1</a>
+</nav>
+<div id="tasks"></div>
+
+<section class="task" id="t4" style="--tc:var(--b)">
+<h2>Task 4 · Put the Service-Profit Chain in order</h2>
+<p class="meta">Slide 15 · Tap the six links in the correct order, from the start of the chain to the end.</p>
+<div class="chain" id="chainPool"></div>
+<div class="chainout" id="chainOut" aria-live="polite"></div>
+<div class="actions"><button class="btn" type="button" id="chainCheck">Check my order</button><button class="btn ghost" type="button" id="chainReset">Start again</button><span class="result" id="chainRes" aria-live="polite"></span></div>
+</section>
+
+<section class="task" id="t5" style="--tc:var(--b)">
+<h2>Task 5 · Calculate the ROI of service</h2>
+<p class="meta">Slide 17 · ROI = (Gain − Cost) ÷ Cost</p>
+<p>A hotel spends <b>QAR 4,000</b> on customer care training. Over the next three months, returning guests bring <b>QAR 6,000</b> extra profit. What is the ROI? (Example figures)</p>
+<div class="row"><label for="roi">ROI in %</label><input type="number" id="roi" inputmode="decimal" placeholder="Type a number"></div>
+<div class="actions"><button class="btn" type="button" id="roiCheck">Check</button><span class="result" id="roiRes" aria-live="polite"></span></div>
+</section>
+
+<div id="tasks2"></div>
+
+<section class="task" id="t9" style="--tc:var(--gold)">
+<h2>Capstone step 1 · Analyse how service affects your organisation's profit</h2>
+<p class="meta">Slides 27 and 28 · About 150 words in total. Use the sentence frames.</p>
+<label class="q" for="c1">1. Your organisation and its customers</label>
+<div class="frame">"I chose ___. Its main external customers are ___. Its internal customers include ___."</div>
+<textarea id="c1"></textarea>
+<label class="q" for="c2">2. One strong link and one weak link in the Service-Profit Chain</label>
+<div class="frame">"A strong link is ___. The evidence is ___. A weak link is ___. The evidence is ___."</div>
+<textarea id="c2"></textarea>
+<label class="q" for="c3">3. How the weak link affects profit</label>
+<div class="frame">"The weak link affects profit because ___."</div>
+<textarea id="c3"></textarea>
+<div class="actions"><button class="btn" type="button" id="copy">Copy my answers</button><button class="btn ghost" type="button" onclick="window.print()">Print this workbook</button><span class="result" id="saved" aria-live="polite"></span></div>
+</section>
+</main>
+
+<script>
+const TASKS=[
+{id:"t1",c:"var(--d)",title:"Task 1 · Match each meaning to its key term",meta:"Slide 6 · Choose the key term for each meaning.",type:"select",
+ options:["Customer care","Customer experience","External customer","Internal customer","Touchpoint","Customer retention","ROI","Omnichannel"],
+ items:[["Looking after customers before, during and after a sale","Customer care"],["How the customer feels about every contact with the business","Customer experience"],["A person or business that buys from you","External customer"],["A colleague or team that depends on your work","Internal customer"],["Any point where a customer meets the business","Touchpoint"],["Keeping customers so they come back again","Customer retention"],["What you gain compared with what you spend","ROI"],["All channels connected, so the customer gets one smooth experience","Omnichannel"]]},
+{id:"t2",c:"var(--a)",title:"Task 2 · Before, during or after the sale?",meta:"Slide 8 · Choose when each action happens.",type:"select",options:["Before","During","After"],
+ items:[["Answering a WhatsApp question about prices","Before"],["Serving the customer with a positive attitude","During"],["Calling the customer to check the problem is solved","After"],["Making the website easy to use","Before"],["Handling a complaint about a faulty product","After"],["Delivering the order on time","During"]]},
+{id:"t3",c:"var(--a)",title:"Task 3 · Internal or external customer?",meta:"Slide 10 · Choose the type of customer.",type:"pick",options:["Internal","External"],
+ items:[["A guest checking in at a hotel","External"],["Housekeeping, who need the front desk to report check-outs","Internal"],["A company that buys training from Learnovate","External"],["The kitchen, who depend on the waiter's orders","Internal"],["A patient booking a clinic appointment online","External"]]}];
+const TASKS2=[
+{id:"t6",c:"var(--d)",title:"Task 6 · Grace and the phone shop",meta:"Slides 25 and 26 · Match each problem to its link in the Service-Profit Chain.",type:"select",
+ caseText:"Grace's phone stopped working. Her WhatsApp message got no reply for two days. On the phone she waited 20 minutes. In the shop, staff had no record of her message. She wrote a one-star review. The manager had added WhatsApp but never decided who should answer it.",
+ options:["Link 1 · Support for staff","Link 3 · Service value","Link 4 · Satisfied customers","Link 5 · Loyal customers"],
+ items:[["Nobody was told to answer WhatsApp or given a shared record","Link 1 · Support for staff"],["Grace waited two days and explained her problem twice","Link 3 · Service value"],["Grace wrote a one-star online review","Link 4 · Satisfied customers"],["Grace will probably buy her next phone somewhere else","Link 5 · Loyal customers"]]},
+{id:"t7",c:"var(--c)",title:"Task 7 · Multichannel or omnichannel?",meta:"Slide 21 · Choose the type of service.",type:"pick",options:["Multichannel","Omnichannel"],
+ items:[["The customer emails, then phones, and has to explain everything again","Multichannel"],["The agent on the phone can see the customer's chat from this morning","Omnichannel"],["The app, website and shop each give different prices for the same item","Multichannel"],["A customer starts an order on the app and finishes it in the shop","Omnichannel"]]},
+{id:"t8",c:"var(--c)",title:"Task 8 · AI or a person?",meta:"Slide 23 · Who should handle each situation?",type:"pick",options:["AI","Person"],
+ items:[["\"What time do you open on Friday?\"","AI"],["An angry customer whose wedding cake order was wrong","Person"],["\"Where is my order?\"","AI"],["A customer asking for a refund outside the normal policy","Person"],["Sending a message to the right team","AI"]]}];
+
+function renderTask(t,host){
+ const s=document.createElement("section");s.className="task";s.id=t.id;s.style.setProperty("--tc",t.c);
+ s.innerHTML=`<h2>${t.title}</h2><p class="meta">${t.meta}</p>${t.caseText?`<div class="case"><b>The case:</b> ${t.caseText}</div>`:""}<div class="rows"></div><div class="actions"><button class="btn" type="button">Check my answers</button><button class="btn ghost" type="button">Clear</button><span class="result" aria-live="polite"></span></div>`;
+ const rows=s.querySelector(".rows");const state={};
+ t.items.forEach(([txt,ans],i)=>{const r=document.createElement("div");r.className="row";const id=t.id+"i"+i;
+  if(t.type==="select"){r.innerHTML=`<label for="${id}">${txt}</label><select id="${id}"><option value="">Choose…</option>${t.options.map(o=>`<option>${o}</option>`).join("")}</select>`}
+  else{r.innerHTML=`<p id="${id}">${txt}</p><div class="pickset" role="group" aria-labelledby="${id}">${t.options.map(o=>`<button type="button" class="pick" aria-pressed="false">${o}</button>`).join("")}</div>`;
+   r.querySelectorAll(".pick").forEach(b=>b.addEventListener("click",()=>{r.querySelectorAll(".pick").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");state[i]=b.textContent}))}
+  rows.appendChild(r)});
+ const [check,clear]=s.querySelectorAll(".actions .btn"),res=s.querySelector(".result");
+ check.addEventListener("click",()=>{let c=0;
+  rows.querySelectorAll(".row").forEach((r,i)=>{const ans=t.items[i][1];const v=t.type==="select"?r.querySelector("select").value:state[i];
+   r.classList.remove("right","wrong");r.querySelector(".mark")?.remove();
+   if(v===ans){c++;r.classList.add("right")}else{r.classList.add("wrong");const m=document.createElement("p");m.className="mark";m.textContent=v?`Correct answer: ${ans}`:`Choose an answer. Correct answer: ${ans}`;r.appendChild(m)}});
+  res.textContent=`${c} of ${t.items.length} correct`});
+ clear.addEventListener("click",()=>{rows.querySelectorAll(".row").forEach(r=>{r.classList.remove("right","wrong");r.querySelector(".mark")?.remove();const sel=r.querySelector("select");if(sel)sel.value="";r.querySelectorAll(".pick").forEach(x=>x.setAttribute("aria-pressed","false"))});for(const k in state)delete state[k];res.textContent=""});
+ host.appendChild(s)}
+TASKS.forEach(t=>renderTask(t,document.getElementById("tasks")));
+TASKS2.forEach(t=>renderTask(t,document.getElementById("tasks2")));
+
+const LINKS=["Good support for staff","Satisfied, loyal staff","Better service value","Satisfied customers","Loyal customers","Profit and growth"];
+let picked=[];
+function chain(){const pool=document.getElementById("chainPool"),out=document.getElementById("chainOut");pool.innerHTML="";out.innerHTML="";
+ const shuffled=[...LINKS].sort(()=>Math.random()-.5);
+ shuffled.forEach(l=>{const b=document.createElement("button");b.type="button";b.className="pick";b.textContent=l;
+  b.addEventListener("click",()=>{picked.push(l);b.disabled=true;b.style.opacity=.4;const d=document.createElement("div");d.textContent=l;out.appendChild(d)});pool.appendChild(b)});
+ picked=[];document.getElementById("chainRes").textContent=""}
+document.getElementById("chainReset").addEventListener("click",chain);
+document.getElementById("chainCheck").addEventListener("click",()=>{const r=document.getElementById("chainRes");
+ if(picked.length<6){r.textContent=`Tap all six links first (${picked.length} of 6).`;return}
+ const c=picked.filter((l,i)=>l===LINKS[i]).length;r.textContent=c===6?"6 of 6 in the right order.":`${c} of 6 in the right place. Remember: the chain starts with staff. Review slide 15.`});
+chain();
+
+document.getElementById("roiCheck").addEventListener("click",()=>{const v=parseFloat(document.getElementById("roi").value);const r=document.getElementById("roiRes");
+ if(isNaN(v)){r.textContent="Type a number first.";return}
+ r.textContent=Math.abs(v-50)<0.01?"Correct: (6,000 − 4,000) ÷ 4,000 = 0.5, which is 50%.":"Not quite. Subtract the cost from the gain first, then divide by the cost."});
+
+const KEY="ccl5-w1-capstone";
+function loadCap(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+const cap=loadCap();["c1","c2","c3"].forEach(id=>{const t=document.getElementById(id);t.value=cap[id]||"";
+ t.addEventListener("input",()=>{cap[id]=t.value;try{localStorage.setItem(KEY,JSON.stringify(cap));document.getElementById("saved").textContent="Saved on this device"}catch(e){document.getElementById("saved").textContent="Could not save on this device. Copy your answers before you leave."}})});
+document.getElementById("copy").addEventListener("click",async()=>{const txt=["1. "+(cap.c1||""),"2. "+(cap.c2||""),"3. "+(cap.c3||"")].join("\n\n");
+ try{await navigator.clipboard.writeText(txt);document.getElementById("saved").textContent="Copied. Paste it into your capstone folder."}catch(e){document.getElementById("saved").textContent="Copy is blocked here. Select the text and copy it by hand."}});
+</script>
+</body>
+</html>
