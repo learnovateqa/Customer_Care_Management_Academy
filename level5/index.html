@@ -13,285 +13,553 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--white:#fff;--line:#E3E6EE;--gold:#C9A24A;--blush:#F8E1DD;
---a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--b-t:#FCE9E3;--c:#6D5BD0;--c-t:#ECE9FA;--d:#E9B44C;--d-t:#FBF2DC;--x-t:#EEF0F5;--fs:16px}
+:root{--navy:#1B2A4A;--navy2:#2C3D63;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--gold-t:#FBF4E2;--blush:#F8E1DD;
+--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--b-t:#FCE9E3;--c:#6D5BD0;--c-t:#ECE9FA;--d:#E9B44C;--d-t:#FBF2DC;--x-t:#EEF0F5;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4;--fs:16px;--r:18px}
 *{box-sizing:border-box}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
-body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:var(--fs)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:var(--fs);-webkit-font-smoothing:antialiased}
 body.big{--fs:19px}
-a{color:var(--navy)}
-p{margin:0}
-.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;z-index:50;background:#fff;padding:8px 12px;border-radius:8px}
-.stripe{height:6px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(251,250,247,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
-.bar{max-width:1120px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
-.logo i{width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--a) 0 25%,var(--b) 0 50%,var(--c) 0 75%,var(--d) 0);display:grid;place-items:center}
-.logo i::after{content:"";width:20px;height:20px;border-radius:50%;background:var(--paper)}
-.logo b{display:block;font-size:15px;line-height:1.2}.logo small{display:block;font-size:12px;color:var(--ink2);line-height:1.2}
-.search{flex:1 1 220px;max-width:340px;position:relative}
-.search input{width:100%;min-height:42px;border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;font:500 14px 'Poppins',system-ui,sans-serif;color:var(--navy);background:#fff}
-nav.main{display:flex;gap:2px}
-nav.main a{text-decoration:none;font-size:14px;font-weight:500;padding:8px 12px;border-radius:999px}
-nav.main a[aria-current="page"]{background:var(--navy);color:#fff}
-.tools{display:flex;gap:6px}
-.icon{min-width:42px;min-height:42px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font:600 14px 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer;padding:0 12px}
-.icon[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-main{max-width:1120px;margin:0 auto;padding:28px 18px 120px;min-height:70vh}
-h1{font-size:clamp(1.9rem,5.5vw,3rem);line-height:1.1;margin:0 0 10px;letter-spacing:-.02em;text-wrap:balance}
-h2{font-size:clamp(1.3rem,3.2vw,1.8rem);margin:32px 0 12px;line-height:1.25}
+a{color:var(--navy)}p{margin:0}
+svg.i{width:20px;height:20px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;z-index:90;background:#fff;padding:8px 12px;border-radius:8px}
+button,input,select,textarea{font-family:inherit;color:var(--navy)}
+:is(button,a,input,select,textarea):focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* top bar */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(251,250,247,.9);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+header.top::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+.bar{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.mark{width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--a) 0 25%,var(--b) 0 50%,var(--c) 0 75%,var(--d) 0);display:grid;place-items:center;flex-shrink:0}
+.mark::after{content:"";width:18px;height:18px;border-radius:50%;background:var(--paper)}
+.logo b{font-size:15px;line-height:1.15;display:block;white-space:nowrap}
+.logo small{font-size:12px;color:var(--ink2);display:block;line-height:1.2}
+.lvl{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--navy);color:#fff;white-space:nowrap}
+nav.main{display:flex;gap:2px;margin:0 auto}
+nav.main a{position:relative;display:flex;align-items:center;gap:7px;text-decoration:none;font-size:14px;font-weight:500;padding:9px 13px;border-radius:12px;color:var(--ink2)}
+nav.main a:hover{background:var(--x-t);color:var(--navy)}
+nav.main a[aria-current="page"]{color:var(--navy);font-weight:600}
+nav.main a[aria-current="page"]::after{content:"";position:absolute;left:13px;right:13px;bottom:2px;height:3px;border-radius:3px;background:var(--accent,var(--navy))}
+.actions{display:flex;gap:6px;align-items:center;margin-left:auto}
+.iconbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;font:600 14px 'Poppins',system-ui,sans-serif;padding:0 11px;text-decoration:none;color:var(--navy)}
+.iconbtn:hover{border-color:var(--navy)}
+.iconbtn[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.logo .lt{min-width:0}.logo .short{display:none}
+@media (max-width:560px){.logo .full{display:none}.logo .short{display:inline}}
+@media (max-width:900px){nav.main{display:none}.logo small{display:none}.hide-s{display:none}}
+
+/* bottom tab bar */
+nav.tabs{display:none}
+@media (max-width:900px){
+ nav.tabs{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:40;background:rgba(27,42,74,.96);backdrop-filter:blur(10px);border-radius:22px;padding:6px;box-shadow:0 10px 30px rgba(27,42,74,.28)}
+ nav.tabs a{display:grid;justify-items:center;gap:2px;text-decoration:none;color:#C9D0E2;font-size:11px;font-weight:600;padding:8px 2px;border-radius:16px;min-height:52px}
+ nav.tabs a svg.i{width:22px;height:22px}
+ nav.tabs a[aria-current="page"]{background:#fff;color:var(--navy)}
+}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(27,42,74,.35);z-index:60}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(340px,88vw);background:var(--paper);z-index:61;padding:calc(18px + env(safe-area-inset-top,0px)) 18px calc(18px + env(safe-area-inset-bottom,0px));overflow:auto;box-shadow:-10px 0 30px rgba(27,42,74,.2)}
+.drawer h4{margin:18px 0 6px;font-size:13px;color:var(--ink2);font-weight:600}
+.drawer a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;text-decoration:none;font-weight:500}
+.drawer a:hover{background:var(--x-t)}
+
+/* search overlay */
+.search{position:fixed;inset:0;z-index:70;background:rgba(251,250,247,.98);padding:calc(16px + env(safe-area-inset-top,0px)) 18px 18px;overflow:auto}
+.search .in{max-width:680px;margin:0 auto}
+.search .field{display:flex;gap:10px;align-items:center;background:#fff;border:2px solid var(--navy);border-radius:16px;padding:6px 6px 6px 16px}
+.search input{flex:1;border:0;font-size:18px;min-height:44px;background:transparent;outline:none}
+.search .res a{display:block;padding:14px 16px;border-radius:14px;text-decoration:none;margin-top:6px;background:#fff;border:1px solid var(--line)}
+.search .res small{display:block;color:var(--ink2)}
+
+/* layout */
+main{max-width:1180px;margin:0 auto;padding:26px 18px 130px;min-height:70vh;outline:none}
+h1{font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.1;margin:0 0 10px;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:clamp(1.25rem,3vw,1.65rem);margin:34px 0 12px;line-height:1.25}
 h3{font-size:1.05rem;margin:0;line-height:1.35}
 .muted{color:var(--ink2)}
 .lede{font-size:1.08em;max-width:62ch}
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--ink2);margin-bottom:14px}
+.crumbs a{text-decoration:none;color:var(--ink2)}.crumbs a:hover{color:var(--navy);text-decoration:underline}
 .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
-.card{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:18px 20px;text-decoration:none;display:grid;gap:8px;align-content:start}
-a.card:hover{border-color:var(--navy)}
-.card.top{border-top:7px solid var(--u,var(--navy))}
-.chip{display:inline-block;font-size:13px;font-weight:600;padding:2px 10px;border-radius:8px;background:var(--u-t,var(--x-t))}
-.hero{display:grid;gap:22px;grid-template-columns:1.3fr 1fr;align-items:start}
-@media (max-width:820px){.hero{grid-template-columns:1fr}}
-.now{background:#fff;border:2px solid var(--navy);border-radius:20px;padding:20px 22px;display:grid;gap:10px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;text-decoration:none;display:grid;gap:8px;align-content:start;transition:border-color .15s,transform .15s}
+a.card:hover{border-color:var(--navy);transform:translateY(-1px)}
+.card.top{border-top:6px solid var(--u,var(--navy))}
+.chip{display:inline-flex;align-items:center;gap:6px;justify-self:start;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--u-t,var(--x-t))}
 .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 @media (max-width:420px){.btns{grid-template-columns:1fr}}
-.btn{display:flex;align-items:center;justify-content:center;min-height:46px;padding:8px 12px;border-radius:12px;font:600 14px/1.25 'Poppins',system-ui,sans-serif;text-decoration:none;border:1.5px solid var(--navy);color:var(--navy);background:#fff;text-align:center;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:8px 14px;border-radius:13px;font:600 14px/1.25 'Poppins',system-ui,sans-serif;text-decoration:none;border:1.5px solid var(--navy);color:var(--navy);background:#fff;text-align:center;cursor:pointer}
 .btn.primary{background:var(--navy);color:#fff}
-.btn[aria-disabled="true"]{border-style:dashed;border-color:#B9BFCC;color:#6B7590;background:transparent;pointer-events:none}
-.terms{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
-.terms div{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px}
-.terms b{display:block}
-.steps{counter-reset:s;display:grid;gap:10px;padding:0;margin:0;list-style:none}
-.steps li{counter-increment:s;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px 12px 56px;position:relative}
-.steps li::before{content:counter(s);position:absolute;left:14px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--u-t,var(--x-t));display:grid;place-items:center;font-weight:700}
-.frame{background:var(--blush);border-radius:12px;padding:12px 16px;font-weight:500}
-.crumb{font-size:14px;margin-bottom:10px;display:inline-flex;min-height:40px;align-items:center}
-.flash{perspective:1000px;max-width:520px;margin:16px 0}
-.flash button.cardf{width:100%;min-height:220px;border-radius:20px;border:2px solid var(--navy);background:#fff;font:600 1.3em 'Poppins',system-ui,sans-serif;color:var(--navy);padding:24px;cursor:pointer;text-align:center}
-.flash button.cardf.back{background:var(--a-t);font-weight:500;font-size:1.05em}
+.btn.soft{border-color:var(--line)}
+.btn[aria-disabled="true"],.btn:disabled{border-style:dashed;border-color:#B9BFCC;color:#6B7590;background:transparent;pointer-events:none}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.track{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:20px}
-.prog{height:12px;background:var(--x-t);border-radius:999px;overflow:hidden;margin:8px 0}
-.prog div{height:100%;background:linear-gradient(90deg,var(--a),var(--b),var(--c),var(--d));width:0;transition:width .3s}
-.stepc{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-top:1px solid var(--line);cursor:pointer}
-.stepc input{width:22px;height:22px;margin-top:3px;accent-color:var(--navy);flex-shrink:0}
-.stepc.done span{text-decoration:line-through;color:var(--ink2)}
-.list{background:#fff;border:1.5px solid var(--line);border-radius:18px}
-.list>div{display:grid;grid-template-columns:minmax(120px,200px) 1fr;gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+
+/* hero */
+.hero{display:grid;gap:22px;grid-template-columns:1.25fr 1fr;align-items:stretch}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
+.now{background:var(--navy);color:#fff;border-radius:24px;padding:22px 24px;display:grid;gap:12px;align-content:start}
+.now .btn{border-color:#fff;color:#fff;background:transparent}.now .btn.primary{background:#fff;color:var(--navy)}
+.now .btn[aria-disabled="true"]{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.6)}
+.now a{color:#fff}
+.units{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+
+/* session strip */
+.strip{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px 12px;margin-bottom:20px;overflow-x:auto}
+.dots{display:flex;gap:6px;flex:1;justify-content:center;min-width:max-content}
+.dots a{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;text-decoration:none;background:var(--u-t);color:var(--navy);border:2px solid transparent}
+.dots a[aria-current="page"]{background:var(--u);color:#fff;transform:scale(1.12)}
+.dots a.exam{background:var(--x-t)}.dots a.exam[aria-current="page"]{background:var(--navy)}
+
+/* session sections */
+.sec{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px 22px;margin-top:16px}
+.sec>h2{margin:0 0 12px;font-size:1.2rem;display:flex;align-items:center;gap:10px}
+.sec>h2 .tag{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;background:var(--x-t)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media (max-width:760px){.two{grid-template-columns:1fr}}
+.terms{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.terms div{background:var(--paper);border-radius:14px;padding:12px 14px}.terms b{display:block}
+.steps{counter-reset:s;display:grid;gap:10px;padding:0;margin:0;list-style:none}
+.steps li{counter-increment:s;background:var(--paper);border-radius:14px;padding:12px 14px 12px 56px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:14px;top:11px;width:30px;height:30px;border-radius:50%;background:var(--u-t,var(--x-t));display:grid;place-items:center;font-weight:700}
+.frame{background:var(--blush);border-radius:14px;padding:12px 16px;font-weight:500}
+.read{display:grid;gap:4px;background:var(--paper);border-radius:14px;padding:12px 14px}
+.read small{font-weight:600;color:var(--ink2)}
+
+/* slide viewer */
+.viewer{position:relative;background:var(--navy);border-radius:20px;overflow:hidden}
+.viewer .stage{aspect-ratio:16/9;display:grid;place-items:center;background:#0F1A30;touch-action:pan-y}
+.viewer img{width:100%;height:100%;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none}
+.viewer .ctl{display:flex;align-items:center;gap:8px;padding:10px 12px;color:#fff}
+.viewer .ctl .iconbtn{background:transparent;border-color:rgba(255,255,255,.3);color:#fff}
+.viewer .ctl span{flex:1;text-align:center;font-weight:600;font-size:14px}
+.viewer:fullscreen{display:flex;flex-direction:column;border-radius:0}.viewer:fullscreen .stage{flex:1;aspect-ratio:auto}
+.empty{border:2px dashed #C6CBD8;border-radius:20px;padding:28px;text-align:center;color:var(--ink2)}
+
+/* lists, progress, flash */
+.list{background:#fff;border:1px solid var(--line);border-radius:18px}
+.list>div{display:grid;grid-template-columns:minmax(120px,210px) 1fr;gap:12px;padding:13px 16px;border-top:1px solid var(--line)}
 .list>div:first-child{border-top:none}
 @media (max-width:560px){.list>div{grid-template-columns:1fr;gap:2px}}
-.results{position:absolute;top:48px;left:0;right:0;background:#fff;border:1.5px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(27,42,74,.12);max-height:60vh;overflow:auto;z-index:30}
-.results a{display:block;padding:10px 14px;text-decoration:none;border-top:1px solid var(--line)}
-.results a:first-child{border-top:none}
-.results small{display:block;color:var(--ink2)}
-.music{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px;z-index:25;width:260px;box-shadow:0 8px 24px rgba(27,42,74,.12)}
-.music label{display:block;font-size:14px;margin-top:8px}
-.music input[type=range]{width:100%}
-nav.tabs{display:none}
-@media (max-width:820px){
- nav.main{display:none}
- nav.tabs{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:20}
- nav.tabs a{text-decoration:none;font-size:12px;font-weight:600;padding:10px 4px;text-align:center;min-height:56px;display:grid;place-items:center}
- nav.tabs a[aria-current="page"]{color:#fff;background:var(--navy)}
- .music{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
-}
-footer{max-width:1120px;margin:0 auto;padding:28px 18px 110px;border-top:1px solid var(--line);font-size:14px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
-footer h4{margin:0 0 6px;font-size:15px}
-footer a{display:block;padding:3px 0}
-footer .fine{grid-column:1/-1;color:var(--ink2)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.track{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px}
+.prog{height:12px;background:var(--x-t);border-radius:999px;overflow:hidden;margin:8px 0}
+.prog div{height:100%;background:linear-gradient(90deg,var(--a),var(--b),var(--c),var(--d));width:0;transition:width .35s}
+.stepc{display:flex;gap:12px;align-items:flex-start;padding:11px 4px;border-top:1px solid var(--line);cursor:pointer}
+.stepc input{width:22px;height:22px;margin-top:3px;accent-color:var(--navy);flex-shrink:0}
+.stepc.done span{text-decoration:line-through;color:var(--ink2)}
+.flash{max-width:560px;margin:14px 0}
+.flash button.cardf{width:100%;min-height:230px;border-radius:24px;border:2px solid var(--navy);background:#fff;font:600 1.3em 'Poppins',system-ui,sans-serif;padding:26px;cursor:pointer;text-align:center}
+.flash button.cardf.back{background:var(--a-t);font-weight:500;font-size:1.05em}
+select.sel{min-height:44px;border-radius:12px;border:1px solid var(--line);padding:0 12px;background:#fff;font-weight:500}
+
+/* lab */
+.labcard{border-radius:22px;padding:22px;display:grid;gap:10px;text-decoration:none;color:var(--navy)}
+.ticket{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px;margin-top:14px}
+.ticket .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--ink2)}
+.ticket blockquote{margin:12px 0;background:var(--paper);border-left:4px solid var(--b);border-radius:10px;padding:12px 14px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.pick{min-height:42px;padding:6px 14px;border-radius:11px;border:1.5px solid #B9BFCC;background:#fff;font:500 14px 'Poppins',system-ui,sans-serif;cursor:pointer}
+.pick[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.pick.right{background:var(--ok-t);border-color:var(--ok);color:var(--navy)}.pick.wrong{background:var(--no-t);border-color:var(--no);color:var(--navy)}
+textarea.ta{width:100%;min-height:110px;border:1.5px solid #B9BFCC;border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.5;resize:vertical}
+.model{background:var(--ok-t);border-radius:14px;padding:14px 16px;margin-top:12px;display:grid;gap:8px}
+.chat{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;display:grid;gap:10px;max-width:720px}
+.msg{max-width:85%;padding:10px 14px;border-radius:16px;font-size:15px}
+.msg.c{background:var(--x-t);border-bottom-left-radius:4px;justify-self:start}
+.msg.s{background:var(--navy);color:#fff;border-bottom-right-radius:4px;justify-self:end}
+.mood{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.mood .m{flex:1;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--no) ,var(--d),var(--ok));position:relative}
+.mood .m i{position:absolute;top:-4px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--navy);transform:translateX(-50%);transition:left .4s}
+.choice{display:grid;gap:8px;margin-top:4px}
+.choice button{text-align:left;min-height:48px;padding:10px 14px;border-radius:14px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;cursor:pointer}
+.choice button:hover{border-color:var(--navy)}
+.fb{margin-top:8px;padding:10px 14px;border-radius:12px;font-size:14px}.fb.right{background:var(--ok-t)}.fb.wrong{background:var(--no-t)}
+
+footer{max-width:1180px;margin:0 auto;padding:22px 18px 120px;border-top:1px solid var(--line);font-size:13px;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between}
+footer a{color:var(--ink2)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="stripe"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+<symbol id="i-sessions" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M8 4v5"/></symbol>
+<symbol id="i-lab" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.5 9.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7.5 15h9"/></symbol>
+<symbol id="i-study" viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="14" rx="2.5"/><path d="M7 3h11.5A2.5 2.5 0 0 1 21 5.5V17"/></symbol>
+<symbol id="i-progress" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="i-tools" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></symbol>
+<symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 10v4h3l5 4V6L7 10z"/><path d="M16 9a4 4 0 0 1 0 6"/></symbol>
+</defs></svg>
+
 <header class="top">
  <div class="bar">
-  <a class="logo" href="#/"><i aria-hidden="true"></i><span><b>Customer Care Management</b><small>Level 5 · Elevate with Ms. Maria</small></span></a>
-  <div class="search"><label for="q" class="skip">Search all sessions</label><input id="q" type="search" placeholder="Search all sessions" autocomplete="off"><div class="results" id="results" hidden></div></div>
-  <nav class="main" aria-label="Main"><a href="#/">Home</a><a href="#/sessions">Sessions</a><a href="#/study">Study</a><a href="#/progress">My progress</a><a href="#/tools">Tools</a></nav>
-  <div class="tools"><button class="icon" id="musicBtn" aria-expanded="false" aria-controls="music" type="button">Focus sound</button><button class="icon" id="aa" aria-pressed="false" type="button" aria-label="Larger text">AA</button></div>
+  <a class="logo" href="#/" aria-label="Customer Care Management, Level 5, home"><span class="mark" aria-hidden="true"></span><span class="lt"><b><span class="full">Customer Care Management</span><span class="short">Customer Care</span></b><small>Elevate with Ms. Maria</small></span></a>
+  <span class="lvl">Level 5</span>
+  <nav class="main" aria-label="Main">
+   <a href="#/"><svg class="i"><use href="#i-home"/></svg>Home</a>
+   <a href="#/sessions"><svg class="i"><use href="#i-sessions"/></svg>Sessions</a>
+   <a href="#/lab"><svg class="i"><use href="#i-lab"/></svg>Practice Lab</a>
+   <a href="#/study"><svg class="i"><use href="#i-study"/></svg>Study</a>
+   <a href="#/progress"><svg class="i"><use href="#i-progress"/></svg>Progress</a>
+  </nav>
+  <div class="actions">
+   <button class="iconbtn" id="openSearch" type="button" aria-label="Search"><svg class="i"><use href="#i-search"/></svg></button>
+   <button class="iconbtn hide-s" id="aa" type="button" aria-pressed="false" aria-label="Larger text">AA</button>
+   <button class="iconbtn" id="openMenu" type="button" aria-label="More" aria-expanded="false"><svg class="i"><use href="#i-menu"/></svg></button>
+  </div>
  </div>
 </header>
-<div class="music" id="music" hidden>
- <b>Focus sound</b>
- <p class="muted" style="font-size:13px">Soft background sound helps some people focus. Turn it off for tests.</p>
- <label><input type="radio" name="snd" value="rain" checked> Rain on the window</label>
- <label><input type="radio" name="snd" value="brown"> Soft room hum</label>
- <div class="row" style="margin-top:10px"><button class="btn primary" id="play" type="button" style="flex:1">Play</button></div>
- <label for="vol">Volume</label><input id="vol" type="range" min="0" max="1" step="0.05" value="0.4">
-</div>
-<main id="main" tabindex="-1"></main>
-<footer>
- <div><h4>Learn</h4><a href="#/sessions">Sessions</a><a href="#/models">My 11 models</a><a href="#/quizzes">Quizzes and exams</a><a href="#/study">Study</a></div>
- <div><h4>Tools</h4><a href="#/syllabus">Syllabus</a><a href="#/glossary">Glossary</a><a href="#/downloads">Downloads</a><a href="#/progress">My progress</a></div>
- <div><h4>Programs</h4><a href="../">All Customer Care programs</a><a href="../level4/">Level 4</a></div>
- <div><h4>Help</h4><a href="#/help">How to use this site</a><a href="mailto:maria@me.learnovateqa.com?subject=Customer%20Care%20L5%20question">Ask Ms. Maria</a><a href="#/install">Install the app</a></div>
- <p class="fine">Page numbers refer to your course textbook. All teaching content on this site is original. © 2026 Elevate with Ms. Maria · Learnovate Qatar</p>
-</footer>
-<nav class="tabs" aria-label="Main"><a href="#/">Home</a><a href="#/sessions">Sessions</a><a href="#/study">Study</a><a href="#/progress">Progress</a><a href="#/tools">Tools</a></nav>
 
+<main id="main" tabindex="-1"></main>
+
+<nav class="tabs" aria-label="Main">
+ <a href="#/"><svg class="i"><use href="#i-home"/></svg>Home</a>
+ <a href="#/sessions"><svg class="i"><use href="#i-sessions"/></svg>Sessions</a>
+ <a href="#/lab"><svg class="i"><use href="#i-lab"/></svg>Lab</a>
+ <a href="#/study"><svg class="i"><use href="#i-study"/></svg>Study</a>
+ <a href="#/progress"><svg class="i"><use href="#i-progress"/></svg>Progress</a>
+</nav>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="More">
+ <div class="row" style="justify-content:space-between"><b>More</b><button class="iconbtn" id="closeMenu" type="button" aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button></div>
+ <h4>Learn</h4>
+ <a href="#/models"><svg class="i"><use href="#i-book"/></svg>My 11 models</a>
+ <a href="#/quizzes"><svg class="i"><use href="#i-study"/></svg>Quizzes and exams</a>
+ <h4>Tools</h4>
+ <a href="#/syllabus"><svg class="i"><use href="#i-tools"/></svg>Syllabus</a>
+ <a href="#/glossary"><svg class="i"><use href="#i-book"/></svg>Glossary</a>
+ <a href="#/downloads"><svg class="i"><use href="#i-down"/></svg>Downloads</a>
+ <h4>Settings</h4>
+ <a href="#" id="aa2"><svg class="i"><use href="#i-tools"/></svg>Larger text: <span id="aaState">off</span></a>
+ <a href="#" id="soundLink"><svg class="i"><use href="#i-sound"/></svg>Focus sound</a>
+ <div id="soundBox" hidden style="padding:6px 12px 10px">
+  <label style="display:block"><input type="radio" name="snd" value="rain" checked> Rain on the window</label>
+  <label style="display:block"><input type="radio" name="snd" value="brown"> Soft room hum</label>
+  <div class="row" style="margin-top:8px"><button class="btn primary" id="play" type="button" style="flex:1">Play</button></div>
+  <label for="vol" style="display:block;margin-top:6px;font-size:14px">Volume</label><input id="vol" type="range" min="0" max="1" step="0.05" value="0.4" style="width:100%">
+  <p class="muted" style="font-size:12.5px">Helps some people focus. Turn it off for tests.</p>
+ </div>
+ <h4>Help</h4>
+ <a href="#/help"><svg class="i"><use href="#i-home"/></svg>How to use this site</a>
+ <a href="mailto:maria@me.learnovateqa.com?subject=Customer%20Care%20L5%20question"><svg class="i"><use href="#i-right"/></svg>Ask Ms. Maria</a>
+ <a href="#/install"><svg class="i"><use href="#i-down"/></svg>Install the app</a>
+ <h4>Programs</h4>
+ <a href="../"><svg class="i"><use href="#i-left"/></svg>All Customer Care programs</a>
+</aside>
+
+<div class="search" id="search" hidden role="dialog" aria-modal="true" aria-label="Search">
+ <div class="in">
+  <div class="field"><svg class="i"><use href="#i-search"/></svg><input id="q" type="search" placeholder="Search sessions, models and terms" autocomplete="off" aria-label="Search"><button class="iconbtn" id="closeSearch" type="button" aria-label="Close search"><svg class="i"><use href="#i-x"/></svg></button></div>
+  <div class="res" id="results" aria-live="polite"><p class="muted" style="margin-top:14px">Try "touchpoint", "Kano" or "complaints".</p></div>
+ </div>
+</div>
+
+<footer><span>© 2026 Elevate with Ms. Maria · Learnovate Qatar</span><span><a href="#/syllabus">Syllabus</a> · <a href="#/help">Help</a> · <a href="../">All programs</a></span></footer>
 <script>
-/* ===== COURSE DATA: add key terms to a session when its materials are built ===== */
-const UNITS={A:{name:"Understanding the Customer",c:"var(--a)",t:"var(--a-t)"},B:{name:"Leading and Measuring Service",c:"var(--b)",t:"var(--b-t)"},C:{name:"Communicating in Every Channel",c:"var(--c)",t:"var(--c-t)"},D:{name:"Recovering and Retaining Customers",c:"var(--d)",t:"var(--d-t)"},X:{name:"Exams",c:"var(--navy)",t:"var(--x-t)"}};
+/* ===== COURSE DATA (Level 5). Key terms are added to a session when its materials are built. ===== */
+const UNITS={A:{name:"Understanding the Customer",c:"#2A9D8F",t:"#E2F3F1"},B:{name:"Leading and Measuring Service",c:"#E76F51",t:"#FCE9E3"},C:{name:"Communicating in Every Channel",c:"#6D5BD0",t:"#ECE9FA"},D:{name:"Recovering and Retaining Customers",c:"#E9B44C",t:"#FBF2DC"},X:{name:"Exams",c:"#1B2A4A",t:"#EEF0F5"}};
 const SESSIONS=[
-{n:1,u:"A",t:"Customer care in context",ch:"Introduction (pp. 1–3)",model:"spc",
+{n:1,u:"A",t:"Customer care in context",fr:"Introduction, pp. 1–3",model:"spc",
  obj:["Explain what customer care means and who the customer is","Analyse how good service leads to profit, using the Service-Profit Chain","Describe what customers expect across today's channels, including AI"],
  cap:"Analyse how service affects profit in your chosen organisation",
  terms:[["Customer care","Looking after customers before, during and after a sale"],["Customer experience","How the customer feels about every contact with the business"],["External customer","A person or business that buys from you"],["Internal customer","A colleague or team that depends on your work"],["Touchpoint","Any point where a customer meets the business"],["Customer retention","Keeping customers so they come back again"],["ROI","Return on investment: what you gain compared with what you spend"],["Omnichannel","All channels connected, so the customer gets one smooth experience"]]},
-{n:2,u:"A",t:"Fundamentals of customer care",ch:"Chapter 1 (pp. 5–22)",model:"kano",cap:"Map the customer journey and rank the weakest moments of truth"},
-{n:3,u:"A",t:"Knowing customer needs",ch:"Chapter 2 (pp. 23–38)",model:"servqual",cap:"Evaluate two feedback methods and justify one"},
-{n:4,u:"B",t:"Leadership for a service culture",ch:"Chapter 3 (pp. 39–54)",model:"situational",cap:"Evaluate the leadership style and its effect on service"},
-{n:5,u:"B",t:"Measuring performance",ch:"Chapter 3 (pp. 55–60)",model:"bsc",cap:"Interpret KPI data and recommend targets"},
-{n:6,u:"B",t:"The internal customer",ch:"Chapter 5 (pp. 81–98)",model:"raci",cap:"Analyse one inter-team gap and justify a fix"},
-{n:7,u:"X",t:"Midterm",ch:"Sessions 1–6",exam:true},
-{n:8,u:"C",t:"Communication barriers",ch:"Chapter 4 (pp. 61–65)",model:"hofstede",cap:"Assess barriers for a multicultural customer base"},
-{n:9,u:"C",t:"Communication channels",ch:"Chapter 4 (pp. 66–80)",model:"channel",cap:"Evaluate which issues go to AI and which to humans, and justify"},
-{n:10,u:"D",t:"Complaints and quality improvement",ch:"Chapter 6 (pp. 99–116)",model:"recovery",cap:"Design a complaints policy and customer care charter"},
-{n:11,u:"D",t:"Long-term customer relationships",ch:"Chapter 7 (pp. 117–128)",model:"clv",cap:"Justify a loyalty strategy using Customer Lifetime Value"},
-{n:12,u:"X",t:"Capstone presentations and final exam",ch:"Finally, finally (p. 129)",model:"kotter",exam:true,cap:"Present your plan"}];
+{n:2,u:"A",t:"Fundamentals of customer care",fr:"Chapter 1, pp. 5–22",model:"kano",cap:"Map the customer journey and rank the weakest moments of truth"},
+{n:3,u:"A",t:"Knowing customer needs",fr:"Chapter 2, pp. 23–38",model:"servqual",cap:"Evaluate two feedback methods and justify one"},
+{n:4,u:"B",t:"Leadership for a service culture",fr:"Chapter 3, pp. 39–54",model:"situational",cap:"Evaluate the leadership style and its effect on service"},
+{n:5,u:"B",t:"Measuring performance",fr:"Chapter 3, pp. 55–60",model:"bsc",cap:"Interpret KPI data and recommend targets"},
+{n:6,u:"B",t:"The internal customer",fr:"Chapter 5, pp. 81–98",model:"raci",cap:"Analyse one inter-team gap and justify a fix"},
+{n:7,u:"X",t:"Midterm",fr:"Sessions 1–6",exam:true},
+{n:8,u:"C",t:"Communication barriers",fr:"Chapter 4, pp. 61–65",model:"hofstede",cap:"Assess barriers for a multicultural customer base"},
+{n:9,u:"C",t:"Communication channels",fr:"Chapter 4, pp. 66–80",model:"channel",cap:"Evaluate which issues go to AI and which to humans, and justify"},
+{n:10,u:"D",t:"Complaints and quality improvement",fr:"Chapter 6, pp. 99–116",model:"recovery",cap:"Design a complaints policy and customer care charter"},
+{n:11,u:"D",t:"Long-term customer relationships",fr:"Chapter 7, pp. 117–128",model:"clv",cap:"Justify a loyalty strategy using Customer Lifetime Value"},
+{n:12,u:"X",t:"Capstone presentations and final exam",fr:"Finally, finally, p. 129",model:"kotter",exam:true,cap:"Present your plan"}];
 const MODELS={
 spc:{t:"Service-Profit Chain",s:1,what:"Satisfied, well-supported staff give better service, which creates satisfied and loyal customers, which brings profit.",
- steps:["Start at the end: what result does the business want?","Go back through each link and find the weakest one, with evidence","Recommend fixing the weakest link first, and justify why"],frame:"The weakest link is ___ because ___. I recommend ___.",src:"Heskett and colleagues, Harvard Business Review, 1994"},
+ steps:["Start at the end: what result does the business want?","Go back through each link and find the weakest one, with evidence","Recommend fixing the weakest link first, and justify why"],frame:"The weakest link is ___ because ___. I recommend ___.",
+ src:"Heskett, Jones, Loveman, Sasser and Schlesinger (1994) 'Putting the Service-Profit Chain to Work', Harvard Business Review",
+ read:"The authors studied successful service companies and found that profit and growth come mainly from loyal customers. Loyal customers come from satisfied customers, and satisfied customers come from staff who are well supported, well trained and satisfied with their work. The lesson for managers: invest in your people first."},
 kano:{t:"Kano Model",s:2,what:"Sorts what customers want into basics they expect, performance features that satisfy more as they improve, and delighters they don't expect.",
- steps:["List the features of the service","Sort each into basic, performance or delighter","Protect the basics first, then compete on performance, then add one delighter"],frame:"___ is a basic need, because customers are angry when it is missing.",src:"Noriaki Kano, 1984"},
+ steps:["List the features of the service","Sort each into basic, performance or delighter","Protect the basics first, then compete on performance, then add one delighter"],frame:"___ is a basic need, because customers are angry when it is missing.",src:"Noriaki Kano and colleagues (1984)",
+ read:"Kano showed that not every improvement makes customers happier. Fixing a missing basic only stops complaints; it doesn't create delight. Delighters surprise customers, but over time they become expected and turn into basics."},
 servqual:{t:"SERVQUAL and the Gap Model",s:3,what:"Measures service quality as the gap between what customers expect and what they experience, across five areas: reliability, assurance, tangibles, empathy and responsiveness.",
- steps:["Find out what customers expect in each of the five areas","Measure what they actually experience","Close the biggest gap first"],frame:"The biggest gap is in ___. Customers expect ___ but experience ___.",src:"Parasuraman, Zeithaml and Berry, 1988"},
+ steps:["Find out what customers expect in each of the five areas","Measure what they actually experience","Close the biggest gap first"],frame:"The biggest gap is in ___. Customers expect ___ but experience ___.",src:"Parasuraman, Zeithaml and Berry (1988)",
+ read:"The researchers argued that customers judge service against their expectations, not against an absolute standard. A manager must therefore measure both: what customers expect and what they get."},
 situational:{t:"Situational Leadership",s:4,what:"The best leadership style depends on how ready each team member is: directing, coaching, supporting or delegating.",
- steps:["Judge the team member's skill and confidence for this task","Choose the matching style","Change the style as the person grows"],frame:"For ___, I would use a ___ style, because they are ___.",src:"Hersey and Blanchard"},
+ steps:["Judge the team member's skill and confidence for this task","Choose the matching style","Change the style as the person grows"],frame:"For ___, I would use a ___ style, because they are ___.",src:"Hersey and Blanchard",
+ read:"There is no single best leadership style. A new staff member needs clear direction; an experienced, confident one needs freedom. Good leaders change their style person by person and task by task."},
 bsc:{t:"Balanced Scorecard",s:5,what:"Measures performance from four views, not only money: financial, customer, internal processes, and learning and growth.",
- steps:["Choose one or two KPIs for each of the four views","Read the trend, not just one number","Set a target and explain why it is realistic"],frame:"The data shows ___. I recommend a target of ___ because ___.",src:"Kaplan and Norton, 1992"},
+ steps:["Choose one or two KPIs for each of the four views","Read the trend, not just one number","Set a target and explain why it is realistic"],frame:"The data shows ___. I recommend a target of ___ because ___.",src:"Kaplan and Norton (1992) Harvard Business Review",
+ read:"Kaplan and Norton warned that financial results only show the past. Customer, process and learning measures show what will drive results in the future, so managers need all four."},
 raci:{t:"Internal Service Quality and RACI",s:6,what:"Internal customers need clear roles. RACI shows who is Responsible, Accountable, Consulted and Informed for each task.",
- steps:["List the handovers between teams","Mark R, A, C and I for each one","Fix the handover where nobody is clearly accountable"],frame:"The gap is between ___ and ___. Nobody is accountable for ___.",src:"Widely used project management tool"},
+ steps:["List the handovers between teams","Mark R, A, C and I for each one","Fix the handover where nobody is clearly accountable"],frame:"The gap is between ___ and ___. Nobody is accountable for ___.",src:"Widely used management tool",
+ read:"Most service failures happen between teams, not inside them. A RACI chart makes it clear who does the work, who owns the result, who must be asked and who must be told."},
 hofstede:{t:"Hofstede's Cultural Dimensions",s:8,what:"Cultures differ in ways that affect service, such as respect for hierarchy, individual versus group focus, and comfort with uncertainty.",
- steps:["Identify the main cultures among your customers","Note how each might expect to be served","Adapt communication without stereotyping individuals"],frame:"Customers from ___ may expect ___, so staff should ___.",src:"Geert Hofstede"},
+ steps:["Identify the main cultures among your customers","Note how each might expect to be served","Adapt communication without stereotyping individuals"],frame:"Customers from ___ may expect ___, so staff should ___.",src:"Geert Hofstede",
+ read:"Hofstede compared national cultures on several dimensions. The dimensions describe tendencies in a group, not rules about any one person, so use them to prepare, then listen to the individual."},
 channel:{t:"Channel Strategy",s:9,what:"Each channel has a cost and suits some customers and issues better than others. Routine issues suit low-cost channels; complex or emotional ones need people.",
- steps:["List issue types and how often they happen","Match each to the best channel, AI or human","Design a clear handover from AI to a person"],frame:"___ should go to ___ because ___. The risk is ___.",src:"Course model"},
+ steps:["List issue types and how often they happen","Match each to the best channel, AI or human","Design a clear handover from AI to a person"],frame:"___ should go to ___ because ___. The risk is ___.",src:"Course model",
+ read:"Channel strategy balances three things: cost to the business, customer preference and the complexity of the issue. The weakest point is usually the handover between channels."},
 recovery:{t:"Service Recovery Paradox, 5 Whys and PDCA",s:10,what:"A problem solved very well can leave a customer more loyal than before. 5 Whys finds the root cause; PDCA (Plan, Do, Check, Act) fixes it for good.",
- steps:["Recover the customer quickly and fairly","Ask 'why' five times to find the root cause","Plan a fix, try it, check the result, then make it standard"],frame:"The root cause is ___. We will ___ and check it by ___.",src:"McCollough and Bharadwaj; Deming"},
+ steps:["Recover the customer quickly and fairly","Ask 'why' five times to find the root cause","Plan a fix, try it, check the result, then make it standard"],frame:"The root cause is ___. We will ___ and check it by ___.",src:"McCollough and Bharadwaj (1992); Deming",
+ read:"Research on the recovery paradox suggests excellent recovery can raise loyalty, but it does not always work, and it never replaces getting it right the first time. That is why recovery must be followed by root-cause fixing."},
 clv:{t:"Customer Lifetime Value and the Loyalty Ladder",s:11,what:"CLV estimates what a customer is worth over the whole relationship. The Loyalty Ladder shows customers moving from prospect to customer, client, supporter and advocate.",
- steps:["Estimate CLV: average spend × visits per year × years","Find where most customers sit on the ladder","Choose an action that moves them up one step"],frame:"A regular customer is worth about ___ over ___ years, so ___ is worth the cost.",src:"Christopher, Payne and Ballantyne"},
+ steps:["Estimate CLV: average spend × visits per year × years","Find where most customers sit on the ladder","Choose an action that moves them up one step"],frame:"A regular customer is worth about ___ over ___ years, so ___ is worth the cost.",src:"Christopher, Payne and Ballantyne",
+ read:"Thinking in lifetime value changes decisions: a refund that looks expensive today can be cheap compared with what a loyal customer spends over years."},
 kotter:{t:"Kotter's Steps for Change",s:12,what:"A plan only works if people change. Kotter's steps include creating urgency, building a team, sharing the vision and celebrating quick wins.",
- steps:["Show why change is needed now","Get the right people on your side","Start with a quick win, then make it part of normal work"],frame:"To start the plan, I would first ___, because ___.",src:"John Kotter, 1996"}};
-const FILES=[["slides.pdf","Slides"],["workbook.html","E-workbook"],["quiz.html","Practice quiz"]];
-const CAP_KEY="ccl5-capstone";
-/* ================================================================== */
+ steps:["Show why change is needed now","Get the right people on your side","Start with a quick win, then make it part of normal work"],frame:"To start the plan, I would first ___, because ___.",src:"John Kotter (1996) Leading Change",
+ read:"Kotter found that most change efforts fail because leaders skip steps, especially creating urgency and making the change part of daily work."}};
 
+/* Practice Lab content */
+const TICKETS=[
+{id:"t1",ch:"WhatsApp",from:"Customer",s:9,text:"I ordered a birthday cake for my daughter for 4 pm today. It's 4:30 and nothing has arrived. Nobody answers the phone!!",pr:"High",who:"Person",
+ model:"Hello Ms. Reem, I'm very sorry. Your daughter's cake is late, and that is not acceptable on her birthday. I have checked your order: the driver is 10 minutes away. I am refunding the delivery fee now, and I will call you when he arrives. Please reply here if you need anything at all.",
+ root:"Why was the phone not answered? Check staffing at peak times and whether WhatsApp and phone messages go to one shared queue."},
+{id:"t2",ch:"Email",from:"Customer",s:9,text:"Hello, what are your opening hours during Eid?",pr:"Low",who:"AI",
+ model:"Hello, thank you for your message. During Eid we are open from 2 pm to 11 pm every day. Eid Mubarak!",
+ root:"Routine question. Add Eid hours to the website, the chatbot and the auto-reply so customers find the answer before asking."},
+{id:"t3",ch:"Google review · 2 stars",from:"Public",s:10,text:"Waited 25 minutes for a table even though I had booked. Staff didn't even apologise.",pr:"Medium",who:"Person",
+ model:"Dear Mr. Ahmed, thank you for telling us, and we are sorry. You booked a table, and making you wait 25 minutes without an apology is not the service we promise. We have shared this with our team. We would like to welcome you back as our guests: please message us on WhatsApp so we can arrange it.",
+ root:"Two problems: the booking system (why was a booked table not ready?) and staff behaviour (why no apology?). Check both."},
+{id:"t4",ch:"Internal message",from:"Housekeeping team",s:6,text:"Front desk has not sent the check-out list since 10 am. We cannot prepare rooms for the 2 pm arrivals.",pr:"High",who:"Person",
+ model:"Thank you for flagging this. I'm sending the check-out list now and will update it every hour today. From tomorrow, the front desk shift lead will send it at 10 am and 12 pm.",
+ root:"Nobody is clearly accountable for the handover. Use RACI: make one role Accountable for sending the list at fixed times."}];
+const CHECK=["Greet and use the customer's name","Acknowledge the problem and the feeling","Apologise sincerely, without excuses","Say exactly what you will do","Give a time","Offer a next step or follow-up"];
+const CHAT={start:"n0",mood:20,nodes:{
+n0:{c:"My groceries were supposed to arrive at 6. It's now 8, and the ice cream has melted. This is ridiculous.",o:[
+ ["I'm sorry, Mr. Khalid. A two-hour delay with melted items is not acceptable. Let me fix this for you now.",30,"n1","You named the customer, acknowledged the problem and took ownership."],
+ ["Delays happen at busy times. Please be patient.",-20,"n1b","This sounds like an excuse and asks the customer to accept the problem."],
+ ["Please email our support team about refunds.",-25,"n1b","Sending an upset customer to another channel makes them repeat their story."]]},
+n1:{c:"Okay. So what are you going to do about it?",o:[
+ ["I'm refunding the frozen items now and adding a voucher for your next order. Would you like replacements delivered within 45 minutes?",30,"end","Clear action, a time and a choice. This is strong recovery."],
+ ["I can refund you, but I need to ask my manager first. I'll get back to you.",-5,"n2","Honest, but vague. No time is given, so the customer is left waiting again."],
+ ["The driver was stuck in traffic. It wasn't really our fault.",-25,"n2","Blaming others makes the customer feel the business doesn't care."]]},
+n1b:{c:"Seriously? I've been waiting two hours. I want to speak to a manager.",o:[
+ ["You're right, and I'm sorry. I don't want to pass you around. I can solve this myself right now.",30,"n1","You owned the problem instead of passing it on. Trust starts to return."],
+ ["I'll transfer you. Please hold.",-10,"n2","A transfer adds more waiting. Only escalate when you truly can't help."]]},
+n2:{c:"This is the last time I'm using this app.",o:[
+ ["I understand. I've just refunded the frozen items and added a voucher. I'm also reporting this delay so it doesn't happen again.",25,"end","Action plus prevention. The customer sees the problem will be fixed for the future."],
+ ["Sorry you feel that way.",-15,"end","This sounds like you are blaming the customer's feelings, not the service."]]}}};
+const DEESC=[
+{c:"\"I've explained this three times already!\"",o:["I'm sorry you've had to repeat yourself. I have your details here, so let me take it from now.","Please explain it again from the beginning.","That's not my department."],a:0,why:"Acknowledge the frustration and remove the need to repeat."},
+{c:"\"Your staff were rude to me.\"",o:["Our staff are always polite.","I'm sorry. That's not how we want anyone to be treated. Can you tell me what happened?","Do you know the staff member's name? Otherwise I can't do anything."],a:1,why:"Apologise and listen first. Never defend before you understand."},
+{c:"\"I want a full refund right now.\"",o:["We don't give refunds.","I understand. Let me check what happened, and I'll tell you your options in the next five minutes.","Calm down, please."],a:1,why:"Show you are acting, and give a time. Never tell an upset customer to calm down."},
+{c:"\"The chatbot keeps giving me the same useless answer.\"",o:["The chatbot is usually correct.","Try asking it in a different way.","I'm sorry. Let me help you personally. What do you need?"],a:2,why:"When AI fails, a person must take over quickly and smoothly."},
+{c:"\"I'm posting this on social media.\"",o:["That's your choice.","I understand why you're upset. I'd like to fix this first. Can I call you in ten minutes with a solution?","Please don't do that, it will hurt our business."],a:1,why:"Focus on solving the problem, not on stopping the post."},
+{c:"\"You charged me twice!\"",o:["I'm sorry about that. I can see both charges. I'm cancelling the second one now; you'll get a confirmation email within one hour.","The bank must have made a mistake.","It will probably correct itself."],a:0,why:"Confirm, act and give a clear time."}];
+
+const FILES=[["slides.pdf","Slides PDF"],["workbook.html","E-workbook"],["quiz.html","Practice quiz"]];
+const K={cap:"ccl5-capstone",lab:"ccl5-lab",big:"ccl5-big"};
 const pad=n=>String(n).padStart(2,"0");
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ic=n=>`<svg class="i" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-const avail={};
-async function exists(u){try{const r=await fetch(u,{method:"HEAD",cache:"no-store"});return r.ok}catch(e){return false}}
-async function formLink(dir){try{const r=await fetch(dir+"form.txt",{cache:"no-store"});if(!r.ok)return null;const t=(await r.text()).trim();return /^https:\/\/\S+$/.test(t)?t:null}catch(e){return null}}
-const ready=Promise.all(SESSIONS.map(async s=>{const dir=`week${pad(s.n)}/`;const f=await Promise.all(FILES.map(([x])=>exists(dir+x)));avail[s.n]={dir,f,form:await formLink(dir)}})).then(()=>{store.set("ccl5-avail",avail)});
 const U=s=>UNITS[s.u];
-function matBtns(n){const a=avail[n];if(!a)return `<p class="muted">Checking materials…</p>`;
- let h=FILES.map(([f,l],i)=>a.f[i]?`<a class="btn${i===0?" primary":""}" href="${a.dir+f}"${f.endsWith(".pdf")?' target="_blank" rel="noopener"':""}>${l}</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">${l} · soon</a>`).join("");
- h+=a.form?`<a class="btn" href="${esc(a.form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`;
- return `<div class="btns">${h}</div>`}
-function latest(){let L=null;SESSIONS.forEach(s=>{const a=avail[s.n];if(a&&(a.f.some(Boolean)||a.form))L=s});return L}
-function sessCard(s){const u=U(s);return `<a class="card top" style="--u:${u.c};--u-t:${u.t}" href="#/session/${s.n}"><span class="chip">Session ${s.n}${s.exam?"":" · Unit "+s.u}</span><h3>${s.t}</h3><p class="muted" style="font-size:.9em">${s.ch}</p></a>`}
+const S=n=>SESSIONS.find(x=>x.n==n);
 
+/* ---------- material detection ---------- */
+const avail={};
+async function head(u){try{const r=await fetch(u,{method:"HEAD",cache:"no-store"});return r.ok}catch(e){return false}}
+async function text(u){try{const r=await fetch(u,{cache:"no-store"});return r.ok?(await r.text()).trim():null}catch(e){return null}}
+const ready=Promise.all(SESSIONS.map(async s=>{const dir=`week${pad(s.n)}/`;
+ const f=await Promise.all(FILES.map(([x])=>head(dir+x)));
+ const form=await text(dir+"form.txt");const cnt=parseInt(await text(dir+"slides/count.txt"),10);
+ avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0}}));
+function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.form||a.slides)}
+function latest(){let L=null;SESSIONS.forEach(s=>{if(has(s.n))L=s});return L}
+function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Checking materials…</p>`;
+ const b=[];
+ b.push(a.slides||a.f[0]?`<a class="btn primary" href="#/session/${n}/slides">${ic("sessions")}Slides</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Slides · soon</a>`);
+ b.push(a.f[1]?`<a class="btn" href="${a.dir}workbook.html">E-workbook</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">E-workbook · soon</a>`);
+ b.push(a.f[2]?`<a class="btn" href="${a.dir}quiz.html">Practice quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Practice quiz · soon</a>`);
+ b.push(a.form?`<a class="btn" href="${esc(a.form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
+ return `<div class="btns">${b.join("")}</div>`}
+
+/* ---------- shared bits ---------- */
+const crumbs=(...p)=>`<nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Level 5</a>${p.map(x=>`<span aria-hidden="true">›</span>${x[1]?`<a href="${x[1]}">${x[0]}</a>`:`<span aria-current="page">${x[0]}</span>`}`).join("")}</nav>`;
+function strip(n,sub=""){const prev=S(n-1),next=S(n+1);
+ return `<div class="strip">${prev?`<a class="iconbtn" href="#/session/${prev.n}${sub}" aria-label="Previous: Session ${prev.n}">${ic("left")}</a>`:`<span class="iconbtn" aria-hidden="true" style="opacity:.35">${ic("left")}</span>`}
+ <div class="dots">${SESSIONS.map(s=>{const u=U(s);return `<a href="#/session/${s.n}" class="${s.exam?"exam":""}" style="--u:${u.c};--u-t:${u.t}" title="Session ${s.n}: ${esc(s.t)}"${s.n==n?' aria-current="page"':""}>${s.n}</a>`}).join("")}</div>
+ ${next?`<a class="iconbtn" href="#/session/${next.n}${sub}" aria-label="Next: Session ${next.n}">${ic("right")}</a>`:`<span class="iconbtn" aria-hidden="true" style="opacity:.35">${ic("right")}</span>`}</div>`}
+const sessCard=s=>{const u=U(s);return `<a class="card top" style="--u:${u.c};--u-t:${u.t}" href="#/session/${s.n}"><span class="chip">${s.exam?"Exam":"Unit "+s.u} · Session ${s.n}</span><h3>${s.t}</h3><p class="muted" style="font-size:.9em">${s.exam?s.fr:"Foundation reading: "+s.fr}</p></a>`};
+
+/* ---------- views ---------- */
 const V={
-home(){const L=latest();return `<div class="hero"><div><p class="muted" style="font-weight:600">Learnovate Qatar · 12 weeks · one 2-hour session per week</p><h1>Customer Care Management, Level 5</h1><p class="lede">Your study companion: weekly slides, e-workbooks, practice quizzes and the models you use to analyse service like a manager.</p><p class="muted" style="margin-top:12px;font-size:.9em">Built and taught by Ms. Maria F. Tongga, BSN, RN, RM</p></div>
-<div class="now"><p class="muted" style="font-weight:600">Latest materials</p>${L?`<h3>Session ${L.n} · ${L.t}</h3>${matBtns(L.n)}<a href="#/session/${L.n}">Open the session page</a>`:`<h3>Materials appear here after Session 1.</h3>`}</div></div>
-<h2>The four units</h2><div class="grid">${["A","B","C","D"].map(k=>{const u=UNITS[k];const ss=SESSIONS.filter(s=>s.u===k).map(s=>s.n);return `<a class="card top" style="--u:${u.c}" href="#/sessions"><span class="muted" style="font-size:.85em;font-weight:600">Unit ${k} · Sessions ${ss[0]}–${ss[ss.length-1]}</span><h3>${u.name}</h3></a>`}).join("")}</div>
-<h2>Start here</h2><div class="grid"><a class="card" href="#/models"><h3>My 11 models</h3><p class="muted">The Level 5 tools you use to analyse and recommend.</p></a><a class="card" href="#/study"><h3>Study</h3><p class="muted">Key-term flashcards and sentence frames.</p></a><a class="card" href="#/progress"><h3>My progress</h3><p class="muted">Capstone tracker and practice quiz scores.</p></a></div>`},
-sessions(){return `<h1>Sessions</h1><p class="lede muted">Each session page has its slides, e-workbook, practice quiz and exit ticket. Buttons switch on when Ms. Maria uploads the materials.</p>`+["A","B","X1","C","D","X2"].map(k=>{const list=k==="X1"?SESSIONS.filter(s=>s.n===7):k==="X2"?SESSIONS.filter(s=>s.n===12):SESSIONS.filter(s=>s.u===k);const title=k==="X1"?"Midterm":k==="X2"?"Final":"Unit "+k+" · "+UNITS[k].name;return `<h2>${title}</h2><div class="grid">${list.map(sessCard).join("")}</div>`}).join("")},
-session(n){const s=SESSIONS.find(x=>x.n==n);if(!s)return V.notfound();const u=U(s),m=MODELS[s.model];
- return `<a class="crumb" href="#/sessions">All sessions</a><div style="--u-t:${u.t}"><span class="chip">${s.exam?"Exam session":"Unit "+s.u+" · "+u.name}</span><h1 style="margin-top:10px">Session ${s.n} · ${s.t}</h1><p class="muted">Textbook: ${s.ch}</p></div>
- <h2>Materials</h2><div style="max-width:560px">${matBtns(s.n)}</div>
- ${s.obj?`<h2>By the end of this session, you can</h2><ol class="steps" style="--u-t:${u.t}">${s.obj.map(o=>`<li>${o}</li>`).join("")}</ol>`:""}
- ${s.terms?`<h2>Key terms</h2><div class="terms">${s.terms.map(([a,b])=>`<div><b>${a}</b>${b}</div>`).join("")}</div><div class="row" style="margin-top:12px"><a class="btn" href="#/study/${s.n}">Practise with flashcards</a></div>`:(s.exam?"":`<p class="muted" style="margin-top:16px">Key terms appear here when this session's materials are ready.</p>`)}
- ${m?`<h2>Level 5 model</h2><a class="card top" style="--u:${u.c};max-width:560px" href="#/model/${s.model}"><h3>${m.t}</h3><p class="muted">${m.what}</p></a>`:""}
- ${s.cap?`<h2>Capstone step</h2><div class="frame" style="max-width:640px">${s.cap}</div>`:""}
- ${s.n===7?`<h2>What to expect</h2><p>Hour 1: guided review of Sessions 1–6. Hour 2: a case-study exam. You read a short workplace situation, analyse it with the course models and recommend action.</p>`:""}`},
-models(){return `<h1>My 11 models</h1><p class="lede muted">Each model is a tool for Level 5 thinking: analyse a situation, then recommend and justify action.</p><div class="grid" style="margin-top:20px">${Object.entries(MODELS).map(([k,m])=>{const s=SESSIONS.find(x=>x.n===m.s),u=U(s);return `<a class="card top" style="--u:${u.c};--u-t:${u.t}" href="#/model/${k}"><span class="chip">Session ${m.s}</span><h3>${m.t}</h3><p class="muted" style="font-size:.92em">${m.what}</p></a>`}).join("")}</div>`},
-model(k){const m=MODELS[k];if(!m)return V.notfound();const s=SESSIONS.find(x=>x.n===m.s),u=U(s);
- return `<a class="crumb" href="#/models">All models</a><span class="chip" style="--u-t:${u.t};display:table">Session ${m.s} · ${s.t}</span><h1 style="margin-top:10px">${m.t}</h1><p class="lede">${m.what}</p>
- <h2>Use it in three steps</h2><ol class="steps" style="--u-t:${u.t};max-width:680px">${m.steps.map(x=>`<li>${x}</li>`).join("")}</ol>
- <h2>Sentence frame</h2><div class="frame" style="max-width:680px">"${m.frame}"</div><p class="muted" style="margin-top:16px;font-size:.88em">Source: ${m.src}</p>
- <div class="row" style="margin-top:20px"><a class="btn" href="#/session/${m.s}">Go to Session ${m.s}</a></div>`},
-quizzes(){return `<h1>Quizzes and exams</h1><p class="lede muted">Practice quizzes on this site do not count toward your grade. Try them as many times as you like. Graded exit tickets are on Google Forms.</p>
+home(){const L=latest();const done=store.get(K.cap,[]).length,total=SESSIONS.filter(s=>s.cap).length;
+ return `<div class="hero"><div style="padding:6px 0"><p class="muted" style="font-weight:600">Learnovate Qatar · 12 sessions · 2 hours each</p><h1>Customer Care Management, Level 5</h1><p class="lede">Manage, measure and improve customer service like a manager. Your slides, e-workbooks, practice quizzes, Level 5 models and Practice Lab, all in one place.</p><p class="muted" style="margin-top:12px;font-size:.88em">Built and taught by Ms. Maria F. Tongga, BSN, RN, RM</p>
+ <div class="row" style="margin-top:18px"><a class="btn primary" href="#/sessions">${ic("sessions")}Go to sessions</a><a class="btn" href="#/lab">${ic("lab")}Practice Lab</a></div></div>
+ <div class="now"><p style="font-weight:600;opacity:.85">This week</p>${L?`<h3 style="font-size:1.25rem">Session ${L.n} · ${L.t}</h3>${matBtns(L.n)}<a href="#/session/${L.n}">Open the session page</a>`:`<h3 style="font-size:1.2rem">Materials appear here after Session 1.</h3>`}
+ <div style="margin-top:6px"><p style="font-size:13px;opacity:.85">Capstone: ${done} of ${total} steps</p><div class="prog" style="background:rgba(255,255,255,.18)"><div style="width:${done/total*100}%"></div></div></div></div></div>
+ <h2>Four units</h2><div class="units">${["A","B","C","D"].map(k=>{const u=UNITS[k],ss=SESSIONS.filter(s=>s.u===k).map(s=>s.n);return `<a class="card top" style="--u:${u.c}" href="#/sessions#u${k}"><span class="muted" style="font-size:.82em;font-weight:600">Unit ${k} · Sessions ${ss[0]}–${ss[ss.length-1]}</span><h3>${u.name}</h3></a>`}).join("")}</div>
+ <h2>Explore</h2><div class="grid"><a class="card" href="#/models"><span class="chip">${ic("book")}Level 5</span><h3>My 11 models</h3><p class="muted">The tools you use to analyse a situation and justify a recommendation.</p></a><a class="card" href="#/lab"><span class="chip" style="--u-t:var(--b-t)">${ic("lab")}Hands-on</span><h3>Practice Lab</h3><p class="muted">Ticket queue, live chat simulator and de-escalation practice.</p></a><a class="card" href="#/study"><span class="chip" style="--u-t:var(--a-t)">${ic("study")}Revise</span><h3>Study</h3><p class="muted">Key-term flashcards and sentence frames.</p></a></div>`},
+sessions(){return crumbs(["Sessions"])+`<h1>Sessions</h1><p class="lede muted">Each session page has slides, an e-workbook, a practice quiz and the exit ticket. Buttons switch on when Ms. Maria uploads the materials.</p>`+["A","B","X1","C","D","X2"].map(k=>{const list=k==="X1"?[S(7)]:k==="X2"?[S(12)]:SESSIONS.filter(s=>s.u===k);const u=UNITS[k[0]];const title=k==="X1"?"Midterm":k==="X2"?"Final":`Unit ${k} · ${u.name}`;return `<h2 id="u${k}" style="display:flex;align-items:center;gap:10px"><i style="width:10px;height:26px;border-radius:4px;background:${u.c};display:inline-block"></i>${title}</h2><div class="grid">${list.map(sessCard).join("")}</div>`}).join("")},
+session(n,sub){const s=S(n);if(!s)return V.notfound();if(sub==="slides")return V.slides(n);const u=U(s),m=MODELS[s.model];document.documentElement.style.setProperty("--accent",u.c);
+ return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div style="--u-t:${u.t}"><span class="chip">${s.exam?"Exam session":"Unit "+s.u+" · "+u.name}</span><h1 style="margin-top:10px">Session ${s.n} · ${s.t}</h1></div>
+ <div class="sec"><h2>${ic("sessions")}Materials</h2><div style="max-width:620px">${matBtns(s.n)}</div></div>
+ <div class="two">
+  <div class="sec"><h2>${ic("book")}Foundation reading <span class="tag">Level 4 text</span></h2><p>${s.fr}</p><p class="muted" style="margin-top:6px;font-size:.92em">The course textbook gives the foundation. Level 5 builds on it with the model, reading and capstone below.</p></div>
+  ${m?`<div class="sec"><h2>${ic("book")}Level 5 reading</h2><div class="read"><small>${esc(m.src)}</small><p>${m.read}</p></div></div>`:`<div class="sec"><h2>What to expect</h2><p>${s.n===7?"Hour 1: guided review of Sessions 1–6. Hour 2: a case-study exam. You read a short workplace situation, analyse it with the course models and recommend action.":""}</p></div>`}
+ </div>
+ ${s.obj?`<div class="sec" style="--u-t:${u.t}"><h2>By the end of this session, you can</h2><ol class="steps">${s.obj.map(o=>`<li>${o}</li>`).join("")}</ol></div>`:""}
+ ${s.terms?`<div class="sec"><h2>${ic("study")}Key terms</h2><div class="terms">${s.terms.map(([a,b])=>`<div><b>${a}</b>${b}</div>`).join("")}</div><div class="row" style="margin-top:12px"><a class="btn" href="#/study/${s.n}">Practise with flashcards</a></div></div>`:(s.exam?"":`<div class="sec"><h2>${ic("study")}Key terms</h2><p class="muted">Key terms appear here when this session's materials are ready.</p></div>`)}
+ ${m?`<div class="sec"><h2>${ic("lab")}Level 5 model</h2><a class="card top" style="--u:${u.c};max-width:620px" href="#/model/${s.model}"><h3>${m.t}</h3><p class="muted">${m.what}</p></a></div>`:""}
+ ${s.cap?`<div class="sec"><h2>${ic("progress")}Capstone step</h2><div class="frame" style="max-width:680px">${s.cap}</div><div class="row" style="margin-top:12px"><a class="btn soft" href="#/progress">Tick it in My progress</a></div></div>`:""}`},
+slides(n){const s=S(n),a=avail[n]||{};
+ const body=a.slides?`<div class="viewer" id="viewer"><div class="stage" id="stage"><img id="slideImg" alt=""></div><div class="ctl"><button class="iconbtn" id="sPrev" type="button" aria-label="Previous slide">${ic("left")}</button><span id="sCount" aria-live="polite"></span><button class="iconbtn" id="sNext" type="button" aria-label="Next slide">${ic("right")}</button><button class="iconbtn" id="sFull" type="button" aria-label="Full screen">${ic("full")}</button></div></div>
+ <p class="muted" style="margin-top:10px;font-size:.9em">Swipe, tap the arrows or use the arrow keys.</p>`:a.f&&a.f[0]?`<div class="empty"><p>The slides for this session are available as a PDF.</p></div>`:`<div class="empty"><p>The slides for this session are coming soon.</p></div>`;
+ return crumbs(["Sessions","#/sessions"],[`Session ${n}`,`#/session/${n}`],["Slides"])+strip(n,"/slides")+`<h1>Session ${n} slides</h1><p class="muted" style="margin-bottom:16px">${s.t}</p>${body}
+ <div class="row" style="margin-top:14px">${a.f&&a.f[0]?`<a class="btn" href="${a.dir}slides.pdf" target="_blank" rel="noopener">${ic("down")}Download PDF</a>`:""}<a class="btn soft" href="#/session/${n}">Back to Session ${n}</a></div>`},
+models(){return crumbs(["My 11 models"])+`<h1>My 11 models</h1><p class="lede muted">Each model is a tool for Level 5 thinking: analyse a situation, then recommend and justify action.</p><div class="grid" style="margin-top:20px">${Object.entries(MODELS).map(([k,m])=>{const u=U(S(m.s));return `<a class="card top" style="--u:${u.c};--u-t:${u.t}" href="#/model/${k}"><span class="chip">Session ${m.s}</span><h3>${m.t}</h3><p class="muted" style="font-size:.92em">${m.what}</p></a>`}).join("")}</div>`},
+model(k){const m=MODELS[k];if(!m)return V.notfound();const s=S(m.s),u=U(s);document.documentElement.style.setProperty("--accent",u.c);
+ return crumbs(["My 11 models","#/models"],[m.t])+`<span class="chip" style="--u-t:${u.t}">Session ${m.s} · ${s.t}</span><h1 style="margin-top:10px">${m.t}</h1><p class="lede">${m.what}</p>
+ <div class="sec" style="--u-t:${u.t}"><h2>Use it in three steps</h2><ol class="steps">${m.steps.map(x=>`<li>${x}</li>`).join("")}</ol></div>
+ <div class="two"><div class="sec"><h2>Sentence frame</h2><div class="frame">"${m.frame}"</div></div><div class="sec"><h2>${ic("book")}Level 5 reading</h2><div class="read"><small>${esc(m.src)}</small><p>${m.read}</p></div></div></div>
+ <div class="row" style="margin-top:18px"><a class="btn" href="#/session/${m.s}">Go to Session ${m.s}</a></div>`},
+lab(){const done=store.get(K.lab,{});
+ const c=(h,t,d,col,tint,k)=>`<a class="labcard" href="${h}" style="background:${tint};border-top:6px solid ${col}"><span class="chip" style="background:#fff">${done[k]?"Completed":"Not started"}</span><h3 style="font-size:1.2rem">${t}</h3><p>${d}</p></a>`;
+ return crumbs(["Practice Lab"])+`<h1>Practice Lab</h1><p class="lede muted">Practise real customer situations safely. Each activity ends with a manager's question, because at Level 5 you don't only respond, you improve the system.</p>
+ <div class="grid" style="margin-top:20px">${c("#/lab/tickets","Ticket queue","Prioritise four real-style messages, decide AI or person, write the reply and compare it with a model.","#6D5BD0","#ECE9FA","tickets")}${c("#/lab/chat","Live chat simulator","Calm an upset customer in a live chat. Every choice moves the customer's mood.","#E76F51","#FCE9E3","chat")}${c("#/lab/deescalate","De-escalation practice","Six difficult sentences. Choose the response that calms the situation and learn why.","#E9B44C","#FBF2DC","deescalate")}</div>
+ <p class="muted" style="margin-top:16px;font-size:.9em">Linked sessions: Ticket queue (Sessions 6, 9 and 10), Live chat (Sessions 9 and 10), De-escalation (Session 10). Practice only; nothing here is graded.</p>`},
+tickets(){return crumbs(["Practice Lab","#/lab"],["Ticket queue"])+`<h1>Ticket queue</h1><p class="lede muted">For each message: set the priority, decide who should handle it, write your reply, then compare it with the model.</p>`+TICKETS.map((t,i)=>`<div class="ticket" data-t="${i}"><div class="meta"><span class="chip" style="--u-t:var(--c-t)">${t.ch}</span><span>From: ${t.from}</span><span>Session ${t.s}</span></div>
+ <blockquote>${t.text}</blockquote>
+ <p style="font-weight:600;margin-top:4px">1. Priority</p><div class="opts" data-q="pr">${["High","Medium","Low"].map(o=>`<button type="button" class="pick" aria-pressed="false">${o}</button>`).join("")}</div>
+ <p style="font-weight:600;margin-top:10px">2. Who should handle it?</p><div class="opts" data-q="who">${["AI","Person"].map(o=>`<button type="button" class="pick" aria-pressed="false">${o}</button>`).join("")}</div>
+ <p style="font-weight:600;margin-top:10px"><label for="r${i}">3. Your reply</label></p><textarea class="ta" id="r${i}" placeholder="Write your reply here"></textarea>
+ <div class="row" style="margin-top:10px"><button class="btn primary" type="button" data-act="check">Compare with the model</button></div><div data-out></div></div>`).join("")},
+chat(){return crumbs(["Practice Lab","#/lab"],["Live chat simulator"])+`<h1>Live chat simulator</h1><p class="lede muted">Mr. Khalid's grocery delivery is two hours late. You are the live chat agent. Choose your replies.</p>
+ <div class="chat" id="chat" style="margin-top:16px"><div class="mood"><span>Customer mood</span><div class="m"><i id="moodDot" style="left:20%"></i></div></div><div id="log" aria-live="polite" style="display:grid;gap:10px"></div><div class="choice" id="choices"></div></div>`},
+deescalate(){return crumbs(["Practice Lab","#/lab"],["De-escalation practice"])+`<h1>De-escalation practice</h1><p class="lede muted">Choose the response that calms the situation.</p><div id="de"></div><p id="deScore" style="font-weight:600;margin-top:16px" aria-live="polite"></p>`},
+quizzes(){return crumbs(["Quizzes and exams"])+`<h1>Quizzes and exams</h1><p class="lede muted">Practice quizzes do not count toward your grade. Try them as often as you like. Graded exit tickets are on Google Forms.</p>
  <h2>Practice quizzes</h2><div class="grid">${SESSIONS.filter(s=>!s.exam).map(s=>{const a=avail[s.n],ok=a&&a.f[2],best=store.get(`ccl5-quiz-w${s.n}`,null);return `<div class="card top" style="--u:${U(s).c}"><span class="muted" style="font-size:.85em;font-weight:600">Session ${s.n}</span><h3>${s.t}</h3>${best?`<p class="muted">Best score: ${best.best} of ${best.total}</p>`:""}${ok?`<a class="btn primary" href="${a.dir}quiz.html">Start the quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Coming soon</a>`}</div>`}).join("")}</div>
- <h2>Exams</h2><div class="list"><div><b>Midterm · Session 7 · 25%</b><p>Case-study exam on Sessions 1–6. Analyse a workplace situation and recommend action.</p></div><div><b>Final · Session 12 · 30%</b><p>Case-study exam on all outcomes.</p></div><div><b>Capstone · Session 12 · 35%</b><p>Report of about 1,500 words and a 10-minute presentation.</p></div><div><b>Exit tickets · 10%</b><p>Three questions at the end of every session, on Google Forms.</p></div></div>`},
-study(n){const pool=SESSIONS.filter(s=>s.terms&&(!n||s.n==n)).flatMap(s=>s.terms.map(t=>[...t,s.n]));
- const frames=Object.values(MODELS).map(m=>[m.t,m.frame]);
- return `<h1>Study</h1><p class="lede muted">Flashcards for every key term taught so far, and the sentence frames for each model.</p>
- <h2>Flashcards${n?" · Session "+n:""}</h2>${pool.length?`<div class="row"><label for="fsel">Choose:</label><select id="fsel" class="icon" style="padding:0 12px"><option value="">All sessions</option>${SESSIONS.filter(s=>s.terms).map(s=>`<option value="${s.n}"${s.n==n?" selected":""}>Session ${s.n}</option>`).join("")}</select></div>
- <div class="flash"><button class="cardf" id="fc" type="button" aria-live="polite"></button></div><div class="row"><button class="btn" id="fprev" type="button">Previous</button><span id="fcount" class="muted"></span><button class="btn" id="fnext" type="button">Next</button><button class="btn" id="fshuf" type="button">Shuffle</button></div><p class="muted" style="margin-top:8px;font-size:.9em">Tap the card to see the meaning.</p>`:`<p>Flashcards appear after Session 1.</p>`}
- <h2>Sentence frames</h2><div class="list">${frames.map(([t,f])=>`<div><b>${t}</b><p>"${f}"</p></div>`).join("")}</div>`},
-progress(){const done=new Set(store.get(CAP_KEY,[]));const caps=SESSIONS.filter(s=>s.cap);
- const parts={A:"Part A · Customer insight",B:"Part B · Leadership and performance",C:"Part C · Communication and channels",D:"Part D · Recovery and loyalty"};
- const partOf=s=>s.u==="X"?"D":s.u;
- const scores=SESSIONS.filter(s=>!s.exam).map(s=>[s,store.get(`ccl5-quiz-w${s.n}`,null)]).filter(x=>x[1]);
- return `<h1>My progress</h1><p class="lede muted">Saved on this device only. If you change phones, your ticks start again, so keep your capstone writing in your capstone document too.</p>
- <h2>Capstone tracker</h2><div class="track"><p style="font-weight:600" id="pt"></p><div class="prog" role="progressbar" aria-label="Capstone progress" aria-valuemin="0" aria-valuemax="${caps.length}" id="pb"><div id="pf"></div></div>
- ${Object.entries(parts).map(([p,name])=>`<h3 style="margin-top:16px;display:flex;gap:10px;align-items:center"><i style="width:10px;height:22px;border-radius:3px;background:${UNITS[p].c};display:inline-block"></i>${name}</h3>`+caps.filter(s=>partOf(s)===p).map(s=>{const i=s.n;return `<label class="stepc${done.has(i)?" done":""}"><input type="checkbox" data-step="${i}"${done.has(i)?" checked":""}><span>Session ${s.n}: ${s.cap}</span></label>`}).join("")).join("")}</div>
- <h2>Practice quiz scores</h2>${scores.length?`<div class="list">${scores.map(([s,v])=>`<div><b>Session ${s.n}</b><p>Best: ${v.best} of ${v.total} · Last: ${v.last} of ${v.total}</p></div>`).join("")}</div>`:`<p class="muted">Finish a practice quiz to see your scores here.</p>`}`},
-tools(){return `<h1>Tools</h1><div class="grid" style="margin-top:20px"><a class="card" href="#/syllabus"><h3>Syllabus</h3><p class="muted">Course aims, outcomes, map and assessment.</p></a><a class="card" href="#/glossary"><h3>Glossary</h3><p class="muted">Every key term in one list.</p></a><a class="card" href="#/downloads"><h3>Downloads</h3><p class="muted">Slides and the syllabus as PDFs.</p></a><a class="card" href="#/progress"><h3>My progress</h3><p class="muted">Capstone tracker and quiz scores.</p></a><a class="card" href="#/help"><h3>How to use this site</h3><p class="muted">A one-minute guide.</p></a><a class="card" href="#/install"><h3>Install the app</h3><p class="muted">Add the course to your home screen.</p></a></div>`},
-syllabus(){return `<h1>Syllabus</h1><p class="lede">Manage, measure and improve customer service in a modern, technology-supported organisation.</p>
- <h2>Learning outcomes</h2><ol class="steps"><li>Analyse customer needs and expectations using research and data</li><li>Evaluate how leadership and culture affect service quality</li><li>Evaluate service performance using KPIs, including AI-era metrics</li><li>Assess communication channels, human and AI, for different customer situations</li><li>Design and justify improvements to complaints handling and customer loyalty</li></ol>
- <h2>Every session works the same way</h2><div class="list"><div><b>0:00–0:10</b><p>Warm-up and 8 key terms</p></div><div><b>0:10–0:40</b><p>Book core</p></div><div><b>0:40–1:00</b><p>Level 5 model</p></div><div><b>1:00–1:10</b><p>Break</p></div><div><b>1:10–1:30</b><p>Tech layer</p></div><div><b>1:30–1:50</b><p>Practice: case study or role-play</p></div><div><b>1:50–2:00</b><p>Capstone step and exit ticket</p></div></div>
- <h2>Grading</h2><div class="list"><div><b>Pass</b><p>Explains the key ideas clearly and applies each model correctly.</p></div><div><b>Merit</b><p>Everything for Pass, plus analysis supported by evidence and data.</p></div><div><b>Distinction</b><p>Everything for Merit, plus comparing options, justifying recommendations and naming the risks.</p></div></div>
- <h2>Policies</h2><div class="list"><div><b>Using AI tools</b><p>Allowed for drafting and checking your English. Your analysis and recommendations must be your own. State how you used AI in your capstone report.</p></div><div><b>Attendance</b><p>Each missed session also means a missed capstone step. Follow Learnovate's attendance policy.</p></div><div><b>Bring</b><p>Your textbook, a charged phone and your capstone document.</p></div></div>
- <div class="row" style="margin-top:16px"><a class="btn" href="#/downloads">Download the syllabus</a></div>`},
+ <h2>Exams</h2><div class="list"><div><b>Midterm · Session 7 · 25%</b><p>Case-study exam on Sessions 1–6.</p></div><div><b>Final · Session 12 · 30%</b><p>Case-study exam on all outcomes.</p></div><div><b>Capstone · Session 12 · 35%</b><p>Report of about 1,500 words and a 10-minute presentation.</p></div><div><b>Exit tickets · 10%</b><p>Three questions at the end of every session, on Google Forms.</p></div></div>`},
+study(n){const has=SESSIONS.filter(s=>s.terms);
+ return crumbs(["Study"])+`<h1>Study</h1><p class="lede muted">Flashcards for every key term so far, and the sentence frame for each model.</p>
+ <div class="sec"><h2>${ic("study")}Flashcards</h2>${has.length?`<div class="row"><label for="fsel">Session</label><select id="fsel" class="sel"><option value="">All sessions</option>${has.map(s=>`<option value="${s.n}"${s.n==n?" selected":""}>Session ${s.n}</option>`).join("")}</select></div>
+ <div class="flash"><button class="cardf" id="fc" type="button" aria-live="polite"></button></div><div class="row"><button class="btn" id="fprev" type="button">${ic("left")}Previous</button><span id="fcount" class="muted"></span><button class="btn" id="fnext" type="button">Next${ic("right")}</button><button class="btn soft" id="fshuf" type="button">Shuffle</button></div><p class="muted" style="margin-top:8px;font-size:.9em">Tap the card to see the meaning.</p>`:`<p>Flashcards appear after Session 1.</p>`}</div>
+ <div class="sec"><h2>Sentence frames</h2><div class="list" style="border:none">${Object.values(MODELS).map(m=>`<div><b>${m.t}</b><p>"${m.frame}"</p></div>`).join("")}</div></div>`},
+progress(){const done=new Set(store.get(K.cap,[]));const caps=SESSIONS.filter(s=>s.cap);
+ const parts={A:"Part A · Customer insight",B:"Part B · Leadership and performance",C:"Part C · Communication and channels",D:"Part D · Recovery and loyalty"};const partOf=s=>s.u==="X"?"D":s.u;
+ const scores=SESSIONS.filter(s=>!s.exam).map(s=>[s,store.get(`ccl5-quiz-w${s.n}`,null)]).filter(x=>x[1]);const lab=store.get(K.lab,{});
+ return crumbs(["My progress"])+`<h1>My progress</h1><p class="lede muted">Saved on this device. Keep your capstone writing in your capstone document as well.</p>
+ <div class="track" style="margin-top:16px"><h2 style="margin:0">Capstone tracker</h2><p style="font-weight:600;margin-top:6px" id="pt"></p><div class="prog" role="progressbar" aria-label="Capstone progress" aria-valuemin="0" aria-valuemax="${caps.length}" id="pb"><div id="pf"></div></div>
+ ${Object.entries(parts).map(([p,name])=>`<h3 style="margin-top:16px;display:flex;gap:10px;align-items:center"><i style="width:10px;height:22px;border-radius:3px;background:${UNITS[p].c};display:inline-block"></i>${name}</h3>`+caps.filter(s=>partOf(s)===p).map(s=>`<label class="stepc${done.has(s.n)?" done":""}"><input type="checkbox" data-step="${s.n}"${done.has(s.n)?" checked":""}><span>Session ${s.n}: ${s.cap}</span></label>`).join("")).join("")}</div>
+ <div class="two"><div class="sec"><h2>Practice quiz scores</h2>${scores.length?scores.map(([s,v])=>`<p><b>Session ${s.n}</b> · best ${v.best} of ${v.total} · last ${v.last} of ${v.total}</p>`).join(""):`<p class="muted">Finish a practice quiz to see your scores here.</p>`}</div>
+ <div class="sec"><h2>Practice Lab</h2><p>Ticket queue: ${lab.tickets?"completed":"not started"}</p><p>Live chat: ${lab.chat?`best mood ${lab.chat}%`:"not started"}</p><p>De-escalation: ${lab.deescalate?`best ${lab.deescalate} of ${DEESC.length}`:"not started"}</p></div></div>`},
+tools(){return V.syllabus()},
+syllabus(){return crumbs(["Syllabus"])+`<h1>Syllabus</h1><p class="lede">Manage, measure and improve customer service in a modern, technology-supported organisation.</p>
+ <div class="sec"><h2>Learning outcomes</h2><ol class="steps"><li>Analyse customer needs and expectations using research and data</li><li>Evaluate how leadership and culture affect service quality</li><li>Evaluate service performance using KPIs, including AI-era metrics</li><li>Assess communication channels, human and AI, for different customer situations</li><li>Design and justify improvements to complaints handling and customer loyalty</li></ol></div>
+ <div class="two"><div class="sec"><h2>Every session</h2><div class="list" style="border:none"><div><b>0:00–0:10</b><p>Warm-up and key terms</p></div><div><b>0:10–0:40</b><p>Foundation reading</p></div><div><b>0:40–1:00</b><p>Level 5 model</p></div><div><b>1:00–1:10</b><p>Break</p></div><div><b>1:10–1:30</b><p>Tech layer</p></div><div><b>1:30–1:50</b><p>Practice</p></div><div><b>1:50–2:00</b><p>Capstone step and exit ticket</p></div></div></div>
+ <div class="sec"><h2>Grading</h2><div class="list" style="border:none"><div><b>Pass</b><p>Explains key ideas and applies each model correctly.</p></div><div><b>Merit</b><p>Plus analysis supported by evidence and data.</p></div><div><b>Distinction</b><p>Plus comparing options, justifying recommendations and naming risks.</p></div></div></div></div>
+ <div class="sec"><h2>Policies</h2><div class="list" style="border:none"><div><b>Using AI tools</b><p>Allowed for drafting and checking your English. Your analysis and recommendations must be your own. State how you used AI in your capstone report.</p></div><div><b>Attendance</b><p>Each missed session is also a missed capstone step. Follow Learnovate's attendance policy.</p></div><div><b>Textbook</b><p>The course textbook is a Level 4 text used as foundation reading. Level 5 adds a model, a Level 5 reading and a capstone step every session.</p></div></div></div>
+ <div class="row" style="margin-top:16px"><a class="btn" href="#/downloads">${ic("down")}Download the syllabus</a></div>`},
 glossary(){const all=SESSIONS.filter(s=>s.terms).flatMap(s=>s.terms.map(t=>[...t,s.n])).sort((a,b)=>a[0].localeCompare(b[0]));
- return `<h1>Glossary</h1><p class="lede muted">Key terms from every session so far, A to Z.</p>${all.length?`<div class="list" style="margin-top:16px">${all.map(([a,b,n])=>`<div id="g-${a.replace(/\W+/g,"-")}"><b>${a}</b><p>${b} <a class="muted" href="#/session/${n}" style="font-size:.85em">Session ${n}</a></p></div>`).join("")}</div>`:"<p>Terms appear after Session 1.</p>"}`},
+ return crumbs(["Glossary"])+`<h1>Glossary</h1><p class="lede muted">Key terms from every session so far, A to Z.</p>${all.length?`<div class="list" style="margin-top:16px">${all.map(([a,b,n])=>`<div><b>${a}</b><p>${b} <a class="muted" href="#/session/${n}" style="font-size:.85em">Session ${n}</a></p></div>`).join("")}</div>`:"<p>Terms appear after Session 1.</p>"}`},
 downloads(){const pdfs=SESSIONS.filter(s=>avail[s.n]&&avail[s.n].f[0]);
- return `<h1>Downloads</h1><div class="list" style="margin-top:16px"><div><b>Syllabus</b><p><a href="downloads/syllabus.pdf" target="_blank" rel="noopener">Open the syllabus PDF</a></p></div>${pdfs.map(s=>`<div><b>Session ${s.n} slides</b><p><a href="${avail[s.n].dir}slides.pdf" target="_blank" rel="noopener">${s.t} (PDF)</a></p></div>`).join("")}</div>`},
-help(){return `<h1>How to use this site</h1><ol class="steps" style="max-width:680px;margin-top:16px"><li>After each session, open <b>Sessions</b> and choose that week.</li><li>Review the slides, then complete the <b>e-workbook</b>. It follows the slides task by task.</li><li>Take the <b>practice quiz</b>. Retry until you score 8 or more.</li><li>Complete the graded <b>exit ticket</b> on Google Forms.</li><li>Add your capstone step to your capstone document, then tick it in <b>My progress</b>.</li></ol><p style="margin-top:16px">Questions? <a href="mailto:maria@me.learnovateqa.com">Ask Ms. Maria</a>.</p>`},
-install(){return `<h1>Install the app</h1><p class="lede">Add Customer Care Management to your home screen to open it like an app.</p><div class="list" style="margin-top:16px"><div><b>iPhone or iPad</b><p>Open this site in Safari. Tap the Share button, then <b>Add to Home Screen</b>.</p></div><div><b>Android</b><p>Open this site in Chrome. Tap the menu (three dots), then <b>Install app</b> or <b>Add to Home screen</b>.</p></div></div>`},
+ return crumbs(["Downloads"])+`<h1>Downloads</h1><div class="list" style="margin-top:16px"><div><b>Syllabus</b><p><a href="downloads/syllabus.pdf" target="_blank" rel="noopener">Open the syllabus PDF</a></p></div>${pdfs.map(s=>`<div><b>Session ${s.n} slides</b><p><a href="${avail[s.n].dir}slides.pdf" target="_blank" rel="noopener">${s.t} (PDF)</a></p></div>`).join("")}</div>`},
+help(){return crumbs(["How to use this site"])+`<h1>How to use this site</h1><ol class="steps" style="max-width:700px;margin-top:16px"><li>After each session, open <b>Sessions</b> and choose that week.</li><li>Look through the <b>slides</b>, then complete the <b>e-workbook</b>. It follows the slides task by task.</li><li>Take the <b>practice quiz</b>. Try again until you score 8 or more.</li><li>Complete the graded <b>exit ticket</b> on Google Forms.</li><li>Practise in the <b>Practice Lab</b>, then add your capstone step to your capstone document and tick it in <b>Progress</b>.</li></ol><p style="margin-top:16px">Questions? <a href="mailto:maria@me.learnovateqa.com">Ask Ms. Maria</a>.</p>`},
+install(){return crumbs(["Install the app"])+`<h1>Install the app</h1><p class="lede">Add Customer Care Management to your home screen to open it like an app.</p><div class="list" style="margin-top:16px"><div><b>iPhone or iPad</b><p>Open this site in Safari. Tap Share, then <b>Add to Home Screen</b>.</p></div><div><b>Android</b><p>Open this site in Chrome. Tap the menu (three dots), then <b>Install app</b> or <b>Add to Home screen</b>.</p></div></div>`},
 notfound(){return `<h1>Page not found</h1><p><a href="#/">Go to Home</a></p>`}};
 
-function route(){const h=location.hash.replace(/^#\/?/,"");const [p,arg]=h.split("/");
- const map={"":"home",sessions:"sessions",session:"session",models:"models",model:"model",quizzes:"quizzes",study:"study",progress:"progress",tools:"tools",syllabus:"syllabus",glossary:"glossary",downloads:"downloads",help:"help",install:"install"};
- const v=map[p]!=null?map[p]:"notfound";$("#main").innerHTML=V[v](arg);
- const tab={"":"#/",session:"#/sessions",sessions:"#/sessions",models:"#/sessions",model:"#/sessions",quizzes:"#/sessions",study:"#/study",progress:"#/progress"}[p]||(["tools","syllabus","glossary","downloads","help","install"].includes(p)?"#/tools":"");
- document.querySelectorAll("nav.main a,nav.tabs a").forEach(a=>a.getAttribute("href")===tab?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
- if(v==="study")flash(arg);if(v==="progress")tracker();
+/* ---------- router ---------- */
+const TAB={"":"#/",sessions:"#/sessions",session:"#/sessions",lab:"#/lab",study:"#/study",progress:"#/progress"};
+function route(){const parts=location.hash.replace(/^#\/?/,"").split(/[#/]/);const [p,a,b]=parts;
+ document.documentElement.style.removeProperty("--accent");
+ let html;
+ if(p==="lab"&&a&&V[a])html=V[a]();else{const map={"":"home",sessions:"sessions",session:"session",models:"models",model:"model",lab:"lab",quizzes:"quizzes",study:"study",progress:"progress",tools:"tools",syllabus:"syllabus",glossary:"glossary",downloads:"downloads",help:"help",install:"install"};html=V[map[p]!=null?map[p]:"notfound"](a,b)}
+ $("#main").innerHTML=html;
+ const t=TAB[p]||"";document.querySelectorAll("nav.main a,nav.tabs a").forEach(x=>x.getAttribute("href")===t?x.setAttribute("aria-current","page"):x.removeAttribute("aria-current"));
+ closeAll();
+ if(p==="study")flash(a);if(p==="progress")tracker();if(p==="session"&&b==="slides")viewer(a);
+ if(p==="lab"&&a==="tickets")tickets();if(p==="lab"&&a==="chat")chat();if(p==="lab"&&a==="deescalate")deesc();
+ const anchor=location.hash.split("#")[2];if(anchor){const el=document.getElementById(anchor);if(el){el.scrollIntoView();return}}
  window.scrollTo(0,0);$("#main").focus({preventScroll:true});
- const t=$("#main h1");document.title=(t?t.textContent+" · ":"")+"Customer Care Management L5"}
+ const h=$("#main h1");document.title=(h?h.textContent+" · ":"")+"Customer Care Management L5"}
 window.addEventListener("hashchange",route);
 
+/* ---------- page behaviours ---------- */
 function flash(n){const sel=$("#fsel");if(!sel)return;sel.onchange=()=>location.hash="#/study"+(sel.value?"/"+sel.value:"");
  let cards=SESSIONS.filter(s=>s.terms&&(!n||s.n==n)).flatMap(s=>s.terms),i=0,back=false;const fc=$("#fc");
  const show=()=>{fc.className="cardf"+(back?" back":"");fc.textContent=back?cards[i][1]:cards[i][0];$("#fcount").textContent=`${i+1} of ${cards.length}`};
  fc.onclick=()=>{back=!back;show()};$("#fnext").onclick=()=>{i=(i+1)%cards.length;back=false;show()};$("#fprev").onclick=()=>{i=(i-1+cards.length)%cards.length;back=false;show()};
  $("#fshuf").onclick=()=>{cards=[...cards].sort(()=>Math.random()-.5);i=0;back=false;show()};show()}
-function tracker(){const done=new Set(store.get(CAP_KEY,[]));const total=SESSIONS.filter(s=>s.cap).length;
+function tracker(){const done=new Set(store.get(K.cap,[]));const total=SESSIONS.filter(s=>s.cap).length;
  const upd=()=>{$("#pt").textContent=`${done.size} of ${total} steps done`;$("#pf").style.width=(done.size/total*100)+"%";$("#pb").setAttribute("aria-valuenow",done.size)};
- document.querySelectorAll("[data-step]").forEach(cb=>cb.addEventListener("change",()=>{const i=+cb.dataset.step;cb.checked?done.add(i):done.delete(i);store.set(CAP_KEY,[...done]);cb.closest(".stepc").classList.toggle("done",cb.checked);upd()}));upd()}
+ document.querySelectorAll("[data-step]").forEach(cb=>cb.addEventListener("change",()=>{const i=+cb.dataset.step;cb.checked?done.add(i):done.delete(i);store.set(K.cap,[...done]);cb.closest(".stepc").classList.toggle("done",cb.checked);upd()}));upd()}
+function viewer(n){const a=avail[n];if(!a||!a.slides)return;let i=1;const img=$("#slideImg"),cnt=$("#sCount");
+ const src=k=>`${a.dir}slides/${pad(k)}.jpg`;
+ const go=k=>{i=Math.min(a.slides,Math.max(1,k));img.src=src(i);img.alt=`Slide ${i} of ${a.slides}`;cnt.textContent=`${i} / ${a.slides}`;if(i<a.slides){const p=new Image();p.src=src(i+1)}};
+ $("#sPrev").onclick=()=>go(i-1);$("#sNext").onclick=()=>go(i+1);
+ $("#sFull").onclick=()=>{const v=$("#viewer");if(document.fullscreenElement)document.exitFullscreen();else if(v.requestFullscreen)v.requestFullscreen();else if(v.webkitRequestFullscreen)v.webkitRequestFullscreen()};
+ let x0=null;const st=$("#stage");st.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});st.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)go(dx<0?i+1:i-1);x0=null});
+ st.addEventListener("click",e=>{const r=st.getBoundingClientRect();go(e.clientX-r.left>r.width/2?i+1:i-1)});
+ document.onkeydown=e=>{if(!location.hash.endsWith("/slides"))return;if(e.key==="ArrowRight")go(i+1);if(e.key==="ArrowLeft")go(i-1)};go(1)}
+function markLab(k,v){const d=store.get(K.lab,{});if(typeof v==="number")d[k]=Math.max(d[k]||0,v);else d[k]=true;store.set(K.lab,d)}
+function tickets(){let checked=0;document.querySelectorAll(".ticket").forEach(el=>{const t=TICKETS[+el.dataset.t],ans={};
+ el.querySelectorAll(".opts").forEach(g=>g.querySelectorAll(".pick").forEach(b=>b.onclick=()=>{g.querySelectorAll(".pick").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");ans[g.dataset.q]=b.textContent}));
+ el.querySelector("[data-act=check]").onclick=()=>{const out=el.querySelector("[data-out]");
+  el.querySelectorAll(".opts").forEach(g=>{const right=t[g.dataset.q];g.querySelectorAll(".pick").forEach(b=>{b.classList.remove("right","wrong");if(b.textContent===right)b.classList.add("right");else if(b.getAttribute("aria-pressed")==="true")b.classList.add("wrong")})});
+  out.innerHTML=`<div class="model"><b>Model reply</b><p>${t.model}</p><b style="margin-top:6px">Check your reply. Did you:</b>${CHECK.map((c,j)=>`<label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="width:20px;height:20px;margin-top:3px;accent-color:var(--navy)">${c}</label>`).join("")}<b style="margin-top:6px">Manager's question: what would you investigate?</b><p>${t.root}</p></div>`;
+  if(!el.dataset.done){el.dataset.done=1;checked++;if(checked>=TICKETS.length)markLab("tickets")}}})}
+function chat(){let mood=CHAT.mood,node=CHAT.start;const log=$("#log"),ch=$("#choices"),dot=$("#moodDot");
+ const add=(cls,txt)=>{const d=document.createElement("div");d.className="msg "+cls;d.textContent=txt;log.appendChild(d)};
+ const setMood=()=>{dot.style.left=Math.max(2,Math.min(98,mood))+"%"};
+ const step=()=>{setMood();if(node==="end"){const r=mood>=75?"Mr. Khalid is satisfied and will probably order again.":mood>=45?"Mr. Khalid is calmer, but not convinced. He may not return.":"Mr. Khalid is still angry and likely to leave a bad review.";
+   markLab("chat",Math.round(mood));
+   ch.innerHTML=`<div class="model"><b>Result: customer mood ${Math.round(mood)}%</b><p>${r}</p><b>What strong recovery looks like</b><p>Take ownership, name a clear action, give a time, and fix the cause so it doesn't happen again.</p><b>Manager's question</b><p>Three customers had melted frozen items this week. Using 5 Whys, what would you check first? (Hint: packing, driver routes, or delivery slots at peak times.)</p><div class="row"><a class="btn" href="#/model/recovery">Read: Service Recovery Paradox</a><button class="btn primary" type="button" id="again">Try again</button></div></div>`;$("#again").onclick=chat;return}
+  const n=CHAT.nodes[node];add("c",n.c);ch.innerHTML=n.o.map((o,i)=>`<button type="button" data-i="${i}">${o[0]}</button>`).join("");
+  ch.querySelectorAll("button").forEach(b=>b.onclick=()=>{const o=n.o[+b.dataset.i];add("s",o[0]);mood=Math.max(0,Math.min(100,mood+o[1]));const f=document.createElement("div");f.className="fb "+(o[1]>0?"right":"wrong");f.textContent=o[3];log.appendChild(f);node=o[2];step()})};
+ log.innerHTML="";step()}
+function deesc(){const box=$("#de");let score=0,answered=0;
+ box.innerHTML=DEESC.map((d,i)=>`<div class="ticket" data-d="${i}"><blockquote style="border-left-color:var(--d)">${d.c}</blockquote><div class="choice">${d.o.map((o,j)=>`<button type="button" data-j="${j}">${o}</button>`).join("")}</div><div data-out></div></div>`).join("");
+ box.querySelectorAll(".ticket").forEach(el=>{const d=DEESC[+el.dataset.d];el.querySelectorAll("button").forEach(b=>b.onclick=()=>{if(el.dataset.done)return;el.dataset.done=1;answered++;const j=+b.dataset.j;
+  el.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===d.a)x.classList.add("pick","right")});if(j!==d.a)b.classList.add("pick","wrong");else score++;
+  el.querySelector("[data-out]").innerHTML=`<div class="fb ${j===d.a?"right":"wrong"}"><b>${j===d.a?"Good choice.":"Not the best choice."}</b> ${d.why}</div>`;
+  $("#deScore").textContent=answered<DEESC.length?`${score} of ${answered} so far`:`Finished: ${score} of ${DEESC.length}. ${score>=5?"Strong de-escalation skills.":"Review the reasons above, then try again."}`;
+  if(answered===DEESC.length)markLab("deescalate",score)})})}
 
-/* search */
-const IDX=[...SESSIONS.map(s=>({t:`Session ${s.n} · ${s.t}`,d:s.ch,h:`#/session/${s.n}`,k:`${s.t} ${s.ch} ${(s.terms||[]).map(x=>x.join(" ")).join(" ")} ${s.cap||""}`})),...Object.entries(MODELS).map(([k,m])=>({t:m.t,d:"Model · Session "+m.s,h:`#/model/${k}`,k:m.t+" "+m.what})),...SESSIONS.filter(s=>s.terms).flatMap(s=>s.terms.map(([a,b])=>({t:a,d:b,h:`#/glossary`,k:a+" "+b})))];
-const q=$("#q"),res=$("#results");
-q.addEventListener("input",()=>{const v=q.value.trim().toLowerCase();if(v.length<2){res.hidden=true;return}
- const hits=IDX.filter(x=>x.k.toLowerCase().includes(v)).slice(0,8);res.innerHTML=hits.length?hits.map(x=>`<a href="${x.h}">${esc(x.t)}<small>${esc(x.d)}</small></a>`).join(""):`<a href="#/sessions">No results. Browse all sessions<small>Try a key term such as "touchpoint"</small></a>`;res.hidden=false});
-res.addEventListener("click",()=>{res.hidden=true;q.value=""});
-document.addEventListener("click",e=>{if(!e.target.closest(".search"))res.hidden=true});
-q.addEventListener("keydown",e=>{if(e.key==="Escape"){res.hidden=true;q.blur()}});
+/* ---------- search ---------- */
+const IDX=[...SESSIONS.map(s=>({t:`Session ${s.n} · ${s.t}`,d:s.fr,h:`#/session/${s.n}`,k:`${s.t} ${s.fr} ${(s.terms||[]).map(x=>x.join(" ")).join(" ")} ${s.cap||""}`})),
+ ...Object.entries(MODELS).map(([k,m])=>({t:m.t,d:"Level 5 model · Session "+m.s,h:`#/model/${k}`,k:m.t+" "+m.what+" "+m.read})),
+ ...SESSIONS.filter(s=>s.terms).flatMap(s=>s.terms.map(([a,b])=>({t:a,d:b,h:`#/glossary`,k:a+" "+b}))),
+ {t:"Practice Lab",d:"Ticket queue, live chat, de-escalation",h:"#/lab",k:"practice lab ticket chat complaint de-escalation angry customer"}];
+const sb=$("#search"),q=$("#q"),res=$("#results");
+function openSearch(){sb.hidden=false;q.value="";q.focus()}
+function closeSearch(){sb.hidden=true}
+$("#openSearch").onclick=openSearch;$("#closeSearch").onclick=closeSearch;
+q.addEventListener("input",()=>{const v=q.value.trim().toLowerCase();if(v.length<2){res.innerHTML=`<p class="muted" style="margin-top:14px">Try "touchpoint", "Kano" or "complaints".</p>`;return}
+ const hits=IDX.filter(x=>x.k.toLowerCase().includes(v)).slice(0,10);res.innerHTML=hits.length?hits.map(x=>`<a href="${x.h}">${esc(x.t)}<small>${esc(x.d)}</small></a>`).join(""):`<p class="muted" style="margin-top:14px">No results for "${esc(q.value)}".</p>`});
+res.addEventListener("click",e=>{if(e.target.closest("a"))closeSearch()});
 
-/* text size */
-const aa=$("#aa");if(store.get("ccl5-big",false)){document.body.classList.add("big");aa.setAttribute("aria-pressed","true")}
-aa.onclick=()=>{const on=document.body.classList.toggle("big");aa.setAttribute("aria-pressed",on);store.set("ccl5-big",on)};
-
-/* focus sound: generated in the browser, no audio files */
+/* ---------- drawer, text size, sound ---------- */
+const dr=$("#drawer"),sc=$("#scrim");
+function closeAll(){dr.hidden=true;sc.hidden=true;$("#openMenu").setAttribute("aria-expanded","false");closeSearch()}
+$("#openMenu").onclick=()=>{dr.hidden=false;sc.hidden=false;$("#openMenu").setAttribute("aria-expanded","true");$("#closeMenu").focus()};
+$("#closeMenu").onclick=closeAll;sc.onclick=closeAll;
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();if((e.key==="k"&&(e.metaKey||e.ctrlKey))||(e.key==="/"&&!/input|textarea/i.test(document.activeElement.tagName))){e.preventDefault();openSearch()}});
+function setBig(on){document.body.classList.toggle("big",on);$("#aa").setAttribute("aria-pressed",on);$("#aaState").textContent=on?"on":"off";store.set(K.big,on)}
+setBig(store.get(K.big,false));$("#aa").onclick=()=>setBig(!document.body.classList.contains("big"));$("#aa2").onclick=e=>{e.preventDefault();setBig(!document.body.classList.contains("big"))};
+$("#soundLink").onclick=e=>{e.preventDefault();$("#soundBox").hidden=!$("#soundBox").hidden};
 let ctx,src,gain,playing=false;
 function noise(kind){const len=ctx.sampleRate*4,buf=ctx.createBuffer(1,len,ctx.sampleRate),d=buf.getChannelData(0);let last=0;
  for(let i=0;i<len;i++){const w=Math.random()*2-1;if(kind==="brown"){last=(last+0.02*w)/1.02;d[i]=last*3.5}else{last=0.97*last+0.03*w;d[i]=(w*0.25+last*2)*(0.7+0.3*Math.random())}}
  const s=ctx.createBufferSource();s.buffer=buf;s.loop=true;return s}
-function startSnd(){ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();gain=gain||ctx.createGain();gain.gain.value=+$("#vol").value;gain.connect(ctx.destination);
+function startSnd(){ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();if(!gain){gain=ctx.createGain();gain.connect(ctx.destination)}gain.gain.value=+$("#vol").value;
  const kind=document.querySelector("input[name=snd]:checked").value;src=noise(kind);
  if(kind==="rain"){const f=ctx.createBiquadFilter();f.type="lowpass";f.frequency.value=2200;src.connect(f);f.connect(gain)}else src.connect(gain);src.start();playing=true;$("#play").textContent="Stop"}
 function stopSnd(){if(src){src.stop();src.disconnect()}playing=false;$("#play").textContent="Play"}
-$("#play").onclick=()=>playing?stopSnd():startSnd();
-$("#vol").oninput=e=>{if(gain)gain.gain.value=+e.target.value};
+$("#play").onclick=()=>playing?stopSnd():startSnd();$("#vol").oninput=e=>{if(gain)gain.gain.value=+e.target.value};
 document.querySelectorAll("input[name=snd]").forEach(r=>r.onchange=()=>{if(playing){stopSnd();startSnd()}});
-$("#musicBtn").onclick=()=>{const m=$("#music");m.hidden=!m.hidden;$("#musicBtn").setAttribute("aria-expanded",!m.hidden)};
 
-route();ready.then(()=>{const h=location.hash;if(!h||/^#\/?($|session|quizzes|downloads)/.test(h))route()});
+route();ready.then(()=>{if(/^#\/?($|session|quizzes|downloads)/.test(location.hash||"#/"))route()});
 </script>
-</body>
-</html>
+</body></html>
