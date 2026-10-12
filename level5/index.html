@@ -400,9 +400,9 @@ function canvaEmbed(t){if(!t)return null;const m=String(t).trim().match(/https:\
  if(m)return `https://www.canva.com/design/${m[2]}/${m[3]}/view?embed`;const n=String(t).trim().match(/https:\/\/(www\.)?canva\.com\/design\/([A-Za-z0-9_-]+)/);return n?`https://www.canva.com/design/${n[2]}/view?embed`:null}
 const ready=Promise.all(SESSIONS.map(async s=>{const dir=`week${pad(s.n)}/`;
  const f=await Promise.all(FILES.map(([x])=>head(dir+x)));
- const form=await text(dir+"form.txt");const ho=await head(dir+"handout.pdf");const cv=await text(dir+"slides.txt");const cnt=parseInt(await text(dir+"slides/count.txt"),10);
- avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0,ho,canva:canvaEmbed(cv)}}));
-function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.form||a.slides||a.canva||(SHEET[n]&&SHEET[n].form))}
+ const form=await text(dir+"form.txt");const ho=await head(dir+"handout.pdf");const cv=await text(dir+"slides.txt");const ex=await head(dir+"exit.html");const cnt=parseInt(await text(dir+"slides/count.txt"),10);
+ avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0,ho,ex,canva:canvaEmbed(cv)}}));
+function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.ex||a.form||a.slides||a.canva||(SHEET[n]&&SHEET[n].form))}
 function canvaFor(n){return (SHEET[n]&&SHEET[n].slides?canvaEmbed(SHEET[n].slides):null)||(avail[n]&&avail[n].canva)||null}
 function isOpen(n){const a=avail[n];if(!a)return false;if(SHEET[n]&&SHEET[n].visible===false)return false;return has(n)}
 const lockMsg=s=>`Opens when Ms. Maria starts Session ${s.n}`;
@@ -414,7 +414,7 @@ function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Chec
  b.push(a.f[2]?`<a class="btn" href="${a.dir}quiz.html">Practice quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Practice quiz · soon</a>`);
  b.push(a.ho?`<a class="btn" href="${a.dir}handout.pdf" target="_blank" rel="noopener">Handout PDF</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Handout · soon</a>`);
  const form=(SHEET[n]&&SHEET[n].form)||a.form;
- b.push(form?`<a class="btn" href="${esc(form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
+ b.push(a.ex?`<a class="btn" href="${a.dir}exit.html">Exit ticket</a>`:form?`<a class="btn" href="${esc(form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
  return `<div class="btns">${b.join("")}</div>`}
 
 /* ---------- shared bits ---------- */

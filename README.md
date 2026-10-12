@@ -18,7 +18,7 @@ level5/
     slides/             slide images for the in-page viewer (01.jpg, 02.jpg ... + count.txt)
     workbook.html       Session 1 e-workbook
     quiz.html           Session 1 practice quiz
-    form.txt            one line: the link to the graded Google Form
+    exit.html           exit ticket (answers go to the Exit_Tickets tab of the Sheet)
   week02/ ... week12/   same file names each week
 ```
 
