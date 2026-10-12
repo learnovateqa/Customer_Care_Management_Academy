@@ -16,9 +16,7 @@
 :root{--navy:#1B2A4A;--navy2:#2C3D63;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--gold-t:#FBF4E2;--blush:#F8E1DD;
 --a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--b-t:#FCE9E3;--c:#6D5BD0;--c-t:#ECE9FA;--d:#E9B44C;--d-t:#FBF2DC;--x-t:#EEF0F5;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4;--fs:16px;--r:18px}
 *{box-sizing:border-box}
-:root{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-img,video,iframe{max-width:100%;height:auto}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px)}
 body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:var(--fs);-webkit-font-smoothing:antialiased}
 body.big{--fs:19px}
@@ -47,15 +45,14 @@ nav.main a[aria-current="page"]::after{content:"";position:absolute;left:13px;ri
 .iconbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;font:600 14px 'Poppins',system-ui,sans-serif;padding:0 11px;text-decoration:none;color:var(--navy)}
 .iconbtn:hover{border-color:var(--navy)}
 .iconbtn[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
-.logo .lt{min-width:0;overflow:hidden}.logo b{overflow:hidden;text-overflow:ellipsis}.logo .short{display:none}
-@media (max-width:400px){.lvl{display:none}}
+.logo .lt{min-width:0}.logo .short{display:none}
 @media (max-width:560px){.logo .full{display:none}.logo .short{display:inline}}
 @media (max-width:900px){nav.main{display:none}.logo small{display:none}.hide-s{display:none}}
 
 /* bottom tab bar */
 nav.tabs{display:none}
 @media (max-width:900px){
- nav.tabs{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:40;background:rgba(27,42,74,.96);backdrop-filter:blur(10px);border-radius:22px;padding:6px;box-shadow:0 10px 30px rgba(27,42,74,.28)}
+ nav.tabs{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:40;background:rgba(27,42,74,.96);backdrop-filter:blur(10px);border-radius:22px;padding:6px;box-shadow:0 10px 30px rgba(27,42,74,.28)}
  nav.tabs a{display:grid;justify-items:center;gap:2px;text-decoration:none;color:#C9D0E2;font-size:11px;font-weight:600;padding:8px 2px;border-radius:16px;min-height:52px}
  nav.tabs a svg.i{width:22px;height:22px}
  nav.tabs a[aria-current="page"]{background:#fff;color:var(--navy)}
@@ -77,7 +74,7 @@ nav.tabs{display:none}
 .search .res small{display:block;color:var(--ink2)}
 
 /* layout */
-main{max-width:1180px;margin:0 auto;padding:26px 18px 130px;min-height:70vh;min-height:70dvh;outline:none}
+main{max-width:1180px;margin:0 auto;padding:26px 18px 130px;min-height:70vh;outline:none}
 h1{font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.1;margin:0 0 10px;letter-spacing:-.02em;text-wrap:balance}
 h2{font-size:clamp(1.25rem,3vw,1.65rem);margin:34px 0 12px;line-height:1.25}
 h3{font-size:1.05rem;margin:0;line-height:1.35}
@@ -108,11 +105,8 @@ a.card:hover{border-color:var(--navy);transform:translateY(-1px)}
 .units{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 
 /* session strip */
-.strip{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px 12px;margin-bottom:20px}
-.strip>.iconbtn{flex-shrink:0}
-.dots{display:flex;gap:6px;flex:1;justify-content:safe center;min-width:0;overflow-x:auto;padding:4px 2px;scrollbar-width:none}
-.dots::-webkit-scrollbar{display:none}
-.dots a{flex-shrink:0}
+.strip{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px 12px;margin-bottom:20px;overflow-x:auto}
+.dots{display:flex;gap:6px;flex:1;justify-content:center;min-width:max-content}
 .dots a{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;text-decoration:none;background:var(--u-t);color:var(--navy);border:2px solid transparent}
 .dots a[aria-current="page"]{background:var(--u);color:#fff;transform:scale(1.12)}
 .dots a.exam{background:var(--x-t)}.dots a.exam[aria-current="page"]{background:var(--navy)}
@@ -180,15 +174,6 @@ textarea.ta{width:100%;min-height:110px;border:1.5px solid #B9BFCC;border-radius
 .choice button:hover{border-color:var(--navy)}
 .fb{margin-top:8px;padding:10px 14px;border-radius:12px;font-size:14px}.fb.right{background:var(--ok-t)}.fb.wrong{background:var(--no-t)}
 
-/* Short screens (phones held sideways): give the content the height */
-@media (max-height:500px){
- header.top{position:static}
- html{scroll-padding-top:0}
- nav.tabs{bottom:calc(6px + env(safe-area-inset-bottom,0px));padding:4px;border-radius:18px}
- nav.tabs a{display:flex;justify-content:center;align-items:center;gap:6px;min-height:40px;padding:4px 2px;font-size:12px}
- nav.tabs a svg.i{width:18px;height:18px}
- main{padding-bottom:90px}
-}
 footer{max-width:1180px;margin:0 auto;padding:22px 18px 120px;border-top:1px solid var(--line);font-size:13px;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between}
 footer a{color:var(--ink2)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -227,6 +212,7 @@ footer a{color:var(--ink2)}
   </nav>
   <div class="actions">
    <button class="iconbtn" id="openSearch" type="button" aria-label="Search"><svg class="i"><use href="#i-search"/></svg></button>
+   <button class="iconbtn" id="signBtn" type="button">Sign in</button>
    <button class="iconbtn hide-s" id="aa" type="button" aria-pressed="false" aria-label="Larger text">AA</button>
    <button class="iconbtn" id="openMenu" type="button" aria-label="More" aria-expanded="false"><svg class="i"><use href="#i-menu"/></svg></button>
   </div>
@@ -246,6 +232,7 @@ footer a{color:var(--ink2)}
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" hidden aria-label="More">
  <div class="row" style="justify-content:space-between"><b>More</b><button class="iconbtn" id="closeMenu" type="button" aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button></div>
+ <div id="who" style="margin-top:8px"></div>
  <h4>Learn</h4>
  <a href="#/models"><svg class="i"><use href="#i-book"/></svg>My 11 models</a>
  <a href="#/quizzes"><svg class="i"><use href="#i-study"/></svg>Quizzes and exams</a>
@@ -278,6 +265,20 @@ footer a{color:var(--ink2)}
  </div>
 </div>
 
+<div class="search" id="login" hidden role="dialog" aria-modal="true" aria-labelledby="lgT">
+ <div class="in" style="max-width:440px;margin-top:8vh">
+  <div style="background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;display:grid;gap:14px">
+   <div class="row" style="justify-content:space-between"><span class="lvl">Level 5</span><button class="iconbtn" id="lgClose" type="button" aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button></div>
+   <h2 id="lgT" style="margin:0">Sign in</h2>
+   <p class="muted">Enter the access code from Ms. Maria. Signing in saves your quiz scores and capstone progress.</p>
+   <label for="lgCode" style="font-weight:600">Access code</label>
+   <input id="lgCode" autocomplete="off" autocapitalize="characters" spellcheck="false" style="min-height:52px;border:1.5px solid #B9BFCC;border-radius:14px;padding:0 16px;font-size:20px;letter-spacing:3px;text-transform:uppercase">
+   <p id="lgMsg" role="alert" style="min-height:1.4em;font-size:14px"></p>
+   <button class="btn primary" id="lgGo" type="button" style="min-height:52px">Sign in</button>
+   <button class="btn soft" id="lgSkip" type="button">Continue without signing in</button>
+  </div>
+ </div>
+</div>
 <footer><span>© 2026 Elevate with Ms. Maria · Learnovate Qatar</span><span><a href="#/syllabus">Syllabus</a> · <a href="#/help">Help</a> · <a href="../">All programs</a></span></footer>
 <script>
 /* ===== COURSE DATA (Level 5). Key terms are added to a session when its materials are built. ===== */
@@ -373,7 +374,11 @@ const DEESC=[
 {c:"\"You charged me twice!\"",o:["I'm sorry about that. I can see both charges. I'm cancelling the second one now; you'll get a confirmation email within one hour.","The bank must have made a mistake.","It will probably correct itself."],a:0,why:"Confirm, act and give a clear time."}];
 
 const FILES=[["slides.pdf","Slides PDF"],["workbook.html","E-workbook"],["quiz.html","Practice quiz"]];
-const K={cap:"ccl5-capstone",lab:"ccl5-lab",big:"ccl5-big"};
+const K={cap:"ccl5-capstone",lab:"ccl5-lab",big:"ccl5-big",auth:"ccl5-auth"};
+/* ===== TEACHER PORTAL CONNECTION ===== */
+const API="https://script.google.com/macros/s/AKfycbw70SpO16Qai-KTVcs9K_cWGShT-jFZMWI47BGMAEgBm1BcXKk3AKCCrS_rI9La98okIQ/exec";
+const LEVEL="5";
+const REQUIRE_LOGIN=false; /* change to true to make sign-in compulsory */
 const pad=n=>String(n).padStart(2,"0");
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -390,14 +395,15 @@ const ready=Promise.all(SESSIONS.map(async s=>{const dir=`week${pad(s.n)}/`;
  const f=await Promise.all(FILES.map(([x])=>head(dir+x)));
  const form=await text(dir+"form.txt");const cnt=parseInt(await text(dir+"slides/count.txt"),10);
  avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0}}));
-function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.form||a.slides)}
+function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.form||a.slides||(SHEET[n]&&SHEET[n].form))}
 function latest(){let L=null;SESSIONS.forEach(s=>{if(has(s.n))L=s});return L}
 function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Checking materials…</p>`;
  const b=[];
  b.push(a.slides||a.f[0]?`<a class="btn primary" href="#/session/${n}/slides">${ic("sessions")}Slides</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Slides · soon</a>`);
  b.push(a.f[1]?`<a class="btn" href="${a.dir}workbook.html">E-workbook</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">E-workbook · soon</a>`);
  b.push(a.f[2]?`<a class="btn" href="${a.dir}quiz.html">Practice quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Practice quiz · soon</a>`);
- b.push(a.form?`<a class="btn" href="${esc(a.form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
+ const form=(SHEET[n]&&SHEET[n].form)||a.form;
+ b.push(form?`<a class="btn" href="${esc(form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
  return `<div class="btns">${b.join("")}</div>`}
 
 /* ---------- shared bits ---------- */
@@ -417,9 +423,10 @@ home(){const L=latest();const done=store.get(K.cap,[]).length,total=SESSIONS.fil
  <div style="margin-top:6px"><p style="font-size:13px;opacity:.85">Capstone: ${done} of ${total} steps</p><div class="prog" style="background:rgba(255,255,255,.18)"><div style="width:${done/total*100}%"></div></div></div></div></div>
  <h2>Four units</h2><div class="units">${["A","B","C","D"].map(k=>{const u=UNITS[k],ss=SESSIONS.filter(s=>s.u===k).map(s=>s.n);return `<a class="card top" style="--u:${u.c}" href="#/sessions#u${k}"><span class="muted" style="font-size:.82em;font-weight:600">Unit ${k} · Sessions ${ss[0]}–${ss[ss.length-1]}</span><h3>${u.name}</h3></a>`}).join("")}</div>
  <h2>Explore</h2><div class="grid"><a class="card" href="#/models"><span class="chip">${ic("book")}Level 5</span><h3>My 11 models</h3><p class="muted">The tools you use to analyse a situation and justify a recommendation.</p></a><a class="card" href="#/lab"><span class="chip" style="--u-t:var(--b-t)">${ic("lab")}Hands-on</span><h3>Practice Lab</h3><p class="muted">Ticket queue, live chat simulator and de-escalation practice.</p></a><a class="card" href="#/study"><span class="chip" style="--u-t:var(--a-t)">${ic("study")}Revise</span><h3>Study</h3><p class="muted">Key-term flashcards and sentence frames.</p></a></div>`},
-sessions(){return crumbs(["Sessions"])+`<h1>Sessions</h1><p class="lede muted">Each session page has slides, an e-workbook, a practice quiz and the exit ticket. Buttons switch on when Ms. Maria uploads the materials.</p>`+["A","B","X1","C","D","X2"].map(k=>{const list=k==="X1"?[S(7)]:k==="X2"?[S(12)]:SESSIONS.filter(s=>s.u===k);const u=UNITS[k[0]];const title=k==="X1"?"Midterm":k==="X2"?"Final":`Unit ${k} · ${u.name}`;return `<h2 id="u${k}" style="display:flex;align-items:center;gap:10px"><i style="width:10px;height:26px;border-radius:4px;background:${u.c};display:inline-block"></i>${title}</h2><div class="grid">${list.map(sessCard).join("")}</div>`}).join("")},
+sessions(){return crumbs(["Sessions"])+`<h1>Sessions</h1><p class="lede muted">Each session page has slides, an e-workbook, a practice quiz and the exit ticket. Buttons switch on when Ms. Maria uploads the materials.</p>`+["A","B","X1","C","D","X2"].map(k=>{let list=k==="X1"?[S(7)]:k==="X2"?[S(12)]:SESSIONS.filter(s=>s.u===k);list=list.filter(s=>!(SHEET[s.n]&&SHEET[s.n].visible===false));if(!list.length)return "";const u=UNITS[k[0]];const title=k==="X1"?"Midterm":k==="X2"?"Final":`Unit ${k} · ${u.name}`;return `<h2 id="u${k}" style="display:flex;align-items:center;gap:10px"><i style="width:10px;height:26px;border-radius:4px;background:${u.c};display:inline-block"></i>${title}</h2><div class="grid">${list.map(sessCard).join("")}</div>`}).join("")},
 session(n,sub){const s=S(n);if(!s)return V.notfound();if(sub==="slides")return V.slides(n);const u=U(s),m=MODELS[s.model];document.documentElement.style.setProperty("--accent",u.c);
  return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div style="--u-t:${u.t}"><span class="chip">${s.exam?"Exam session":"Unit "+s.u+" · "+u.name}</span><h1 style="margin-top:10px">Session ${s.n} · ${s.t}</h1></div>
+ ${SHEET[s.n]&&SHEET[s.n].note?`<div class="sec" style="background:var(--gold-t);border-color:var(--gold)"><h2>Announcement from Ms. Maria</h2><p>${esc(SHEET[s.n].note)}</p></div>`:""}
  <div class="sec"><h2>${ic("sessions")}Materials</h2><div style="max-width:620px">${matBtns(s.n)}</div></div>
  <div class="two">
   <div class="sec"><h2>${ic("book")}Foundation reading <span class="tag">Level 4 text</span></h2><p>${s.fr}</p><p class="muted" style="margin-top:6px;font-size:.92em">The course textbook gives the foundation. Level 5 builds on it with the model, reading and capstone below.</p></div>
@@ -492,7 +499,6 @@ function route(){const parts=location.hash.replace(/^#\/?/,"").split(/[#/]/);con
  let html;
  if(p==="lab"&&a&&V[a])html=V[a]();else{const map={"":"home",sessions:"sessions",session:"session",models:"models",model:"model",lab:"lab",quizzes:"quizzes",study:"study",progress:"progress",tools:"tools",syllabus:"syllabus",glossary:"glossary",downloads:"downloads",help:"help",install:"install"};html=V[map[p]!=null?map[p]:"notfound"](a,b)}
  $("#main").innerHTML=html;
- const cur=document.querySelector(".dots [aria-current]");if(cur){const d=cur.parentElement;d.scrollLeft=cur.offsetLeft-d.offsetLeft-(d.clientWidth-cur.offsetWidth)/2}
  const t=TAB[p]||"";document.querySelectorAll("nav.main a,nav.tabs a").forEach(x=>x.getAttribute("href")===t?x.setAttribute("aria-current","page"):x.removeAttribute("aria-current"));
  closeAll();
  if(p==="study")flash(a);if(p==="progress")tracker();if(p==="session"&&b==="slides")viewer(a);
@@ -510,7 +516,7 @@ function flash(n){const sel=$("#fsel");if(!sel)return;sel.onchange=()=>location.
  $("#fshuf").onclick=()=>{cards=[...cards].sort(()=>Math.random()-.5);i=0;back=false;show()};show()}
 function tracker(){const done=new Set(store.get(K.cap,[]));const total=SESSIONS.filter(s=>s.cap).length;
  const upd=()=>{$("#pt").textContent=`${done.size} of ${total} steps done`;$("#pf").style.width=(done.size/total*100)+"%";$("#pb").setAttribute("aria-valuenow",done.size)};
- document.querySelectorAll("[data-step]").forEach(cb=>cb.addEventListener("change",()=>{const i=+cb.dataset.step;cb.checked?done.add(i):done.delete(i);store.set(K.cap,[...done]);cb.closest(".stepc").classList.toggle("done",cb.checked);upd()}));upd()}
+ document.querySelectorAll("[data-step]").forEach(cb=>cb.addEventListener("change",()=>{const i=+cb.dataset.step;cb.checked?done.add(i):done.delete(i);store.set(K.cap,[...done]);syncUp();cb.closest(".stepc").classList.toggle("done",cb.checked);upd()}));upd()}
 function viewer(n){const a=avail[n];if(!a||!a.slides)return;let i=1;const img=$("#slideImg"),cnt=$("#sCount");
  const src=k=>`${a.dir}slides/${pad(k)}.jpg`;
  const go=k=>{i=Math.min(a.slides,Math.max(1,k));img.src=src(i);img.alt=`Slide ${i} of ${a.slides}`;cnt.textContent=`${i} / ${a.slides}`;if(i<a.slides){const p=new Image();p.src=src(i+1)}};
@@ -519,7 +525,7 @@ function viewer(n){const a=avail[n];if(!a||!a.slides)return;let i=1;const img=$(
  let x0=null;const st=$("#stage");st.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});st.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)go(dx<0?i+1:i-1);x0=null});
  st.addEventListener("click",e=>{const r=st.getBoundingClientRect();go(e.clientX-r.left>r.width/2?i+1:i-1)});
  document.onkeydown=e=>{if(!location.hash.endsWith("/slides"))return;if(e.key==="ArrowRight")go(i+1);if(e.key==="ArrowLeft")go(i-1)};go(1)}
-function markLab(k,v){const d=store.get(K.lab,{});if(typeof v==="number")d[k]=Math.max(d[k]||0,v);else d[k]=true;store.set(K.lab,d)}
+function markLab(k,v){const d=store.get(K.lab,{});if(typeof v==="number")d[k]=Math.max(d[k]||0,v);else d[k]=true;store.set(K.lab,d);syncUp()}
 function tickets(){let checked=0;document.querySelectorAll(".ticket").forEach(el=>{const t=TICKETS[+el.dataset.t],ans={};
  el.querySelectorAll(".opts").forEach(g=>g.querySelectorAll(".pick").forEach(b=>b.onclick=()=>{g.querySelectorAll(".pick").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");ans[g.dataset.q]=b.textContent}));
  el.querySelector("[data-act=check]").onclick=()=>{const out=el.querySelector("[data-out]");
@@ -576,6 +582,35 @@ function stopSnd(){if(src){src.stop();src.disconnect()}playing=false;$("#play").
 $("#play").onclick=()=>playing?stopSnd():startSnd();$("#vol").oninput=e=>{if(gain)gain.gain.value=+e.target.value};
 document.querySelectorAll("input[name=snd]").forEach(r=>r.onchange=()=>{if(playing){stopSnd();startSnd()}});
 
-route();ready.then(()=>{if(/^#\/?($|session|quizzes|downloads)/.test(location.hash||"#/"))route()});
+
+/* ---------- teacher portal: sign-in and sync ---------- */
+let AUTH=store.get(K.auth,null),SHEET={};
+const api={get:async q=>{const r=await fetch(API+"?"+new URLSearchParams(q),{cache:"no-store"});return r.json()},
+ post:async b=>{const r=await fetch(API,{method:"POST",body:JSON.stringify(b)});return r.json()}};
+function whoUI(){const b=$("#signBtn");b.textContent=AUTH?AUTH.name.split(" ")[0]:"Sign in";b.setAttribute("aria-label",AUTH?"Signed in as "+AUTH.name+". Open account":"Sign in");
+ $("#who").innerHTML=AUTH?`<div class="read"><small>Signed in</small><p><b>${esc(AUTH.name)}</b> · Level 5</p><button class="btn soft" id="signOut" type="button" style="margin-top:6px">Sign out</button></div>`:`<button class="btn primary" id="signIn2" type="button" style="width:100%">Sign in with your code</button>`;
+ const so=$("#signOut");if(so)so.onclick=()=>{AUTH=null;store.set(K.auth,null);SHEET={};whoUI();route();if(REQUIRE_LOGIN)openLogin()};
+ const si=$("#signIn2");if(si)si.onclick=openLogin}
+function openLogin(){closeAll();$("#login").hidden=false;$("#lgMsg").textContent="";$("#lgSkip").hidden=REQUIRE_LOGIN;$("#lgClose").hidden=REQUIRE_LOGIN;$("#lgCode").value="";$("#lgCode").focus()}
+function closeLogin(){if(REQUIRE_LOGIN&&!AUTH)return;$("#login").hidden=true}
+async function doLogin(){const code=$("#lgCode").value.trim().toUpperCase(),m=$("#lgMsg");if(!code){m.textContent="Type your access code.";return}
+ $("#lgGo").disabled=true;m.textContent="Checking…";
+ try{const r=await api.get({action:"login",code,level:LEVEL});
+  if(!r.ok){m.textContent=r.error||"This code did not work.";return}
+  AUTH={code,name:r.name};store.set(K.auth,AUTH);$("#login").hidden=true;whoUI();await syncDown();await loadSheet();route()}
+ catch(e){m.textContent="Can't reach the server. Check your internet and try again."}
+ finally{$("#lgGo").disabled=false}}
+async function loadSheet(){if(!AUTH)return;try{const r=await api.get({action:"content",code:AUTH.code,level:LEVEL});
+ if(r.ok){SHEET={};r.sessions.forEach(s=>SHEET[s.n]=s)}else if(/not active|not enrolled/.test(r.error||"")){AUTH=null;store.set(K.auth,null);whoUI()}}catch(e){}}
+async function syncDown(){if(!AUTH)return;try{const r=await api.get({action:"progress",code:AUTH.code,level:LEVEL});
+ if(r.ok){const cap=new Set([...store.get(K.cap,[]),...r.steps]);store.set(K.cap,[...cap]);const lab=store.get(K.lab,{});
+  Object.entries(r.lab||{}).forEach(([k,v])=>{lab[k]=typeof v==="number"?Math.max(v,lab[k]||0):(lab[k]||v)});store.set(K.lab,lab);syncUp()}}catch(e){}}
+let upT;function syncUp(){if(!AUTH)return;clearTimeout(upT);upT=setTimeout(()=>{api.post({action:"progress",code:AUTH.code,level:LEVEL,steps:store.get(K.cap,[]),lab:store.get(K.lab,{})}).catch(()=>{})},800)}
+$("#signBtn").onclick=()=>{if(AUTH){$("#openMenu").click()}else openLogin()};
+$("#lgGo").onclick=doLogin;$("#lgCode").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin()});
+$("#lgSkip").onclick=()=>{$("#login").hidden=true};$("#lgClose").onclick=closeLogin;
+whoUI();
+
+route();Promise.all([ready,loadSheet()]).then(()=>{if(/^#\/?($|session|quizzes|downloads)/.test(location.hash||"#/"))route()});syncDown();if(REQUIRE_LOGIN&&!AUTH)openLogin();
 </script>
 </body></html>

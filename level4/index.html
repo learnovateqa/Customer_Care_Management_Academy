@@ -11,12 +11,10 @@
 <style>
 :root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C}
 *{box-sizing:border-box}
-:root{padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-img,svg,video,iframe{max-width:100%;height:auto}
-body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
 .stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
-main{flex:1;max-width:680px;margin:0 auto;padding:clamp(24px,8vh,64px) clamp(16px,4vw,20px);display:grid;gap:16px;align-content:center}
+main{flex:1;max-width:680px;margin:0 auto;padding:64px 20px;display:grid;gap:16px;align-content:center}
 .badge{justify-self:start;font-weight:700;font-size:15px;padding:4px 14px;border-radius:999px;background:var(--a-t)}
 h1{font-size:clamp(2rem,6vw,3rem);line-height:1.1;margin:0;letter-spacing:-.02em}
 p{margin:0;color:var(--ink2);font-size:1.05rem}
