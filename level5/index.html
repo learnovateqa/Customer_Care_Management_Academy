@@ -50,6 +50,8 @@ nav.main a[aria-current="page"]::after{content:"";position:absolute;left:13px;ri
 .iconbtn[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
 .logo .lt{min-width:0}.logo .short{display:none}
 @media (max-width:560px){.logo .full{display:none}.logo .short{display:inline}}
+nav.main a,.iconbtn{white-space:nowrap}
+@media (max-width:1240px){nav.main a svg.i{display:none}nav.main a{padding:9px 10px}.logo small{display:none}}
 @media (max-width:900px){nav.main{display:none}.logo small{display:none}.hide-s{display:none}}
 
 /* bottom tab bar */
@@ -396,15 +398,18 @@ async function head(u){try{const r=await fetch(u,{method:"HEAD",cache:"no-store"
 async function text(u){try{const r=await fetch(u,{cache:"no-store"});return r.ok?(await r.text()).trim():null}catch(e){return null}}
 const ready=Promise.all(SESSIONS.map(async s=>{const dir=`week${pad(s.n)}/`;
  const f=await Promise.all(FILES.map(([x])=>head(dir+x)));
- const form=await text(dir+"form.txt");const cnt=parseInt(await text(dir+"slides/count.txt"),10);
- avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0}}));
+ const form=await text(dir+"form.txt");const ho=await head(dir+"handout.pdf");const cnt=parseInt(await text(dir+"slides/count.txt"),10);
+ avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0,ho}}));
 function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.form||a.slides||(SHEET[n]&&SHEET[n].form))}
-function latest(){let L=null;SESSIONS.forEach(s=>{if(has(s.n))L=s});return L}
+function isOpen(n){const a=avail[n];if(!a)return false;if(SHEET[n]&&SHEET[n].visible===false)return false;return has(n)}
+const lockMsg=s=>`Opens when Ms. Maria starts Session ${s.n}`;
+function latest(){let L=null;SESSIONS.forEach(s=>{if(isOpen(s.n))L=s});return L}
 function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Checking materials…</p>`;
  const b=[];
  b.push(a.slides||a.f[0]?`<a class="btn primary" href="#/session/${n}/slides">${ic("sessions")}Slides</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Slides · soon</a>`);
  b.push(a.f[1]?`<a class="btn" href="${a.dir}workbook.html">E-workbook</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">E-workbook · soon</a>`);
  b.push(a.f[2]?`<a class="btn" href="${a.dir}quiz.html">Practice quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Practice quiz · soon</a>`);
+ b.push(a.ho?`<a class="btn" href="${a.dir}handout.pdf" target="_blank" rel="noopener">Handout PDF</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Handout · soon</a>`);
  const form=(SHEET[n]&&SHEET[n].form)||a.form;
  b.push(form?`<a class="btn" href="${esc(form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
  return `<div class="btns">${b.join("")}</div>`}
@@ -413,9 +418,9 @@ function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Chec
 const crumbs=(...p)=>`<nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Level 5</a>${p.map(x=>`<span aria-hidden="true">›</span>${x[1]?`<a href="${x[1]}">${x[0]}</a>`:`<span aria-current="page">${x[0]}</span>`}`).join("")}</nav>`;
 function strip(n,sub=""){const prev=S(n-1),next=S(n+1);
  return `<div class="strip">${prev?`<a class="iconbtn" href="#/session/${prev.n}${sub}" aria-label="Previous: Session ${prev.n}">${ic("left")}</a>`:`<span class="iconbtn" aria-hidden="true" style="opacity:.35">${ic("left")}</span>`}
- <div class="dots">${SESSIONS.map(s=>{const u=U(s);return `<a href="#/session/${s.n}" class="${s.exam?"exam":""}" style="--u:${u.c};--u-t:${u.t}" title="Session ${s.n}: ${esc(s.t)}"${s.n==n?' aria-current="page"':""}>${s.n}</a>`}).join("")}</div>
+ <div class="dots">${SESSIONS.map(s=>{const u=U(s);return `<a href="#/session/${s.n}" class="${s.exam?"exam":""}" style="--u:${u.c};--u-t:${isOpen(s.n)?u.t:"#FFFFFF"};${isOpen(s.n)?"":"border-color:#D5D9E3;color:#9AA3B8"}" title="Session ${s.n}: ${esc(s.t)}"${s.n==n?' aria-current="page"':""}>${s.n}</a>`}).join("")}</div>
  ${next?`<a class="iconbtn" href="#/session/${next.n}${sub}" aria-label="Next: Session ${next.n}">${ic("right")}</a>`:`<span class="iconbtn" aria-hidden="true" style="opacity:.35">${ic("right")}</span>`}</div>`}
-const sessCard=s=>{const u=U(s);return `<a class="card top" style="--u:${u.c};--u-t:${u.t}" href="#/session/${s.n}"><span class="chip">${s.exam?"Exam":"Unit "+s.u} · Session ${s.n}</span><h3>${s.t}</h3><p class="muted" style="font-size:.9em">${s.exam?s.fr:"Foundation reading: "+s.fr}</p></a>`};
+const sessCard=s=>{const u=U(s);if(!isOpen(s.n))return `<div class="card top" style="--u:#C6CBD8;--u-t:var(--x-t);opacity:.75" aria-disabled="true"><span class="chip">${s.exam?"Exam":"Unit "+s.u} · Session ${s.n} · Locked</span><h3>${s.t}</h3><p class="muted" style="font-size:.9em">${lockMsg(s)}</p></div>`;return `<a class="card top" style="--u:${u.c};--u-t:${u.t}" href="#/session/${s.n}"><span class="chip">${s.exam?"Exam":"Unit "+s.u} · Session ${s.n}</span><h3>${s.t}</h3><p class="muted" style="font-size:.9em">${s.exam?s.fr:(MODELS[s.model]?"Level 5 model: "+MODELS[s.model].t:"")}</p></a>`};
 
 /* ---------- views ---------- */
 const V={
@@ -426,13 +431,13 @@ home(){const L=latest();const done=store.get(K.cap,[]).length,total=SESSIONS.fil
  <div style="margin-top:6px"><p style="font-size:13px;opacity:.85">Capstone: ${done} of ${total} steps</p><div class="prog" style="background:rgba(255,255,255,.18)"><div style="width:${done/total*100}%"></div></div></div></div></div>
  <h2>Four units</h2><div class="units">${["A","B","C","D"].map(k=>{const u=UNITS[k],ss=SESSIONS.filter(s=>s.u===k).map(s=>s.n);return `<a class="card top" style="--u:${u.c}" href="#/sessions#u${k}"><span class="muted" style="font-size:.82em;font-weight:600">Unit ${k} · Sessions ${ss[0]}–${ss[ss.length-1]}</span><h3>${u.name}</h3></a>`}).join("")}</div>
  <h2>Explore</h2><div class="grid"><a class="card" href="#/models"><span class="chip">${ic("book")}Level 5</span><h3>My 11 models</h3><p class="muted">The tools you use to analyse a situation and justify a recommendation.</p></a><a class="card" href="#/lab"><span class="chip" style="--u-t:var(--b-t)">${ic("lab")}Hands-on</span><h3>Practice Lab</h3><p class="muted">Ticket queue, live chat simulator and de-escalation practice.</p></a><a class="card" href="#/study"><span class="chip" style="--u-t:var(--a-t)">${ic("study")}Revise</span><h3>Study</h3><p class="muted">Key-term flashcards and sentence frames.</p></a><a class="card" href="#/install"><span class="chip" style="--u-t:var(--d-t)">${ic("down")}App</span><h3>Install the app</h3><p class="muted">Put Customer Care on your home screen. Works offline too.</p></a></div>`},
-sessions(){return crumbs(["Sessions"])+`<h1>Sessions</h1><p class="lede muted">Each session page has slides, an e-workbook, a practice quiz and the exit ticket. Buttons switch on when Ms. Maria uploads the materials.</p>`+["A","B","X1","C","D","X2"].map(k=>{let list=k==="X1"?[S(7)]:k==="X2"?[S(12)]:SESSIONS.filter(s=>s.u===k);list=list.filter(s=>!(SHEET[s.n]&&SHEET[s.n].visible===false));if(!list.length)return "";const u=UNITS[k[0]];const title=k==="X1"?"Midterm":k==="X2"?"Final":`Unit ${k} · ${u.name}`;return `<h2 id="u${k}" style="display:flex;align-items:center;gap:10px"><i style="width:10px;height:26px;border-radius:4px;background:${u.c};display:inline-block"></i>${title}</h2><div class="grid">${list.map(sessCard).join("")}</div>`}).join("")},
-session(n,sub){const s=S(n);if(!s)return V.notfound();if(sub==="slides")return V.slides(n);const u=U(s),m=MODELS[s.model];document.documentElement.style.setProperty("--accent",u.c);
+sessions(){return crumbs(["Sessions"])+`<h1>Sessions</h1><p class="lede muted">Each session page has slides, an e-workbook, a practice quiz and the exit ticket. Buttons switch on when Ms. Maria uploads the materials.</p>`+["A","B","X1","C","D","X2"].map(k=>{let list=k==="X1"?[S(7)]:k==="X2"?[S(12)]:SESSIONS.filter(s=>s.u===k);const u=UNITS[k[0]];const title=k==="X1"?"Midterm":k==="X2"?"Final":`Unit ${k} · ${u.name}`;return `<h2 id="u${k}" style="display:flex;align-items:center;gap:10px"><i style="width:10px;height:26px;border-radius:4px;background:${u.c};display:inline-block"></i>${title}</h2><div class="grid">${list.map(sessCard).join("")}</div>`}).join("")},
+session(n,sub){const s=S(n);if(!s)return V.notfound();if(!isOpen(n))return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div class="empty" style="margin-top:10px"><h1 style="font-size:1.6rem">Session ${s.n} · ${s.t}</h1><p>This session is locked. ${lockMsg(s)}.</p><div class="row" style="justify-content:center;margin-top:14px"><a class="btn primary" href="#/sessions">Back to sessions</a></div></div>`;if(sub==="slides")return V.slides(n);const u=U(s),m=MODELS[s.model];document.documentElement.style.setProperty("--accent",u.c);
  return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div style="--u-t:${u.t}"><span class="chip">${s.exam?"Exam session":"Unit "+s.u+" · "+u.name}</span><h1 style="margin-top:10px">Session ${s.n} · ${s.t}</h1></div>
  ${SHEET[s.n]&&SHEET[s.n].note?`<div class="sec" style="background:var(--gold-t);border-color:var(--gold)"><h2>Announcement from Ms. Maria</h2><p>${esc(SHEET[s.n].note)}</p></div>`:""}
  <div class="sec"><h2>${ic("sessions")}Materials</h2><div style="max-width:620px">${matBtns(s.n)}</div></div>
  <div class="two">
-  <div class="sec"><h2>${ic("book")}Foundation reading <span class="tag">Level 4 text</span></h2><p>${s.fr}</p><p class="muted" style="margin-top:6px;font-size:.92em">The course textbook gives the foundation. Level 5 builds on it with the model, reading and capstone below.</p></div>
+  <div class="sec"><h2>${ic("book")}Core content <span class="tag">Handout</span></h2><p>Your handout and workbook from Ms. Maria cover the core content for this session.${avail[s.n]&&avail[s.n].ho?` <a href="${avail[s.n].dir}handout.pdf" target="_blank" rel="noopener">Open the handout PDF</a>.`:""}</p><p class="muted" style="margin-top:6px;font-size:.92em">Level 5 builds on it with the model, reading and capstone below.</p></div>
   ${m?`<div class="sec"><h2>${ic("book")}Level 5 reading</h2><div class="read"><small>${esc(m.src)}</small><p>${m.read}</p></div></div>`:`<div class="sec"><h2>What to expect</h2><p>${s.n===7?"Hour 1: guided review of Sessions 1–6. Hour 2: a case-study exam. You read a short workplace situation, analyse it with the course models and recommend action.":""}</p></div>`}
  </div>
  ${s.obj?`<div class="sec" style="--u-t:${u.t}"><h2>By the end of this session, you can</h2><ol class="steps">${s.obj.map(o=>`<li>${o}</li>`).join("")}</ol></div>`:""}
@@ -444,8 +449,8 @@ slides(n){const s=S(n),a=avail[n]||{};
  <p class="muted" style="margin-top:10px;font-size:.9em">Swipe, tap the arrows or use the arrow keys.</p>`:a.f&&a.f[0]?`<div class="empty"><p>The slides for this session are available as a PDF.</p></div>`:`<div class="empty"><p>The slides for this session are coming soon.</p></div>`;
  return crumbs(["Sessions","#/sessions"],[`Session ${n}`,`#/session/${n}`],["Slides"])+strip(n,"/slides")+`<h1>Session ${n} slides</h1><p class="muted" style="margin-bottom:16px">${s.t}</p>${body}
  <div class="row" style="margin-top:14px">${a.f&&a.f[0]?`<a class="btn" href="${a.dir}slides.pdf" target="_blank" rel="noopener">${ic("down")}Download PDF</a>`:""}<a class="btn soft" href="#/session/${n}">Back to Session ${n}</a></div>`},
-models(){return crumbs(["My 11 models"])+`<h1>My 11 models</h1><p class="lede muted">Each model is a tool for Level 5 thinking: analyse a situation, then recommend and justify action.</p><div class="grid" style="margin-top:20px">${Object.entries(MODELS).map(([k,m])=>{const u=U(S(m.s));return `<a class="card top" style="--u:${u.c};--u-t:${u.t}" href="#/model/${k}"><span class="chip">Session ${m.s}</span><h3>${m.t}</h3><p class="muted" style="font-size:.92em">${m.what}</p></a>`}).join("")}</div>`},
-model(k){const m=MODELS[k];if(!m)return V.notfound();const s=S(m.s),u=U(s);document.documentElement.style.setProperty("--accent",u.c);
+models(){return crumbs(["My 11 models"])+`<h1>My 11 models</h1><p class="lede muted">Each model is a tool for Level 5 thinking: analyse a situation, then recommend and justify action.</p><div class="grid" style="margin-top:20px">${Object.entries(MODELS).map(([k,m])=>{const u=U(S(m.s));if(!isOpen(m.s))return `<div class="card top" style="--u:#C6CBD8;opacity:.75"><span class="chip">Session ${m.s} · Locked</span><h3>${m.t}</h3><p class="muted" style="font-size:.92em">${lockMsg(S(m.s))}</p></div>`;return `<a class="card top" style="--u:${u.c};--u-t:${u.t}" href="#/model/${k}"><span class="chip">Session ${m.s}</span><h3>${m.t}</h3><p class="muted" style="font-size:.92em">${m.what}</p></a>`}).join("")}</div>`},
+model(k){const m=MODELS[k];if(!m)return V.notfound();if(!isOpen(m.s))return crumbs(["My 11 models","#/models"],[m.t])+`<div class="empty"><h1 style="font-size:1.6rem">${m.t}</h1><p>This model opens with Session ${m.s}.</p><div class="row" style="justify-content:center;margin-top:14px"><a class="btn primary" href="#/models">Back to models</a></div></div>`;const s=S(m.s),u=U(s);document.documentElement.style.setProperty("--accent",u.c);
  return crumbs(["My 11 models","#/models"],[m.t])+`<span class="chip" style="--u-t:${u.t}">Session ${m.s} · ${s.t}</span><h1 style="margin-top:10px">${m.t}</h1><p class="lede">${m.what}</p>
  <div class="sec" style="--u-t:${u.t}"><h2>Use it in three steps</h2><ol class="steps">${m.steps.map(x=>`<li>${x}</li>`).join("")}</ol></div>
  <div class="two"><div class="sec"><h2>Sentence frame</h2><div class="frame">"${m.frame}"</div></div><div class="sec"><h2>${ic("book")}Level 5 reading</h2><div class="read"><small>${esc(m.src)}</small><p>${m.read}</p></div></div></div>
@@ -465,7 +470,7 @@ chat(){return crumbs(["Practice Lab","#/lab"],["Live chat simulator"])+`<h1>Live
  <div class="chat" id="chat" style="margin-top:16px"><div class="mood"><span>Customer mood</span><div class="m"><i id="moodDot" style="left:20%"></i></div></div><div id="log" aria-live="polite" style="display:grid;gap:10px"></div><div class="choice" id="choices"></div></div>`},
 deescalate(){return crumbs(["Practice Lab","#/lab"],["De-escalation practice"])+`<h1>De-escalation practice</h1><p class="lede muted">Choose the response that calms the situation.</p><div id="de"></div><p id="deScore" style="font-weight:600;margin-top:16px" aria-live="polite"></p>`},
 quizzes(){return crumbs(["Quizzes and exams"])+`<h1>Quizzes and exams</h1><p class="lede muted">Practice quizzes do not count toward your grade. Try them as often as you like. Graded exit tickets are on Google Forms.</p>
- <h2>Practice quizzes</h2><div class="grid">${SESSIONS.filter(s=>!s.exam).map(s=>{const a=avail[s.n],ok=a&&a.f[2],best=store.get(`ccl5-quiz-w${s.n}`,null);return `<div class="card top" style="--u:${U(s).c}"><span class="muted" style="font-size:.85em;font-weight:600">Session ${s.n}</span><h3>${s.t}</h3>${best?`<p class="muted">Best score: ${best.best} of ${best.total}</p>`:""}${ok?`<a class="btn primary" href="${a.dir}quiz.html">Start the quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Coming soon</a>`}</div>`}).join("")}</div>
+ <h2>Practice quizzes</h2><div class="grid">${SESSIONS.filter(s=>!s.exam).map(s=>{const a=avail[s.n],ok=a&&a.f[2]&&isOpen(s.n),best=store.get(`ccl5-quiz-w${s.n}`,null);return `<div class="card top" style="--u:${U(s).c}"><span class="muted" style="font-size:.85em;font-weight:600">Session ${s.n}</span><h3>${s.t}</h3>${best?`<p class="muted">Best score: ${best.best} of ${best.total}</p>`:""}${ok?`<a class="btn primary" href="${a.dir}quiz.html">Start the quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Coming soon</a>`}</div>`}).join("")}</div>
  <h2>Exams</h2><div class="list"><div><b>Midterm · Session 7 · 25%</b><p>Case-study exam on Sessions 1–6.</p></div><div><b>Final · Session 12 · 30%</b><p>Case-study exam on all outcomes.</p></div><div><b>Capstone · Session 12 · 35%</b><p>Report of about 1,500 words and a 10-minute presentation.</p></div><div><b>Exit tickets · 10%</b><p>Three questions at the end of every session, on Google Forms.</p></div></div>`},
 study(n){const has=SESSIONS.filter(s=>s.terms);
  return crumbs(["Study"])+`<h1>Study</h1><p class="lede muted">Flashcards for every key term so far, and the sentence frame for each model.</p>
@@ -483,9 +488,9 @@ progress(){const done=new Set(store.get(K.cap,[]));const caps=SESSIONS.filter(s=
 tools(){return V.syllabus()},
 syllabus(){return crumbs(["Syllabus"])+`<h1>Syllabus</h1><p class="lede">Manage, measure and improve customer service in a modern, technology-supported organisation.</p>
  <div class="sec"><h2>Learning outcomes</h2><ol class="steps"><li>Analyse customer needs and expectations using research and data</li><li>Evaluate how leadership and culture affect service quality</li><li>Evaluate service performance using KPIs, including AI-era metrics</li><li>Assess communication channels, human and AI, for different customer situations</li><li>Design and justify improvements to complaints handling and customer loyalty</li></ol></div>
- <div class="two"><div class="sec"><h2>Every session</h2><div class="list" style="border:none"><div><b>0:00–0:10</b><p>Warm-up and key terms</p></div><div><b>0:10–0:40</b><p>Foundation reading</p></div><div><b>0:40–1:00</b><p>Level 5 model</p></div><div><b>1:00–1:10</b><p>Break</p></div><div><b>1:10–1:30</b><p>Tech layer</p></div><div><b>1:30–1:50</b><p>Practice</p></div><div><b>1:50–2:00</b><p>Capstone step and exit ticket</p></div></div></div>
+ <div class="two"><div class="sec"><h2>Every session</h2><div class="list" style="border:none"><div><b>0:00–0:10</b><p>Warm-up and key terms</p></div><div><b>0:10–0:40</b><p>Core content</p></div><div><b>0:40–1:00</b><p>Level 5 model</p></div><div><b>1:00–1:10</b><p>Break</p></div><div><b>1:10–1:30</b><p>Tech layer</p></div><div><b>1:30–1:50</b><p>Practice</p></div><div><b>1:50–2:00</b><p>Capstone step and exit ticket</p></div></div></div>
  <div class="sec"><h2>Grading</h2><div class="list" style="border:none"><div><b>Pass</b><p>Explains key ideas and applies each model correctly.</p></div><div><b>Merit</b><p>Plus analysis supported by evidence and data.</p></div><div><b>Distinction</b><p>Plus comparing options, justifying recommendations and naming risks.</p></div></div></div></div>
- <div class="sec"><h2>Policies</h2><div class="list" style="border:none"><div><b>Using AI tools</b><p>Allowed for drafting and checking your English. Your analysis and recommendations must be your own. State how you used AI in your capstone report.</p></div><div><b>Attendance</b><p>Each missed session is also a missed capstone step. Follow Learnovate's attendance policy.</p></div><div><b>Textbook</b><p>The course textbook is a Level 4 text used as foundation reading. Level 5 adds a model, a Level 5 reading and a capstone step every session.</p></div></div></div>
+ <div class="sec"><h2>Policies</h2><div class="list" style="border:none"><div><b>Using AI tools</b><p>Allowed for drafting and checking your English. Your analysis and recommendations must be your own. State how you used AI in your capstone report.</p></div><div><b>Attendance</b><p>Each missed session is also a missed capstone step. Follow Learnovate's attendance policy.</p></div><div><b>Handouts</b><p>Each session has a printed handout and a workbook from Ms. Maria. Level 5 adds a model, a Level 5 reading and a capstone step every session.</p></div></div></div>
  <div class="row" style="margin-top:16px"><a class="btn" href="#/downloads">${ic("down")}Download the syllabus</a></div>`},
 glossary(){const all=SESSIONS.filter(s=>s.terms).flatMap(s=>s.terms.map(t=>[...t,s.n])).sort((a,b)=>a[0].localeCompare(b[0]));
  return crumbs(["Glossary"])+`<h1>Glossary</h1><p class="lede muted">Key terms from every session so far, A to Z.</p>${all.length?`<div class="list" style="margin-top:16px">${all.map(([a,b,n])=>`<div><b>${a}</b><p>${b} <a class="muted" href="#/session/${n}" style="font-size:.85em">Session ${n}</a></p></div>`).join("")}</div>`:"<p>Terms appear after Session 1.</p>"}`},
@@ -565,8 +570,8 @@ function deesc(){const box=$("#de");let score=0,answered=0;
   if(answered===DEESC.length)markLab("deescalate",score)})})}
 
 /* ---------- search ---------- */
-const IDX=[...SESSIONS.map(s=>({t:`Session ${s.n} · ${s.t}`,d:s.fr,h:`#/session/${s.n}`,k:`${s.t} ${s.fr} ${(s.terms||[]).map(x=>x.join(" ")).join(" ")} ${s.cap||""}`})),
- ...Object.entries(MODELS).map(([k,m])=>({t:m.t,d:"Level 5 model · Session "+m.s,h:`#/model/${k}`,k:m.t+" "+m.what+" "+m.read})),
+const IDX=[...SESSIONS.map(s=>({s:s.n,t:`Session ${s.n} · ${s.t}`,d:s.exam?s.fr:(MODELS[s.model]?MODELS[s.model].t:""),h:`#/session/${s.n}`,k:`${s.t} ${s.fr} ${(s.terms||[]).map(x=>x.join(" ")).join(" ")} ${s.cap||""}`})),
+ ...Object.entries(MODELS).map(([k,m])=>({s:m.s,t:m.t,d:"Level 5 model · Session "+m.s,h:`#/model/${k}`,k:m.t+" "+m.what+" "+m.read})),
  ...SESSIONS.filter(s=>s.terms).flatMap(s=>s.terms.map(([a,b])=>({t:a,d:b,h:`#/glossary`,k:a+" "+b}))),
  {t:"Practice Lab",d:"Ticket queue, live chat, de-escalation",h:"#/lab",k:"practice lab ticket chat complaint de-escalation angry customer"}];
 const sb=$("#search"),q=$("#q"),res=$("#results");
@@ -574,7 +579,7 @@ function openSearch(){sb.hidden=false;q.value="";q.focus()}
 function closeSearch(){sb.hidden=true}
 $("#openSearch").onclick=openSearch;$("#closeSearch").onclick=closeSearch;
 q.addEventListener("input",()=>{const v=q.value.trim().toLowerCase();if(v.length<2){res.innerHTML=`<p class="muted" style="margin-top:14px">Try "touchpoint", "Kano" or "complaints".</p>`;return}
- const hits=IDX.filter(x=>x.k.toLowerCase().includes(v)).slice(0,10);res.innerHTML=hits.length?hits.map(x=>`<a href="${x.h}">${esc(x.t)}<small>${esc(x.d)}</small></a>`).join(""):`<p class="muted" style="margin-top:14px">No results for "${esc(q.value)}".</p>`});
+ const hits=IDX.filter(x=>!(x.s&&!isOpen(x.s))&&x.k.toLowerCase().includes(v)).slice(0,10);res.innerHTML=hits.length?hits.map(x=>`<a href="${x.h}">${esc(x.t)}<small>${esc(x.d)}</small></a>`).join(""):`<p class="muted" style="margin-top:14px">No results for "${esc(q.value)}".</p>`});
 res.addEventListener("click",e=>{if(e.target.closest("a"))closeSearch()});
 
 /* ---------- drawer, text size, sound ---------- */
@@ -626,6 +631,6 @@ $("#lgGo").onclick=doLogin;$("#lgCode").addEventListener("keydown",e=>{if(e.key=
 $("#lgSkip").onclick=()=>{$("#login").hidden=true};$("#lgClose").onclick=closeLogin;
 whoUI();
 
-route();Promise.all([ready,loadSheet()]).then(()=>{if(/^#\/?($|session|quizzes|downloads)/.test(location.hash||"#/"))route()});syncDown();if(REQUIRE_LOGIN&&!AUTH)openLogin();
+route();Promise.all([ready,loadSheet()]).then(()=>{if(/^#\/?($|session|quizzes|downloads|model)/.test(location.hash||"#/"))route()});syncDown();if(REQUIRE_LOGIN&&!AUTH)openLogin();
 </script>
 </body></html>

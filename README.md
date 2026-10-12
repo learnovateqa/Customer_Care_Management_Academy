@@ -14,6 +14,7 @@ level5/
     syllabus.pdf        Level 5 syllabus, exported as PDF
   week01/
     slides.pdf          Session 1 deck, downloaded as PDF
+    handout.pdf         Session 1 handout (PDF)
     slides/             slide images for the in-page viewer (01.jpg, 02.jpg ... + count.txt)
     workbook.html       Session 1 e-workbook
     quiz.html           Session 1 practice quiz
