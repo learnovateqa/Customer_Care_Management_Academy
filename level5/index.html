@@ -188,12 +188,32 @@ textarea.ta{width:100%;min-height:110px;border:1.5px solid #B9BFCC;border-radius
 /* ===== visual upgrade ===== */
 .card{box-shadow:0 1px 2px rgba(27,42,74,.04)}
 a.card:hover{box-shadow:0 10px 24px rgba(27,42,74,.10)}
-.welcome{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:28px;padding:30px 32px;position:relative;overflow:hidden}
-@media (max-width:900px){.welcome{grid-template-columns:1fr;padding:24px}}
-.ringbig{width:200px;height:200px;border-radius:50%;background:conic-gradient(var(--a) 0 25%,var(--b) 0 50%,var(--c) 0 75%,var(--d) 0);display:grid;place-items:center;justify-self:center}
-.ringbig div{width:128px;height:128px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;line-height:1.15}
-.ringbig b{font-size:2.4rem;display:block}.ringbig span{font-size:12px;color:var(--ink2);font-weight:600}
-@media (max-width:900px){.ringbig{width:150px;height:150px}.ringbig div{width:96px;height:96px}.ringbig b{font-size:1.8rem}}
+.welcome{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:center;border-radius:28px;padding:38px 40px;position:relative;overflow:hidden;color:#fff;
+ background:radial-gradient(520px 320px at 100% 0%,rgba(42,157,143,.35),transparent 60%),radial-gradient(420px 300px at 85% 100%,rgba(109,91,208,.40),transparent 60%),radial-gradient(380px 260px at 0% 110%,rgba(231,111,81,.28),transparent 60%),linear-gradient(135deg,#1B2A4A,#22345C);box-shadow:0 18px 40px rgba(27,42,74,.22)}
+.welcome::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+.welcome .hi{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#E4E9F5}
+.welcome .hi i{width:8px;height:8px;border-radius:50%;background:var(--d);box-shadow:0 0 0 4px rgba(233,180,76,.25)}
+.welcome h1{color:#fff;margin:14px 0 0;font-size:clamp(2rem,4.6vw,3.2rem)}
+.welcome h1 em{font-style:normal;background:linear-gradient(90deg,var(--d),#F2C879);-webkit-background-clip:text;background-clip:text;color:transparent}
+.welcome .lede{color:#D3DAEA;margin-top:12px}
+.welcome .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.welcome .facts span{font-size:13px;font-weight:600;padding:6px 12px;border-radius:12px;background:rgba(255,255,255,.08);color:#fff}
+.welcome .facts b{color:var(--d);margin-right:4px}
+.welcome .btn{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
+.welcome .btn:hover{background:rgba(255,255,255,.1)}
+.welcome .btn.primary{background:#fff;color:var(--navy);border-color:#fff}
+.welcome .btn.primary:hover{background:#F2F4F9}
+.maker{display:flex;align-items:center;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14)}
+.maker .av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:18px;color:var(--navy);background:conic-gradient(var(--a) 0 25%,var(--b) 0 50%,var(--c) 0 75%,var(--d) 0);padding:3px;flex-shrink:0}
+.maker .av span{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:#FBF4E2}
+.maker b{display:block;font-size:15px}.maker small{display:block;font-size:12.5px;color:#B9C3DA}
+.ringbig{--p:0;width:210px;height:210px;border-radius:50%;justify-self:center;display:grid;place-items:center;position:relative;
+ background:conic-gradient(var(--a) 0 calc(var(--p)*1%),rgba(255,255,255,.12) 0);box-shadow:0 0 0 10px rgba(255,255,255,.05)}
+.ringbig div{width:150px;height:150px;border-radius:50%;background:#1E2F52;display:grid;place-items:center;text-align:center;line-height:1.15;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.ringbig b{font-size:2.6rem;display:block;color:#fff}.ringbig span{font-size:11px;letter-spacing:.08em;color:#B9C3DA;font-weight:600}
+.ringbig small{display:block;font-size:12px;color:var(--d);font-weight:600;margin-top:4px}
+@media (max-width:900px){.welcome{grid-template-columns:1fr;padding:28px 22px}.ringbig{width:160px;height:160px;justify-self:start}.ringbig div{width:116px;height:116px}.ringbig b{font-size:2rem}}
+@media (max-width:420px){.ringbig{display:none}}
 .journey{display:flex;align-items:flex-start;overflow-x:auto;padding:8px 4px 14px;gap:0}
 .jn{flex:1 0 74px;display:grid;justify-items:center;gap:6px;text-decoration:none;position:relative;min-width:74px}
 .jn::before{content:"";position:absolute;top:21px;left:-50%;right:50%;height:4px;background:var(--line);z-index:0}
@@ -526,10 +546,11 @@ const sessCard=s=>{const u=U(s);if(!isOpen(s.n))return `<div class="card top" st
 const V={
 home(){const L=latest();const done=store.get(K.cap,[]).length,total=SESSIONS.filter(s=>s.cap).length,pct=Math.round(done/total*100);
  const first=(typeof AUTH!=="undefined"&&AUTH&&AUTH.name)?AUTH.name.split(" ")[0]:null;const openN=SESSIONS.filter(s=>isOpen(s.n)).length;
- return `<section class="welcome"><div><p class="muted" style="font-weight:600">${first?`Welcome back, ${esc(first)}`:"Welcome"} · Learnovate Qatar</p><h1 style="margin-top:6px">Customer Care Management, Level 5</h1><p class="lede">Manage, measure and improve customer service like a manager: slides, handouts, e-workbooks, quizzes, models and the Practice Lab, all in one place.</p>
+ return `<section class="welcome"><div><span class="hi"><i></i>${first?`Welcome back, ${esc(first)}`:"Welcome"} · Learnovate Qatar</span><h1>Customer Care Management, <em>Level 5</em></h1><p class="lede">Manage, measure and improve customer service like a manager: slides, handouts, e-workbooks, quizzes, models and the Practice Lab, all in one place.</p>
  <div class="row" style="margin-top:18px">${L?`<a class="btn primary" href="#/session/${L.n}">${ic("sessions")}Continue Session ${L.n}</a>`:`<a class="btn primary" href="#/sessions">${ic("sessions")}Go to sessions</a>`}<a class="btn" href="#/lab">${ic("lab")}Practice Lab</a></div>
- <p class="muted" style="margin-top:14px;font-size:.85em">Taught by Ms. Maria F. Tongga, BSN, RN, RM</p></div>
- <div class="ringbig" aria-hidden="true"><div><span>SESSIONS OPEN</span><b>${openN}/12</b></div></div></section>
+ <div class="facts"><span><b>12</b>sessions</span><span><b>11</b>manager models</span><span><b>1</b>capstone plan</span></div>
+ <div class="maker"><span class="av" aria-hidden="true"><span>M</span></span><span><b>Created and built by Ms. Maria</b><small>Maria F. Tongga, BSN, RN, RM · Learnovate Qatar</small></span></div></div>
+ <div class="ringbig" style="--p:${Math.round(openN/12*100)}" role="img" aria-label="${openN} of 12 sessions open"><div><p><span>SESSIONS OPEN</span><b>${openN}/12</b><small>${openN>=12?"All open":`${12-openN} to come`}</small></p></div></div></section>
  <h2>Your course journey</h2><div class="card" style="padding:16px 12px">${journey()}</div>
  <div class="hero" style="margin-top:22px"><div class="now"><p style="font-weight:600;opacity:.85">This week</p>${L?`<h3 style="font-size:1.25rem">Session ${L.n} · ${L.t}</h3>${matBtns(L.n)}<a href="#/session/${L.n}">Open the session page</a>`:`<h3 style="font-size:1.2rem">Materials appear here after Session 1.</h3>`}</div>
  <a class="card" href="#/progress" style="display:flex;gap:16px;align-items:center"><span class="pring" style="background:conic-gradient(var(--gold) ${pct}%,var(--x-t) 0)"><span>${pct}%</span></span><span><span class="chip">${ic("progress")}Capstone</span><h3 style="margin-top:6px">${done} of ${total} steps done</h3><p class="muted" style="font-size:.9em">Your Digital-Ready Customer Care Improvement Plan</p></span></a></div>
