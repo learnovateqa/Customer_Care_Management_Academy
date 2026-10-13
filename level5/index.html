@@ -111,6 +111,19 @@ a.card:hover{border-color:var(--navy);transform:translateY(-1px)}
 .now .btn{border-color:#fff;color:#fff;background:transparent}.now .btn.primary{background:#fff;color:var(--navy)}
 .now .btn[aria-disabled="true"]{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.6)}
 .now a{color:#fff}
+.mbs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mbs .mb:last-child:nth-child(odd){grid-column:1/-1}
+@media (max-width:420px){.mbs{grid-template-columns:1fr}}
+.mb{display:flex;align-items:center;gap:12px;min-height:66px;padding:11px 14px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;text-decoration:none;transition:background .15s,transform .15s,box-shadow .15s}
+a.mb:hover{background:rgba(255,255,255,.13);transform:translateY(-1px)}
+.mb .mi{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--mc);color:#fff;flex-shrink:0}
+.mb .ml{flex:1;min-width:0}.mb b{display:block;font-size:14.5px;line-height:1.25}.mb small{display:block;font-size:12px;color:#B9C3DA;line-height:1.3;margin-top:2px}
+.mb>svg.i{opacity:.55;width:18px;height:18px}
+.mb.primary{background:#fff;color:var(--navy);border-color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.18)}.mb.primary small{color:var(--ink2)}
+a.mb.primary:hover{background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.24)}
+.mb.off{opacity:.45;border-style:dashed}.mb.off .mi{background:rgba(255,255,255,.15)}
+.now a.golink{display:inline-flex;align-items:center;gap:6px;justify-self:start;margin-top:4px;padding:8px 2px;font-weight:600;color:var(--d);text-decoration:none}
+.now a.golink:hover{text-decoration:underline}.golink svg.i{width:18px;height:18px}
 .units{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 
 /* session strip */
@@ -501,14 +514,15 @@ function isOpen(n){const a=avail[n];if(!a)return false;if(SHEET[n]&&SHEET[n].vis
 const lockMsg=s=>`Opens when Ms. Maria starts Session ${s.n}`;
 function latest(){let L=null;SESSIONS.forEach(s=>{if(isOpen(s.n))L=s});return L}
 function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Checking materials…</p>`;
- const b=[];
- b.push(canvaFor(n)||a.slides||a.f[0]?`<a class="btn primary" href="#/session/${n}/slides">${ic("sessions")}Slides</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Slides · soon</a>`);
- b.push(a.f[1]?`<a class="btn" href="${a.dir}workbook.html">E-workbook</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">E-workbook · soon</a>`);
- b.push(a.f[2]?`<a class="btn" href="${a.dir}quiz.html">Practice quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Practice quiz · soon</a>`);
- b.push(a.ho?`<a class="btn" href="${a.dir}handout.pdf" target="_blank" rel="noopener">Handout PDF</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Handout · soon</a>`);
  const form=(SHEET[n]&&SHEET[n].form)||a.form;
- b.push(a.ex?`<a class="btn" href="${a.dir}exit.html">Exit ticket</a>`:form?`<a class="btn" href="${esc(form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
- return `<div class="btns">${b.join("")}</div>`}
+ const mb=(on,href,icon,col,label,hint,primary,ext)=>on?`<a class="mb${primary?" primary":""}" href="${href}" style="--mc:${col}"${ext?' target="_blank" rel="noopener"':""}><span class="mi">${ic(icon)}</span><span class="ml"><b>${label}</b><small>${hint}</small></span>${ic("right")}</a>`:`<span class="mb off" style="--mc:${col}" aria-disabled="true"><span class="mi">${ic(icon)}</span><span class="ml"><b>${label}</b><small>Coming soon</small></span></span>`;
+ const b=[
+  mb(!!(canvaFor(n)||a.slides||a.f[0]),`#/session/${n}`,"sessions","var(--a)","Slides","This week's deck",true),
+  mb(!!a.f[1],`${a.dir}workbook.html`,"study","var(--b)","E-workbook","Practise the tasks"),
+  mb(!!a.f[2],`${a.dir}quiz.html`,"check","var(--c)","Practice quiz","Check your understanding"),
+  mb(!!a.ho,`${a.dir}handout.pdf`,"book","var(--d)","Handout","Read or print the PDF",false,true),
+  a.ex?mb(true,`${a.dir}exit.html`,"progress","var(--a)","Exit ticket","Finish the session"):mb(!!form,esc(form||""),"progress","var(--a)","Exit ticket","Finish the session",false,true)];
+ return `<div class="mbs">${b.join("")}</div>`}
 
 
 /* ---------- visual helpers ---------- */
@@ -552,7 +566,7 @@ home(){const L=latest();const done=store.get(K.cap,[]).length,total=SESSIONS.fil
  <div class="maker"><span class="av" aria-hidden="true"><span>M</span></span><span><b>Created and built by Ms. Maria</b><small>Maria F. Tongga, BSN, RN, RM · Learnovate Qatar</small></span></div></div>
  <div class="ringbig" style="--p:${Math.round(openN/12*100)}" role="img" aria-label="${openN} of 12 sessions open"><div><p><span>SESSIONS OPEN</span><b>${openN}/12</b><small>${openN>=12?"All open":`${12-openN} to come`}</small></p></div></div></section>
  <h2>Your course journey</h2><div class="card" style="padding:16px 12px">${journey()}</div>
- <div class="hero" style="margin-top:22px"><div class="now"><p style="font-weight:600;opacity:.85">This week</p>${L?`<h3 style="font-size:1.25rem">Session ${L.n} · ${L.t}</h3>${matBtns(L.n)}<a href="#/session/${L.n}">Open the session page</a>`:`<h3 style="font-size:1.2rem">Materials appear here after Session 1.</h3>`}</div>
+ <div class="hero" style="margin-top:22px"><div class="now"><p style="font-weight:600;opacity:.85">This week</p>${L?`<h3 style="font-size:1.25rem">Session ${L.n} · ${L.t}</h3>${matBtns(L.n)}<a class="golink" href="#/session/${L.n}">Open the session page${ic("right")}</a>`:`<h3 style="font-size:1.2rem">Materials appear here after Session 1.</h3>`}</div>
  <a class="card" href="#/progress" style="display:flex;gap:16px;align-items:center"><span class="pring" style="background:conic-gradient(var(--gold) ${pct}%,var(--x-t) 0)"><span>${pct}%</span></span><span><span class="chip">${ic("progress")}Capstone</span><h3 style="margin-top:6px">${done} of ${total} steps done</h3><p class="muted" style="font-size:.9em">Your Digital-Ready Customer Care Improvement Plan</p></span></a></div>
  <h2>Explore</h2><div class="grid"><a class="card" href="#/models"><span class="chip">${ic("book")}Level 5</span><h3>My 11 models</h3><p class="muted">The tools you use to analyse a situation and justify a recommendation.</p></a><a class="card" href="#/lab"><span class="chip" style="--u-t:var(--b-t)">${ic("lab")}Hands-on</span><h3>Practice Lab</h3><p class="muted">Ticket queue, live chat simulator and de-escalation practice.</p></a><a class="card" href="#/study"><span class="chip" style="--u-t:var(--a-t)">${ic("study")}Revise</span><h3>Study</h3><p class="muted">Key-term flashcards and sentence frames.</p></a><a class="card" href="#/install"><span class="chip" style="--u-t:var(--d-t)">${ic("down")}App</span><h3>Install the app</h3><p class="muted">Put Customer Care on your home screen. Works offline too.</p></a></div>`},
 sessions(){return crumbs(["Sessions"])+`<h1>Sessions</h1><p class="lede muted">Each session page has slides, an e-workbook, a practice quiz and the exit ticket. Buttons switch on when Ms. Maria uploads the materials.</p>`+["A","B","X1","C","D","X2"].map(k=>{let list=k==="X1"?[S(7)]:k==="X2"?[S(12)]:SESSIONS.filter(s=>s.u===k);const u=UNITS[k[0]];const title=k==="X1"?"Midterm":k==="X2"?"Final":`Unit ${k} · ${u.name}`;return `<h2 id="u${k}" style="display:flex;align-items:center;gap:10px"><i style="width:10px;height:26px;border-radius:4px;background:${u.c};display:inline-block"></i>${title}</h2><div class="grid">${list.map(sessCard).join("")}${REVIEWS[k]?revCard(k):""}</div>`}).join("")},
