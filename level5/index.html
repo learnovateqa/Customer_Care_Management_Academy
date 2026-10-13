@@ -141,6 +141,7 @@ a.card:hover{border-color:var(--navy);transform:translateY(-1px)}
 .viewer .ctl{display:flex;align-items:center;gap:8px;padding:10px 12px;color:#fff}
 .viewer .ctl .iconbtn{background:transparent;border-color:rgba(255,255,255,.3);color:#fff}
 .viewer .ctl span{flex:1;text-align:center;font-weight:600;font-size:14px}
+.slidesec .viewer{max-width:calc(68vh * 16 / 9);margin:0 auto}.slidesec .viewer+p{text-align:center}
 .viewer:fullscreen{display:flex;flex-direction:column;border-radius:0}.viewer:fullscreen .stage{flex:1;aspect-ratio:auto}
 .empty{border:2px dashed #C6CBD8;border-radius:20px;padding:28px;text-align:center;color:var(--ink2)}
 
@@ -473,6 +474,8 @@ const ready0=Promise.all(SESSIONS.map(async s=>{const dir=`week${pad(s.n)}/`;
  avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0,ho,ex,canva:canvaEmbed(cv)}}));
 const ready=Promise.all([ready0,readyRev]);
 function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.ex||a.form||a.slides||a.canva||(SHEET[n]&&SHEET[n].form))}
+function slideView(n){const a=avail[n]||{},cv=canvaFor(n);return cv?`<div class="viewer"><div class="stage" style="background:#fff"><iframe src="${esc(cv)}" title="Session ${n} slides" loading="lazy" allow="fullscreen" allowfullscreen style="width:100%;height:100%;border:0"></iframe></div></div><p class="muted" style="margin-top:10px;font-size:.9em">Use the arrows inside the slides. <a href="${esc(cv.replace('?embed',''))}" target="_blank" rel="noopener">Open in Canva full screen</a>.</p>`:a.slides?`<div class="viewer" id="viewer"><div class="stage" id="stage"><img id="slideImg" alt=""></div><div class="ctl"><button class="iconbtn" id="sPrev" type="button" aria-label="Previous slide">${ic("left")}</button><span id="sCount" aria-live="polite"></span><button class="iconbtn" id="sNext" type="button" aria-label="Next slide">${ic("right")}</button><button class="iconbtn" id="sFull" type="button" aria-label="Full screen">${ic("full")}</button></div></div>
+ <p class="muted" style="margin-top:10px;font-size:.9em">Swipe, tap the arrows or use the arrow keys.</p>`:""}
 function canvaFor(n){return (SHEET[n]&&SHEET[n].slides?canvaEmbed(SHEET[n].slides):null)||(avail[n]&&avail[n].canva)||null}
 function isOpen(n){const a=avail[n];if(!a)return false;if(SHEET[n]&&SHEET[n].visible===false)return false;return has(n)}
 const lockMsg=s=>`Opens when Ms. Maria starts Session ${s.n}`;
@@ -504,6 +507,9 @@ function tiles(n){const a=avail[n]||{},s=S(n),u=U(s),form=(SHEET[n]&&SHEET[n].fo
  t("exit","Exit ticket","right",a.ex?`${a.dir}exit.html`:(form||"#"),!!(a.ex||form),sessDone(n),!a.ex&&!!form);
  return `<div class="tiles">${T.join("")}</div>`}
 document.addEventListener("click",e=>{const el=e.target.closest("[data-seen]");if(el)store.set("ccl5-seen-"+el.dataset.seen,1)});
+const seenSlides=()=>{const m=location.hash.match(/^#\/session\/(\d+)/);if(m)store.set(`ccl5-seen-${m[1]}-slides`,1)};
+document.addEventListener("pointerdown",e=>{if(e.target.closest(".viewer"))seenSlides()});
+window.addEventListener("blur",()=>{const f=document.activeElement;if(f&&f.tagName==="IFRAME"&&f.closest(".viewer"))seenSlides()});
 
 /* ---------- shared bits ---------- */
 const crumbs=(...p)=>`<nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Level 5</a>${p.map(x=>`<span aria-hidden="true">›</span>${x[1]?`<a href="${x[1]}">${x[0]}</a>`:`<span aria-current="page">${x[0]}</span>`}`).join("")}</nav>`;
@@ -531,6 +537,7 @@ home(){const L=latest();const done=store.get(K.cap,[]).length,total=SESSIONS.fil
 sessions(){return crumbs(["Sessions"])+`<h1>Sessions</h1><p class="lede muted">Each session page has slides, an e-workbook, a practice quiz and the exit ticket. Buttons switch on when Ms. Maria uploads the materials.</p>`+["A","B","X1","C","D","X2"].map(k=>{let list=k==="X1"?[S(7)]:k==="X2"?[S(12)]:SESSIONS.filter(s=>s.u===k);const u=UNITS[k[0]];const title=k==="X1"?"Midterm":k==="X2"?"Final":`Unit ${k} · ${u.name}`;return `<h2 id="u${k}" style="display:flex;align-items:center;gap:10px"><i style="width:10px;height:26px;border-radius:4px;background:${u.c};display:inline-block"></i>${title}</h2><div class="grid">${list.map(sessCard).join("")}${REVIEWS[k]?revCard(k):""}</div>`}).join("")},
 session(n,sub){const s=S(n);if(!s)return V.notfound();if(!isOpen(n))return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div class="empty" style="margin-top:10px"><h1 style="font-size:1.6rem">Session ${s.n} · ${s.t}</h1><p>This session is locked. ${lockMsg(s)}.</p><div class="row" style="justify-content:center;margin-top:14px"><a class="btn primary" href="#/sessions">Back to sessions</a></div></div>`;if(sub==="slides")return V.slides(n);const u=U(s),m=MODELS[s.model];document.documentElement.style.setProperty("--accent",u.c);
  return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div class="banner" style="background:${u.t}"><span class="num">${pad(s.n)}</span><div><span class="chip" style="background:#fff">${s.exam?"Exam session":"Unit "+s.u+" · "+u.name}</span><h1 style="margin:8px 0 0">${s.t}</h1>${MODELS[s.model]&&!s.exam?`<p class="muted" style="margin-top:4px">Level 5 model: ${MODELS[s.model].t}</p>`:""}</div></div>
+ ${slideView(s.n)?`<div class="sec slidesec"><h2>${ic("sessions")}Session ${s.n} slides</h2>${slideView(s.n)}</div>`:""}
  ${SHEET[s.n]&&SHEET[s.n].note?`<div class="sec" style="background:var(--gold-t);border-color:var(--gold)"><h2>Announcement from Ms. Maria</h2><p>${esc(SHEET[s.n].note)}</p></div>`:""}
  <div class="sec"><h2>${ic("sessions")}Your materials</h2>${tiles(s.n)}</div>
  <div class="two">
@@ -542,8 +549,7 @@ session(n,sub){const s=S(n);if(!s)return V.notfound();if(!isOpen(n))return crumb
  ${m?`<div class="sec"><h2>${ic("lab")}Level 5 model</h2><a class="card top" style="--u:${u.c};max-width:620px" href="#/model/${s.model}"><h3>${m.t}</h3><p class="muted">${m.what}</p></a></div>`:""}
  ${s.cap?`<div class="sec"><h2>${ic("progress")}Capstone step</h2><div class="frame" style="max-width:680px">${s.cap}</div><div class="row" style="margin-top:12px"><a class="btn soft" href="#/progress">Tick it in My progress</a></div></div>`:""}`},
 slides(n){const s=S(n),a=avail[n]||{};
- const cv=canvaFor(n);const body=cv?`<div class="viewer"><div class="stage" style="background:#fff"><iframe src="${esc(cv)}" title="Session ${n} slides" loading="lazy" allow="fullscreen" allowfullscreen style="width:100%;height:100%;border:0"></iframe></div></div><p class="muted" style="margin-top:10px;font-size:.9em">Use the arrows inside the slides. <a href="${esc(cv.replace('?embed',''))}" target="_blank" rel="noopener">Open in Canva full screen</a>.</p>`:a.slides?`<div class="viewer" id="viewer"><div class="stage" id="stage"><img id="slideImg" alt=""></div><div class="ctl"><button class="iconbtn" id="sPrev" type="button" aria-label="Previous slide">${ic("left")}</button><span id="sCount" aria-live="polite"></span><button class="iconbtn" id="sNext" type="button" aria-label="Next slide">${ic("right")}</button><button class="iconbtn" id="sFull" type="button" aria-label="Full screen">${ic("full")}</button></div></div>
- <p class="muted" style="margin-top:10px;font-size:.9em">Swipe, tap the arrows or use the arrow keys.</p>`:a.f&&a.f[0]?`<div class="empty"><p>The slides for this session are available as a PDF.</p></div>`:`<div class="empty"><p>The slides for this session are coming soon.</p></div>`;
+ const body=slideView(n)||(a.f&&a.f[0]?`<div class="empty"><p>The slides for this session are available as a PDF.</p></div>`:`<div class="empty"><p>The slides for this session are coming soon.</p></div>`);
  return crumbs(["Sessions","#/sessions"],[`Session ${n}`,`#/session/${n}`],["Slides"])+strip(n,"/slides")+`<h1>Session ${n} slides</h1><p class="muted" style="margin-bottom:16px">${s.t}</p>${body}
  <div class="row" style="margin-top:14px">${a.f&&a.f[0]?`<a class="btn" href="${a.dir}slides.pdf" target="_blank" rel="noopener">${ic("down")}Download PDF</a>`:""}<a class="btn soft" href="#/session/${n}">Back to Session ${n}</a></div>`},
 models(){return crumbs(["My 11 models"])+`<h1>My 11 models</h1><p class="lede muted">Each model is a tool for Level 5 thinking: analyse a situation, then recommend and justify action.</p><div class="grid" style="margin-top:20px">${Object.entries(MODELS).map(([k,m])=>{const u=U(S(m.s));if(!isOpen(m.s))return `<div class="card top" style="--u:#C6CBD8;opacity:.75"><span class="chip">Session ${m.s} · Locked</span><h3>${m.t}</h3><p class="muted" style="font-size:.92em">${lockMsg(S(m.s))}</p></div>`;return `<a class="card top" style="--u:${u.c};--u-t:${u.t}" href="#/model/${k}"><span class="chip">Session ${m.s}</span><h3>${m.t}</h3><p class="muted" style="font-size:.92em">${m.what}</p></a>`}).join("")}</div>`},
@@ -620,7 +626,7 @@ function route(){const parts=location.hash.replace(/^#\/?/,"").split(/[#/]/);con
  $("#main").innerHTML=html;
  const t=TAB[p]||"";document.querySelectorAll("nav.main a,nav.tabs a").forEach(x=>x.getAttribute("href")===t?x.setAttribute("aria-current","page"):x.removeAttribute("aria-current"));
  closeAll();
- if(p==="study")flash(a);if(p==="progress")tracker();if(p==="session"&&b==="slides")viewer(a);
+ if(p==="study")flash(a);if(p==="progress")tracker();if(p==="session"&&(b==="slides"||!b))viewer(a);
  if(p==="lab"&&a==="tickets")tickets();if(p==="lab"&&a==="chat")chat();if(p==="lab"&&a==="deescalate")deesc();
  const anchor=location.hash.split("#")[2];if(anchor){const el=document.getElementById(anchor);if(el){el.scrollIntoView();return}}
  window.scrollTo(0,0);$("#main").focus({preventScroll:true});
