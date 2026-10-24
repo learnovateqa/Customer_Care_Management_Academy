@@ -146,6 +146,14 @@ function ensureTeacherSetup() {
     const sh = sheet(t), h = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];
     if (h.indexOf('Slides link (Canva)') === -1) sh.getRange(1, h.length + 1).setValue('Slides link (Canva)').setFontWeight('bold');
   });
+  studentCols();
+}
+
+/** Adds the Mobile and Email columns to the Students tab if they are missing, and returns the header row. */
+function studentCols() {
+  const sh = sheet(TABS.students), h = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].map(clean);
+  ['Mobile', 'Email'].forEach(k => { if (h.indexOf(k) === -1) { h.push(k); sh.getRange(1, h.length).setValue(k).setFontWeight('bold'); } });
+  return h;
 }
 
 function teacherOk(pin) {
@@ -162,7 +170,8 @@ function teacherDashboard(b) {
   if (!teacherOk(b.pin)) return NO;
   const level = String(b.level || '5');
   const students = rows(TABS.students).filter(r => clean(r['Access code'])).map(r => ({
-    name: clean(r['Name']), code: clean(r['Access code']).toUpperCase(), level: clean(r['Level']), active: clean(r['Active']), notes: clean(r['Notes'])
+    name: clean(r['Name']), code: clean(r['Access code']).toUpperCase(), level: clean(r['Level']), active: clean(r['Active']), notes: clean(r['Notes']),
+    mobile: clean(r['Mobile']), email: clean(r['Email'])
   }));
   const scores = {};
   rows(TABS.scores).forEach(r => {
@@ -227,15 +236,25 @@ function teacherSaveStudent(b) {
   if (!clean(b.name)) return { ok: false, error: 'Type the learner name.' };
   const level = ['4', '5', '4 and 5'].indexOf(clean(b.level)) > -1 ? clean(b.level) : '5';
   const active = clean(b.active) === 'No' ? 'No' : 'Yes';
+  const mobile = clean(b.mobile), email = clean(b.email);
+  if (mobile && !/^\+?[0-9 ()-]{7,20}$/.test(mobile)) return { ok: false, error: 'Check the mobile number. Use numbers only, for example +974 5555 1234.' };
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok: false, error: 'Check the email address, for example name@example.com.' };
+  const h = studentCols(), cm = h.indexOf('Mobile') + 1, ce = h.indexOf('Email') + 1;
   const sh = sheet(TABS.students), v = sh.getDataRange().getValues();
   for (let i = 1; i < v.length; i++) {
     if (clean(v[i][1]).toUpperCase() === code) {
       if (b.isNew) return { ok: false, error: 'This code is already used. Choose another.' };
       sh.getRange(i + 1, 1, 1, 4).setValues([[clean(b.name), code, level, active]]);
+      sh.getRange(i + 1, cm).setNumberFormat('@').setValue(mobile);
+      sh.getRange(i + 1, ce).setValue(email);
       return { ok: true };
     }
   }
-  sh.appendRow([clean(b.name), code, level, active, clean(b.notes)]);
+  const row = [clean(b.name), code, level, active, clean(b.notes)];
+  while (row.length < h.length) row.push('');
+  row[cm - 1] = mobile; row[ce - 1] = email;
+  sh.appendRow(row);
+  sh.getRange(sh.getLastRow(), cm).setNumberFormat('@').setValue(mobile);
   return { ok: true };
 }
 
