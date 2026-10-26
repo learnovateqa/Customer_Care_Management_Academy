@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Session 2 practice quiz · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.q{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
+.q h2{font-size:1.05rem;margin:0 0 12px;font-weight:600}
+.q h2 span{display:inline-block;background:var(--a-t);border-radius:8px;padding:0 10px;margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--ok-t);border-color:var(--ok)}
+.opt.wrong{background:var(--no-t);border-color:var(--no)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.right{background:var(--ok-t)}
+.fb.wrong{background:var(--no-t)}
+.slide{font-size:13px;color:var(--ink2);margin-top:6px}
+.score{position:sticky;bottom:0;margin-top:24px;background:var(--navy);color:#fff;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:none;background:#fff;color:var(--navy);font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/session/2">Back to Session 2</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Session 2 · Fundamentals of customer care</p>
+<h1>Practice quiz</h1>
+<p class="muted">10 questions from the Session 2 slides. Choose an answer to see if it is right. This quiz does not count toward your grade.</p>
+<div id="quiz"></div>
+<div class="score" aria-live="polite"><span id="scoreText">Score: 0 of 10 · 10 to go</span><button class="btn" id="reset" type="button">Start again</button></div>
+</main>
+<script>
+const Q=[{"q": "What do customers judge service against?", "o": ["A fixed company standard", "What they expected", "The price only", "What competitors charge"], "a": 1, "e": "Customers judge service against what they expected. Below it they are unhappy; above it they remember you.", "s": "Slide 7"}, {"q": "Service falls below the adequate level. How do customers feel?", "o": ["Delighted", "Calm; they accept it", "Unhappy", "They do not notice"], "a": 2, "e": "Below the adequate level, customers are unhappy. Between adequate and desired is the zone of tolerance.", "s": "Slide 9"}, {"q": "Customers are angry when it is missing but say nothing when it is there. It is a…", "o": ["Delighter", "Performance feature", "Basic need", "Reverse feature"], "a": 2, "e": "A basic need is expected: customers only notice it when it is missing.", "s": "Slide 13"}, {"q": "Which sentence is the key lesson of the Kano Model?", "o": ["Delighters matter most", "A delighter cannot save a missing basic", "Performance features are always free", "Basics never change"], "a": 1, "e": "A free gift means nothing if the phone does not work. Fix basics first.", "s": "Slide 14"}, {"q": "Loud music in a café pleases some customers and annoys others. In Kano, this is a…", "o": ["Basic", "Indifferent feature", "Reverse feature", "Delighter"], "a": 2, "e": "Reverse features are liked by some customers and disliked by others.", "s": "Slide 15"}, {"q": "Free two-day delivery was a delighter in 2005. Today many customers see it as…", "o": ["A delighter", "A basic need", "A pain point", "Not important"], "a": 1, "e": "Delighters move over time: delighter, then performance, then basic.", "s": "Slides 16 and 27"}, {"q": "Jan Carlzon counted 50 million moments of truth a year at SAS because…", "o": ["SAS had 50 million staff", "About 10 million customers each met about 5 staff", "Each flight had 50 seats", "Customers flew 50 times a year"], "a": 1, "e": "10 million customers × about 5 staff contacts = 50 million moments of truth.", "s": "Slide 25"}, {"q": "Reading online reviews before you buy is the…", "o": ["Zero moment of truth", "First moment of truth", "Second moment of truth", "After-sales moment"], "a": 0, "e": "The zero moment of truth is when customers research online before buying.", "s": "Slide 26"}, {"q": "\"Are they open when I need them?\" Which satisfaction element is this?", "o": ["Location", "Time", "Sales", "Culture"], "a": 1, "e": "Time covers opening hours and how long things take.", "s": "Slide 21"}, {"q": "In Kano terms, PERFECT behaviour by staff (professional, friendly, reliable…) is mostly a…", "o": ["Delighter", "Basic", "Reverse feature", "Indifferent feature"], "a": 1, "e": "Customers expect PERFECT behaviour. Small surprises on top of it are delighters.", "s": "Slide 22"}];
+let answered={};
+function render(){const box=document.getElementById("quiz");box.innerHTML="";answered={};
+Q.forEach((it,i)=>{const d=document.createElement("div");d.className="q";
+d.innerHTML=`<h2><span>${i+1}</span>${it.q}</h2><div class="opts" role="group" aria-label="Question ${i+1} options"></div><div class="fb" hidden aria-live="polite"></div>`;
+const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");
+it.o.forEach((t,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=t;
+b.addEventListener("click",()=>{if(i in answered)return;answered[i]=j===it.a;
+opts.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===it.a)x.classList.add("right")});
+if(j!==it.a)b.classList.add("wrong");
+fb.hidden=false;fb.className="fb "+(j===it.a?"right":"wrong");
+fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slide">Review: ${it.s}</div>`;score()});
+opts.appendChild(b)});box.appendChild(d)});score()}
+function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
+if(n===Q.length){try{const k="ccl5-quiz-w2",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
+if(n===Q.length){try{const au=JSON.parse(localStorage.getItem("ccl5-auth")||"null");if(au&&au.code){fetch("https://script.google.com/macros/s/AKfycbw70SpO16Qai-KTVcs9K_cWGShT-jFZMWI47BGMAEgBm1BcXKk3AKCCrS_rI9La98okIQ/exec",{method:"POST",body:JSON.stringify({action:"score",code:au.code,level:"5",session:2,score:c,total:Q.length})}).catch(()=>{})}}catch(e){}}
+document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=8?"Well prepared for the exit ticket.":"Review the slides shown, then try again."}`}
+document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>

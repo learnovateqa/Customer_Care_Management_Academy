@@ -51,6 +51,17 @@ td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
 .login{max-width:420px;margin:10vh auto 0}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:640px){.two{grid-template-columns:1fr}}
+.tabs button{white-space:nowrap}
+.att{display:flex;gap:4px}.att button{min-height:34px;padding:2px 10px;border-radius:9px;border:1.5px solid #B9BFCC;background:#fff;font:600 12.5px Poppins,system-ui,sans-serif;cursor:pointer}
+.att button[aria-pressed="true"].P{background:var(--ok-t);border-color:var(--ok)}.att button[aria-pressed="true"].L{background:var(--d-t);border-color:var(--d)}.att button[aria-pressed="true"].A{background:var(--no-t);border-color:var(--no)}
+.need{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid var(--line);margin-top:8px}
+.need b{flex-shrink:0;font-size:12px;padding:2px 9px;border-radius:999px;background:var(--no-t)}
+.toggle{min-width:120px;min-height:44px;border-radius:999px;border:0;font:700 14px Poppins,system-ui,sans-serif;cursor:pointer}
+.toggle.on{background:var(--ok);color:#fff}.toggle.off{background:#EEF0F5;color:var(--navy)}
+.mat{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.mat a{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);text-decoration:none;color:var(--navy)}
+.mat a.no{opacity:.45;pointer-events:none;border-style:dashed}
+.ans{background:var(--paper);border-radius:12px;padding:10px 12px;margin:6px 0;white-space:pre-wrap}
+.lnk{background:none;border:0;padding:0;font:inherit;color:var(--navy);text-decoration:underline;cursor:pointer;font-weight:600}
 </style>
 </head>
 <body>
@@ -61,54 +72,88 @@ td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
 <script>
 const API="https://script.google.com/macros/s/AKfycbw70SpO16Qai-KTVcs9K_cWGShT-jFZMWI47BGMAEgBm1BcXKk3AKCCrS_rI9La98okIQ/exec";
 const LEVEL="5";
+const TITLES={1:"Customer care in context",2:"Fundamentals of customer care",3:"Knowing customer needs",4:"Leadership for a service culture",5:"Measuring performance",6:"The internal customer",7:"Midterm",8:"Communication barriers",9:"Communication channels",10:"Complaints and quality improvement",11:"Long-term customer relationships",12:"Capstone presentations and final exam"};
+const CAPS=[1,2,3,4,5,6,8,9,10,11,12],EXAMS=[7,12];
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let PIN=null,D=null,view="dash";
+const pad=n=>String(n).padStart(2,"0");
+let PIN=null,D=null,view="dash",who=null,FILES={};
 try{PIN=sessionStorage.getItem("ccm-teacher")}catch(e){}
 function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2600)}
 async function call(b){const r=await fetch(API,{method:"POST",body:JSON.stringify(Object.assign({pin:PIN,level:LEVEL},b))});return r.json()}
+async function head(u){try{return (await fetch(u,{method:"HEAD",cache:"no-store"})).ok}catch(e){return false}}
+async function text(u){try{const r=await fetch(u,{cache:"no-store"});return r.ok?(await r.text()).trim():""}catch(e){return ""}}
+async function scanFiles(){await Promise.all(Object.keys(TITLES).map(async n=>{const d=`week${pad(n)}/`;const [ho,sp,wb,qz,ex,pdf,sl]=await Promise.all([head(d+"handout.pdf"),head(d+"supplement.pdf"),head(d+"workbook.html"),head(d+"quiz.html"),head(d+"exit.html"),head(d+"slides.pdf"),text(d+"slides.txt")]);FILES[n]={d,ho,sp,wb,qz,ex,pdf,sl:/^https:\/\//.test(sl)}}))}
 
-function loginView(msg){$("#tabs").hidden=true;$("#main").innerHTML=`<div class="login card"><h1>Teacher sign-in</h1><p class="muted">Enter the teacher PIN from the Settings tab of your Sheet.</p><label class="l" for="pin">Teacher PIN</label><input class="f" id="pin" type="password" autocomplete="current-password"><p id="msg" role="alert" style="min-height:1.4em;margin-top:8px;color:var(--no)">${esc(msg||"")}</p><button class="btn primary" id="go" type="button" style="width:100%">Sign in</button><p class="muted" style="margin-top:12px;font-size:13px">This page is only for Ms. Maria. Learners use the course app.</p></div>`;
- const go=async()=>{PIN=$("#pin").value.trim();if(!PIN)return;$("#go").disabled=true;$("#msg").textContent="Checking…";await load();};
+function loginView(msg){$("#tabs").hidden=true;$("#main").innerHTML=`<div class="login card"><h1>Teacher sign-in</h1><p class="muted">Enter the teacher PIN from the Settings tab of your Sheet.</p><label class="l" for="pin">Teacher PIN</label><input class="f" id="pin" type="password" autocomplete="current-password"><p id="msg" role="alert" style="min-height:1.4em;margin-top:8px;color:var(--no)">${esc(msg||"")}</p><button class="btn primary" id="go" type="button" style="width:100%">Sign in</button><p class="muted" style="margin-top:12px;font-size:13px">Tip: in Safari tap Share › Add to Home Screen to keep this portal as its own app.</p></div>`;
+ const go=async()=>{PIN=$("#pin").value.trim();if(!PIN)return;$("#go").disabled=true;$("#msg").textContent="Checking…";await load()};
  $("#go").onclick=go;$("#pin").onkeydown=e=>{if(e.key==="Enter")go()};$("#pin").focus()}
-
-async function load(){try{const r=await call({action:"teacherDashboard"});if(!r.ok){PIN=null;try{sessionStorage.removeItem("ccm-teacher")}catch(e){}return loginView(r.error)}
+async function load(){try{const [r]=await Promise.all([call({action:"teacherDashboard"}),scanFiles()]);if(!r.ok){PIN=null;try{sessionStorage.removeItem("ccm-teacher")}catch(e){}return loginView(r.error)}
  D=r;try{sessionStorage.setItem("ccm-teacher",PIN)}catch(e){}$("#tabs").hidden=false;render()}catch(e){loginView("Can't reach your teacher portal script. Check the internet and try again.")}}
-
-function render(){document.querySelectorAll("#tabs [data-v]").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===view));({dash,sessions,learners})[view]()}
-document.querySelectorAll("#tabs [data-v]").forEach(b=>b.onclick=()=>{view=b.dataset.v;render()});
+function render(){document.querySelectorAll("#tabs [data-v]").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===(who?"learners":view)));if(who)return profile(who);({dash,sessions,learners})[view]();window.scrollTo(0,0)}
+document.querySelectorAll("#tabs [data-v]").forEach(b=>b.onclick=()=>{view=b.dataset.v;who=null;render()});
 $("#out").onclick=()=>{PIN=null;D=null;try{sessionStorage.removeItem("ccm-teacher")}catch(e){}loginView()};
 
-const lvlHas=(s,l)=>String(s.level).indexOf(l)>-1;
-function dash(){const st=D.students.filter(s=>lvlHas(s,LEVEL)),act=st.filter(s=>s.active.toLowerCase()==="yes");
- const signed=act.filter(s=>D.progress[s.code]||D.scores[s.code]).length;
- const quizzes=Object.values(D.scores).reduce((n,o)=>n+Object.keys(o).length,0);
- $("#main").innerHTML=`<h1>Dashboard</h1><p class="muted">Level ${LEVEL} · <a href="#" id="refresh">Refresh</a></p>
- <div class="grid" style="margin-top:14px"><div class="card stat"><b>${act.length}</b>Active learners</div><div class="card stat"><b>${signed}</b>Have used the app</div><div class="card stat"><b>${quizzes}</b>Practice quizzes finished</div><div class="card stat"><b>${D.sessions.filter(s=>s.visible!=="No").length}</b>Sessions not closed</div></div>
- <h2>Learner progress</h2><div class="tablewrap"><table><tr><th>Learner</th><th>Code</th><th>Capstone steps</th><th>Practice quizzes (best)</th><th>E-workbook</th><th>Exit tickets</th><th>Practice Lab</th><th>Last active</th></tr>
- ${act.map(s=>{const p=D.progress[s.code]||{},sc=D.scores[s.code]||{},ex=(D.exits||{})[s.code]||[],wb=(D.workbooks||{})[s.code]||[],done=String(p.steps||"").split(",").map(x=>+x).filter(Boolean);let lab={};try{lab=JSON.parse(p.lab||"{}")}catch(e){}
-  return `<tr><td><b>${esc(s.name)}</b></td><td>${esc(s.code)}</td><td><div class="dots">${[1,2,3,4,5,6,8,9,10,11,12].map(n=>`<span class="${done.includes(n)?"on":""}">${n}</span>`).join("")}</div></td><td>${Object.keys(sc).length?Object.entries(sc).map(([n,v])=>`S${n}: ${v.best}/${v.total}`).join("<br>"):'<span class="muted">None yet</span>'}</td><td>${wb.length?wb.sort((x,y)=>x.n-y.n).map(e=>`S${e.n}: ${e.score}/${e.total}`).join("<br>"):'<span class="muted">None yet</span>'}</td><td>${ex.length?ex.sort((x,y)=>x.n-y.n).map(e=>`S${e.n}${e.mark?`: ${esc(e.mark)}/10`:" · to mark"}`).join("<br>"):'<span class="muted">None yet</span>'}</td><td>${lab.tickets?"Tickets ✓<br>":""}${lab.chat?`Chat ${lab.chat}%<br>`:""}${lab.deescalate?`De-escalation ${lab.deescalate}/6`:""}${!lab.tickets&&!lab.chat&&!lab.deescalate?'<span class="muted">None yet</span>':""}</td><td>${esc(p.updated||"")||'<span class="muted">Not yet</span>'}</td></tr>`}).join("")||`<tr><td colspan="8" class="muted">No active Level ${LEVEL} learners yet. Add them in the Learners tab.</td></tr>`}</table></div>
- <p class="muted" style="margin-top:10px;font-size:13px">Progress appears when a learner signs in to the app with their code. Workbook details and written answers are in the Workbook_Results tab. Read and mark exit tickets in the Exit_Tickets tab of your Sheet (columns Mark and Teacher comment).</p>`;
- $("#refresh").onclick=e=>{e.preventDefault();load()}}
+const act=()=>D.students.filter(s=>String(s.level).indexOf(LEVEL)>-1&&s.active.toLowerCase()==="yes");
+const det=c=>(D.detail||{})[c]||{};
+const openNs=()=>D.sessions.filter(s=>s.open).map(s=>s.n);
+function needs(){const out=[];const open=openNs();
+ act().forEach(s=>{const d=det(s.code),ex=(d.exits||[]).map(e=>e.n),wb=(d.workbooks||[]).map(w=>w.n),la=(D.lastActive||{})[s.code],sc=D.scores[s.code]||{};
+  open.filter(n=>!EXAMS.includes(n)).forEach(n=>{if(!ex.includes(n))out.push([s,`No exit ticket for Session ${n}`]);if(!wb.includes(n))out.push([s,`No e-workbook for Session ${n}`])});
+  if(!la)out.push([s,"Has not used the app yet"]);else if(la.days>=7)out.push([s,`Not active for ${la.days} days`]);
+  Object.entries(sc).forEach(([n,v])=>{if(v.total&&v.best/v.total<0.6)out.push([s,`Practice quiz Session ${n}: best ${v.best}/${v.total}`])});
+  const um=(d.exits||[]).filter(e=>!e.mark).length+(d.workbooks||[]).filter(w=>!w.mark).length;if(um)out.push([s,`${um} submission${um>1?"s":""} to mark`])});
+ return out}
+function dash(){const a=act(),n=needs(),open=openNs();
+ $("#main").innerHTML=`<h1>Dashboard</h1><p class="muted">Level ${LEVEL} · <button class="lnk" id="refresh" type="button">Refresh</button></p>
+ <div class="grid" style="margin-top:14px"><div class="card stat"><b>${a.length}</b>Active learners</div><div class="card stat"><b>${open.length?open.join(", "):"–"}</b>Sessions open</div><div class="card stat"><b>${n.filter(x=>x[1].includes("to mark")).length}</b>Learners with work to mark</div><div class="card stat"><b>${n.length}</b>Items needing attention</div></div>
+ <h2>Needs attention</h2>${n.length?n.map(([s,t])=>`<div class="need"><b>${esc(s.name.split(" ")[0])}</b><span style="flex:1">${esc(t)}</span><button class="lnk" data-who="${esc(s.code)}" type="button">Open profile</button></div>`).join(""):`<p class="muted">Nothing needs attention right now.</p>`}
+ <h2>Learners</h2><div class="tablewrap"><table><tr><th>Learner</th><th>Last active</th><th>Attendance</th><th>Capstone steps</th><th>Exit tickets</th><th>E-workbooks</th><th></th></tr>
+ ${a.map(s=>{const d=det(s.code),la=(D.lastActive||{})[s.code],at=(D.attendance||{})[s.code]||{},vals=Object.values(at).filter(Boolean),pres=vals.filter(v=>v!=="Absent").length,p=(D.progress[s.code]||{}).steps||"";
+  return `<tr><td><b>${esc(s.name)}</b><br><span class="muted">${esc(s.code)}</span></td><td>${la?esc(la.text):'<span class="muted">Not yet</span>'}</td><td>${vals.length?`${Math.round(pres/vals.length*100)}% (${pres}/${vals.length})`:'<span class="muted">Not taken</span>'}</td><td>${p?esc(p):'<span class="muted">None</span>'}</td><td>${(d.exits||[]).length}</td><td>${(d.workbooks||[]).length}</td><td><button class="btn" data-who="${esc(s.code)}" type="button">Profile</button></td></tr>`}).join("")||`<tr><td colspan="7" class="muted">No active learners yet. Add them in Learners.</td></tr>`}</table></div>`;
+ $("#refresh").onclick=load;document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;render()})}
 
-function sessions(){$("#main").innerHTML=`<h1>Sessions</h1><p class="muted">A session opens for learners when its files are uploaded. "Closed" hides it again. Changes save to your Sheet.</p><div class="sess" style="margin-top:14px">${D.sessions.map(s=>`<div class="card" data-n="${s.n}"><div class="head"><b>Session ${s.n} · ${esc(s.title)}</b><span class="pill ${s.visible==="No"?"no":"yes"}">${s.visible==="No"?"Closed":"Not closed"}</span></div>
- <div class="two"><div><label class="l" for="sl${s.n}">Slides link (Canva, view-only)</label><input class="f" id="sl${s.n}" value="${esc(s.slides)}" placeholder="https://www.canva.com/design/…"></div><div><label class="l" for="fm${s.n}">Exit ticket link (Google Form)</label><input class="f" id="fm${s.n}" value="${esc(s.form)}" placeholder="https://forms.gle/…"></div></div>
- <label class="l" for="nt${s.n}">Announcement</label><textarea class="f" id="nt${s.n}" placeholder="Shown at the top of the session page">${esc(s.note)}</textarea>
- <div class="row" style="margin-top:10px"><label class="l" for="vs${s.n}" style="margin:0">Status</label><select class="f" id="vs${s.n}" style="width:auto"><option${s.visible!=="No"?" selected":""}>Yes</option><option${s.visible==="No"?" selected":""}>No</option></select><span class="muted" style="font-size:13px">Yes = normal · No = closed</span><button class="btn primary" type="button" data-save="${s.n}" style="margin-left:auto">Save Session ${s.n}</button></div></div>`).join("")}</div>`;
- document.querySelectorAll("[data-save]").forEach(b=>b.onclick=async()=>{const n=+b.dataset.save;b.disabled=true;b.textContent="Saving…";
-  const body={action:"teacherSaveSession",n,slides:$("#sl"+n).value,form:$("#fm"+n).value,note:$("#nt"+n).value,visible:$("#vs"+n).value};
-  try{const r=await call(body);if(r.ok){Object.assign(D.sessions.find(s=>s.n===n),{slides:body.slides,form:body.form,note:body.note,visible:body.visible});toast(`Session ${n} saved`);sessions()}else{toast(r.error||"Not saved");b.disabled=false;b.textContent=`Save Session ${n}`}}catch(e){toast("No connection. Not saved.");b.disabled=false;b.textContent=`Save Session ${n}`}})}
+function mats(n){const f=FILES[n]||{};const L=(ok,h,t)=>`<a class="${ok?"":"no"}" href="${ok?h:"#"}" target="_blank" rel="noopener">${t}</a>`;
+ return `<div class="mat">${L(f.sl||f.pdf,`index.html#/session/${n}/slides`,"Slides")}${L(f.ho,(f.d||"")+"handout.pdf","Handout")}${L(f.sp,(f.d||"")+"supplement.pdf","Supplement")}${L(f.wb,(f.d||"")+"workbook.html","E-workbook")}${L(f.qz,(f.d||"")+"quiz.html","Practice quiz")}${L(f.ex,(f.d||"")+"exit.html","Exit ticket")}${L(true,`index.html#/session/${n}`,"Learner page")}</div>`}
+function sessions(){$("#main").innerHTML=`<h1>Sessions</h1><p class="muted">Tap <b>Open</b> on the day of class. Learners see a session only when it is open. Upload files early; they stay hidden until you open the session. Faded links mean the file is not uploaded yet.</p><div class="sess" style="margin-top:14px">${D.sessions.map(s=>`<div class="card" data-n="${s.n}"><div class="head"><b style="flex:1">Session ${s.n} · ${esc(TITLES[s.n]||s.title)}</b><button class="toggle ${s.open?"on":"off"}" data-open="${s.n}" type="button" aria-pressed="${s.open}">${s.open?"Open ✓":"Closed"}</button></div>
+ ${mats(s.n)}
+ <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:600">Links and announcement</summary>
+ <div class="two"><div><label class="l" for="sl${s.n}">Slides link (Canva, view-only)</label><input class="f" id="sl${s.n}" value="${esc(s.slides)}" placeholder="https://www.canva.com/design/…"></div><div><label class="l" for="nt${s.n}">Announcement</label><input class="f" id="nt${s.n}" value="${esc(s.note)}" placeholder="Shown at the top of the session page"></div></div>
+ <div class="row" style="margin-top:10px"><button class="btn primary" type="button" data-save="${s.n}">Save</button></div></details></div>`).join("")}</div>`;
+ document.querySelectorAll("[data-open]").forEach(b=>b.onclick=async()=>{const n=+b.dataset.open,s=D.sessions.find(x=>x.n===n),want=!s.open;b.disabled=true;b.textContent="Saving…";
+  try{const r=await call({action:"teacherOpen",n,open:want});if(r.ok){s.open=want;toast(`Session ${n} is now ${want?"open":"closed"}`)}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}sessions()});
+ document.querySelectorAll("[data-save]").forEach(b=>b.onclick=async()=>{const n=+b.dataset.save,s=D.sessions.find(x=>x.n===n);const body={action:"teacherSaveSession",n,slides:$("#sl"+n).value,note:$("#nt"+n).value};b.disabled=true;
+  try{const r=await call(body);if(r.ok){s.slides=body.slides;s.note=body.note;toast(`Session ${n} saved`)}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}b.disabled=false})}
+
+function markForm(kind,s,n,item){return `<div class="two" style="margin-top:8px"><div><label class="l">Mark (0 to 10)</label><input class="f" type="number" min="0" max="10" step="0.5" data-mk="${kind}-${n}" value="${esc(item.mark)}"></div><div><label class="l">Comment for the learner</label><input class="f" data-cm="${kind}-${n}" value="${esc(item.comment)}" placeholder="He sees this on his Progress page"></div></div><div class="row" style="margin-top:8px"><button class="btn primary" type="button" data-mark="${kind}-${n}">Save mark</button>${item.mark?`<span class="pill yes">Marked</span>`:`<span class="pill no">To mark</span>`}</div>`}
+function profile(code){const s=D.students.find(x=>x.code===code);if(!s){who=null;return render()}const d=det(code),at=(D.attendance||{})[code]||{},la=(D.lastActive||{})[code],sc=D.scores[code]||{},pr=D.progress[code]||{};
+ let lab={};try{lab=JSON.parse(pr.lab||"{}")}catch(e){}
+ const open=openNs();const shown=Object.keys(TITLES).map(Number).filter(n=>open.includes(n)||(d.exits||[]).some(e=>e.n===n)||(d.workbooks||[]).some(w=>w.n===n)||at[n]);
+ $("#main").innerHTML=`<button class="lnk" id="back" type="button">‹ All learners</button><h1 style="margin-top:8px">${esc(s.name)}</h1><p class="muted">Code ${esc(code)} · Level ${esc(s.level)} · Last active: ${la?esc(la.text):"not yet"}</p>
+ <div class="grid" style="margin-top:14px"><div class="card stat"><b>${String(pr.steps||"").split(",").filter(x=>x.trim()).length}/11</b>Capstone steps</div><div class="card stat"><b>${(d.exits||[]).length}</b>Exit tickets</div><div class="card stat"><b>${(d.workbooks||[]).length}</b>E-workbooks</div><div class="card stat"><b>${lab.chat?lab.chat+"%":"–"}</b>Live chat best</div></div>
+ <h2>Private notes</h2><div class="card"><textarea class="f" id="note" placeholder="Only you see this. For example: needs sentence frames for writing.">${esc((D.notes||{})[code]||"")}</textarea><div class="row" style="margin-top:8px"><button class="btn primary" id="saveNote" type="button">Save note</button></div></div>
+ <h2>Session by session</h2>${shown.length?shown.map(n=>{const ex=(d.exits||[]).find(e=>e.n===n),wb=(d.workbooks||[]).find(w=>w.n===n),q=sc[n];
+  return `<div class="card" style="margin-top:12px"><div class="head" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><b style="flex:1">Session ${n} · ${esc(TITLES[n])}</b><div class="att" role="group" aria-label="Attendance">${["Present","Late","Absent"].map(v=>`<button type="button" class="${v[0]}" data-att="${n}" data-v="${v}" aria-pressed="${at[n]===v}">${v}</button>`).join("")}</div></div>
+  <p class="muted" style="margin-top:6px">Practice quiz: ${q?`best ${q.best}/${q.total}`:"not taken"}</p>
+  <h3 style="margin-top:12px">Exit ticket</h3>${ex?`<p class="muted" style="font-size:13px">Sent ${esc(ex.at)}</p><div class="ans"><b>1.</b> ${esc(ex.a1)}</div><div class="ans"><b>2.</b> ${esc(ex.a2)}</div><div class="ans"><b>3.</b> ${esc(ex.a3)}</div>${markForm("exit",s,n,ex)}`:`<p class="muted">Not submitted.</p>`}
+  <h3 style="margin-top:14px">E-workbook</h3>${wb?`<p class="muted" style="font-size:13px">Sent ${esc(wb.at)} · Score ${wb.score}/${wb.total}</p><div class="ans" style="font-size:13px">${esc(wb.tasks)}</div><div class="ans">${esc(wb.written)}</div>${markForm("workbook",s,n,wb)}`:`<p class="muted">Not submitted.</p>`}</div>`}).join(""):`<p class="muted">Open a session in Sessions to start tracking.</p>`}`;
+ $("#back").onclick=()=>{who=null;view="dash";render()};
+ $("#saveNote").onclick=async()=>{const v=$("#note").value;try{const r=await call({action:"teacherNote",code,note:v});if(r.ok){(D.notes=D.notes||{})[code]=v;toast("Note saved")}else toast(r.error)}catch(e){toast("No connection. Not saved.")}};
+ document.querySelectorAll("[data-att]").forEach(b=>b.onclick=async()=>{const n=+b.dataset.att,v=at[n]===b.dataset.v?"":b.dataset.v;try{const r=await call({action:"teacherAttendance",code,session:n,status:v});if(r.ok){((D.attendance=D.attendance||{})[code]=at)[n]=v;toast(v?`Session ${n}: ${v}`:`Session ${n}: cleared`);profile(code)}else toast(r.error)}catch(e){toast("No connection. Not saved.")}});
+ document.querySelectorAll("[data-mark]").forEach(b=>b.onclick=async()=>{const [kind,n]=b.dataset.mark.split("-"),mk=document.querySelector(`[data-mk="${b.dataset.mark}"]`).value,cm=document.querySelector(`[data-cm="${b.dataset.mark}"]`).value;b.disabled=true;
+  try{const r=await call({action:"teacherMark",code,session:+n,kind,mark:mk,comment:cm});if(r.ok){const list=kind==="exit"?d.exits:d.workbooks,it=list.find(x=>x.n===+n);it.mark=mk;it.comment=cm;toast("Mark saved. He will see it on his Progress page.");profile(code)}else{toast(r.error);b.disabled=false}}catch(e){toast("No connection. Not saved.");b.disabled=false}})}
 
 function suggest(name){const ini=String(name).trim().split(/\s+/).map(w=>w[0]||"").join("").toUpperCase().replace(/[^A-Z]/g,"").slice(0,3)||"CC";let c;do{c=ini+String(Math.floor(10+Math.random()*90))}while(D.students.some(s=>s.code===c));return c}
 function learners(){const st=D.students;
- $("#main").innerHTML=`<h1>Learners</h1><p class="muted">Add learners and give them their code. Set Active to No to remove access.</p>
+ $("#main").innerHTML=`<h1>Learners</h1><p class="muted">Tap a name to see everything they have submitted. Set Active to No to remove access.</p>
  <div class="card" style="margin-top:14px"><h2 style="margin-top:0">Add a learner</h2><div class="two"><div><label class="l" for="nn">Full name</label><input class="f" id="nn"></div><div><label class="l" for="nc">Access code</label><div class="row"><input class="f" id="nc" style="flex:1;text-transform:uppercase" maxlength="10"><button class="btn" id="sug" type="button">Suggest</button></div></div></div>
  <div class="two"><div><label class="l" for="nl">Level</label><select class="f" id="nl"><option>5</option><option>4</option><option>4 and 5</option></select></div><div style="display:flex;align-items:flex-end"><button class="btn primary" id="add" type="button" style="width:100%">Add learner</button></div></div></div>
- <h2>All learners</h2><div class="tablewrap"><table><tr><th>Name</th><th>Code</th><th>Level</th><th>Active</th><th></th></tr>${st.map((s,i)=>`<tr><td>${esc(s.name)}</td><td><b>${esc(s.code)}</b></td><td><select class="f" data-l="${i}" style="min-width:110px">${["5","4","4 and 5"].map(o=>`<option${o===s.level?" selected":""}>${o}</option>`).join("")}</select></td><td><select class="f" data-a="${i}" style="min-width:90px"><option${s.active.toLowerCase()==="yes"?" selected":""}>Yes</option><option${s.active.toLowerCase()!=="yes"?" selected":""}>No</option></select></td><td><button class="btn" data-u="${i}" type="button">Save</button></td></tr>`).join("")||'<tr><td colspan="5" class="muted">No learners yet.</td></tr>'}</table></div>`;
+ <h2>All learners</h2><div class="tablewrap"><table><tr><th>Name</th><th>Code</th><th>Level</th><th>Active</th><th></th></tr>${st.map((s,i)=>`<tr><td><button class="lnk" data-who="${esc(s.code)}" type="button">${esc(s.name)}</button></td><td><b>${esc(s.code)}</b></td><td><select class="f" data-l="${i}" style="min-width:110px">${["5","4","4 and 5"].map(o=>`<option${o===s.level?" selected":""}>${o}</option>`).join("")}</select></td><td><select class="f" data-a="${i}" style="min-width:90px"><option${s.active.toLowerCase()==="yes"?" selected":""}>Yes</option><option${s.active.toLowerCase()!=="yes"?" selected":""}>No</option></select></td><td><button class="btn" data-u="${i}" type="button">Save</button></td></tr>`).join("")||'<tr><td colspan="5" class="muted">No learners yet.</td></tr>'}</table></div>`;
  $("#nn").oninput=()=>{if(!$("#nc").dataset.touched)$("#nc").value=$("#nn").value.trim()?suggest($("#nn").value):""};
  $("#nc").oninput=()=>{$("#nc").dataset.touched=1};$("#sug").onclick=()=>{$("#nc").value=suggest($("#nn").value||"CC")};
  $("#add").onclick=async()=>{const b=$("#add");const body={action:"teacherSaveStudent",isNew:true,name:$("#nn").value,code:$("#nc").value.trim().toUpperCase(),level:$("#nl").value,active:"Yes"};b.disabled=true;
   try{const r=await call(body);if(r.ok){D.students.push({name:body.name.trim(),code:body.code,level:body.level,active:"Yes",notes:""});toast(`${body.name.trim()} added · code ${body.code}`);learners()}else{toast(r.error);b.disabled=false}}catch(e){toast("No connection. Not saved.");b.disabled=false}};
+ document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;render()});
  document.querySelectorAll("[data-u]").forEach(b=>b.onclick=async()=>{const i=+b.dataset.u,s=st[i];const body={action:"teacherSaveStudent",name:s.name,code:s.code,level:document.querySelector(`[data-l="${i}"]`).value,active:document.querySelector(`[data-a="${i}"]`).value};b.disabled=true;
   try{const r=await call(body);if(r.ok){s.level=body.level;s.active=body.active;toast(`${s.name} saved`)}else toast(r.error)}catch(e){toast("No connection. Not saved.")}b.disabled=false})}
 

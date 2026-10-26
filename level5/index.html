@@ -32,9 +32,10 @@ button,input,select,textarea{font-family:inherit;color:var(--navy)}
 /* top bar */
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(251,250,247,.9);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
 header.top::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
-.bar{max-width:1240px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.bar{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
-.mark{width:36px;height:36px;border-radius:9px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%231B2A4A'/%3E%3Cg transform='translate(256 256) scale(1) translate(-256 -256)'%3E%3Cpath d='M270.46 90.63 A166 166 0 0 1 421.36 241.53' stroke='%232A9D8F' stroke-width='44' fill='none' stroke-linecap='round'/%3E%3Cpath d='M421.36 270.46 A166 166 0 0 1 270.46 421.36' stroke='%23E76F51' stroke-width='44' fill='none' stroke-linecap='round'/%3E%3Cpath d='M241.53 421.36 A166 166 0 0 1 90.63 270.46' stroke='%236D5BD0' stroke-width='44' fill='none' stroke-linecap='round'/%3E%3Cpath d='M90.63 241.53 A166 166 0 0 1 241.53 90.63' stroke='%23E9B44C' stroke-width='44' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='206' cy='220' r='24' fill='%23FBFAF7'/%3E%3Ccircle cx='306' cy='220' r='24' fill='%23FBFAF7'/%3E %3Cpath d='M178 286 Q256 366 334 286' stroke='%23FBFAF7' stroke-width='30' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E") center/100% no-repeat;flex-shrink:0;display:block}
+.mark{width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--a) 0 25%,var(--b) 0 50%,var(--c) 0 75%,var(--d) 0);display:grid;place-items:center;flex-shrink:0}
+.mark::after{content:"";width:18px;height:18px;border-radius:50%;background:var(--paper)}
 .logo b{font-size:15px;line-height:1.15;display:block;white-space:nowrap}
 .logo small{font-size:12px;color:var(--ink2);display:block;line-height:1.2}
 .lvl{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--navy);color:#fff;white-space:nowrap}
@@ -51,10 +52,6 @@ nav.main a[aria-current="page"]::after{content:"";position:absolute;left:13px;ri
 @media (max-width:560px){.logo .full{display:none}.logo .short{display:inline}}
 @media (max-width:440px){.logo .lt{display:none}.tile{min-height:104px;padding:14px}.sec{padding:16px}}
 nav.main a,.iconbtn{white-space:nowrap}
-/* header never overlaps: logo, badge and buttons keep their size; tighter layouts kick in by width */
-.logo,.lvl,.actions{flex-shrink:0}nav.main{min-width:0}
-@media (max-width:1100px){.logo .full{display:none}.logo .short{display:inline}.hide-s{display:none}}
-@media (max-width:480px){.lvl{display:none}}
 @media (max-width:1240px){nav.main a svg.i{display:none}nav.main a{padding:9px 10px}.logo small{display:none}}
 @media (max-width:900px){nav.main{display:none}.logo small{display:none}.hide-s{display:none}}
 
@@ -111,19 +108,6 @@ a.card:hover{border-color:var(--navy);transform:translateY(-1px)}
 .now .btn{border-color:#fff;color:#fff;background:transparent}.now .btn.primary{background:#fff;color:var(--navy)}
 .now .btn[aria-disabled="true"]{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.6)}
 .now a{color:#fff}
-.mbs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.mbs .mb:last-child:nth-child(odd){grid-column:1/-1}
-@media (max-width:420px){.mbs{grid-template-columns:1fr}}
-.mb{display:flex;align-items:center;gap:12px;min-height:66px;padding:11px 14px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;text-decoration:none;transition:background .15s,transform .15s,box-shadow .15s}
-a.mb:hover{background:rgba(255,255,255,.13);transform:translateY(-1px)}
-.mb .mi{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--mc);color:#fff;flex-shrink:0}
-.mb .ml{flex:1;min-width:0}.mb b{display:block;font-size:14.5px;line-height:1.25}.mb small{display:block;font-size:12px;color:#B9C3DA;line-height:1.3;margin-top:2px}
-.mb>svg.i{opacity:.55;width:18px;height:18px}
-.mb.primary{background:#fff;color:var(--navy);border-color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.18)}.mb.primary small{color:var(--ink2)}
-a.mb.primary:hover{background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.24)}
-.mb.off{opacity:.45;border-style:dashed}.mb.off .mi{background:rgba(255,255,255,.15)}
-.now a.golink{display:inline-flex;align-items:center;gap:6px;justify-self:start;margin-top:4px;padding:8px 2px;font-weight:600;color:var(--d);text-decoration:none}
-.now a.golink:hover{text-decoration:underline}.golink svg.i{width:18px;height:18px}
 .units{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 
 /* session strip */
@@ -154,7 +138,6 @@ a.mb.primary:hover{background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.24)}
 .viewer .ctl{display:flex;align-items:center;gap:8px;padding:10px 12px;color:#fff}
 .viewer .ctl .iconbtn{background:transparent;border-color:rgba(255,255,255,.3);color:#fff}
 .viewer .ctl span{flex:1;text-align:center;font-weight:600;font-size:14px}
-.slidesec .viewer{max-width:calc(68vh * 16 / 9);margin:0 auto}.slidesec .viewer+p{text-align:center}
 .viewer:fullscreen{display:flex;flex-direction:column;border-radius:0}.viewer:fullscreen .stage{flex:1;aspect-ratio:auto}
 .empty{border:2px dashed #C6CBD8;border-radius:20px;padding:28px;text-align:center;color:var(--ink2)}
 
@@ -201,32 +184,12 @@ textarea.ta{width:100%;min-height:110px;border:1.5px solid #B9BFCC;border-radius
 /* ===== visual upgrade ===== */
 .card{box-shadow:0 1px 2px rgba(27,42,74,.04)}
 a.card:hover{box-shadow:0 10px 24px rgba(27,42,74,.10)}
-.welcome{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:center;border-radius:28px;padding:38px 40px;position:relative;overflow:hidden;color:#fff;
- background:radial-gradient(520px 320px at 100% 0%,rgba(42,157,143,.35),transparent 60%),radial-gradient(420px 300px at 85% 100%,rgba(109,91,208,.40),transparent 60%),radial-gradient(380px 260px at 0% 110%,rgba(231,111,81,.28),transparent 60%),linear-gradient(135deg,#1B2A4A,#22345C);box-shadow:0 18px 40px rgba(27,42,74,.22)}
-.welcome::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
-.welcome .hi{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#E4E9F5}
-.welcome .hi i{width:8px;height:8px;border-radius:50%;background:var(--d);box-shadow:0 0 0 4px rgba(233,180,76,.25)}
-.welcome h1{color:#fff;margin:14px 0 0;font-size:clamp(2rem,4.6vw,3.2rem)}
-.welcome h1 em{font-style:normal;background:linear-gradient(90deg,var(--d),#F2C879);-webkit-background-clip:text;background-clip:text;color:transparent}
-.welcome .lede{color:#D3DAEA;margin-top:12px}
-.welcome .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.welcome .facts span{font-size:13px;font-weight:600;padding:6px 12px;border-radius:12px;background:rgba(255,255,255,.08);color:#fff}
-.welcome .facts b{color:var(--d);margin-right:4px}
-.welcome .btn{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
-.welcome .btn:hover{background:rgba(255,255,255,.1)}
-.welcome .btn.primary{background:#fff;color:var(--navy);border-color:#fff}
-.welcome .btn.primary:hover{background:#F2F4F9}
-.maker{display:flex;align-items:center;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14)}
-.maker .av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:18px;color:var(--navy);background:conic-gradient(var(--a) 0 25%,var(--b) 0 50%,var(--c) 0 75%,var(--d) 0);padding:3px;flex-shrink:0}
-.maker .av span{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:#FBF4E2}
-.maker b{display:block;font-size:15px}.maker small{display:block;font-size:12.5px;color:#B9C3DA}
-.ringbig{--p:0;width:210px;height:210px;border-radius:50%;justify-self:center;display:grid;place-items:center;position:relative;
- background:conic-gradient(var(--a) 0 calc(var(--p)*1%),rgba(255,255,255,.12) 0);box-shadow:0 0 0 10px rgba(255,255,255,.05)}
-.ringbig div{width:150px;height:150px;border-radius:50%;background:#1E2F52;display:grid;place-items:center;text-align:center;line-height:1.15;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
-.ringbig b{font-size:2.6rem;display:block;color:#fff}.ringbig span{font-size:11px;letter-spacing:.08em;color:#B9C3DA;font-weight:600}
-.ringbig small{display:block;font-size:12px;color:var(--d);font-weight:600;margin-top:4px}
-@media (max-width:900px){.welcome{grid-template-columns:1fr;padding:28px 22px}.ringbig{width:160px;height:160px;justify-self:start}.ringbig div{width:116px;height:116px}.ringbig b{font-size:2rem}}
-@media (max-width:420px){.ringbig{display:none}}
+.welcome{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:28px;padding:30px 32px;position:relative;overflow:hidden}
+@media (max-width:900px){.welcome{grid-template-columns:1fr;padding:24px}}
+.ringbig{width:200px;height:200px;border-radius:50%;background:conic-gradient(var(--a) 0 25%,var(--b) 0 50%,var(--c) 0 75%,var(--d) 0);display:grid;place-items:center;justify-self:center}
+.ringbig div{width:128px;height:128px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;line-height:1.15}
+.ringbig b{font-size:2.4rem;display:block}.ringbig span{font-size:12px;color:var(--ink2);font-weight:600}
+@media (max-width:900px){.ringbig{width:150px;height:150px}.ringbig div{width:96px;height:96px}.ringbig b{font-size:1.8rem}}
 .journey{display:flex;align-items:flex-start;overflow-x:auto;padding:8px 4px 14px;gap:0}
 .jn{flex:1 0 74px;display:grid;justify-items:center;gap:6px;text-decoration:none;position:relative;min-width:74px}
 .jn::before{content:"";position:absolute;top:21px;left:-50%;right:50%;height:4px;background:var(--line);z-index:0}
@@ -503,26 +466,25 @@ const rev={};
 const readyRev=Promise.all(Object.keys(REVIEWS).map(async k=>{rev[k]=await head(`reviews/unit${k}.html`)}));
 const ready0=Promise.all(SESSIONS.map(async s=>{const dir=`week${pad(s.n)}/`;
  const f=await Promise.all(FILES.map(([x])=>head(dir+x)));
- const form=await text(dir+"form.txt");const ho=await head(dir+"handout.pdf");const cv=await text(dir+"slides.txt");const ex=await head(dir+"exit.html");const cnt=parseInt(await text(dir+"slides/count.txt"),10);
- avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0,ho,ex,canva:canvaEmbed(cv)}}));
+ const form=await text(dir+"form.txt");const ho=await head(dir+"handout.pdf");const cv=await text(dir+"slides.txt");const ex=await head(dir+"exit.html");const sp=await head(dir+"supplement.pdf");const cnt=parseInt(await text(dir+"slides/count.txt"),10);
+ avail[s.n]={dir,f,form:form&&/^https:\/\/\S+$/.test(form)?form:null,slides:cnt>0?cnt:0,ho,ex,sp,canva:canvaEmbed(cv)}}));
 const ready=Promise.all([ready0,readyRev]);
 function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.ex||a.form||a.slides||a.canva||(SHEET[n]&&SHEET[n].form))}
-function slideView(n){const a=avail[n]||{},cv=canvaFor(n);return cv?`<div class="viewer"><div class="stage" style="background:#fff"><iframe src="${esc(cv)}" title="Session ${n} slides" loading="lazy" allow="fullscreen" allowfullscreen style="width:100%;height:100%;border:0"></iframe></div></div><p class="muted" style="margin-top:10px;font-size:.9em">Use the arrows inside the slides. <a href="${esc(cv.replace('?embed',''))}" target="_blank" rel="noopener">Open in Canva full screen</a>.</p>`:a.slides?`<div class="viewer" id="viewer"><div class="stage" id="stage"><img id="slideImg" alt=""></div><div class="ctl"><button class="iconbtn" id="sPrev" type="button" aria-label="Previous slide">${ic("left")}</button><span id="sCount" aria-live="polite"></span><button class="iconbtn" id="sNext" type="button" aria-label="Next slide">${ic("right")}</button><button class="iconbtn" id="sFull" type="button" aria-label="Full screen">${ic("full")}</button></div></div>
- <p class="muted" style="margin-top:10px;font-size:.9em">Swipe, tap the arrows or use the arrow keys.</p>`:""}
 function canvaFor(n){return (SHEET[n]&&SHEET[n].slides?canvaEmbed(SHEET[n].slides):null)||(avail[n]&&avail[n].canva)||null}
-function isOpen(n){const a=avail[n];if(!a)return false;if(SHEET[n]&&SHEET[n].visible===false)return false;return has(n)}
+let OPENSET=store.get("ccl5-open",null);
+async function loadStatus(){try{const r=await fetch(API+"?action=status&level="+LEVEL,{cache:"no-store"}).then(r=>r.json());if(r.ok&&Array.isArray(r.open)){OPENSET=r.open;store.set("ccl5-open",OPENSET)}}catch(e){}}
+function isOpen(n){if(Array.isArray(OPENSET))return OPENSET.includes(n);const a=avail[n];if(!a)return false;if(SHEET[n]&&SHEET[n].visible===false)return false;return has(n)}
 const lockMsg=s=>`Opens when Ms. Maria starts Session ${s.n}`;
 function latest(){let L=null;SESSIONS.forEach(s=>{if(isOpen(s.n))L=s});return L}
 function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Checking materials…</p>`;
+ const b=[];
+ b.push(canvaFor(n)||a.slides||a.f[0]?`<a class="btn primary" href="#/session/${n}/slides">${ic("sessions")}Slides</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Slides · soon</a>`);
+ b.push(a.f[1]?`<a class="btn" href="${a.dir}workbook.html">E-workbook</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">E-workbook · soon</a>`);
+ b.push(a.f[2]?`<a class="btn" href="${a.dir}quiz.html">Practice quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Practice quiz · soon</a>`);
+ b.push(a.ho?`<a class="btn" href="${a.dir}handout.pdf" target="_blank" rel="noopener">Handout PDF</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Handout · soon</a>`);
  const form=(SHEET[n]&&SHEET[n].form)||a.form;
- const mb=(on,href,icon,col,label,hint,primary,ext)=>on?`<a class="mb${primary?" primary":""}" href="${href}" style="--mc:${col}"${ext?' target="_blank" rel="noopener"':""}><span class="mi">${ic(icon)}</span><span class="ml"><b>${label}</b><small>${hint}</small></span>${ic("right")}</a>`:`<span class="mb off" style="--mc:${col}" aria-disabled="true"><span class="mi">${ic(icon)}</span><span class="ml"><b>${label}</b><small>Coming soon</small></span></span>`;
- const b=[
-  mb(!!(canvaFor(n)||a.slides||a.f[0]),`#/session/${n}`,"sessions","var(--a)","Slides","This week's deck",true),
-  mb(!!a.f[1],`${a.dir}workbook.html`,"study","var(--b)","E-workbook","Practise the tasks"),
-  mb(!!a.f[2],`${a.dir}quiz.html`,"check","var(--c)","Practice quiz","Check your understanding"),
-  mb(!!a.ho,`${a.dir}handout.pdf`,"book","var(--d)","Handout","Read or print the PDF",false,true),
-  a.ex?mb(true,`${a.dir}exit.html`,"progress","var(--a)","Exit ticket","Finish the session"):mb(!!form,esc(form||""),"progress","var(--a)","Exit ticket","Finish the session",false,true)];
- return `<div class="mbs">${b.join("")}</div>`}
+ b.push(a.ex?`<a class="btn" href="${a.dir}exit.html">Exit ticket</a>`:form?`<a class="btn" href="${esc(form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
+ return `<div class="btns">${b.join("")}</div>`}
 
 
 /* ---------- visual helpers ---------- */
@@ -536,14 +498,12 @@ function tiles(n){const a=avail[n]||{},s=S(n),u=U(s),form=(SHEET[n]&&SHEET[n].fo
  const T=[];const t=(key,label,icon,href,ok,done,ext)=>T.push(`${ok?`<a class="tile" href="${href}" data-seen="${n}-${key}"${ext?' target="_blank" rel="noopener"':""}>`:'<div class="tile off">'}<span class="badge ${done?"ok":ok?"go":""}">${done?"Done ✓":ok?"Open":"Soon"}</span><span class="ti" style="--u-t:${u.t}">${ic(icon)}</span><b>${label}</b>${ok?"</a>":"</div>"}`);
  t("slides","Slides","sessions",`#/session/${n}/slides`,!!(canvaFor(n)||a.slides||a.f&&a.f[0]),!!flag(`ccl5-seen-${n}-slides`));
  t("handout","Handout","book",`${a.dir}handout.pdf`,!!a.ho,!!flag(`ccl5-seen-${n}-handout`),true);
+ if(a.sp)t("supplement","Supplement","down",`${a.dir}supplement.pdf`,true,!!flag(`ccl5-seen-${n}-supplement`),true);
  t("workbook","E-workbook","study",`${a.dir}workbook.html`,!!(a.f&&a.f[1]),!!flag(`ccl5-wb-done-w${n}`));
  t("quiz","Practice quiz","check",`${a.dir}quiz.html`,!!(a.f&&a.f[2]),!!qb);
  t("exit","Exit ticket","right",a.ex?`${a.dir}exit.html`:(form||"#"),!!(a.ex||form),sessDone(n),!a.ex&&!!form);
  return `<div class="tiles">${T.join("")}</div>`}
 document.addEventListener("click",e=>{const el=e.target.closest("[data-seen]");if(el)store.set("ccl5-seen-"+el.dataset.seen,1)});
-const seenSlides=()=>{const m=location.hash.match(/^#\/session\/(\d+)/);if(m)store.set(`ccl5-seen-${m[1]}-slides`,1)};
-document.addEventListener("pointerdown",e=>{if(e.target.closest(".viewer"))seenSlides()});
-window.addEventListener("blur",()=>{const f=document.activeElement;if(f&&f.tagName==="IFRAME"&&f.closest(".viewer"))seenSlides()});
 
 /* ---------- shared bits ---------- */
 const crumbs=(...p)=>`<nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Level 5</a>${p.map(x=>`<span aria-hidden="true">›</span>${x[1]?`<a href="${x[1]}">${x[0]}</a>`:`<span aria-current="page">${x[0]}</span>`}`).join("")}</nav>`;
@@ -560,19 +520,17 @@ const sessCard=s=>{const u=U(s);if(!isOpen(s.n))return `<div class="card top" st
 const V={
 home(){const L=latest();const done=store.get(K.cap,[]).length,total=SESSIONS.filter(s=>s.cap).length,pct=Math.round(done/total*100);
  const first=(typeof AUTH!=="undefined"&&AUTH&&AUTH.name)?AUTH.name.split(" ")[0]:null;const openN=SESSIONS.filter(s=>isOpen(s.n)).length;
- return `<section class="welcome"><div><span class="hi"><i></i>${first?`Welcome back, ${esc(first)}`:"Welcome"} · Learnovate Qatar</span><h1>Customer Care Management, <em>Level 5</em></h1><p class="lede">Manage, measure and improve customer service like a manager: slides, handouts, e-workbooks, quizzes, models and the Practice Lab, all in one place.</p>
+ return `<section class="welcome"><div><p class="muted" style="font-weight:600">${first?`Welcome back, ${esc(first)}`:"Welcome"} · Learnovate Qatar</p><h1 style="margin-top:6px">Customer Care Management, Level 5</h1><p class="lede">Manage, measure and improve customer service like a manager: slides, handouts, e-workbooks, quizzes, models and the Practice Lab, all in one place.</p>
  <div class="row" style="margin-top:18px">${L?`<a class="btn primary" href="#/session/${L.n}">${ic("sessions")}Continue Session ${L.n}</a>`:`<a class="btn primary" href="#/sessions">${ic("sessions")}Go to sessions</a>`}<a class="btn" href="#/lab">${ic("lab")}Practice Lab</a></div>
- <div class="facts"><span><b>12</b>sessions</span><span><b>11</b>manager models</span><span><b>1</b>capstone plan</span></div>
- <div class="maker"><span class="av" aria-hidden="true"><span>M</span></span><span><b>Created and built by Ms. Maria</b><small>Maria F. Tongga, BSN, RN, RM · Learnovate Qatar</small></span></div></div>
- <div class="ringbig" style="--p:${Math.round(openN/12*100)}" role="img" aria-label="${openN} of 12 sessions open"><div><p><span>SESSIONS OPEN</span><b>${openN}/12</b><small>${openN>=12?"All open":`${12-openN} to come`}</small></p></div></div></section>
+ <p class="muted" style="margin-top:14px;font-size:.85em">Taught by Ms. Maria F. Tongga, BSN, RN, RM</p></div>
+ <div class="ringbig" aria-hidden="true"><div><span>SESSIONS OPEN</span><b>${openN}/12</b></div></div></section>
  <h2>Your course journey</h2><div class="card" style="padding:16px 12px">${journey()}</div>
- <div class="hero" style="margin-top:22px"><div class="now"><p style="font-weight:600;opacity:.85">This week</p>${L?`<h3 style="font-size:1.25rem">Session ${L.n} · ${L.t}</h3>${matBtns(L.n)}<a class="golink" href="#/session/${L.n}">Open the session page${ic("right")}</a>`:`<h3 style="font-size:1.2rem">Materials appear here after Session 1.</h3>`}</div>
+ <div class="hero" style="margin-top:22px"><div class="now"><p style="font-weight:600;opacity:.85">This week</p>${L?`<h3 style="font-size:1.25rem">Session ${L.n} · ${L.t}</h3>${matBtns(L.n)}<a href="#/session/${L.n}">Open the session page</a>`:`<h3 style="font-size:1.2rem">Materials appear here after Session 1.</h3>`}</div>
  <a class="card" href="#/progress" style="display:flex;gap:16px;align-items:center"><span class="pring" style="background:conic-gradient(var(--gold) ${pct}%,var(--x-t) 0)"><span>${pct}%</span></span><span><span class="chip">${ic("progress")}Capstone</span><h3 style="margin-top:6px">${done} of ${total} steps done</h3><p class="muted" style="font-size:.9em">Your Digital-Ready Customer Care Improvement Plan</p></span></a></div>
  <h2>Explore</h2><div class="grid"><a class="card" href="#/models"><span class="chip">${ic("book")}Level 5</span><h3>My 11 models</h3><p class="muted">The tools you use to analyse a situation and justify a recommendation.</p></a><a class="card" href="#/lab"><span class="chip" style="--u-t:var(--b-t)">${ic("lab")}Hands-on</span><h3>Practice Lab</h3><p class="muted">Ticket queue, live chat simulator and de-escalation practice.</p></a><a class="card" href="#/study"><span class="chip" style="--u-t:var(--a-t)">${ic("study")}Revise</span><h3>Study</h3><p class="muted">Key-term flashcards and sentence frames.</p></a><a class="card" href="#/install"><span class="chip" style="--u-t:var(--d-t)">${ic("down")}App</span><h3>Install the app</h3><p class="muted">Put Customer Care on your home screen. Works offline too.</p></a></div>`},
 sessions(){return crumbs(["Sessions"])+`<h1>Sessions</h1><p class="lede muted">Each session page has slides, an e-workbook, a practice quiz and the exit ticket. Buttons switch on when Ms. Maria uploads the materials.</p>`+["A","B","X1","C","D","X2"].map(k=>{let list=k==="X1"?[S(7)]:k==="X2"?[S(12)]:SESSIONS.filter(s=>s.u===k);const u=UNITS[k[0]];const title=k==="X1"?"Midterm":k==="X2"?"Final":`Unit ${k} · ${u.name}`;return `<h2 id="u${k}" style="display:flex;align-items:center;gap:10px"><i style="width:10px;height:26px;border-radius:4px;background:${u.c};display:inline-block"></i>${title}</h2><div class="grid">${list.map(sessCard).join("")}${REVIEWS[k]?revCard(k):""}</div>`}).join("")},
 session(n,sub){const s=S(n);if(!s)return V.notfound();if(!isOpen(n))return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div class="empty" style="margin-top:10px"><h1 style="font-size:1.6rem">Session ${s.n} · ${s.t}</h1><p>This session is locked. ${lockMsg(s)}.</p><div class="row" style="justify-content:center;margin-top:14px"><a class="btn primary" href="#/sessions">Back to sessions</a></div></div>`;if(sub==="slides")return V.slides(n);const u=U(s),m=MODELS[s.model];document.documentElement.style.setProperty("--accent",u.c);
  return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div class="banner" style="background:${u.t}"><span class="num">${pad(s.n)}</span><div><span class="chip" style="background:#fff">${s.exam?"Exam session":"Unit "+s.u+" · "+u.name}</span><h1 style="margin:8px 0 0">${s.t}</h1>${MODELS[s.model]&&!s.exam?`<p class="muted" style="margin-top:4px">Level 5 model: ${MODELS[s.model].t}</p>`:""}</div></div>
- ${slideView(s.n)?`<div class="sec slidesec"><h2>${ic("sessions")}Session ${s.n} slides</h2>${slideView(s.n)}</div>`:""}
  ${SHEET[s.n]&&SHEET[s.n].note?`<div class="sec" style="background:var(--gold-t);border-color:var(--gold)"><h2>Announcement from Ms. Maria</h2><p>${esc(SHEET[s.n].note)}</p></div>`:""}
  <div class="sec"><h2>${ic("sessions")}Your materials</h2>${tiles(s.n)}</div>
  <div class="two">
@@ -584,7 +542,8 @@ session(n,sub){const s=S(n);if(!s)return V.notfound();if(!isOpen(n))return crumb
  ${m?`<div class="sec"><h2>${ic("lab")}Level 5 model</h2><a class="card top" style="--u:${u.c};max-width:620px" href="#/model/${s.model}"><h3>${m.t}</h3><p class="muted">${m.what}</p></a></div>`:""}
  ${s.cap?`<div class="sec"><h2>${ic("progress")}Capstone step</h2><div class="frame" style="max-width:680px">${s.cap}</div><div class="row" style="margin-top:12px"><a class="btn soft" href="#/progress">Tick it in My progress</a></div></div>`:""}`},
 slides(n){const s=S(n),a=avail[n]||{};
- const body=slideView(n)||(a.f&&a.f[0]?`<div class="empty"><p>The slides for this session are available as a PDF.</p></div>`:`<div class="empty"><p>The slides for this session are coming soon.</p></div>`);
+ const cv=canvaFor(n);const body=cv?`<div class="viewer"><div class="stage" style="background:#fff"><iframe src="${esc(cv)}" title="Session ${n} slides" loading="lazy" allow="fullscreen" allowfullscreen style="width:100%;height:100%;border:0"></iframe></div></div><p class="muted" style="margin-top:10px;font-size:.9em">Use the arrows inside the slides. <a href="${esc(cv.replace('?embed',''))}" target="_blank" rel="noopener">Open in Canva full screen</a>.</p>`:a.slides?`<div class="viewer" id="viewer"><div class="stage" id="stage"><img id="slideImg" alt=""></div><div class="ctl"><button class="iconbtn" id="sPrev" type="button" aria-label="Previous slide">${ic("left")}</button><span id="sCount" aria-live="polite"></span><button class="iconbtn" id="sNext" type="button" aria-label="Next slide">${ic("right")}</button><button class="iconbtn" id="sFull" type="button" aria-label="Full screen">${ic("full")}</button></div></div>
+ <p class="muted" style="margin-top:10px;font-size:.9em">Swipe, tap the arrows or use the arrow keys.</p>`:a.f&&a.f[0]?`<div class="empty"><p>The slides for this session are available as a PDF.</p></div>`:`<div class="empty"><p>The slides for this session are coming soon.</p></div>`;
  return crumbs(["Sessions","#/sessions"],[`Session ${n}`,`#/session/${n}`],["Slides"])+strip(n,"/slides")+`<h1>Session ${n} slides</h1><p class="muted" style="margin-bottom:16px">${s.t}</p>${body}
  <div class="row" style="margin-top:14px">${a.f&&a.f[0]?`<a class="btn" href="${a.dir}slides.pdf" target="_blank" rel="noopener">${ic("down")}Download PDF</a>`:""}<a class="btn soft" href="#/session/${n}">Back to Session ${n}</a></div>`},
 models(){return crumbs(["My 11 models"])+`<h1>My 11 models</h1><p class="lede muted">Each model is a tool for Level 5 thinking: analyse a situation, then recommend and justify action.</p><div class="grid" style="margin-top:20px">${Object.entries(MODELS).map(([k,m])=>{const u=U(S(m.s));if(!isOpen(m.s))return `<div class="card top" style="--u:#C6CBD8;opacity:.75"><span class="chip">Session ${m.s} · Locked</span><h3>${m.t}</h3><p class="muted" style="font-size:.92em">${lockMsg(S(m.s))}</p></div>`;return `<a class="card top" style="--u:${u.c};--u-t:${u.t}" href="#/model/${k}"><span class="chip">Session ${m.s}</span><h3>${m.t}</h3><p class="muted" style="font-size:.92em">${m.what}</p></a>`}).join("")}</div>`},
@@ -622,6 +581,7 @@ progress(){const done=new Set(store.get(K.cap,[]));const caps=SESSIONS.filter(s=
  return crumbs(["My progress"])+`<h1>My progress</h1><p class="lede muted">Saved on this device. Keep your capstone writing in your capstone document as well.</p>
  <div class="track" style="margin-top:16px"><h2 style="margin:0">Capstone tracker</h2><p style="font-weight:600;margin-top:6px" id="pt"></p><div class="prog" role="progressbar" aria-label="Capstone progress" aria-valuemin="0" aria-valuemax="${caps.length}" id="pb"><div id="pf"></div></div>
  ${Object.entries(parts).map(([p,name])=>`<h3 style="margin-top:16px;display:flex;gap:10px;align-items:center"><i style="width:10px;height:22px;border-radius:3px;background:${UNITS[p].c};display:inline-block"></i>${name}</h3>`+caps.filter(s=>partOf(s)===p).map(s=>`<label class="stepc${done.has(s.n)?" done":""}"><input type="checkbox" data-step="${s.n}"${done.has(s.n)?" checked":""}><span>Session ${s.n}: ${s.cap}</span></label>`).join("")).join("")}</div>
+ <div class="sec" id="fbBox"><h2>Feedback from Ms. Maria</h2><p class="muted">${typeof AUTH!=="undefined"&&AUTH?"Loading…":"Sign in with your code to see marks and comments from Ms. Maria."}</p></div>
  <div class="two"><div class="sec"><h2>Practice quiz scores</h2>${scores.length?scores.map(([s,v])=>`<p><b>Session ${s.n}</b> · best ${v.best} of ${v.total} · last ${v.last} of ${v.total}</p>`).join(""):`<p class="muted">Finish a practice quiz to see your scores here.</p>`}</div>
  <div class="sec"><h2>Unit reviews</h2>${Object.keys(REVIEWS).map(k=>{const v=store.get(`ccl5-review-${k}`,null);return `<p>Unit ${k}: ${v?`best ${v.best} of ${v.total}`:"not taken"}</p>`}).join("")}</div>
  <div class="sec"><h2>Practice Lab</h2><p>Ticket queue: ${lab.tickets?"completed":"not started"}</p><p>Live chat: ${lab.chat?`best mood ${lab.chat}%`:"not started"}</p><p>De-escalation: ${lab.deescalate?`best ${lab.deescalate} of ${DEESC.length}`:"not started"}</p></div></div>`},
@@ -661,7 +621,7 @@ function route(){const parts=location.hash.replace(/^#\/?/,"").split(/[#/]/);con
  $("#main").innerHTML=html;
  const t=TAB[p]||"";document.querySelectorAll("nav.main a,nav.tabs a").forEach(x=>x.getAttribute("href")===t?x.setAttribute("aria-current","page"):x.removeAttribute("aria-current"));
  closeAll();
- if(p==="study")flash(a);if(p==="progress")tracker();if(p==="session"&&(b==="slides"||!b))viewer(a);
+ if(p==="study")flash(a);if(p==="progress"){tracker();loadFeedback()}if(p==="session"&&b==="slides")viewer(a);
  if(p==="lab"&&a==="tickets")tickets();if(p==="lab"&&a==="chat")chat();if(p==="lab"&&a==="deescalate")deesc();
  const anchor=location.hash.split("#")[2];if(anchor){const el=document.getElementById(anchor);if(el){el.scrollIntoView();return}}
  window.scrollTo(0,0);$("#main").focus({preventScroll:true});
@@ -760,6 +720,10 @@ async function doLogin(){const code=$("#lgCode").value.trim().toUpperCase(),m=$(
   AUTH={code,name:r.name};store.set(K.auth,AUTH);$("#login").hidden=true;whoUI();await syncDown();await loadSheet();route()}
  catch(e){m.textContent="Can't reach the server. Check your internet and try again."}
  finally{$("#lgGo").disabled=false}}
+async function loadFeedback(){const box=document.getElementById("fbBox");if(!box||!AUTH)return;
+ try{const r=await api.get({action:"feedback",code:AUTH.code,level:LEVEL});if(!r.ok){box.querySelector("p").textContent="Feedback could not be loaded.";return}
+  box.innerHTML=`<h2>Feedback from Ms. Maria</h2>`+(r.feedback&&r.feedback.length?r.feedback.map(f=>`<div class="read" style="margin-top:10px"><small>Session ${f.session} · ${esc(f.kind)}${f.mark?` · Mark: ${esc(f.mark)}/10`:""}</small>${f.comment?`<p>${esc(f.comment)}</p>`:""}</div>`).join(""):`<p class="muted">No feedback yet. It appears here after Ms. Maria marks your work.</p>`)}
+ catch(e){box.querySelector("p").textContent="Feedback could not be loaded. Check your internet."}}
 async function loadSheet(){if(!AUTH)return;try{const r=await api.get({action:"content",code:AUTH.code,level:LEVEL});
  if(r.ok){SHEET={};r.sessions.forEach(s=>SHEET[s.n]=s)}else if(/not active|not enrolled/.test(r.error||"")){AUTH=null;store.set(K.auth,null);whoUI()}}catch(e){}}
 async function syncDown(){if(!AUTH)return;try{const r=await api.get({action:"progress",code:AUTH.code,level:LEVEL});
@@ -771,6 +735,6 @@ $("#lgGo").onclick=doLogin;$("#lgCode").addEventListener("keydown",e=>{if(e.key=
 $("#lgSkip").onclick=()=>{$("#login").hidden=true};$("#lgClose").onclick=closeLogin;
 whoUI();
 
-route();Promise.all([ready,loadSheet()]).then(()=>{if(/^#\/?($|session|quizzes|downloads|model|progress)/.test(location.hash||"#/"))route()});syncDown();if(REQUIRE_LOGIN&&!AUTH)openLogin();
+route();Promise.all([ready,loadSheet(),loadStatus()]).then(()=>{if(/^#\/?($|session|quizzes|downloads|model|progress)/.test(location.hash||"#/"))route()});syncDown();if(REQUIRE_LOGIN&&!AUTH)openLogin();
 </script>
 </body></html>

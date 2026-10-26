@@ -15,6 +15,7 @@ level5/
   week01/
     slides.pdf          Session 1 deck, downloaded as PDF
     handout.pdf         Session 1 handout (PDF)
+    supplement.pdf      optional extra PDF; a Supplement tile appears when it is here
     slides/             slide images for the in-page viewer (01.jpg, 02.jpg ... + count.txt)
     workbook.html       Session 1 e-workbook
     quiz.html           Session 1 practice quiz
@@ -53,3 +54,7 @@ Unzip the uploaded week zip into level5/weekNN/. Move the uploaded slide PDF to 
 
 The site is an installable web app (manifest.webmanifest, sw.js, icons/). Learners install it from the "Install the app" page.
 If you ever change sw.js, change the CACHE name inside it (for example ccm-app-v2) so phones pick up the new version.
+
+## Teacher portal (level5/teacher.html)
+
+Sign in with the PIN in the Settings tab of the Sheet. Open or close sessions, open each session's materials, read and mark exit tickets and e-workbooks, take attendance and keep private notes. Learners only see sessions marked Open in the portal, so week folders can be uploaded early.
