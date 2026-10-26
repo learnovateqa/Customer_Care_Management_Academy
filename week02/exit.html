@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B2A4A">
+<title>Session 2 exit ticket · Customer Care Management Level 5</title>
+<link rel="icon" href="../../icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--blush:#F8E1DD;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:6px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:720px;margin:0 auto;padding:22px 20px 64px}
+a{color:var(--navy)}.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600}
+h1{font-size:clamp(1.7rem,5vw,2.3rem);line-height:1.15;margin:8px 0}
+p{margin:0}.muted{color:var(--ink2)}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-top:16px}
+label.q{display:block;font-weight:600;margin-bottom:6px}
+.frame{background:var(--blush);border-radius:10px;padding:8px 12px;font-size:14px;margin-bottom:8px}
+textarea,input{width:100%;font:500 16px 'Poppins',system-ui,sans-serif;color:var(--navy);border:1.5px solid #B9BFCC;border-radius:12px;padding:10px 12px;background:#fff}
+textarea{min-height:110px;resize:vertical;line-height:1.5}input{min-height:48px;text-transform:uppercase;letter-spacing:2px}
+.btn{width:100%;min-height:52px;border-radius:14px;border:0;background:var(--navy);color:#fff;font:600 16px 'Poppins',system-ui,sans-serif;cursor:pointer;margin-top:18px}
+.btn:disabled{opacity:.6}
+:is(a,button,textarea,input):focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.msg{margin-top:14px;padding:12px 14px;border-radius:12px;font-weight:500}.msg.ok{background:var(--ok-t)}.msg.no{background:var(--no-t)}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/session/2">Back to Session 2</a>
+<p class="muted" style="font-weight:600">Session 2 · Fundamentals of customer care</p>
+<h1>Exit ticket</h1>
+<p class="muted">Three short answers in your own words. This counts toward your grade (exit tickets are 10%). Ms. Maria reads every answer.</p>
+
+<div class="card" id="who"></div>
+
+<div class="card"><label class="q" for="a1">1. Name one basic, one performance feature and one delighter at a hotel you know.</label>
+<div class="frame">"A basic is ___. A performance feature is ___. A delighter is ___."</div><textarea id="a1"></textarea></div>
+<div class="card"><label class="q" for="a2">2. Why must a manager fix a basic before adding a delighter?</label>
+<div class="frame">"A manager must fix the basic first because ___."</div><textarea id="a2"></textarea></div>
+<div class="card"><label class="q" for="a3">3. Name two digital moments of truth for an online shop.</label>
+<div class="frame">"Two digital moments of truth are ___ and ___."</div><textarea id="a3"></textarea></div>
+
+<button class="btn" id="send" type="button">Submit my exit ticket</button>
+<div id="msg" role="status" aria-live="polite"></div>
+</main>
+<script>
+const API="https://script.google.com/macros/s/AKfycbw70SpO16Qai-KTVcs9K_cWGShT-jFZMWI47BGMAEgBm1BcXKk3AKCCrS_rI9La98okIQ/exec";
+const SESSION=2,LEVEL="5",KEY="ccl5-exit-w2";
+let auth=null;try{auth=JSON.parse(localStorage.getItem("ccl5-auth")||"null")}catch(e){}
+const who=document.getElementById("who");
+who.innerHTML=auth&&auth.code?`<p><b>Submitting as ${auth.name.replace(/[<>&]/g,"")}</b></p><p class="muted" style="font-size:14px">Not you? <a href="#" id="chg">Use a different code</a></p>`:`<label class="q" for="code">Your access code</label><input id="code" autocomplete="off" autocapitalize="characters" spellcheck="false">`;
+const chg=document.getElementById("chg");if(chg)chg.onclick=e=>{e.preventDefault();auth=null;who.innerHTML=`<label class="q" for="code">Your access code</label><input id="code" autocomplete="off" autocapitalize="characters" spellcheck="false">`};
+/* keep a draft on this device so nothing is lost */
+let draft={};try{draft=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+["a1","a2","a3"].forEach(id=>{const t=document.getElementById(id);t.value=draft[id]||"";t.oninput=()=>{draft[id]=t.value;try{localStorage.setItem(KEY,JSON.stringify(draft))}catch(e){}}});
+const msg=(t,ok)=>{document.getElementById("msg").innerHTML=`<div class="msg ${ok?"ok":"no"}">${t}</div>`};
+document.getElementById("send").onclick=async()=>{
+ const code=(auth&&auth.code)||((document.getElementById("code")||{}).value||"").trim().toUpperCase();
+ const answers=["a1","a2","a3"].map(id=>document.getElementById(id).value.trim());
+ if(!code)return msg("Type your access code first.");
+ if(answers.some(a=>a.length<3))return msg("Answer all three questions first.");
+ const b=document.getElementById("send");b.disabled=true;b.textContent="Sending…";
+ try{const r=await fetch(API,{method:"POST",body:JSON.stringify({action:"exitTicket",code,level:LEVEL,session:SESSION,answers})}).then(r=>r.json());
+  if(r.ok){try{localStorage.setItem("ccl5-exit-done-w2","1")}catch(x){}msg(`Thank you${r.name?", "+r.name.split(" ")[0]:""}. Your exit ticket was ${r.updated?"updated":"sent"} to Ms. Maria.`,true);b.textContent="Sent. Tap to update your answers";}
+  else{msg(r.error||"It was not sent. Check your code.");b.textContent="Submit my exit ticket"}}
+ catch(e){msg("It was not sent: no connection. Your answers are saved on this phone. Try again when you are online.");b.textContent="Submit my exit ticket"}
+ b.disabled=false};
+</script>
+</body>
+</html>
