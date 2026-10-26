@@ -474,7 +474,7 @@ function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.ex||a.form||a.s
 function canvaFor(n){return (SHEET[n]&&SHEET[n].slides?canvaEmbed(SHEET[n].slides):null)||(avail[n]&&avail[n].canva)||null}
 let OPENSET=store.get("ccl5-open",null);
 async function loadStatus(){try{const r=await fetch(API+"?action=status&level="+LEVEL,{cache:"no-store"}).then(r=>r.json());if(r.ok&&Array.isArray(r.open)){OPENSET=r.open;store.set("ccl5-open",OPENSET)}}catch(e){}}
-function isOpen(n){if(Array.isArray(OPENSET))return OPENSET.includes(n);const a=avail[n];if(!a)return false;if(SHEET[n]&&SHEET[n].visible===false)return false;return has(n)}
+function isOpen(n){n=Number(n);if(Array.isArray(OPENSET))return OPENSET.includes(n);const a=avail[n];if(!a)return false;if(SHEET[n]&&SHEET[n].visible===false)return false;return has(n)}
 const lockMsg=s=>`Opens when Ms. Maria starts Session ${s.n}`;
 function latest(){let L=null;SESSIONS.forEach(s=>{if(isOpen(s.n))L=s});return L}
 function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Checking materials…</p>`;
