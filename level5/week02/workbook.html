@@ -97,7 +97,7 @@ const KEY="ccl5-w2-capstone";
 const cap=(()=>{try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}})();
 ["c1","c2","c3"].forEach(id=>{const t=document.getElementById(id);t.value=cap[id]||"";
  t.addEventListener("input",()=>{cap[id]=t.value;try{localStorage.setItem(KEY,JSON.stringify(cap));document.getElementById("saved").textContent="Saved on this device"}catch(e){document.getElementById("saved").textContent="Could not save on this device. Copy your answers before you leave."}})});
-const API="https://script.google.com/macros/s/AKfycbw70SpO16Qai-KTVcs9K_cWGShT-jFZMWI47BGMAEgBm1BcXKk3AKCCrS_rI9La98okIQ/exec";
+const API="https://script.google.com/macros/s/AKfycbwXO14ta925OHJMk9qjt3yT44cCfflZo62fEWj_v4rR8z_xDrgOOCvZbc5uMVwiSjhkaA/exec";
 const ALL=TASKS.map(t=>[t.id,t.items.length,t.title.split(" · ")[0]]);
 let auth=null;try{auth=JSON.parse(localStorage.getItem("ccl5-auth")||"null")}catch(e){}
 const who=document.getElementById("who");

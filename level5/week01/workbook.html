@@ -173,7 +173,7 @@ const cap=loadCap();["c1","c2","c3"].forEach(id=>{const t=document.getElementByI
 document.getElementById("copy").addEventListener("click",async()=>{const txt=["1. "+(cap.c1||""),"2. "+(cap.c2||""),"3. "+(cap.c3||"")].join("\n\n");
  try{await navigator.clipboard.writeText(txt);document.getElementById("saved").textContent="Copied. Paste it into your capstone folder."}catch(e){document.getElementById("saved").textContent="Copy is blocked here. Select the text and copy it by hand."}});
 
-const API="https://script.google.com/macros/s/AKfycbw70SpO16Qai-KTVcs9K_cWGShT-jFZMWI47BGMAEgBm1BcXKk3AKCCrS_rI9La98okIQ/exec";
+const API="https://script.google.com/macros/s/AKfycbwXO14ta925OHJMk9qjt3yT44cCfflZo62fEWj_v4rR8z_xDrgOOCvZbc5uMVwiSjhkaA/exec";
 const ALLTASKS=[...TASKS0,...TASKS,...TASKS2].map(t=>[t.id,t.items.length,t.title.split(" · ")[0]]).concat([["t4",6,"Task 4"],["t5",1,"Task 5"]]);
 let auth=null;try{auth=JSON.parse(localStorage.getItem("ccl5-auth")||"null")}catch(e){}
 const who=document.getElementById("who");

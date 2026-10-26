@@ -62,7 +62,7 @@ fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slid
 opts.appendChild(b)});box.appendChild(d)});score()}
 function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
 if(n===Q.length){try{const k="ccl5-quiz-w2",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
-if(n===Q.length){try{const au=JSON.parse(localStorage.getItem("ccl5-auth")||"null");if(au&&au.code){fetch("https://script.google.com/macros/s/AKfycbw70SpO16Qai-KTVcs9K_cWGShT-jFZMWI47BGMAEgBm1BcXKk3AKCCrS_rI9La98okIQ/exec",{method:"POST",body:JSON.stringify({action:"score",code:au.code,level:"5",session:2,score:c,total:Q.length})}).catch(()=>{})}}catch(e){}}
+if(n===Q.length){try{const au=JSON.parse(localStorage.getItem("ccl5-auth")||"null");if(au&&au.code){fetch("https://script.google.com/macros/s/AKfycbwXO14ta925OHJMk9qjt3yT44cCfflZo62fEWj_v4rR8z_xDrgOOCvZbc5uMVwiSjhkaA/exec",{method:"POST",body:JSON.stringify({action:"score",code:au.code,level:"5",session:2,score:c,total:Q.length})}).catch(()=>{})}}catch(e){}}
 document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=8?"Well prepared for the exit ticket.":"Review the slides shown, then try again."}`}
 document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
 render();
