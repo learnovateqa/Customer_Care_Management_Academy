@@ -38,7 +38,8 @@ header.top::before{content:"";display:block;height:4px;background:linear-gradien
 .mark::after{content:"";width:18px;height:18px;border-radius:50%;background:var(--paper)}
 .logo b{font-size:15px;line-height:1.15;display:block;white-space:nowrap}
 .logo small{font-size:12px;color:var(--ink2);display:block;line-height:1.2}
-.lvl{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--navy);color:#fff;white-space:nowrap}
+@media (min-width:561px){.logo{flex-shrink:0}}
+.lvl{flex-shrink:0;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--navy);color:#fff;white-space:nowrap}
 nav.main{display:flex;gap:2px;margin:0 auto}
 nav.main a{position:relative;display:flex;align-items:center;gap:7px;text-decoration:none;font-size:14px;font-weight:500;padding:9px 13px;border-radius:12px;color:var(--ink2)}
 nav.main a:hover{background:var(--x-t);color:var(--navy)}
