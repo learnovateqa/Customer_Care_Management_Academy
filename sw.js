@@ -1,6 +1,6 @@
 /* Customer Care Management app: works offline with the latest version you opened.
    Always tries the internet first, so weekly uploads appear straight away. */
-const CACHE = "ccm-app-v3";
+const CACHE = "ccm-app-v4";
 const CORE = ["./", "./index.html", "./level5/", "./level5/index.html", "./level4/", "./level4/index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png"];
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).catch(() => {})); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
