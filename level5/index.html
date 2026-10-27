@@ -284,6 +284,24 @@ a.card:hover,a.tile:hover{transform:translateY(-2px)}
 .mark{width:38px;height:38px;background:url("../icons/logo.svg") center/contain no-repeat!important;border-radius:10px;box-shadow:0 4px 10px rgba(27,42,74,.18)}
 .mark::after,footer.site .mark::after{display:none!important}
 footer.site .mark{width:44px;height:44px;box-shadow:0 0 0 1px rgba(255,255,255,.15)}
+footer.site .flv{display:inline-block;white-space:nowrap;font-size:11px;font-weight:700;color:var(--navy);background:var(--d);padding:1px 8px;border-radius:999px;margin-left:4px;vertical-align:1px}
+footer.site .fsub{display:block;font-size:13px;line-height:1.4;color:#B9C3DA;margin-top:2px}
+footer.site .fb{align-items:center}
+@media (min-width:561px) and (max-width:1100px){.logo .full{display:none}.logo .short{display:inline}}
+/* ---- This week: colourful ---- */
+.now{background:radial-gradient(300px 200px at 100% 0%,rgba(233,180,76,.45),transparent 70%),radial-gradient(320px 240px at 0% 100%,rgba(231,111,81,.45),transparent 70%),linear-gradient(135deg,#1E8C80 0%,#2F6E9E 45%,#5B4FC4 100%)!important;box-shadow:0 20px 44px rgba(47,110,158,.35)!important}
+.now .live{background:rgba(255,255,255,.18)!important;border-color:rgba(255,255,255,.35)!important}
+.now .btns{gap:10px}
+.now .btn{background:#fff!important;color:var(--navy)!important;border:0!important;justify-content:flex-start;padding:8px 14px 8px 8px;gap:12px;box-shadow:0 6px 16px rgba(20,30,60,.18)!important;backdrop-filter:none}
+.now .btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(20,30,60,.25)!important}
+.now .btn svg.i{width:32px;height:32px;padding:7px;border-radius:10px;color:#fff;opacity:1;background:var(--navy)}
+.now .btns .btn:nth-child(1) svg.i{background:var(--a)}
+.now .btns .btn:nth-child(2) svg.i{background:var(--c)}
+.now .btns .btn:nth-child(3) svg.i{background:var(--b)}
+.now .btns .btn:nth-child(4) svg.i{background:#C9962E}
+.now .btns .btn:nth-child(5) svg.i{background:var(--navy)}
+.now .btn[aria-disabled="true"]{background:rgba(255,255,255,.14)!important;color:rgba(255,255,255,.85)!important;border:1px dashed rgba(255,255,255,.45)!important;box-shadow:none!important;justify-content:center;padding:8px 14px}
+.now .cta{background:linear-gradient(135deg,#FFE08A,#F4B940)!important;box-shadow:0 10px 24px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.6)!important}
 </style>
 </head>
 <body>
@@ -390,7 +408,7 @@ footer.site .mark{width:44px;height:44px;box-shadow:0 0 0 1px rgba(255,255,255,.
 <footer class="site">
  <div class="in">
   <div class="brandcol">
-   <div class="fb"><span class="mark" aria-hidden="true"></span><span><b>Elevate with Ms. Maria</b>Customer Care Management · Level 5</span></div>
+   <div class="fb"><span class="mark" aria-hidden="true"></span><span><b>Elevate with Ms. Maria</b><small class="fsub">Customer Care Management <span class="flv">Level&nbsp;5</span></small></span></div>
    <p style="font-size:14px;max-width:34ch;color:#C7CFE2">Manage, measure and improve customer service, one session at a time.</p>
    <a class="ibtn" href="#/install"><svg class="i"><use href="#i-down"/></svg>Install the app</a>
   </div>
