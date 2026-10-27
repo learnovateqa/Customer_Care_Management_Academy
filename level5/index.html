@@ -9,8 +9,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Customer Care">
 <link rel="manifest" href="../manifest.webmanifest">
-<link rel="icon" href="../icons/icon-192.png">
-<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" href="../icons/icon-192.png?v=smile">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png?v=smile">
 <title>Customer Care Management Level 5 · Elevate with Ms. Maria</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -252,6 +252,24 @@ footer.site .bottom a{display:inline;color:#AEB8D0;font-size:12.5px;padding:0}
 @media (prefers-reduced-motion:reduce){.ringbig{transition:none}}
 .capcard{flex-direction:column;align-items:flex-start!important;justify-content:center;gap:14px!important}
 .capcard::after{content:"Open your plan ›";font-weight:600;font-size:.92em;color:var(--navy);border-bottom:2px solid var(--d);padding-bottom:1px}
+/* ---- modern buttons ---- */
+.btn{border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(27,42,74,.06),0 2px 6px rgba(27,42,74,.04);transition:transform .15s,box-shadow .15s,background-color .15s,border-color .15s}
+.btn:hover{transform:translateY(-1px);border-color:#C9CFDC;box-shadow:0 6px 16px rgba(27,42,74,.12)}
+.btn:active{transform:translateY(0);box-shadow:0 1px 2px rgba(27,42,74,.08)}
+.btn.primary{background:linear-gradient(180deg,#2A3B63,var(--navy));border-color:var(--navy);box-shadow:0 6px 16px rgba(27,42,74,.25),inset 0 1px 0 rgba(255,255,255,.12)}
+.btn.primary:hover{box-shadow:0 10px 22px rgba(27,42,74,.32),inset 0 1px 0 rgba(255,255,255,.12)}
+.btn[aria-disabled="true"],.btn:disabled{box-shadow:none;transform:none}
+.now .btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);box-shadow:none;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.now .btn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4);box-shadow:0 8px 18px rgba(0,0,0,.18)}
+.now .btn.primary{background:#fff;color:var(--navy);border-color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.2)}
+.now .btn[aria-disabled="true"]{background:transparent;border:1px dashed rgba(255,255,255,.3)}
+.btn svg.i{width:18px;height:18px;opacity:.9}
+.card,.tile{transition:transform .18s,box-shadow .18s,border-color .18s}
+a.card:hover,a.tile:hover{transform:translateY(-2px)}
+@media (prefers-reduced-motion:reduce){.btn,.card,.tile{transition:none}.btn:hover,a.card:hover,a.tile:hover{transform:none}}
+.now>a{justify-self:start;display:inline-flex;align-items:center;gap:6px;font-weight:600;text-decoration:none;padding-bottom:2px;border-bottom:2px solid var(--a)}
+.now>a::after{content:"→";transition:transform .15s}
+.now>a:hover::after{transform:translateX(3px)}
 </style>
 </head>
 <body>
@@ -272,7 +290,7 @@ footer.site .bottom a{display:inline;color:#AEB8D0;font-size:12.5px;padding:0}
 <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
 <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></symbol>
 <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 10v4h3l5 4V6L7 10z"/><path d="M16 9a4 4 0 0 1 0 6"/></symbol>
-<symbol id="i-check" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="m8 12 3 3 5-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="m8 12 3 3 5-6"/></symbol><symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></symbol><symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2.5 2.5 0 0 0 0 5v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2.5 2.5 0 0 0 0-5z"/><path d="M10 5v14" stroke-dasharray="2 2"/></symbol>
 </defs></svg>
 
 <header class="top">
@@ -499,11 +517,11 @@ function latest(){let L=null;SESSIONS.forEach(s=>{if(isOpen(s.n))L=s});return L}
 function matBtns(n,opts={}){const a=avail[n];if(!a)return `<p class="muted">Checking materials…</p>`;
  const b=[];
  b.push(canvaFor(n)||a.slides||a.f[0]?`<a class="btn primary" href="#/session/${n}/slides">${ic("sessions")}Slides</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Slides · soon</a>`);
- b.push(a.f[1]?`<a class="btn" href="${a.dir}workbook.html">E-workbook</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">E-workbook · soon</a>`);
- b.push(a.f[2]?`<a class="btn" href="${a.dir}quiz.html">Practice quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Practice quiz · soon</a>`);
- b.push(a.ho?`<a class="btn" href="${a.dir}handout.pdf" target="_blank" rel="noopener">Handout PDF</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Handout · soon</a>`);
+ b.push(a.f[1]?`<a class="btn" href="${a.dir}workbook.html">${ic("pen")}E-workbook</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">E-workbook · soon</a>`);
+ b.push(a.f[2]?`<a class="btn" href="${a.dir}quiz.html">${ic("check")}Practice quiz</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Practice quiz · soon</a>`);
+ b.push(a.ho?`<a class="btn" href="${a.dir}handout.pdf" target="_blank" rel="noopener">${ic("doc")}Handout PDF</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Handout · soon</a>`);
  const form=(SHEET[n]&&SHEET[n].form)||a.form;
- b.push(a.ex?`<a class="btn" href="${a.dir}exit.html">Exit ticket</a>`:form?`<a class="btn" href="${esc(form)}" target="_blank" rel="noopener">Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
+ b.push(a.ex?`<a class="btn" href="${a.dir}exit.html">${ic("ticket")}Exit ticket</a>`:form?`<a class="btn" href="${esc(form)}" target="_blank" rel="noopener">${ic("ticket")}Exit ticket</a>`:`<a class="btn" aria-disabled="true" tabindex="-1">Exit ticket · soon</a>`);
  return `<div class="btns">${b.join("")}</div>`}
 
 
