@@ -302,6 +302,38 @@ footer.site .fb{align-items:center}
 .now .btns .btn:nth-child(5) svg.i{background:var(--navy)}
 .now .btn[aria-disabled="true"]{background:rgba(255,255,255,.14)!important;color:rgba(255,255,255,.85)!important;border:1px dashed rgba(255,255,255,.45)!important;box-shadow:none!important;justify-content:center;padding:8px 14px}
 .now .cta{background:linear-gradient(135deg,#FFE08A,#F4B940)!important;box-shadow:0 10px 24px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.6)!important}
+/* ---- welcome hero: colourful ---- */
+.welcome{background:radial-gradient(420px 300px at 92% 10%,rgba(42,157,143,.22),transparent 70%),radial-gradient(380px 260px at 70% 100%,rgba(109,91,208,.18),transparent 70%),radial-gradient(420px 260px at 0% 100%,rgba(233,180,76,.25),transparent 70%),radial-gradient(300px 200px at 30% 0%,rgba(231,111,81,.12),transparent 70%),#fff!important;border-color:transparent!important;box-shadow:0 22px 50px rgba(27,42,74,.10)!important}
+.welcome .hello{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:.92em;background:#fff;border:1px solid var(--line);padding:5px 14px 5px 5px;border-radius:999px;box-shadow:0 4px 12px rgba(27,42,74,.06)}
+.welcome .hello .av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px;background:linear-gradient(135deg,var(--a),var(--c))}
+.welcome .hello .sep{width:5px;height:5px;border-radius:50%;background:var(--b)}
+.welcome h1{margin-top:14px!important}
+.welcome h1 .hl{background:linear-gradient(90deg,var(--a),#3D7FB8 45%,var(--c));-webkit-background-clip:text;background-clip:text;color:transparent;padding:0}
+.welcome .btn.primary{background:linear-gradient(135deg,var(--a),#3D7FB8 50%,var(--c))!important;border-color:transparent!important;box-shadow:0 10px 22px rgba(61,127,184,.35)!important}
+.welcome .btn:not(.primary) svg.i{color:var(--b)}
+.welcome .teacher{display:flex;align-items:center;gap:10px;margin-top:18px;font-size:.88em;color:var(--ink2)}
+.welcome .teacher .tav{width:34px;height:34px;border-radius:10px;background:url("../icons/logo.svg") center/contain no-repeat;flex-shrink:0;box-shadow:0 4px 10px rgba(27,42,74,.15)}
+.welcome .teacher b{color:var(--navy)}
+.welcome .teacher small{display:block;font-size:.88em;line-height:1.2}
+.ringwrap{position:relative;justify-self:center;padding:26px 56px}
+.ringbig{background:conic-gradient(var(--a) 0 24%,transparent 0 25%,var(--b) 0 49%,transparent 0 50%,var(--c) 0 74%,transparent 0 75%,var(--d) 0 99%,transparent 0)!important;box-shadow:none!important;filter:drop-shadow(0 14px 22px rgba(27,42,74,.16))}
+.ringbig div{width:150px!important;height:150px!important;background:#fff;box-shadow:inset 0 2px 10px rgba(27,42,74,.06)!important}
+.ringbig span{font-size:11px!important;letter-spacing:.08em;text-transform:uppercase}
+.ringbig b{font-size:2.6rem!important;line-height:1}
+.ringbig b i{font-style:normal;font-size:.55em;color:var(--ink2);font-weight:600}
+.fchip{position:absolute;display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600;box-shadow:0 8px 18px rgba(27,42,74,.10);white-space:nowrap;animation:floaty 5s ease-in-out infinite}
+.fchip svg.i{width:16px;height:16px}
+.fchip.f1{top:6px;left:0}.fchip.f1 svg.i{color:var(--a)}
+.fchip.f2{top:46%;right:-6px;animation-delay:-1.6s}.fchip.f2 svg.i{color:var(--c)}
+.fchip.f3{bottom:4px;left:12px;animation-delay:-3.2s}.fchip.f3 svg.i{color:var(--b)}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media (max-width:900px){.ringwrap{padding:22px 40px}.ringbig div{width:112px!important;height:112px!important}.ringbig b{font-size:2rem!important}}
+@media (max-width:420px){.ringwrap{padding:22px 10px}.fchip.f2{right:-4px}}
+@media (prefers-reduced-motion:reduce){.fchip{animation:none}}
+@media (max-width:600px){.welcome .hello{font-size:.85em;max-width:100%}.welcome .hello .sep,.welcome .hello .org{display:none}
+.ringwrap{display:grid;grid-template-columns:repeat(3,auto);justify-content:center;gap:8px;padding:4px 0 0}.ringwrap .ringbig{grid-column:1/-1;justify-self:center;margin-bottom:6px}
+.fchip{position:static;animation:none;font-size:11.5px;padding:4px 9px}}
+@media (max-width:900px){.ringbig span{font-size:9.5px!important;letter-spacing:.04em}}
 </style>
 </head>
 <body>
@@ -590,10 +622,10 @@ const sessCard=s=>{const u=U(s);if(!isOpen(s.n))return `<div class="card top" st
 const V={
 home(){const L=latest();const done=store.get(K.cap,[]).length,total=SESSIONS.filter(s=>s.cap).length,pct=Math.round(done/total*100);
  const first=(typeof AUTH!=="undefined"&&AUTH&&AUTH.name)?AUTH.name.split(" ")[0]:null;const openN=SESSIONS.filter(s=>isOpen(s.n)).length;
- return `<section class="welcome"><div><p class="muted" style="font-weight:600">${first?`Welcome back, ${esc(first)}`:"Welcome"} · Learnovate Qatar</p><h1 style="margin-top:6px">Customer Care Management, <span class="hl">Level&nbsp;5</span></h1><p class="lede">Manage, measure and improve customer service like a manager: slides, handouts, e-workbooks, quizzes, models and the Practice Lab, all in one place.</p>
+ return `<section class="welcome"><div><p class="hello"><span class="av">${first?esc(first[0].toUpperCase()):"☺"}</span>${first?`Welcome back, ${esc(first)}`:"Welcome"}<span class="sep"></span><span class="org">Learnovate Qatar</span></p><h1 style="margin-top:6px">Customer Care Management, <span class="hl">Level&nbsp;5</span></h1><p class="lede">Manage, measure and improve customer service like a manager: slides, handouts, e-workbooks, quizzes, models and the Practice Lab, all in one place.</p>
  <div class="row" style="margin-top:18px">${L?`<a class="btn primary" href="#/session/${L.n}">${ic("sessions")}Continue Session ${L.n}</a>`:`<a class="btn primary" href="#/sessions">${ic("sessions")}Go to sessions</a>`}<a class="btn" href="#/lab">${ic("lab")}Practice Lab</a></div>
- <p class="muted" style="margin-top:14px;font-size:.85em">Taught by Ms. Maria F. Tongga, BSN, RN, RM</p></div>
- <div class="ringbig" aria-hidden="true"><div><span>SESSIONS OPEN</span><b>${openN}/12</b></div></div></section>
+ <p class="teacher"><span class="tav" aria-hidden="true"></span><span>Taught by <b>Ms. Maria F. Tongga</b><small>BSN, RN, RM</small></span></p></div>
+ <div class="ringwrap"><div class="ringbig" role="img" aria-label="${openN} of 12 sessions open"><div><span>Sessions open</span><b>${openN}<i>/12</i></b></div></div><span class="fchip f1">${ic("sessions")}12 sessions</span><span class="fchip f2">${ic("book")}11 models</span><span class="fchip f3">${ic("lab")}Practice Lab</span></div></section>
  <h2>Your course journey</h2><div class="card" style="padding:16px 12px">${journey()}</div>
  <div class="hero" style="margin-top:22px"><div class="now"><p class="live"><span></span>This week</p>${L?`<h3 style="font-size:1.25rem">Session ${L.n} · ${L.t}</h3>${matBtns(L.n)}<a class="cta" href="#/session/${L.n}">Open Session ${L.n} ${ic("right")}</a>`:`<h3 style="font-size:1.2rem">Materials appear here after Session 1.</h3>`}</div>
  <a class="card capcard" href="#/progress" style="display:flex;gap:16px;align-items:center"><span class="pring" style="background:conic-gradient(var(--gold) ${pct}%,var(--x-t) 0)"><span>${pct}%</span></span><span><span class="chip">${ic("progress")}Capstone</span><h3 style="margin-top:6px">${done} of ${total} steps done</h3><p class="muted" style="font-size:.9em">Your Digital-Ready Customer Care Improvement Plan</p></span></a></div>
