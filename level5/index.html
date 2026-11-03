@@ -583,7 +583,7 @@ const ready=Promise.all([ready0,readyRev]);
 function has(n){const a=avail[n];return a&&(a.f.some(Boolean)||a.ex||a.form||a.slides||a.canva||(SHEET[n]&&SHEET[n].form))}
 function canvaFor(n){return (SHEET[n]&&SHEET[n].slides?canvaEmbed(SHEET[n].slides):null)||(avail[n]&&avail[n].canva)||null}
 let OPENSET=store.get("ccl5-open",null);
-async function loadStatus(){try{const r=await fetch(API+"?action=status&level="+LEVEL,{cache:"no-store"}).then(r=>r.json());if(r.ok&&Array.isArray(r.open)){OPENSET=r.open;store.set("ccl5-open",OPENSET)}}catch(e){}}
+async function loadStatus(){try{const r=await fetch(API+"?action=status&level="+LEVEL+(typeof AUTH!=="undefined"&&AUTH&&AUTH.code?"&code="+encodeURIComponent(AUTH.code):""),{cache:"no-store"}).then(r=>r.json());if(r.ok&&Array.isArray(r.open)){OPENSET=r.open;store.set("ccl5-open",OPENSET)}}catch(e){}}
 function isOpen(n){n=Number(n);if(Array.isArray(OPENSET))return OPENSET.includes(n);const a=avail[n];if(!a)return false;if(SHEET[n]&&SHEET[n].visible===false)return false;return has(n)}
 const lockMsg=s=>`Opens when Ms. Maria starts Session ${s.n}`;
 function latest(){let L=null;SESSIONS.forEach(s=>{if(isOpen(s.n))L=s});return L}
@@ -823,7 +823,7 @@ const api={get:async q=>{const r=await fetch(API+"?"+new URLSearchParams(q),{cac
  post:async b=>{const r=await fetch(API,{method:"POST",body:JSON.stringify(b)});return r.json()}};
 function whoUI(){const b=$("#signBtn");b.textContent=AUTH?AUTH.name.split(" ")[0]:"Sign in";b.setAttribute("aria-label",AUTH?"Signed in as "+AUTH.name+". Open account":"Sign in");
  $("#who").innerHTML=AUTH?`<div class="read"><small>Signed in</small><p><b>${esc(AUTH.name)}</b> · Level 5</p><button class="btn soft" id="signOut" type="button" style="margin-top:6px">Sign out</button></div>`:`<button class="btn primary" id="signIn2" type="button" style="width:100%">Sign in with your code</button>`;
- const so=$("#signOut");if(so)so.onclick=()=>{AUTH=null;store.set(K.auth,null);SHEET={};whoUI();route();if(REQUIRE_LOGIN)openLogin()};
+ const so=$("#signOut");if(so)so.onclick=()=>{AUTH=null;store.set(K.auth,null);SHEET={};whoUI();route();loadStatus().then(route);if(REQUIRE_LOGIN)openLogin()};
  const si=$("#signIn2");if(si)si.onclick=openLogin}
 function openLogin(){closeAll();$("#login").hidden=false;$("#lgMsg").textContent="";$("#lgSkip").hidden=REQUIRE_LOGIN;$("#lgClose").hidden=REQUIRE_LOGIN;$("#lgCode").value="";$("#lgCode").focus()}
 function closeLogin(){if(REQUIRE_LOGIN&&!AUTH)return;$("#login").hidden=true}
@@ -831,7 +831,7 @@ async function doLogin(){const code=$("#lgCode").value.trim().toUpperCase(),m=$(
  $("#lgGo").disabled=true;m.textContent="Checking…";
  try{const r=await api.get({action:"login",code,level:LEVEL});
   if(!r.ok){m.textContent=r.error||"This code did not work.";return}
-  AUTH={code,name:r.name};store.set(K.auth,AUTH);$("#login").hidden=true;whoUI();await syncDown();await loadSheet();route()}
+  AUTH={code,name:r.name};store.set(K.auth,AUTH);$("#login").hidden=true;whoUI();await syncDown();await loadSheet();await loadStatus();route()}
  catch(e){m.textContent="Can't reach the server. Check your internet and try again."}
  finally{$("#lgGo").disabled=false}}
 async function loadFeedback(){const box=document.getElementById("fbBox");if(!box||!AUTH)return;
