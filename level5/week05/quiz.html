@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Session 5 practice quiz · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.q{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
+.q h2{font-size:1.05rem;margin:0 0 12px;font-weight:600}
+.q h2 span{display:inline-block;background:var(--a-t);border-radius:8px;padding:0 10px;margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--ok-t);border-color:var(--ok)}
+.opt.wrong{background:var(--no-t);border-color:var(--no)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.right{background:var(--ok-t)}
+.fb.wrong{background:var(--no-t)}
+.slide{font-size:13px;color:var(--ink2);margin-top:6px}
+.score{position:sticky;bottom:0;margin-top:24px;background:var(--navy);color:#fff;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:none;background:#fff;color:var(--navy);font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/session/5">Back to Session 5</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Session 5 · Measuring performance</p>
+<h1>Practice quiz</h1>
+<p class="muted">10 questions from the Session 5 slides and handout. Choose an answer to see if it is right. This quiz does not count toward your grade.</p>
+<div id="quiz"></div>
+<div class="score" aria-live="polite"><span id="scoreText">Score: 0 of 10 · 10 to go</span><button class="btn" id="reset" type="button">Start again</button></div>
+</main>
+<script>
+const Q=[{"q": "Which is a learning and growth KPI?", "o": ["Revenue per customer", "Staff training hours", "NPS", "Average handling time"], "a": 1, "e": "Learning and growth is about people and skills: training, turnover, staff satisfaction.", "s": "Handout · The Balanced Scorecard"}, {"q": "60 promoters, 25 passives, 15 detractors (out of 100). NPS is…", "o": ["+45", "+60", "+85", "−15"], "a": 0, "e": "NPS = % promoters − % detractors = 60 − 15 = +45. Passives are not counted.", "s": "Handout · How to calculate the main KPIs"}, {"q": "FCR measures…", "o": ["How fast the phone is answered", "How many customers complain", "Problems solved in the first contact", "Staff happiness"], "a": 2, "e": "First contact resolution: solved the first time, with no repeat call.", "s": "Handout · Key terms"}, {"q": "200 customers answered; 150 gave 4 or 5. CSAT is…", "o": ["50%", "75%", "150%", "4.5"], "a": 1, "e": "CSAT = 150 ÷ 200 × 100% = 75%.", "s": "Handout · How to calculate the main KPIs"}, {"q": "Why can a falling AHT be bad news?", "o": ["It always costs more", "Agents may rush and solve fewer problems", "Customers wait longer", "It lowers revenue"], "a": 1, "e": "Shorter calls can mean rushed customers, lower FCR and more repeat calls.", "s": "Handout · Core idea"}, {"q": "Klarna’s AI was very fast and cheap, but the company later hired more people because…", "o": ["The AI was too slow", "The AI cost too much", "Quality for customers was lower", "Customers did not use chat"], "a": 2, "e": "One side of the scorecard went up while the customer view went down.", "s": "Handout · Brand spotlight"}, {"q": "The best way to judge service performance is…", "o": ["One number only", "Sales only", "Speed only", "A balanced set of KPIs and their trends"], "a": 3, "e": "Use the four views together and read the trend, not one month.", "s": "Handout · The Balanced Scorecard"}, {"q": "Which target is SMART?", "o": ["“Better service”", "“Raise CSAT from 78% to 82% by 31 March”", "“100% satisfaction”", "“Faster replies soon”"], "a": 1, "e": "Specific, Measurable, Achievable, Relevant and Time-bound.", "s": "Handout · Deeper theory: SMART targets"}, {"q": "How many KPIs should a good dashboard show?", "o": ["1", "About 6 to 8", "At least 30", "Every number the system has"], "a": 1, "e": "Too many numbers hide the important ones.", "s": "Handout · Tech layer: the KPI dashboard"}, {"q": "Doha Metro reported punctuality of 99.66% at its fifth anniversary. This shows…", "o": ["A public KPI shows clearly whether the promise is kept", "Trains are never late", "KPIs do not matter", "Only revenue matters"], "a": 0, "e": "Passengers care about being on time. A clear KPI shows if the promise is kept.", "s": "Handout · Qatar spotlight"}];
+let answered={};
+function render(){const box=document.getElementById("quiz");box.innerHTML="";answered={};
+Q.forEach((it,i)=>{const d=document.createElement("div");d.className="q";
+d.innerHTML=`<h2><span>${i+1}</span>${it.q}</h2><div class="opts" role="group" aria-label="Question ${i+1} options"></div><div class="fb" hidden aria-live="polite"></div>`;
+const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");
+it.o.forEach((t,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=t;
+b.addEventListener("click",()=>{if(i in answered)return;answered[i]=j===it.a;
+opts.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===it.a)x.classList.add("right")});
+if(j!==it.a)b.classList.add("wrong");
+fb.hidden=false;fb.className="fb "+(j===it.a?"right":"wrong");
+fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slide">Review: ${it.s}</div>`;score()});
+opts.appendChild(b)});box.appendChild(d)});score()}
+function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
+if(n===Q.length){try{const k="ccl5-quiz-w5",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
+if(n===Q.length){try{const au=JSON.parse(localStorage.getItem("ccl5-auth")||"null");if(au&&au.code){fetch("https://script.google.com/macros/s/AKfycbwXO14ta925OHJMk9qjt3yT44cCfflZo62fEWj_v4rR8z_xDrgOOCvZbc5uMVwiSjhkaA/exec",{method:"POST",body:JSON.stringify({action:"score",code:au.code,level:"5",session:5,score:c,total:Q.length})}).catch(()=>{})}}catch(e){}}
+document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=8?"Well prepared for the exit ticket.":"Review the handout pages shown, then try again."}`}
+document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>

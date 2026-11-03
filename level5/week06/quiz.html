@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Session 6 practice quiz · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.q{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
+.q h2{font-size:1.05rem;margin:0 0 12px;font-weight:600}
+.q h2 span{display:inline-block;background:var(--a-t);border-radius:8px;padding:0 10px;margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--ok-t);border-color:var(--ok)}
+.opt.wrong{background:var(--no-t);border-color:var(--no)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.right{background:var(--ok-t)}
+.fb.wrong{background:var(--no-t)}
+.slide{font-size:13px;color:var(--ink2);margin-top:6px}
+.score{position:sticky;bottom:0;margin-top:24px;background:var(--navy);color:#fff;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:none;background:#fff;color:var(--navy);font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/session/6">Back to Session 6</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Session 6 · The internal customer</p>
+<h1>Practice quiz</h1>
+<p class="muted">10 questions from the Session 6 slides and handout. Choose an answer to see if it is right. This quiz does not count toward your grade.</p>
+<div id="quiz"></div>
+<div class="score" aria-live="polite"><span id="scoreText">Score: 0 of 10 · 10 to go</span><button class="btn" id="reset" type="button">Start again</button></div>
+</main>
+<script>
+const Q=[{"q": "Who owns the result and makes the final decision?", "o": ["Responsible", "Accountable", "Consulted", "Informed"], "a": 1, "e": "The A owns the result. The R does the work.", "s": "Handout · The Level 5 model: RACI"}, {"q": "How many A’s should each task have?", "o": ["None", "Exactly one", "Two", "As many as possible"], "a": 1, "e": "The golden rule: each task has exactly one A.", "s": "Handout · The Level 5 model: RACI"}, {"q": "A team that works alone and does not share information is called a…", "o": ["Silo", "Charter", "Dashboard", "Benchmark"], "a": 0, "e": "Silos form when teams focus only on their own goals.", "s": "Handout · Key terms"}, {"q": "At Toyota, a worker who sees a problem…", "o": ["Waits for the end of the day", "Ignores it", "Can call for help and stop the line", "Sends an email to head office"], "a": 2, "e": "The andon system: anyone can call for help at once.", "s": "Handout · Brand spotlight"}, {"q": "Disney’s laundry team serves which customers?", "o": ["Only paying guests", "Internal customers: the cast members", "Suppliers", "No customers"], "a": 1, "e": "Backstage teams serve the cast members, who then serve guests.", "s": "Handout · Brand spotlight"}, {"q": "Why does poor internal service reach the external customer?", "o": ["It does not", "Frustrated staff pass their frustration to customers, and customers wait", "Customers can see the office", "Because of the price"], "a": 1, "e": "It is the first link of the Service-Profit Chain again.", "s": "Handout · Core idea"}, {"q": "In the Carrefour case, where was the gap?", "o": ["Between finance and IT", "Between sales and installation", "Between the customer and the bank", "There was no gap"], "a": 1, "e": "Sales promised a date the installers never saw; nobody owned the date.", "s": "Handout · Case study: Carrefour"}, {"q": "A good ticketing system…", "o": ["Lets every ticket have many owners", "Hides the ticket history", "Gives every ticket one owner and shows internal SLAs", "Deletes old tickets"], "a": 2, "e": "One owner, visible history, SLAs and reminders. But it cannot fix unclear roles alone.", "s": "Handout · Tech layer"}, {"q": "In a swim-lane process map, most delays happen…", "o": ["At the start", "At the handovers between lanes", "At the end", "Nowhere"], "a": 1, "e": "Every time the flow crosses from one lane to another, there is a handover.", "s": "Handout · Deeper theory: process mapping"}, {"q": "Which is an internal SLA?", "o": ["“We fix internet faults within 24 hours”", "“Finance approves refunds within 24 hours”", "“Our prices are the lowest”", "“Open 9 to 5”"], "a": 1, "e": "An internal SLA is a promise between two teams inside the company.", "s": "Handout · Tech layer"}];
+let answered={};
+function render(){const box=document.getElementById("quiz");box.innerHTML="";answered={};
+Q.forEach((it,i)=>{const d=document.createElement("div");d.className="q";
+d.innerHTML=`<h2><span>${i+1}</span>${it.q}</h2><div class="opts" role="group" aria-label="Question ${i+1} options"></div><div class="fb" hidden aria-live="polite"></div>`;
+const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");
+it.o.forEach((t,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=t;
+b.addEventListener("click",()=>{if(i in answered)return;answered[i]=j===it.a;
+opts.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===it.a)x.classList.add("right")});
+if(j!==it.a)b.classList.add("wrong");
+fb.hidden=false;fb.className="fb "+(j===it.a?"right":"wrong");
+fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slide">Review: ${it.s}</div>`;score()});
+opts.appendChild(b)});box.appendChild(d)});score()}
+function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
+if(n===Q.length){try{const k="ccl5-quiz-w6",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
+if(n===Q.length){try{const au=JSON.parse(localStorage.getItem("ccl5-auth")||"null");if(au&&au.code){fetch("https://script.google.com/macros/s/AKfycbwXO14ta925OHJMk9qjt3yT44cCfflZo62fEWj_v4rR8z_xDrgOOCvZbc5uMVwiSjhkaA/exec",{method:"POST",body:JSON.stringify({action:"score",code:au.code,level:"5",session:6,score:c,total:Q.length})}).catch(()=>{})}}catch(e){}}
+document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=8?"Well prepared for the exit ticket.":"Review the handout pages shown, then try again."}`}
+document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>
