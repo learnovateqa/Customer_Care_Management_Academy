@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Session 3 practice quiz · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.q{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
+.q h2{font-size:1.05rem;margin:0 0 12px;font-weight:600}
+.q h2 span{display:inline-block;background:var(--a-t);border-radius:8px;padding:0 10px;margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--ok-t);border-color:var(--ok)}
+.opt.wrong{background:var(--no-t);border-color:var(--no)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.right{background:var(--ok-t)}
+.fb.wrong{background:var(--no-t)}
+.slide{font-size:13px;color:var(--ink2);margin-top:6px}
+.score{position:sticky;bottom:0;margin-top:24px;background:var(--navy);color:#fff;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:none;background:#fff;color:var(--navy);font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/session/3">Back to Session 3</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Session 3 · Knowing customer needs</p>
+<h1>Practice quiz</h1>
+<p class="muted">10 questions from the Session 3 slides and handout. Choose an answer to see if it is right. This quiz does not count toward your grade.</p>
+<div id="quiz"></div>
+<div class="score" aria-live="polite"><span id="scoreText">Score: 0 of 10 · 10 to go</span><button class="btn" id="reset" type="button">Start again</button></div>
+</main>
+<script>
+const Q=[{"q": "Which SERVQUAL area means “doing what you promised, correctly, the first time”?", "o": ["Tangibles", "Reliability", "Empathy", "Assurance"], "a": 1, "e": "Reliability is about keeping promises. The R at the start of RATER.", "s": "Handout · The Level 5 model"}, {"q": "What does RATER stand for?", "o": ["Reliability, Assurance, Tangibles, Empathy, Responsiveness", "Respect, Attitude, Time, Effort, Results", "Reliability, Accuracy, Trust, Efficiency, Reputation", "Rating, Asking, Testing, Evaluating, Reporting"], "a": 0, "e": "The five SERVQUAL areas: Reliability, Assurance, Tangibles, Empathy, Responsiveness.", "s": "Handout · The Level 5 model"}, {"q": "Expectation 6.5, experience 5.0. The gap is…", "o": ["+1.5", "11.5", "−1.5", "0"], "a": 2, "e": "Gap = experience − expectation = 5.0 − 6.5 = −1.5. A negative gap means the service falls short.", "s": "Handout · Gap formula"}, {"q": "A hotel’s Tangibles gap is +0.7 and its Responsiveness gap is −1.7. What should the manager fix first?", "o": ["Redecorate the lobby", "Responsiveness", "Tangibles", "Nothing; the average is fine"], "a": 1, "e": "Close the biggest negative gap first. Tangibles already beats expectations.", "s": "Handout · Case study: a Hilton hotel"}, {"q": "Reading online reviews that already exist is…", "o": ["Primary research", "A mystery shopper", "Benchmarking", "Secondary research"], "a": 3, "e": "Secondary research uses information that already exists. Primary research is new information you collect.", "s": "Handout · Core idea"}, {"q": "Why can QR code surveys give an unbalanced picture?", "o": ["They are too expensive", "Mostly very happy or very angry customers reply", "They are only on paper", "Managers cannot read the answers"], "a": 1, "e": "People with strong feelings reply most. The calm middle is often missing.", "s": "Handout · Tech layer"}, {"q": "Comparing your hotel’s rating with the three best hotels in your city is…", "o": ["Social listening", "A focus group", "Benchmarking", "A complaint"], "a": 2, "e": "Benchmarking means comparing yourself with the best and learning from them.", "s": "Handout · Tech layer"}, {"q": "Domino’s put customer complaints in its adverts and then…", "o": ["Changed its recipe", "Closed its stores", "Raised its prices", "Stopped selling pizza"], "a": 0, "e": "Domino’s listened to hard truths and changed its crust, sauce and cheese.", "s": "Handout · Brand spotlight"}, {"q": "New Coke failed in 1985 because the research…", "o": ["Asked too few people", "Asked about taste but not about customers’ attachment to the original", "Was done by the wrong company", "Was never finished"], "a": 1, "e": "The research answered the wrong question. Ask customers what they value.", "s": "Handout · Brand spotlight"}, {"q": "An advert promises “instant refunds”, but refunds take 5 days. Which gap is this?", "o": ["Gap 1 · Knowledge", "Gap 2 · Standards", "Gap 3 · Delivery", "Gap 4 · Communication"], "a": 3, "e": "The communication gap: promises do not match what is delivered.", "s": "Handout · Deeper theory: five gaps"}];
+let answered={};
+function render(){const box=document.getElementById("quiz");box.innerHTML="";answered={};
+Q.forEach((it,i)=>{const d=document.createElement("div");d.className="q";
+d.innerHTML=`<h2><span>${i+1}</span>${it.q}</h2><div class="opts" role="group" aria-label="Question ${i+1} options"></div><div class="fb" hidden aria-live="polite"></div>`;
+const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");
+it.o.forEach((t,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=t;
+b.addEventListener("click",()=>{if(i in answered)return;answered[i]=j===it.a;
+opts.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===it.a)x.classList.add("right")});
+if(j!==it.a)b.classList.add("wrong");
+fb.hidden=false;fb.className="fb "+(j===it.a?"right":"wrong");
+fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slide">Review: ${it.s}</div>`;score()});
+opts.appendChild(b)});box.appendChild(d)});score()}
+function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
+if(n===Q.length){try{const k="ccl5-quiz-w3",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
+if(n===Q.length){try{const au=JSON.parse(localStorage.getItem("ccl5-auth")||"null");if(au&&au.code){fetch("https://script.google.com/macros/s/AKfycbwXO14ta925OHJMk9qjt3yT44cCfflZo62fEWj_v4rR8z_xDrgOOCvZbc5uMVwiSjhkaA/exec",{method:"POST",body:JSON.stringify({action:"score",code:au.code,level:"5",session:3,score:c,total:Q.length})}).catch(()=>{})}}catch(e){}}
+document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=8?"Well prepared for the exit ticket.":"Review the handout pages shown, then try again."}`}
+document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>
