@@ -428,7 +428,7 @@ footer.site .fb{align-items:center}
   <div style="background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;display:grid;gap:14px">
    <div class="row" style="justify-content:space-between"><span class="lvl">Level 5</span><button class="iconbtn" id="lgClose" type="button" aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button></div>
    <h2 id="lgT" style="margin:0">Sign in</h2>
-   <p class="muted">Enter the access code from Ms. Maria. Signing in saves your quiz scores and capstone progress.</p>
+   <p class="muted">Enter the access code from Ms. Maria. Your quiz scores, e-workbooks, exit tickets and capstone progress are saved online, so you can continue on any phone or computer. No code yet? Ask Ms. Maria.</p>
    <label for="lgCode" style="font-weight:600">Access code</label>
    <input id="lgCode" autocomplete="off" autocapitalize="characters" spellcheck="false" style="min-height:52px;border:1.5px solid #B9BFCC;border-radius:14px;padding:0 16px;font-size:20px;letter-spacing:3px;text-transform:uppercase">
    <p id="lgMsg" role="alert" style="min-height:1.4em;font-size:14px"></p>
@@ -564,7 +564,7 @@ const K={cap:"ccl5-capstone",lab:"ccl5-lab",big:"ccl5-big",auth:"ccl5-auth"};
 /* ===== TEACHER PORTAL CONNECTION ===== */
 const API="https://script.google.com/macros/s/AKfycbwXO14ta925OHJMk9qjt3yT44cCfflZo62fEWj_v4rR8z_xDrgOOCvZbc5uMVwiSjhkaA/exec";
 const LEVEL="5";
-const REQUIRE_LOGIN=false; /* change to true to make sign-in compulsory */
+const REQUIRE_LOGIN=true; /* change to true to make sign-in compulsory */
 const pad=n=>String(n).padStart(2,"0");
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -848,7 +848,10 @@ async function loadSheet(){if(!AUTH)return;try{const r=await api.get({action:"co
  if(r.ok){SHEET={};r.sessions.forEach(s=>SHEET[s.n]=s)}else if(/not active|not enrolled/.test(r.error||"")){AUTH=null;store.set(K.auth,null);whoUI()}}catch(e){}}
 async function syncDown(){if(!AUTH)return;try{const r=await api.get({action:"progress",code:AUTH.code,level:LEVEL});
  if(r.ok){const cap=new Set([...store.get(K.cap,[]),...r.steps]);store.set(K.cap,[...cap]);const lab=store.get(K.lab,{});
-  Object.entries(r.lab||{}).forEach(([k,v])=>{lab[k]=typeof v==="number"?Math.max(v,lab[k]||0):(lab[k]||v)});store.set(K.lab,lab);syncUp()}}catch(e){}}
+  Object.entries(r.lab||{}).forEach(([k,v])=>{lab[k]=typeof v==="number"?Math.max(v,lab[k]||0):(lab[k]||v)});store.set(K.lab,lab);
+  Object.entries(r.quiz||{}).forEach(([n,q])=>{const k=`ccl5-quiz-w${n}`,o=store.get(k,null);store.set(k,{best:Math.max(q.best,o?o.best:0),last:o&&o.last!=null?o.last:q.last,total:q.total})});
+  (r.exits||[]).forEach(n=>store.set(`ccl5-exit-done-w${n}`,"1"));(r.workbooks||[]).forEach(n=>store.set(`ccl5-wb-done-w${n}`,"1"));
+  syncUp()}}catch(e){}}
 let upT;function syncUp(){if(!AUTH)return;clearTimeout(upT);upT=setTimeout(()=>{api.post({action:"progress",code:AUTH.code,level:LEVEL,steps:store.get(K.cap,[]),lab:store.get(K.lab,{})}).catch(()=>{})},800)}
 $("#signBtn").onclick=()=>{if(AUTH){$("#openMenu").click()}else openLogin()};
 $("#lgGo").onclick=doLogin;$("#lgCode").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin()});
