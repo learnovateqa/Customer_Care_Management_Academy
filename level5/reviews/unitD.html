@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unit D review · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.q{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
+.q h2{font-size:1.05rem;margin:0 0 12px;font-weight:600}
+.q h2 span{display:inline-block;background:var(--a-t);border-radius:8px;padding:0 10px;margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--ok-t);border-color:var(--ok)}
+.opt.wrong{background:var(--no-t);border-color:var(--no)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.right{background:var(--ok-t)}
+.fb.wrong{background:var(--no-t)}
+.slide{font-size:13px;color:var(--ink2);margin-top:6px}
+.score{position:sticky;bottom:0;margin-top:24px;background:var(--navy);color:#fff;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:none;background:#fff;color:var(--navy);font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/quizzes">Back to quizzes and reviews</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Unit D · Recovering and Retaining Customers</p>
+<h1>Unit D review</h1>
+<p class="muted">20 questions from Sessions 10, 11. Use it to revise before the final exam. Choose an answer to see if it is right. This review does not count toward your grade.</p>
+<div id="quiz"></div>
+<div class="score" aria-live="polite"><span id="scoreText">Score: 0 of 10 · 10 to go</span><button class="btn" id="reset" type="button">Start again</button></div>
+</main>
+<script>
+const Q=[{"q": "Who described the Service Recovery Paradox?", "o": ["Hirschman, 1970", "Kotter, 1996", "McCollough and Bharadwaj, 1992", "Ishikawa"], "a": 2, "e": "The answer is “McCollough and Bharadwaj, 1992”.", "s": "Session 10 · Complaints and quality improvement (Chapter 9)"}, {"q": "An unhappy customer stops buying and says nothing. In Hirschman’s terms this is…", "o": ["exit", "voice", "loyalty", "advocacy"], "a": 0, "e": "The answer is “exit”.", "s": "Session 10 · Complaints and quality improvement (Chapter 9)"}, {"q": "A customer gets a full refund, but only after five phone calls over three weeks. Which justice is weakest?", "o": ["outcome justice", "procedural justice", "interactional justice", "none"], "a": 1, "e": "The answer is “procedural justice”.", "s": "Session 10 · Complaints and quality improvement (Chapter 9)"}, {"q": "Which is a root cause, not a symptom?", "o": ["Food arrives melted", "Customers are angry", "The booking system has no slot limits", "Refunds are rising"], "a": 2, "e": "The answer is “The booking system has no slot limits”.", "s": "Session 10 · Complaints and quality improvement (Chapter 9)"}, {"q": "What is the correct PDCA order?", "o": ["Plan, Do, Act, Check", "Plan, Check, Do, Act", "Do, Plan, Check, Act", "Plan, Do, Check, Act"], "a": 3, "e": "The answer is “Plan, Do, Check, Act”.", "s": "Session 10 · Complaints and quality improvement (Chapter 9)"}, {"q": "A team’s 5 Whys ends with “the driver is lazy”. The best Level 5 response is…", "o": ["accept it and train the driver", "ask another why to find a process or system cause", "stop using 5 Whys", "give the customer a refund"], "a": 1, "e": "The answer is “ask another why to find a process or system cause”.", "s": "Session 10 · Complaints and quality improvement (Chapter 9)"}, {"q": "Which is the best charter promise?", "o": ["We care about every customer", "We aim to be quick", "We answer WhatsApp messages within 15 minutes, 8 am to 10 pm", "Complaints are welcome"], "a": 2, "e": "The answer is “We answer WhatsApp messages within 15 minutes, 8 am to 10 pm”.", "s": "Session 10 · Complaints and quality improvement (Chapter 9)"}, {"q": "Late delivery 48% and wrong item 28% of complaints. Pareto suggests…", "o": ["fix these two first: together 76%", "fix the smallest first", "fix all five equally", "ignore the data"], "a": 0, "e": "The answer is “fix these two first: together 76%”.", "s": "Session 10 · Complaints and quality improvement (Chapter 9)"}, {"q": "Which public review reply follows the book’s advice?", "o": ["A long explanation proving the customer was wrong", "Thanks, an apology, the name, and a WhatsApp number to continue privately", "No reply, to avoid attention", "The customer’s order details posted publicly"], "a": 1, "e": "The answer is “Thanks, an apology, the name, and a WhatsApp number to continue privately”.", "s": "Session 10 · Complaints and quality improvement (Chapter 9)"}, {"q": "A manager says, “Refunds keep customers happy, so we don’t need root-cause analysis.” The strongest evaluation is…", "o": ["Correct: refunds solve everything", "Wrong: refunds should stop", "Refunds are good recovery but treat the symptom; without 5 Whys and PDCA the complaint returns and costs grow", "It depends only on the refund size"], "a": 2, "e": "The answer is “Refunds are good recovery but treat the symptom; without 5 Whys and PDCA the complaint returns and costs grow”.", "s": "Session 10 · Complaints and quality improvement (Chapter 9)"}, {"q": "A customer spends $25 per visit, 40 visits a year, for 4 years. What is the CLV?", "o": ["$69", "$1,000", "$4,000", "$400"], "a": 2, "e": "The answer is “$4,000”.", "s": "Session 11 · Long-term customer relationships (Chapter 10)"}, {"q": "With a CLV of $6,000 and a 20% profit margin, the profit value is…", "o": ["$1,200", "$6,020", "$300", "$4,800"], "a": 0, "e": "The answer is “$1,200”.", "s": "Session 11 · Long-term customer relationships (Chapter 10)"}, {"q": "Which is the correct order of the Loyalty Ladder, from the bottom?", "o": ["Customer, prospect, client, advocate, supporter", "Prospect, customer, client, supporter, advocate", "Prospect, client, customer, supporter, advocate", "Client, customer, supporter, advocate, prospect"], "a": 1, "e": "The answer is “Prospect, customer, client, supporter, advocate”.", "s": "Session 11 · Long-term customer relationships (Chapter 10)"}, {"q": "Which action best moves a supporter to an advocate?", "o": ["A first-visit discount", "Easy online booking", "A thank-you message after the first purchase", "A referral reward and an invitation to review"], "a": 3, "e": "The answer is “A referral reward and an invitation to review”.", "s": "Session 11 · Long-term customer relationships (Chapter 10)"}, {"q": "Customers keep buying from the only pharmacy in their compound but do not like it. Dick and Basu call this…", "o": ["true loyalty", "latent loyalty", "spurious (false) loyalty", "no loyalty"], "a": 2, "e": "The answer is “spurious (false) loyalty”.", "s": "Session 11 · Long-term customer relationships (Chapter 10)"}, {"q": "Reichheld and Sasser (1990) found that…", "o": ["small increases in retention can bring large increases in profit", "new customers are always cheaper than loyal ones", "loyalty programmes never work", "price is the only reason customers stay"], "a": 0, "e": "The answer is “small increases in retention can bring large increases in profit”.", "s": "Session 11 · Long-term customer relationships (Chapter 10)"}, {"q": "Which is NOT one of the book’s good-practice rules for customer data?", "o": ["Ask permission before marketing messages", "Collect as much data as possible in case it is useful later", "Let customers see, correct or delete their data", "Keep data secure and limit who can see it"], "a": 1, "e": "The answer is “Collect as much data as possible in case it is useful later”.", "s": "Session 11 · Long-term customer relationships (Chapter 10)"}, {"q": "In the imagined Fitness First case, the average stay rises from 2 to 2.5 years at $100 a month. Each member is worth…", "o": ["$100 more", "$1,200 more", "$600 more", "$2,400 more"], "a": 2, "e": "The answer is “$600 more”.", "s": "Session 11 · Long-term customer relationships (Chapter 10)"}, {"q": "Amazon Prime mainly raises which parts of CLV?", "o": ["Visits per year and years as a customer", "Only average spend", "Only the profit margin", "None of them"], "a": 0, "e": "The answer is “Visits per year and years as a customer”.", "s": "Session 11 · Long-term customer relationships (Chapter 10)"}, {"q": "A manager wants to spend the whole budget on 50% discounts for first-time shoppers. The strongest Level 5 evaluation is…", "o": ["Good: new customers matter most", "Bad: discounts are never useful", "Risky: it targets low-CLV prospects and ignores high-CLV regulars, who may feel unfairly treated; combine a smaller offer with rewards for regulars and track retention", "It does not matter which customers you target"], "a": 2, "e": "The answer is “Risky: it targets low-CLV prospects and ignores high-CLV regulars, who may feel unfairly treated; combine a smaller offer with rewards for regulars and track retention”.", "s": "Session 11 · Long-term customer relationships (Chapter 10)"}];
+let answered={};
+function render(){const box=document.getElementById("quiz");box.innerHTML="";answered={};
+Q.forEach((it,i)=>{const d=document.createElement("div");d.className="q";
+d.innerHTML=`<h2><span>${i+1}</span>${it.q}</h2><div class="opts" role="group" aria-label="Question ${i+1} options"></div><div class="fb" hidden aria-live="polite"></div>`;
+const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");
+it.o.forEach((t,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=t;
+b.addEventListener("click",()=>{if(i in answered)return;answered[i]=j===it.a;
+opts.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===it.a)x.classList.add("right")});
+if(j!==it.a)b.classList.add("wrong");
+fb.hidden=false;fb.className="fb "+(j===it.a?"right":"wrong");
+fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slide">Review: ${it.s}</div>`;score()});
+opts.appendChild(b)});box.appendChild(d)});score()}
+function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
+if(n===Q.length){try{const k="ccl5-review-D",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
+document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=Math.ceil(Q.length*0.8)?"Well prepared for the exam.":"Review the sessions shown, then try again."}`}
+document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>

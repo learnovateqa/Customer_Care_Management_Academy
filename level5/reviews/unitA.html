@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unit A review · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.q{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
+.q h2{font-size:1.05rem;margin:0 0 12px;font-weight:600}
+.q h2 span{display:inline-block;background:var(--a-t);border-radius:8px;padding:0 10px;margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--ok-t);border-color:var(--ok)}
+.opt.wrong{background:var(--no-t);border-color:var(--no)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.right{background:var(--ok-t)}
+.fb.wrong{background:var(--no-t)}
+.slide{font-size:13px;color:var(--ink2);margin-top:6px}
+.score{position:sticky;bottom:0;margin-top:24px;background:var(--navy);color:#fff;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:none;background:#fff;color:var(--navy);font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/quizzes">Back to quizzes and reviews</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Unit A · Understanding the Customer</p>
+<h1>Unit A review</h1>
+<p class="muted">20 questions from Sessions 1, 2, 3. Use it to revise before the midterm. Choose an answer to see if it is right. This review does not count toward your grade.</p>
+<div id="quiz"></div>
+<div class="score" aria-live="polite"><span id="scoreText">Score: 0 of 10 · 10 to go</span><button class="btn" id="reset" type="button">Start again</button></div>
+</main>
+<script>
+const Q=[{"q": "Who described the Service-Profit Chain, and when?", "o": ["Kano and colleagues, 1984", "Heskett and colleagues, 1994", "Porter, 1985", "Meyer and Schwager, 2007"], "a": 1, "e": "The answer is “Heskett and colleagues, 1994”.", "s": "Session 1 · Customer care in context (Chapter 1)"}, {"q": "Training costs $5,000 and brings $8,000 extra profit. What is the ROI?", "o": ["160%", "37.5%", "60%", "300%"], "a": 2, "e": "The answer is “60%”.", "s": "Session 1 · Customer care in context (Chapter 1)"}, {"q": "Which link of the chain does “repeat customers fell from 52% to 41%” describe?", "o": ["Link 5, loyal customers", "Link 1, support for staff", "Link 3, service value", "Link 6, profit"], "a": 0, "e": "The answer is “Link 5, loyal customers”.", "s": "Session 1 · Customer care in context (Chapter 1)"}, {"q": "An empty seat on a flight cannot be sold tomorrow. Which IHIP feature is this?", "o": ["Intangible", "Heterogeneous", "Inseparable", "Perishable"], "a": 3, "e": "The answer is “Perishable”.", "s": "Session 1 · Customer care in context (Chapter 1)"}, {"q": "Housekeeping needs the front desk to report check-outs. Housekeeping is…", "o": ["an external customer", "an internal customer", "a supplier", "a shareholder"], "a": 1, "e": "The answer is “an internal customer”.", "s": "Session 1 · Customer care in context (Chapter 1)"}, {"q": "What did the Sears study (1998) show?", "o": ["Price matters more than staff", "Better staff feelings went with better customer feelings, then sales grew", "Advertising drives loyalty", "AI reduced costs"], "a": 1, "e": "The answer is “Better staff feelings went with better customer feelings, then sales grew”.", "s": "Session 1 · Customer care in context (Chapter 1)"}, {"q": "Which is a Level 5 answer?", "o": ["The chain has six links", "Staff are important", "Link 1 is weakest because turnover doubled; I recommend training, but results may take months, so I would track repeat customers monthly", "Customers like good service"], "a": 2, "e": "The answer is “Link 1 is weakest because turnover doubled; I recommend training, but results may take months, so I would track repeat customers monthly”.", "s": "Session 1 · Customer care in context (Chapter 1)"}, {"q": "Who described the Kano Model, and when?", "o": ["Kotter, 1996", "Kano and colleagues, 1984", "Carlzon, 1987", "Shostack, 1984"], "a": 1, "e": "The answer is “Kano and colleagues, 1984”.", "s": "Unit A · Understanding the Customer (Chapter 2)"}, {"q": "A delivery app promises ‘30 minutes’. What happens to the adequate level?", "o": ["It goes down", "It does not change", "It goes up", "It disappears"], "a": 2, "e": "The answer is “It goes up”.", "s": "Unit A · Understanding the Customer (Chapter 2)"}, {"q": "Which order do features usually move in over time?", "o": ["Basic → performance → delighter", "Delighter → performance → basic", "Performance → delighter → basic", "They never move"], "a": 1, "e": "The answer is “Delighter → performance → basic”.", "s": "Unit A · Understanding the Customer (Chapter 2)"}, {"q": "A customer asks ‘Will they fix it if it breaks next month?’ Which element?", "o": ["Sales", "Culture", "After-sales", "Time"], "a": 2, "e": "The answer is “After-sales”.", "s": "Unit A · Understanding the Customer (Chapter 2)"}, {"q": "In a service blueprint, the kitchen preparing an online order is…", "o": ["Customer action", "Frontstage", "Backstage", "A persona"], "a": 2, "e": "The answer is “Backstage”.", "s": "Unit A · Understanding the Customer (Chapter 2)"}, {"q": "About how long was each SAS moment of truth?", "o": ["15 seconds", "5 minutes", "1 hour", "A whole flight"], "a": 0, "e": "The answer is “15 seconds”.", "s": "Unit A · Understanding the Customer (Chapter 2)"}, {"q": "Which is a Level 5 answer, not a Level 4 answer?", "o": ["Kano has three groups", "Waiting time is a basic", "Waiting time is a basic, but business and leisure customers may rank it differently, so I would survey both", "Delighters are nice"], "a": 2, "e": "The answer is “Waiting time is a basic, but business and leisure customers may rank it differently, so I would survey both”.", "s": "Unit A · Understanding the Customer (Chapter 2)"}, {"q": "What does the R at the end of RATER stand for?", "o": ["Reliability", "Responsiveness", "Reputation", "Respect"], "a": 1, "e": "The answer is “Responsiveness”.", "s": "Session 3 · Knowing customer needs (Chapter 3)"}, {"q": "Expectation 6.7, experience 4.8. What is the gap?", "o": ["+1.9", "−1.9", "−11.5", "−0.9"], "a": 1, "e": "The answer is “−1.9”.", "s": "Session 3 · Knowing customer needs (Chapter 3)"}, {"q": "Advert says “instant refunds”; refunds take 5 days. Which gap?", "o": ["Gap 1 Knowledge", "Gap 2 Standards", "Gap 3 Delivery", "Gap 4 Communication"], "a": 3, "e": "The answer is “Gap 4 Communication”.", "s": "Session 3 · Knowing customer needs (Chapter 3)"}, {"q": "A hospital studies how an airline handles check-in. Which type of benchmarking?", "o": ["Internal", "Competitive", "Best-in-class (functional)", "Social listening"], "a": 2, "e": "The answer is “Best-in-class (functional)”.", "s": "Session 3 · Knowing customer needs (Chapter 3)"}, {"q": "Why did New Coke research mislead Coca-Cola?", "o": ["The sample was too small", "It asked about taste, not emotional attachment", "It used only online reviews", "It asked leading questions"], "a": 1, "e": "The answer is “It asked about taste, not emotional attachment”.", "s": "Session 3 · Knowing customer needs (Chapter 3)"}, {"q": "How many customer ideas did Starbucks use from My Starbucks Idea?", "o": ["277", "150,000", "79", "200,000"], "a": 0, "e": "The answer is “277”.", "s": "Session 3 · Knowing customer needs (Chapter 3)"}];
+let answered={};
+function render(){const box=document.getElementById("quiz");box.innerHTML="";answered={};
+Q.forEach((it,i)=>{const d=document.createElement("div");d.className="q";
+d.innerHTML=`<h2><span>${i+1}</span>${it.q}</h2><div class="opts" role="group" aria-label="Question ${i+1} options"></div><div class="fb" hidden aria-live="polite"></div>`;
+const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");
+it.o.forEach((t,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=t;
+b.addEventListener("click",()=>{if(i in answered)return;answered[i]=j===it.a;
+opts.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===it.a)x.classList.add("right")});
+if(j!==it.a)b.classList.add("wrong");
+fb.hidden=false;fb.className="fb "+(j===it.a?"right":"wrong");
+fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slide">Review: ${it.s}</div>`;score()});
+opts.appendChild(b)});box.appendChild(d)});score()}
+function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
+if(n===Q.length){try{const k="ccl5-review-A",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
+document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=Math.ceil(Q.length*0.8)?"Well prepared for the exam.":"Review the sessions shown, then try again."}`}
+document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>

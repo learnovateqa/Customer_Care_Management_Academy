@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unit C review · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.q{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
+.q h2{font-size:1.05rem;margin:0 0 12px;font-weight:600}
+.q h2 span{display:inline-block;background:var(--a-t);border-radius:8px;padding:0 10px;margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--ok-t);border-color:var(--ok)}
+.opt.wrong{background:var(--no-t);border-color:var(--no)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.right{background:var(--ok-t)}
+.fb.wrong{background:var(--no-t)}
+.slide{font-size:13px;color:var(--ink2);margin-top:6px}
+.score{position:sticky;bottom:0;margin-top:24px;background:var(--navy);color:#fff;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:none;background:#fff;color:var(--navy);font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/quizzes">Back to quizzes and reviews</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Unit C · Communicating in Every Channel</p>
+<h1>Unit C review</h1>
+<p class="muted">20 questions from Sessions 8, 9. Use it to revise before the final exam. Choose an answer to see if it is right. This review does not count toward your grade.</p>
+<div id="quiz"></div>
+<div class="score" aria-live="polite"><span id="scoreText">Score: 0 of 10 · 10 to go</span><button class="btn" id="reset" type="button">Start again</button></div>
+</main>
+<script>
+const Q=[{"q": "In the simple communication model, what is “noise”?", "o": ["Only loud sounds in the room", "Anything that disturbs the message at any step", "The customer’s reply", "The channel the message uses"], "a": 1, "e": "The answer is “Anything that disturbs the message at any step”.", "s": "Session 8 · Communication barriers (Chapter 7)"}, {"q": "Hofstede’s first study analysed about how many questionnaires from IBM staff?", "o": ["11,600", "50,000", "116,000", "1.16 million"], "a": 2, "e": "The answer is “116,000”.", "s": "Session 8 · Communication barriers (Chapter 7)"}, {"q": "A customer wants a written guarantee before buying. Which dimension best explains this?", "o": ["Uncertainty avoidance", "Power distance", "Long-term orientation", "Individualism"], "a": 0, "e": "The answer is “Uncertainty avoidance”.", "s": "Session 8 · Communication barriers (Chapter 7)"}, {"q": "A family takes a week to decide on a new car because the whole family must agree. Which dimension may explain this?", "o": ["Power distance", "Short-term orientation", "Low context", "Collectivism"], "a": 3, "e": "The answer is “Collectivism”.", "s": "Session 8 · Communication barriers (Chapter 7)"}, {"q": "What did Mehrabian’s research really show?", "o": ["Words carry only 7% of every message", "When words and tone or face do not match, people believe the tone and face", "Words are more important than tone", "Body language is the same in every culture"], "a": 1, "e": "The answer is “When words and tone or face do not match, people believe the tone and face”.", "s": "Session 8 · Communication barriers (Chapter 7)"}, {"q": "Which is the best plain-language version of “The aforementioned item is non-returnable as per our policy”?", "o": ["As per policy, the item is non-returnable.", "Kindly note this item cannot be returned.", "You cannot return this item.", "Aforementioned items are not accepted."], "a": 2, "e": "The answer is “You cannot return this item.”.", "s": "Session 8 · Communication barriers (Chapter 7)"}, {"q": "A manager says: “Customers from country X are always impatient, so serve them first.” What is the best Level 5 response?", "o": ["Agree: it saves time", "This is a stereotype; prepare with group tendencies but adapt to each person", "Ignore culture completely", "Serve customers from country X last"], "a": 1, "e": "The answer is “This is a stereotype; prepare with group tendencies but adapt to each person”.", "s": "Session 8 · Communication barriers (Chapter 7)"}, {"q": "Which is a key limit of Hofstede’s model?", "o": ["It was based on a very small study", "It only studied one country", "It describes national averages and can lead to stereotyping", "It is only about food"], "a": 2, "e": "The answer is “It describes national averages and can lead to stereotyping”.", "s": "Session 8 · Communication barriers (Chapter 7)"}, {"q": "A clinic wants to use a translation tool for test results sent to patients. What should a manager recommend?", "o": ["Use it with no checks to save time", "Ban all translation tools", "Use English only", "Use simple sentences and have a person check the medical messages"], "a": 3, "e": "The answer is “Use simple sentences and have a person check the medical messages”.", "s": "Session 8 · Communication barriers (Chapter 7)"}, {"q": "An angry customer is shouting about a wrong bill. What should staff do first?", "o": ["Listen and calm the customer, then explain", "Explain the billing policy at once", "Pass them to a chatbot", "Ask them to come back tomorrow"], "a": 0, "e": "The answer is “Listen and calm the customer, then explain”.", "s": "Session 8 · Communication barriers (Chapter 7)"}, {"q": "Which channel has the highest cost per contact?", "o": ["Chatbot", "Email", "Face to face", "Self-service app"], "a": 2, "e": "The answer is “Face to face”.", "s": "Session 9 · Communication channels (Chapter 8)"}, {"q": "In the Air Canada case, when did the tribunal give its decision?", "o": ["November 2022", "February 2024", "2018", "2016"], "a": 1, "e": "The answer is “February 2024”.", "s": "Session 9 · Communication channels (Chapter 8)"}, {"q": "Which issue is best handled by a person, not AI?", "o": ["A request to change a seat", "A password reset", "Order tracking", "A customer reporting a lost bag with medicine inside"], "a": 3, "e": "The answer is “A customer reporting a lost bag with medicine inside”.", "s": "Session 9 · Communication channels (Chapter 8)"}, {"q": "A customer moves from chatbot to agent and must explain everything again. Which escalation feature is missing?", "o": ["Warm handover", "Easy exit", "Honest waiting time", "Honesty about AI"], "a": 0, "e": "The answer is “Warm handover”.", "s": "Session 9 · Communication channels (Chapter 8)"}, {"q": "38,000 calls at $4 move to a chatbot at $0.50. What is the monthly saving?", "o": ["$152,000", "$19,000", "$133,000", "$171,000"], "a": 2, "e": "The answer is “$133,000”.", "s": "Session 9 · Communication channels (Chapter 8)"}, {"q": "A company has phone, email and WhatsApp, but none share customer history. Which stage is it at?", "o": ["Omnichannel", "Multichannel", "Single channel", "Self-service"], "a": 1, "e": "The answer is “Multichannel”.", "s": "Session 9 · Communication channels (Chapter 8)"}, {"q": "What does AI triage do?", "o": ["Sorts each message by topic, urgency and mood and routes it", "Answers every question without people", "Closes complaints automatically", "Writes customer reviews"], "a": 0, "e": "The answer is “Sorts each message by topic, urgency and mood and routes it”.", "s": "Session 9 · Communication channels (Chapter 8)"}, {"q": "A bank wants to close its phone line because most customers are under 30. What is the strongest Level 5 response?", "o": ["Agree: young customers never call", "Close it but keep email only", "Ask staff which channel they prefer", "Check the data first; keep a route to a person for urgent, emotional and vulnerable cases"], "a": 3, "e": "The answer is “Check the data first; keep a route to a person for urgent, emotional and vulnerable cases”.", "s": "Session 9 · Communication channels (Chapter 8)"}, {"q": "By 2022, how many services did the Ministry of Interior report on Metrash2?", "o": ["107", "307", "170", "1,000"], "a": 1, "e": "The answer is “307”.", "s": "Session 9 · Communication channels (Chapter 8)"}, {"q": "Which is a limit of Channel Strategy named in the book?", "o": ["It always costs more money", "It never uses AI", "Customers do not always choose the channel you planned", "It ignores routine questions"], "a": 2, "e": "The answer is “Customers do not always choose the channel you planned”.", "s": "Session 9 · Communication channels (Chapter 8)"}];
+let answered={};
+function render(){const box=document.getElementById("quiz");box.innerHTML="";answered={};
+Q.forEach((it,i)=>{const d=document.createElement("div");d.className="q";
+d.innerHTML=`<h2><span>${i+1}</span>${it.q}</h2><div class="opts" role="group" aria-label="Question ${i+1} options"></div><div class="fb" hidden aria-live="polite"></div>`;
+const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");
+it.o.forEach((t,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=t;
+b.addEventListener("click",()=>{if(i in answered)return;answered[i]=j===it.a;
+opts.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===it.a)x.classList.add("right")});
+if(j!==it.a)b.classList.add("wrong");
+fb.hidden=false;fb.className="fb "+(j===it.a?"right":"wrong");
+fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slide">Review: ${it.s}</div>`;score()});
+opts.appendChild(b)});box.appendChild(d)});score()}
+function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
+if(n===Q.length){try{const k="ccl5-review-C",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
+document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=Math.ceil(Q.length*0.8)?"Well prepared for the exam.":"Review the sessions shown, then try again."}`}
+document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>

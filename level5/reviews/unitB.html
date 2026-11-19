@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unit B review · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.q{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
+.q h2{font-size:1.05rem;margin:0 0 12px;font-weight:600}
+.q h2 span{display:inline-block;background:var(--a-t);border-radius:8px;padding:0 10px;margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--ok-t);border-color:var(--ok)}
+.opt.wrong{background:var(--no-t);border-color:var(--no)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.right{background:var(--ok-t)}
+.fb.wrong{background:var(--no-t)}
+.slide{font-size:13px;color:var(--ink2);margin-top:6px}
+.score{position:sticky;bottom:0;margin-top:24px;background:var(--navy);color:#fff;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:none;background:#fff;color:var(--navy);font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/quizzes">Back to quizzes and reviews</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Unit B · Leading and Measuring Service</p>
+<h1>Unit B review</h1>
+<p class="muted">20 questions from Sessions 4, 5, 6. Use it to revise before the midterm. Choose an answer to see if it is right. This review does not count toward your grade.</p>
+<div id="quiz"></div>
+<div class="score" aria-live="polite"><span id="scoreText">Score: 0 of 10 · 10 to go</span><button class="btn" id="reset" type="button">Start again</button></div>
+</main>
+<script>
+const Q=[{"q": "Who developed Situational Leadership?", "o": ["Kaplan and Norton", "Hersey and Blanchard", "Kano and colleagues", "Heskett and colleagues"], "a": 1, "e": "The answer is “Hersey and Blanchard”.", "s": "Session 4 · Leadership for a service culture (Chapter 4)"}, {"q": "A skilled agent who doubts their own judgement needs which style?", "o": ["Directing", "Coaching", "Supporting", "Delegating"], "a": 2, "e": "The answer is “Supporting”.", "s": "Session 4 · Leadership for a service culture (Chapter 4)"}, {"q": "In which style does the leader explain why, encourage, and still decide?", "o": ["Coaching", "Supporting", "Delegating", "Laissez-faire"], "a": 0, "e": "The answer is “Coaching”.", "s": "Session 4 · Leadership for a service culture (Chapter 4)"}, {"q": "Fatima checks every reply from all six agents. What is the main problem?", "o": ["She is too friendly", "She uses directing for everyone, including skilled agents", "She delegates too much", "She uses too many KPIs"], "a": 1, "e": "The answer is “She uses directing for everyone, including skilled agents”.", "s": "Session 4 · Leadership for a service culture (Chapter 4)"}, {"q": "Which is a Herzberg motivator, not a hygiene factor?", "o": ["Pay", "Job security", "Company rules", "Recognition"], "a": 3, "e": "The answer is “Recognition”.", "s": "Session 4 · Leadership for a service culture (Chapter 4)"}, {"q": "“Patients first” posters on a clinic wall are which Schein level?", "o": ["Basic assumptions", "Espoused values", "Artefacts", "Self-actualisation"], "a": 2, "e": "The answer is “Artefacts”.", "s": "Session 4 · Leadership for a service culture (Chapter 4)"}, {"q": "When did McDonald’s start Hamburger University?", "o": ["1943", "1961", "1985", "2003"], "a": 1, "e": "The answer is “1961”.", "s": "Session 4 · Leadership for a service culture (Chapter 4)"}, {"q": "Who created the Balanced Scorecard?", "o": ["Hersey and Blanchard", "Kaplan and Norton", "Reichheld", "Doran"], "a": 1, "e": "The answer is “Kaplan and Norton”.", "s": "Session 5 · Measuring performance (Chapter 5)"}, {"q": "FCR belongs to which Balanced Scorecard view?", "o": ["Financial", "Customer", "Internal processes", "Learning and growth"], "a": 2, "e": "The answer is “Internal processes”.", "s": "Session 5 · Measuring performance (Chapter 5)"}, {"q": "200 customers answered; 160 gave 4 or 5. What is the CSAT?", "o": ["60%", "75%", "80%", "160%"], "a": 2, "e": "The answer is “80%”.", "s": "Session 5 · Measuring performance (Chapter 5)"}, {"q": "100 customers: 40 promoters, 35 passives, 25 detractors. NPS?", "o": ["+15", "+40", "+75", "−15"], "a": 0, "e": "The answer is “+15”.", "s": "Session 5 · Measuring performance (Chapter 5)"}, {"q": "In the Noon example, what is the main warning sign?", "o": ["AHT fell while CSAT, NPS and FCR fell", "Revenue fell", "The AI rate fell", "Benchmarks rose"], "a": 0, "e": "The answer is “AHT fell while CSAT, NPS and FCR fell”.", "s": "Session 5 · Measuring performance (Chapter 5)"}, {"q": "Which is a leading indicator?", "o": ["Revenue", "NPS", "Last year’s profit", "Training hours per agent"], "a": 3, "e": "The answer is “Training hours per agent”.", "s": "Session 5 · Measuring performance (Chapter 5)"}, {"q": "When did Doha Metro open?", "o": ["May 2019", "November 2022", "February 2024", "2003"], "a": 0, "e": "The answer is “May 2019”.", "s": "Session 5 · Measuring performance (Chapter 5)"}, {"q": "In RACI, who does the work?", "o": ["Responsible", "Accountable", "Consulted", "Informed"], "a": 0, "e": "The answer is “Responsible”.", "s": "Session 6 · The internal customer (Chapter 6)"}, {"q": "Which statement follows the RACI golden rule?", "o": ["Every task has two A’s", "Every task has exactly one A", "Every task has one C", "The manager is always the A"], "a": 1, "e": "The answer is “Every task has exactly one A”.", "s": "Session 6 · The internal customer (Chapter 6)"}, {"q": "In the Lulu refund example, who is Accountable for approving the refund?", "o": ["Contact centre agent", "Delivery team", "Finance", "Store manager"], "a": 3, "e": "The answer is “Store manager”.", "s": "Session 6 · The internal customer (Chapter 6)"}, {"q": "In the Carrefour case, who should be Accountable for the installation date?", "o": ["The customer", "The sales team", "The installation coordinator", "The contact centre"], "a": 2, "e": "The answer is “The installation coordinator”.", "s": "Session 6 · The internal customer (Chapter 6)"}, {"q": "Who placed internal service quality at the start of the Service-Profit Chain?", "o": ["Heskett and colleagues (1994)", "Kaplan and Norton (1992)", "Porter (1985)", "Doran (1981)"], "a": 0, "e": "The answer is “Heskett and colleagues (1994)”.", "s": "Session 6 · The internal customer (Chapter 6)"}, {"q": "Which structure has the risk “confusion about who decides”?", "o": ["Functional", "Divisional", "Flat", "Matrix"], "a": 3, "e": "The answer is “Matrix”.", "s": "Session 6 · The internal customer (Chapter 6)"}];
+let answered={};
+function render(){const box=document.getElementById("quiz");box.innerHTML="";answered={};
+Q.forEach((it,i)=>{const d=document.createElement("div");d.className="q";
+d.innerHTML=`<h2><span>${i+1}</span>${it.q}</h2><div class="opts" role="group" aria-label="Question ${i+1} options"></div><div class="fb" hidden aria-live="polite"></div>`;
+const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");
+it.o.forEach((t,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=t;
+b.addEventListener("click",()=>{if(i in answered)return;answered[i]=j===it.a;
+opts.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===it.a)x.classList.add("right")});
+if(j!==it.a)b.classList.add("wrong");
+fb.hidden=false;fb.className="fb "+(j===it.a?"right":"wrong");
+fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slide">Review: ${it.s}</div>`;score()});
+opts.appendChild(b)});box.appendChild(d)});score()}
+function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
+if(n===Q.length){try{const k="ccl5-review-B",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
+document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=Math.ceil(Q.length*0.8)?"Well prepared for the exam.":"Review the sessions shown, then try again."}`}
+document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>
