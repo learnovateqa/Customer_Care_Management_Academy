@@ -15,79 +15,156 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--b-t:#FCE9E3;--c:#6D5BD0;--c-t:#ECE9FA;--d:#E9B44C;--d-t:#FBF2DC}
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--b-t:#FCE9E3;--c:#6D5BD0;--c-t:#ECE9FA;--d:#E9B44C;--d-t:#FBF2DC}
 *{box-sizing:border-box}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6}
 p{margin:0}
+h1,h2,h3{margin:0;text-wrap:balance}
+a:focus-visible,button:focus-visible{outline:3px solid var(--d);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
-main{max-width:1040px;margin:0 auto;padding:32px max(20px,env(safe-area-inset-right,0px)) 40px max(20px,env(safe-area-inset-left,0px))}
-.logo{display:flex;align-items:center;gap:12px;font-weight:600}
-.ring{border-radius:50%;background:conic-gradient(var(--a) 0 25%,var(--b) 0 50%,var(--c) 0 75%,var(--d) 0);display:grid;place-items:center;flex-shrink:0}
-.ring::after{content:"";width:58%;height:58%;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='6.6' cy='8' r='1.5' fill='%231B2A4A'/%3E%3Ccircle cx='13.4' cy='8' r='1.5' fill='%231B2A4A'/%3E%3Cpath d='M5.6 11.6q4.4 4.4 8.8 0' fill='none' stroke='%231B2A4A' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/100% no-repeat}
-.logo .ring{width:38px;height:38px}
-.hero{margin-top:26px;position:relative;overflow:hidden;border-radius:30px;padding:clamp(26px,5vw,52px);display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;
- background:radial-gradient(520px 280px at 100% 0%,var(--a-t),transparent 70%),radial-gradient(420px 260px at 0% 100%,var(--d-t),transparent 70%),radial-gradient(380px 220px at 60% 130%,var(--c-t),transparent 70%),#fff;border:1px solid var(--line);box-shadow:0 18px 40px rgba(27,42,74,.07)}
-.kicker{font-weight:600;color:var(--ink2);font-size:.95rem}
-h1{font-size:clamp(2.1rem,6vw,3.6rem);line-height:1.06;margin:8px 0 14px;letter-spacing:-.02em;text-wrap:balance}
-h1 .hl{background:linear-gradient(transparent 62%,var(--d-t) 62%);padding:0 .06em}
-.lede{font-size:1.1rem;max-width:52ch;color:var(--ink2)}
-.hero .ring{width:clamp(130px,18vw,190px);height:clamp(130px,18vw,190px);box-shadow:0 16px 36px rgba(27,42,74,.14);transition:transform .5s}
-.hero:hover .ring{transform:rotate(-8deg)}
-.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
-.facts span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13.5px;font-weight:600}
-.programs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:28px}
-.prog{background:#fff;border:1.5px solid var(--line);border-top:7px solid var(--u);border-radius:22px;padding:26px;display:grid;gap:12px;text-decoration:none;color:var(--navy);align-content:start;transition:transform .15s,box-shadow .15s,border-color .15s}
-a.prog:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(27,42,74,.12)}
-a.prog:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-.badge{justify-self:start;font-weight:700;font-size:15px;padding:4px 14px;border-radius:999px}
-.prog h2{margin:0;font-size:1.5rem;line-height:1.2}
-.prog p{color:var(--ink2)}
-.go{margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:14px;font-weight:600;background:var(--navy);color:#fff}
-.prog.soon{border-top-style:solid;opacity:.85}
+.logo{display:flex;align-items:center;gap:12px;font-weight:600;padding-block:22px}
+.logo img{width:44px;height:44px;border-radius:11px;box-shadow:0 4px 10px rgba(27,42,74,.18)}
+.logo small{display:block;font-weight:500;font-size:12.5px;color:var(--ink2);line-height:1.2}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:32px;color:#fff;padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:1.25fr .75fr;gap:32px;align-items:center;
+ background:radial-gradient(420px 300px at 100% 0%,rgba(233,180,76,.45),transparent 70%),radial-gradient(420px 320px at 0% 100%,rgba(231,111,81,.45),transparent 70%),linear-gradient(135deg,#1E8C80 0%,#2F6E9E 45%,#5B4FC4 100%);box-shadow:0 24px 54px rgba(47,110,158,.32)}
+.hero::after{content:"";position:absolute;right:-90px;bottom:-90px;width:300px;height:300px;border-radius:50%;border:40px solid rgba(255,255,255,.07);pointer-events:none}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);padding:5px 13px;border-radius:999px}
+.pill i{width:8px;height:8px;border-radius:50%;background:#7CF0C4}
+.hero h1{font-size:clamp(2.2rem,6vw,3.7rem);line-height:1.05;letter-spacing:-.02em;margin:16px 0 14px}
+.hero h1 span{color:#FFE08A}
+.hero p.lede{font-size:1.08rem;max-width:46ch;color:rgba(255,255,255,.9)}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:16px;font-weight:700;font-size:15.5px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.gold{background:linear-gradient(135deg,#FFE08A,#F4B940);color:var(--navy);box-shadow:0 10px 24px rgba(0,0,0,.2)}
+.btn.glass{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.4)}
+.btn svg{width:18px;height:18px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.art{justify-self:center;position:relative}
+.art img{width:clamp(150px,20vw,220px);height:auto;border-radius:24%;box-shadow:0 22px 44px rgba(0,0,0,.3);transform:rotate(-4deg);transition:transform .5s}
+.hero:hover .art img{transform:rotate(3deg) scale(1.03)}
+.bubble{position:absolute;background:#fff;color:var(--navy);font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:14px;box-shadow:0 10px 22px rgba(0,0,0,.18);white-space:nowrap}
+.bubble.b1{top:-8px;left:-46px}.bubble.b2{bottom:6px;right:-40px}
+.bubble b{color:var(--b)}
+
+/* features */
+.feats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}
+.feat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:8px;align-content:start}
+.feat .ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:var(--t);color:var(--k)}
+.feat .ic svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.feat b{font-size:15px}
+.feat p{font-size:13.5px;color:var(--ink2);line-height:1.5}
+
+/* programs */
+h2.sec{font-size:1.5rem;margin:40px 0 14px}
+.programs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.prog{position:relative;background:#fff;border:1px solid var(--line);border-radius:26px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;text-decoration:none;color:var(--navy);transition:transform .18s,box-shadow .18s}
+a.prog:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(27,42,74,.14)}
+.prog .top{padding:22px 24px;color:#fff;background:var(--g)}
+.prog .top .lv{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.2);padding:4px 12px;border-radius:999px}
+.prog .top h3{font-size:1.5rem;line-height:1.2;margin-top:10px}
+.prog .body{padding:20px 24px 24px;display:grid;gap:14px;align-content:start}
+.prog .body p{color:var(--ink2)}
+.units{display:grid;gap:8px}
+.units div{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600}
+.units i{flex-shrink:0;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-style:normal;font-size:13px;font-weight:700;color:#fff;background:var(--u)}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stats span{font-size:12.5px;font-weight:600;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+.go{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:15px;font-weight:700;background:var(--navy);color:#fff}
+.go svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
+a.prog:hover .go svg{transform:translateX(4px)}
+.prog.soon .top{background:linear-gradient(135deg,#9AA6BF,#7D8AA6)}
 .prog.soon .go{background:transparent;color:#6B7590;border:1.5px dashed #B9BFCC}
-.install{margin-top:22px;display:flex;gap:14px;align-items:flex-start;background:var(--d-t);border-radius:18px;padding:16px 18px;color:var(--navy)}
-.install svg{width:26px;height:26px;flex-shrink:0;stroke:var(--navy);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
-.install a{color:var(--navy);font-weight:600}
-footer{max-width:1040px;margin:0 auto;padding:20px max(20px,env(safe-area-inset-right,0px)) 28px max(20px,env(safe-area-inset-left,0px));border-top:1px solid var(--line);font-size:14px;color:var(--ink2)}
-@media (max-width:640px){.hero{grid-template-columns:1fr}.hero .ring{grid-row:1;width:96px;height:96px}}
-@media (prefers-reduced-motion:reduce){.hero .ring,.prog{transition:none}}
-/* brand logo (app icon) */
-.ring{background:url("icons/logo.svg") center/contain no-repeat!important;border-radius:22%}
-.ring::after{display:none}
-.logo .ring{width:42px;height:42px;box-shadow:0 4px 10px rgba(27,42,74,.18)}
+.prog.soon .units div{color:#7D8AA6}
+
+/* teacher + install */
+.duo{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:22px}
+.teacher{display:flex;gap:18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px}
+.teacher .av{flex-shrink:0;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:22px;color:#fff;background:conic-gradient(var(--a) 0 25%,var(--b) 0 50%,var(--c) 0 75%,var(--d) 0)}
+.teacher .av span{width:52px;height:52px;border-radius:50%;background:var(--navy);display:grid;place-items:center}
+.teacher small{display:block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--a)}
+.teacher b{display:block;font-size:1.1rem}
+.teacher p{font-size:13.5px;color:var(--ink2)}
+.install{display:flex;gap:14px;align-items:flex-start;background:var(--d-t);border-radius:24px;padding:22px}
+.install svg{width:28px;height:28px;flex-shrink:0;stroke:var(--navy);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.install b{display:block}
+.install p{font-size:13.5px}
+.install a{color:var(--navy);font-weight:700}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-block:20px 30px;font-size:13.5px;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between}
+
+@media (max-width:860px){.feats{grid-template-columns:repeat(2,minmax(0,1fr))}.duo{grid-template-columns:1fr}}
+@media (max-width:640px){.hero{grid-template-columns:1fr;text-align:left}.art{grid-row:1;justify-self:start}.art img{width:96px}.bubble{display:none}.btn{flex:1 1 auto}}
+@media (prefers-reduced-motion:reduce){.btn,.prog,.art img,.go svg{transition:none}}
 </style>
 </head>
 <body>
 <div class="stripe"></div>
-<main>
- <div class="logo"><i class="ring" aria-hidden="true"></i>Elevate with Ms. Maria</div>
+<main class="wrap">
+ <div class="logo"><img src="icons/logo.svg" alt=""><span>Elevate with Ms. Maria<small>Learnovate Qatar</small></span></div>
+
  <section class="hero">
-  <div>
-   <p class="kicker">Learnovate Qatar</p>
-   <h1>Customer Care <span class="hl">Management</span></h1>
-   <p class="lede">Choose your program. Each level has its own sessions, study tools and progress tracker.</p>
-   <div class="facts"><span>12 sessions</span><span>Slides and handouts</span><span>Practice Lab</span><span>Works offline</span></div>
+  <div style="position:relative;z-index:1">
+   <span class="pill"><i></i>Customer care courses</span>
+   <h1>Customer Care <span>Management</span></h1>
+   <p class="lede">Learn to deliver, measure and improve service the way great brands do, with slides, handouts, practice quizzes and a hands-on Practice Lab, all on your phone.</p>
+   <div class="cta">
+    <a class="btn gold" href="level5/">Open Level 5 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a class="btn glass" href="level5/#/install"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7m-3-3 3 3 3-3"/></svg>Install the app</a>
+   </div>
   </div>
-  <i class="ring" aria-hidden="true"></i>
+  <div class="art" aria-hidden="true">
+   <img src="icons/logo.svg" alt="">
+   <span class="bubble b1">12 sessions</span>
+   <span class="bubble b2"><b>★</b> Works offline</span>
+  </div>
  </section>
- <div class="programs">
-  <a class="prog" href="level5/" style="--u:var(--c)">
-   <span class="badge" style="background:var(--c-t)">Level 5</span>
-   <h2>Managing customer care</h2>
-   <p>Analyse, evaluate and improve customer service in a modern, technology-supported organisation. 12 sessions.</p>
-   <span class="go">Open Level 5 <span aria-hidden="true">→</span></span>
-  </a>
-  <a class="prog soon" href="level4/" style="--u:var(--a)">
-   <span class="badge" style="background:var(--a-t)">Level 4</span>
-   <h2>Delivering customer care</h2>
-   <p>Explain and apply the foundations of excellent customer service. 12 sessions.</p>
-   <span class="go">Coming soon</span>
-  </a>
+
+ <div class="feats">
+  <div class="feat" style="--t:var(--a-t);--k:var(--a)"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><b>Slides and handouts</b><p>Every session’s slides and reading, in one place.</p></div>
+  <div class="feat" style="--t:var(--b-t);--k:var(--b)"><span class="ic"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/></svg></span><b>Practice Lab</b><p>Tickets, live chat and calm-down practice.</p></div>
+  <div class="feat" style="--t:var(--c-t);--k:var(--c)"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="m8 12 3 3 5-6"/></svg></span><b>Quizzes and workbooks</b><p>Instant feedback, saved to your progress.</p></div>
+  <div class="feat" style="--t:var(--d-t);--k:#B07D1C"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><b>Your progress</b><p>Sign in once and continue on any device.</p></div>
  </div>
- <p class="install"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7m-3-3 3 3 3-3M10 18.5h4"/></svg><span>Install it as an app: on iPhone or iPad, tap Share then Add to Home Screen. On Android, tap Install in Chrome. <a href="level5/#/install">Full instructions</a></span></p>
+
+ <h2 class="sec">Choose your program</h2>
+ <div class="programs">
+  <a class="prog" href="level5/" style="--g:linear-gradient(135deg,#6D5BD0,#2F6E9E)">
+   <div class="top"><span class="lv">Level 5</span><h3>Managing customer care</h3></div>
+   <div class="body">
+    <p>Analyse, evaluate and improve customer service in a modern, technology-supported organisation.</p>
+    <div class="units">
+     <div><i style="--u:var(--a)">A</i>Understanding the customer</div>
+     <div><i style="--u:var(--b)">B</i>Leading and measuring service</div>
+     <div><i style="--u:var(--c)">C</i>Communicating in every channel</div>
+     <div><i style="--u:#C9962E">D</i>Recovering and retaining customers</div>
+    </div>
+    <div class="stats"><span>12 sessions</span><span>11 models</span><span>Capstone project</span></div>
+    <span class="go">Open Level 5 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+   </div>
+  </a>
+  <div class="prog soon" aria-label="Level 4, coming soon">
+   <div class="top"><span class="lv">Level 4</span><h3>Delivering customer care</h3></div>
+   <div class="body">
+    <p>Explain and apply the foundations of excellent customer service.</p>
+    <div class="units">
+     <div><i style="--u:#9AA6BF">✦</i>12 sessions</div>
+     <div><i style="--u:#9AA6BF">✦</i>Slides, handouts and practice</div>
+    </div>
+    <span class="go">Coming soon</span>
+   </div>
+  </div>
+ </div>
+
+ <div class="duo">
+  <div class="teacher"><span class="av" aria-hidden="true"><span>M</span></span><div><small>Your teacher</small><b>Ms. Maria F. Tongga</b><p>BSN, RN, RM · Learnovate Qatar</p></div></div>
+  <div class="install"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7m-3-3 3 3 3-3M10 18.5h4"/></svg><div><b>Install it as an app</b><p>iPhone or iPad: tap Share, then Add to Home Screen. Android: tap Install in Chrome. <a href="level5/#/install">Full instructions</a></p></div></div>
+ </div>
+
+ <footer><span>© 2026 Elevate with Ms. Maria · Learnovate Qatar</span><a href="level5/teacher.html" style="color:var(--ink2)">Teacher portal</a></footer>
 </main>
-<footer>© 2026 Elevate with Ms. Maria · Learnovate Qatar</footer>
 <script>if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script>
 </body>
 </html>
