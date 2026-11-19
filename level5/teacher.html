@@ -70,7 +70,7 @@ td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
 </head>
 <body>
 <header><div class="bar"><span><b>Teacher portal</b><br><small>Customer Care Management · Level 5</small></span>
-<nav class="tabs" id="tabs" hidden role="tablist"><button role="tab" data-v="dash" aria-selected="true">Dashboard</button><button role="tab" data-v="sessions" aria-selected="false">Sessions</button><button role="tab" data-v="learners" aria-selected="false">Learners</button><button id="out" type="button">Sign out</button></nav></div></header>
+<nav class="tabs" id="tabs" hidden role="tablist"><button role="tab" data-v="dash" aria-selected="true">Dashboard</button><button role="tab" data-v="sessions" aria-selected="false">Sessions</button><button role="tab" data-v="learners" aria-selected="false">Learners</button><button role="tab" data-v="grades" aria-selected="false">Grade book</button><button id="out" type="button">Sign out</button></nav></div></header>
 <main id="main"></main>
 <div class="toast" id="toast" hidden role="status"></div>
 <script>
@@ -94,7 +94,36 @@ function loginView(msg){$("#tabs").hidden=true;$("#main").innerHTML=`<div class=
  $("#go").onclick=go;$("#pin").onkeydown=e=>{if(e.key==="Enter")go()};$("#pin").focus()}
 async function load(){try{const [r]=await Promise.all([call({action:"teacherDashboard"}),scanFiles()]);if(!r.ok){PIN=null;try{sessionStorage.removeItem("ccm-teacher")}catch(e){}return loginView(r.error)}
  D=r;try{sessionStorage.setItem("ccm-teacher",PIN)}catch(e){}$("#tabs").hidden=false;render()}catch(e){loginView("Can't reach your teacher portal script. Check the internet and try again.")}}
-function render(){document.querySelectorAll("#tabs [data-v]").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===(who?"learners":view)));if(who)return profile(who);({dash,sessions,learners})[view]();window.scrollTo(0,0)}
+/* ---------- grade book ---------- */
+const GS=[1,2,3,4,5,6,8,9,10,11];
+function gradeRow(s){const c=s.code,dd=(D.detail||{})[c]||{},sc=(D.scores||{})[c]||{},at=(D.attendance||{})[c]||{};
+ const ex=n=>{const it=(dd.exits||[]).find(x=>x.n===n);return it&&it.mark!==""&&it.mark!=null?Number(it.mark):null};
+ const wb=n=>{const it=(dd.workbooks||[]).find(x=>x.n===n);if(!it)return null;if(it.mark!==""&&it.mark!=null)return Number(it.mark)*10;return it.total?Math.round(it.score/it.total*100):null};
+ const qz=n=>sc[n]&&sc[n].total?Math.round(sc[n].best/sc[n].total*100):null;
+ const avg=a=>{const v=a.filter(x=>x!=null);return v.length?Math.round(v.reduce((p,q)=>p+q,0)/v.length*10)/10:null};
+ const cells=GS.map(n=>({n,e:ex(n),q:qz(n),w:wb(n),a:at[n]||""}));
+ const held=Object.keys(at).length,pres=Object.values(at).filter(v=>v==="Present"||v==="Late").length;
+ const mid=ex(7),fin=ex(12);
+ return {s,cells,exAvg:avg(cells.map(x=>x.e)),qzAvg:avg(cells.map(x=>x.q)),wbAvg:avg(cells.map(x=>x.w)),att:held?Math.round(pres/held*100):null,mid:mid==null?null:Math.round(mid*4*10)/10,fin:fin==null?null:Math.round(fin*4*10)/10}}
+const gv=(v,suf="")=>v==null?'<span class="muted">–</span>':esc(v)+suf;
+function grades(){const st=act(),R=st.map(gradeRow);
+ $("#main").innerHTML=`<h1>Grade book</h1>${batchBar()}<p class="muted" style="margin-top:8px">One row per active learner${BATCH?` in ${esc(BATCH)}`:""}. <b>E</b> = exit ticket mark out of 10 · <b>Q</b> = best practice-quiz score · <b>W</b> = workbook (your mark × 10, or the auto score). Type exam marks out of 40 and press Enter to save. <button class="lnk" id="csv" type="button">Download CSV</button></p>
+ <div class="tablewrap" style="margin-top:14px"><table style="min-width:1400px"><thead><tr><th>Learner</th><th>Attendance</th><th>Exit avg /10</th><th>Quiz avg</th><th>Workbook avg</th><th>Midterm /40</th><th>Final /40</th>${GS.map(n=>`<th title="${esc(TITLES[n])}">S${n}</th>`).join("")}</tr></thead><tbody>
+ ${R.map(r=>`<tr><td><button class="lnk" data-who="${esc(r.s.code)}" type="button">${esc(r.s.name)}</button><br><small class="muted">${esc(r.s.code)}${r.s.batch?" · "+esc(r.s.batch):""}</small></td>
+ <td>${gv(r.att,"%")}</td><td><b>${gv(r.exAvg)}</b></td><td>${gv(r.qzAvg,"%")}</td><td>${gv(r.wbAvg,"%")}</td>
+ ${[["7",r.mid],["12",r.fin]].map(([n,v])=>`<td><input class="f" style="width:74px;padding:6px 8px" inputmode="decimal" data-exam="${n}" data-code="${esc(r.s.code)}" value="${v==null?"":v}" aria-label="${n==="7"?"Midterm":"Final"} mark out of 40 for ${esc(r.s.name)}"></td>`).join("")}
+ ${r.cells.map(x=>`<td style="white-space:nowrap;font-size:12.5px">E ${gv(x.e)}<br>Q ${gv(x.q,"%")}<br>W ${gv(x.w,"%")}${x.a?`<br><span class="muted">${esc(x.a)}</span>`:""}</td>`).join("")}</tr>`).join("")||`<tr><td colspan="17" class="muted">No active learners${BATCH?" in this batch":""}.</td></tr>`}
+ </tbody></table></div>`;
+ wireBatchBar();
+ document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;render()});
+ document.querySelectorAll("[data-exam]").forEach(inp=>inp.onkeydown=async e=>{if(e.key!=="Enter")return;const v=inp.value.trim(),n=+inp.dataset.exam,code=inp.dataset.code;
+  if(v!==""&&!(Number(v)>=0&&Number(v)<=40))return toast("Give a mark from 0 to 40.");inp.disabled=true;
+  try{const mk=v===""?"":String(Math.round(Number(v)/4*1000)/1000);const r=await call({action:"teacherMark",code,session:n,kind:"exit",mark:mk,comment:v===""?"":`${n===7?"Midterm":"Final"} exam: ${v} / 40`,paper:true});
+   if(r.ok){const dd=((D.detail=D.detail||{})[code]=D.detail[code]||{}),list=(dd.exits=dd.exits||[]);let it=list.find(x=>x.n===n);if(!it){it={n,at:"",a1:"Done on paper",a2:"",a3:""};list.push(it)}it.mark=mk;it.comment=v===""?"":`${n===7?"Midterm":"Final"} exam: ${v} / 40`;toast(`${n===7?"Midterm":"Final"} mark saved`)}else toast(r.error||"Not saved")}catch(err){toast("No connection. Not saved.")}inp.disabled=false});
+ $("#csv").onclick=()=>{const q=v=>`"${String(v==null?"":v).replace(/"/g,'""')}"`;const head=["Name","Code","Batch","Attendance %","Exit avg /10","Quiz avg %","Workbook avg %","Midterm /40","Final /40",...GS.flatMap(n=>[`S${n} exit /10`,`S${n} quiz %`,`S${n} workbook %`,`S${n} attendance`])];
+  const lines=[head.map(q).join(","),...R.map(r=>[r.s.name,r.s.code,r.s.batch,r.att,r.exAvg,r.qzAvg,r.wbAvg,r.mid,r.fin,...r.cells.flatMap(x=>[x.e,x.q,x.w,x.a])].map(q).join(","))];
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["﻿"+lines.join("\n")],{type:"text/csv"}));a.download=`CCM-L5-gradebook${BATCH?"-"+BATCH:""}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}}
+function render(){document.querySelectorAll("#tabs [data-v]").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===(who?"learners":view)));if(who)return profile(who);({dash,sessions,learners,grades})[view]();window.scrollTo(0,0)}
 document.querySelectorAll("#tabs [data-v]").forEach(b=>b.onclick=()=>{view=b.dataset.v;who=null;render()});
 $("#out").onclick=()=>{PIN=null;D=null;try{sessionStorage.removeItem("ccm-teacher")}catch(e){}loginView()};
 

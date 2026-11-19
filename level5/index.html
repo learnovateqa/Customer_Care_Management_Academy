@@ -861,7 +861,7 @@ async function doLogin(){const code=$("#lgCode").value.trim().toUpperCase(),m=$(
  finally{$("#lgGo").disabled=false}}
 async function loadFeedback(){const box=document.getElementById("fbBox");if(!box||!AUTH)return;
  try{const r=await api.get({action:"feedback",code:AUTH.code,level:LEVEL});if(!r.ok){box.querySelector("p").textContent="Feedback could not be loaded.";return}
-  box.innerHTML=`<h2>Feedback from Ms. Maria</h2>`+(r.feedback&&r.feedback.length?r.feedback.map(f=>`<div class="read" style="margin-top:10px"><small>Session ${f.session} · ${esc(f.kind)}${f.mark?` · Mark: ${esc(f.mark)}/10`:""}</small>${f.comment?`<p>${esc(f.comment)}</p>`:""}</div>`).join(""):`<p class="muted">No feedback yet. It appears here after Ms. Maria marks your work.</p>`)}
+  box.innerHTML=`<h2>Feedback from Ms. Maria</h2>`+(r.feedback&&r.feedback.length?r.feedback.map(f=>`<div class="read" style="margin-top:10px"><small>${(f.session==7||f.session==12)?`${f.session==7?"Midterm":"Final"} exam`:`Session ${f.session} · ${esc(f.kind)}${f.mark?` · Mark: ${esc(f.mark)}/10`:""}`}</small>${f.comment?`<p>${esc(f.comment)}</p>`:""}</div>`).join(""):`<p class="muted">No feedback yet. It appears here after Ms. Maria marks your work.</p>`)}
  catch(e){box.querySelector("p").textContent="Feedback could not be loaded. Check your internet."}}
 async function loadSheet(){if(!AUTH)return;try{const r=await api.get({action:"content",code:AUTH.code,level:LEVEL});
  if(r.ok){SHEET={};r.sessions.forEach(s=>SHEET[s.n]=s)}else if(/not active|not enrolled/.test(r.error||"")){AUTH=null;store.set(K.auth,null);whoUI()}}catch(e){}}
