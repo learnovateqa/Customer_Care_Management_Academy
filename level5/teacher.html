@@ -145,10 +145,20 @@ function needs(){const out=[];const open=openNs();
   Object.entries(sc).forEach(([n,v])=>{if(v.total&&v.best/v.total<0.6)out.push([s,`Practice quiz Session ${n}: best ${v.best}/${v.total}`])});
   const um=(d.exits||[]).filter(e=>!e.mark).length+(d.workbooks||[]).filter(w=>!w.mark).length;if(um)out.push([s,`${um} submission${um>1?"s":""} to mark`])});
  return out}
+function remindText(s,t){const first=String(s.name||"").split(" ")[0],url=new URL("index.html",location.href).href;let m;
+ if((m=t.match(/^No exit ticket for Session (\d+)/)))t=`please complete the exit ticket for Session ${m[1]}`;
+ else if((m=t.match(/^No e-workbook for Session (\d+)/)))t=`please complete and submit the e-workbook for Session ${m[1]}`;
+ else if((m=t.match(/^Practice quiz Session (\d+)/)))t=`please try the practice quiz for Session ${m[1]} again. Aim for 8 or more`;
+ else if(/^Has not used the app/.test(t))t="please sign in to the course app with your access code";
+ else if(/^Not active/.test(t))t="we have not seen you on the course app for a while. Please catch up with the latest session";
+ else return "";
+ return `Hello ${first}, this is Ms. Maria from Customer Care Management Level 5. A friendly reminder: ${t}. Course app: ${url} Thank you!`}
+function waLink(s,t){const txt=remindText(s,t),num=String(s.mobile||"").replace(/[^\d]/g,"");if(!txt||num.length<8)return "";
+ return `<a class="lnk" href="https://wa.me/${num}?text=${encodeURIComponent(txt)}" target="_blank" rel="noopener" style="margin-right:10px">WhatsApp reminder</a>`}
 function dash(){const a=act(),n=needs(),open=openNs();
  $("#main").innerHTML=`<h1>Dashboard</h1>${batchBar()}<p class="muted" style="margin-top:8px">Level ${LEVEL}${BATCH?` · ${esc(BATCH)}`:""} · <button class="lnk" id="refresh" type="button">Refresh</button></p>
  <div class="grid" style="margin-top:14px"><div class="card stat"><b>${a.length}</b>Active learners</div><div class="card stat"><b>${open.length?open.join(", "):"–"}</b>Sessions open</div><div class="card stat"><b>${n.filter(x=>x[1].includes("to mark")).length}</b>Learners with work to mark</div><div class="card stat"><b>${n.length}</b>Items needing attention</div></div>
- <h2>Needs attention</h2>${n.length?n.map(([s,t])=>`<div class="need"><b>${esc(s.name.split(" ")[0])}</b><span style="flex:1">${esc(t)}</span><button class="lnk" data-who="${esc(s.code)}" type="button">Open profile</button></div>`).join(""):`<p class="muted">Nothing needs attention right now.</p>`}
+ <h2>Needs attention</h2>${n.length?n.map(([s,t])=>`<div class="need"><b>${esc(s.name.split(" ")[0])}</b><span style="flex:1">${esc(t)}</span>${waLink(s,t)}<button class="lnk" data-who="${esc(s.code)}" type="button">Open profile</button></div>`).join(""):`<p class="muted">Nothing needs attention right now.</p>`}
  <h2>Learners</h2><div class="tablewrap"><table><tr><th>Learner</th><th>Last active</th><th>Attendance</th><th>Capstone steps</th><th>Exit tickets</th><th>E-workbooks</th><th></th></tr>
  ${a.map(s=>{const d=det(s.code),la=(D.lastActive||{})[s.code],at=(D.attendance||{})[s.code]||{},vals=Object.values(at).filter(Boolean),pres=vals.filter(v=>v!=="Absent").length,p=(D.progress[s.code]||{}).steps||"";
   return `<tr><td><b>${esc(s.name)}</b><br><span class="muted">${esc(s.code)}</span></td><td>${la?esc(la.text):'<span class="muted">Not yet</span>'}</td><td>${vals.length?`${Math.round(pres/vals.length*100)}% (${pres}/${vals.length})`:'<span class="muted">Not taken</span>'}</td><td>${p?esc(p):'<span class="muted">None</span>'}</td><td>${(d.exits||[]).length}</td><td>${(d.workbooks||[]).length}</td><td><button class="btn" data-who="${esc(s.code)}" type="button">Profile</button></td></tr>`}).join("")||`<tr><td colspan="7" class="muted">No active learners yet. Add them in Learners.</td></tr>`}</table></div>`;
