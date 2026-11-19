@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Session 7 practice quiz · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.6;font-size:16px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+main{max-width:760px;margin:0 auto;padding:24px 20px 64px}
+.back{display:inline-flex;min-height:44px;align-items:center;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.15;margin:12px 0 8px;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.q{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
+.q h2{font-size:1.05rem;margin:0 0 12px;font-weight:600}
+.q h2 span{display:inline-block;background:var(--a-t);border-radius:8px;padding:0 10px;margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;min-height:48px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:500 15px/1.4 'Poppins',system-ui,sans-serif;color:var(--navy);cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--ok-t);border-color:var(--ok)}
+.opt.wrong{background:var(--no-t);border-color:var(--no)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.right{background:var(--ok-t)}
+.fb.wrong{background:var(--no-t)}
+.slide{font-size:13px;color:var(--ink2);margin-top:6px}
+.score{position:sticky;bottom:0;margin-top:24px;background:var(--navy);color:#fff;border-radius:18px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.btn{min-height:44px;padding:8px 18px;border-radius:12px;border:none;background:#fff;color:var(--navy);font:600 15px 'Poppins',system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<main>
+<a class="back" href="../index.html#/session/7">Back to Session 7</a>
+<p class="muted" style="font-weight:600;margin-top:8px">Session 7 · Midterm: review and case-study exam</p>
+<h1>Practice quiz</h1>
+<p class="muted">10 questions from the Session 7 slides and handout. Choose an answer to see if it is right. This quiz does not count toward your grade.</p>
+<div id="quiz"></div>
+<div class="score" aria-live="polite"><span id="scoreText">Score: 0 of 10 · 10 to go</span><button class="btn" id="reset" type="button">Start again</button></div>
+</main>
+<script>
+const Q=[{"q": "A case says profit is falling and experienced staff are resigning. Which model fits best?", "o": ["Kano", "Service-Profit Chain", "RACI", "SERVQUAL"], "a": 1, "e": "Staff leaving and profit falling are links in the Service-Profit Chain.", "s": "Revision pack · Which model when?"}, {"q": "Expectation 6.4, experience 6.1. What is the gap?", "o": ["−0.3", "+0.3", "12.5", "−3.0"], "a": 0, "e": "Gap = experience − expectation = 6.1 − 6.4 = −0.3.", "s": "Revision pack · Key formulas"}, {"q": "A clinic adds games to its app while test results arrive late. In Kano terms, the clinic…", "o": ["protected a basic", "improved a performance feature", "added a reverse feature", "invested in a delighter while a basic failed"], "a": 3, "e": "Protect the basics first: a delighter cannot save a missing basic.", "s": "Session 7 · Kano Model"}, {"q": "A skilled, experienced agent doubts their own judgement. Which style?", "o": ["Directing", "Coaching", "Supporting", "Delegating"], "a": 2, "e": "High skill but low confidence needs a supporting style.", "s": "Session 4 · Situational Leadership"}, {"q": "Which pair belongs to the internal processes view of the Balanced Scorecard?", "o": ["CSAT and NPS", "FCR and average handling time", "Revenue and cost per contact", "Training hours and staff turnover"], "a": 1, "e": "FCR and AHT measure how well the work process runs.", "s": "Session 5 · Balanced Scorecard"}, {"q": "Two teams each think the other is calling the customer. RACI says the fix is to…", "o": ["give both teams an A", "inform the customer only", "make one person Accountable", "buy new software"], "a": 2, "e": "The golden rule: exactly one A for each task.", "s": "Session 6 · RACI"}, {"q": "50% promoters, 30% passives, 20% detractors. What is the NPS?", "o": ["+30", "+50", "+80", "30%"], "a": 0, "e": "NPS = % promoters − % detractors = 50 − 20 = +30.", "s": "Revision pack · Key formulas"}, {"q": "Which sentence is at Distinction level?", "o": ["The biggest gap is Reliability.", "Reliability has the biggest gap, −1.5.", "Reliability (−1.5) matters more than décor (+0.7), so train staff before redecorating; the risk is time off the desk, so train in quiet hours.", "SERVQUAL has five areas."], "a": 2, "e": "Distinction compares options, justifies the choice and names a risk with a way to reduce it.", "s": "Revision pack · Pass, Merit and Distinction"}, {"q": "In a 50-minute exam, roughly how should you plan your time?", "o": ["Start writing at once", "40 minutes reading, 10 writing", "Answer only the biggest question", "About 10 minutes reading and planning, about 35 writing, 5 checking"], "a": 3, "e": "Spend about one minute per mark after reading and planning.", "s": "Revision pack · Managing your time"}, {"q": "What should every exam answer include?", "o": ["Only a definition", "A model, evidence from the case, a recommendation and a risk", "As many models as possible", "A copy of the case"], "a": 1, "e": "A strong answer has four moves: model, evidence, recommendation, risk.", "s": "Revision pack · A strong answer in four moves"}];
+let answered={};
+function render(){const box=document.getElementById("quiz");box.innerHTML="";answered={};
+Q.forEach((it,i)=>{const d=document.createElement("div");d.className="q";
+d.innerHTML=`<h2><span>${i+1}</span>${it.q}</h2><div class="opts" role="group" aria-label="Question ${i+1} options"></div><div class="fb" hidden aria-live="polite"></div>`;
+const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");
+it.o.forEach((t,j)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=t;
+b.addEventListener("click",()=>{if(i in answered)return;answered[i]=j===it.a;
+opts.querySelectorAll("button").forEach((x,k)=>{x.disabled=true;if(k===it.a)x.classList.add("right")});
+if(j!==it.a)b.classList.add("wrong");
+fb.hidden=false;fb.className="fb "+(j===it.a?"right":"wrong");
+fb.innerHTML=`<b>${j===it.a?"Correct.":"Not quite."}</b> ${it.e}<div class="slide">Review: ${it.s}</div>`;score()});
+opts.appendChild(b)});box.appendChild(d)});score()}
+function score(){const n=Object.keys(answered).length,c=Object.values(answered).filter(Boolean).length;
+if(n===Q.length){try{const k="ccl5-quiz-w7",o=JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify({best:Math.max(c,o?o.best:0),last:c,total:Q.length}))}catch(e){}}
+if(n===Q.length){try{const au=JSON.parse(localStorage.getItem("ccl5-auth")||"null");if(au&&au.code){fetch("https://script.google.com/macros/s/AKfycbwXO14ta925OHJMk9qjt3yT44cCfflZo62fEWj_v4rR8z_xDrgOOCvZbc5uMVwiSjhkaA/exec",{method:"POST",body:JSON.stringify({action:"score",code:au.code,level:"5",session:7,score:c,total:Q.length})}).catch(()=>{})}}catch(e){}}
+document.getElementById("scoreText").textContent=n<Q.length?`Score: ${c} of ${Q.length} · ${Q.length-n} to go`:`Finished: ${c} of ${Q.length}. ${c>=8?"Well prepared for the exam.":"Review the handout pages shown, then try again."}`}
+document.getElementById("reset").addEventListener("click",()=>{render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>
