@@ -67,10 +67,99 @@ td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
 .ans{background:var(--paper);border-radius:12px;padding:10px 12px;margin:6px 0;white-space:pre-wrap}
 .lnk{background:none;border:0;padding:0;font:inherit;color:var(--navy);text-decoration:underline;cursor:pointer;font-weight:600}
 </style>
+<style>
+/* ---------- 2026 refresh ---------- */
+:root{--paper:#F6F5F1;--shadow:0 1px 2px rgba(27,42,74,.06),0 6px 20px rgba(27,42,74,.06)}
+body{font-size:15px}
+header{background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);color:var(--navy);border-bottom:1px solid var(--line)}
+header::before{height:4px}
+.bar{padding:10px 18px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy)}
+.brand img{border-radius:10px;display:block}
+.brand b{display:block;font-size:16px;line-height:1.15}.brand small{display:block;font-size:12px;color:var(--ink2);opacity:1}
+.tabs{gap:6px;background:#EEF0F5;padding:5px;border-radius:14px}
+.tabs button{color:var(--ink2);padding:8px 14px;border-radius:10px;display:inline-flex;align-items:center;gap:7px;font-size:14px}
+.tabs button:hover{color:var(--navy);background:rgba(255,255,255,.6)}
+.tabs button[aria-selected="true"]{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(27,42,74,.15)}
+.tabs .ti{width:18px;height:18px;flex:none}
+#out{color:var(--no)!important}
+main{padding:26px 18px 90px}
+h1{font-size:1.85rem;letter-spacing:-.01em}
+h2{font-size:1.1rem;margin:28px 0 12px;display:flex;align-items:center;gap:8px}
+.card{border-radius:18px;box-shadow:var(--shadow);border-color:#E8EAF0}
+.tablewrap{box-shadow:var(--shadow);border-color:#E8EAF0}
+th{background:#F3F4F8;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2)}
+tr:hover td{background:#FAFAFC}
+.btn{border-radius:12px;transition:transform .08s,box-shadow .15s}
+.btn:hover{box-shadow:0 2px 8px rgba(27,42,74,.12)}
+.btn:active{transform:translateY(1px)}
+.chip{transition:background .15s}
+/* stats */
+.stats{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:16px}
+.st{position:relative;background:#fff;border-radius:18px;padding:16px 18px 16px 18px;box-shadow:var(--shadow);border:1px solid #E8EAF0;overflow:hidden}
+.st::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--k)}
+.st .ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--kt);color:var(--k);margin-bottom:10px}
+.st .ico svg{width:20px;height:20px}
+.st b{display:block;font-size:1.9rem;line-height:1.1}
+.st span{color:var(--ink2);font-size:13.5px}
+.st .nums{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 4px}.st .nums i{font-style:normal;font-weight:700;font-size:13px;min-width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--kt);color:var(--k)}
+.hello{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hello p{color:var(--ink2)}
+/* grouped needs */
+.lc{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.lcard{background:#fff;border:1px solid #E8EAF0;border-radius:18px;padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.lcard .top{display:flex;align-items:center;gap:12px}
+.av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;flex:none;background:var(--av,#6D5BD0)}
+.lcard .top b{display:block;line-height:1.2}.lcard .top small{color:var(--ink2)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:#F1F2F6;color:var(--navy)}
+.tag.red{background:var(--no-t);color:#8E2A1E}.tag.gold{background:var(--d-t);color:#7A5410}.tag.green{background:var(--ok-t);color:#155C40}.tag.purple{background:var(--c-t);color:#4B3BA8}
+.lcard .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.lcard .acts .btn{min-height:38px;padding:6px 12px;font-size:13.5px}
+.btn.wa{border-color:#25D366;color:#0E7A3C}
+.empty{background:#fff;border:1px dashed #CBD1DD;border-radius:18px;padding:22px;text-align:center;color:var(--ink2)}
+.bar-p{height:8px;border-radius:99px;background:#EEF0F5;overflow:hidden;min-width:80px}.bar-p i{display:block;height:100%;background:var(--a);border-radius:99px}
+/* sessions by unit */
+.unit-h{display:flex;align-items:center;gap:10px;margin:22px 0 2px;font-weight:700;font-size:15px}
+.unit-h i{width:12px;height:12px;border-radius:4px;background:var(--uc)}
+.unit-h small{color:var(--ink2);font-weight:500}
+.sess .card{border-left:6px solid var(--uc,#C6CBD8)}
+.sess .card[data-n="1"],.sess .card[data-n="2"],.sess .card[data-n="3"]{--uc:var(--a)}
+.sess .card[data-n="4"],.sess .card[data-n="5"],.sess .card[data-n="6"]{--uc:var(--b)}
+.sess .card[data-n="8"],.sess .card[data-n="9"]{--uc:var(--c)}
+.sess .card[data-n="10"],.sess .card[data-n="11"]{--uc:var(--d)}
+.sess .card[data-n="7"],.sess .card[data-n="12"]{--uc:var(--navy)}
+.mat a{background:#FAFAFC}
+.mat a:not(.no):hover{border-color:var(--navy)}
+details>summary{list-style:none}details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"▸";display:inline-block;margin-right:6px;transition:transform .15s;color:var(--ink2)}
+details[open]>summary::before{transform:rotate(90deg)}
+.login{max-width:440px;margin:9vh auto 0;padding:28px}
+.login::before{content:"";display:block;width:56px;height:56px;margin-bottom:14px;background:url(../icons/logo.svg) center/contain no-repeat}
+/* phone: bottom navigation */
+@media(max-width:760px){
+ header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+ .bar{justify-content:center}
+ .tabs{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));margin:0;justify-content:space-around;background:var(--navy);border-radius:20px;padding:6px;box-shadow:0 10px 30px rgba(27,42,74,.35);flex-wrap:nowrap}
+ .tabs button{flex-direction:column;gap:2px;font-size:11px;padding:6px 6px;color:#C9D0E2;flex:1}
+ .tabs button[aria-selected="true"]{background:#fff;color:var(--navy)}
+ #out{color:#F4B4AA!important}
+ .tabs .ti{width:21px;height:21px}
+ main{padding-bottom:120px}
+ h1{font-size:1.55rem}
+ .lc{grid-template-columns:1fr}
+}
+.xp{background:#fff;border:1px solid #E8EAF0;border-radius:18px;padding:16px 18px;box-shadow:var(--shadow);margin-top:10px}
+.xp.live{border-color:var(--ok);background:linear-gradient(0deg,#fff,#fff) padding-box}
+.xh{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.xh b{display:block}.xh small{color:var(--ink2)}
+.xdot{width:12px;height:12px;border-radius:50%;background:#C6CBD8;flex:none}.xp.live .xdot{background:var(--ok);box-shadow:0 0 0 5px var(--ok-t)}
+.chip:disabled{opacity:.6;cursor:default}
+@media(max-width:760px){.stats{grid-template-columns:1fr 1fr;gap:10px}.st{padding:12px 14px}.st .ico{width:32px;height:32px;margin-bottom:6px}.st b{font-size:1.5rem}.st span{font-size:12.5px}.hello .btn{min-height:38px}}
+</style>
 </head>
 <body>
-<header><div class="bar"><span><b>Teacher portal</b><br><small>Customer Care Management · Level 5</small></span>
-<nav class="tabs" id="tabs" hidden role="tablist"><button role="tab" data-v="dash" aria-selected="true">Dashboard</button><button role="tab" data-v="sessions" aria-selected="false">Sessions</button><button role="tab" data-v="learners" aria-selected="false">Learners</button><button role="tab" data-v="grades" aria-selected="false">Grade book</button><button id="out" type="button">Sign out</button></nav></div></header>
+<header><div class="bar"><a class="brand" href="index.html" title="Open the learner app"><img src="../icons/logo.svg" alt="" width="36" height="36"><span><b>Teacher portal</b><small>Customer Care Management · Level 5</small></span></a>
+<nav class="tabs" id="tabs" hidden role="tablist"><button role="tab" data-v="dash" aria-selected="true"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13h8V3H3zM13 21h8V11h-8zM3 21h8v-6H3zM13 3v6h8V3z"/></svg><span>Dashboard</span></button><button role="tab" data-v="sessions" aria-selected="false"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Sessions</span></button><button role="tab" data-v="learners" aria-selected="false"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/><path d="M16 4a4 4 0 0 1 0 8M22 21c0-3-2-5-4-5.6"/></svg><span>Learners</span></button><button role="tab" data-v="grades" aria-selected="false"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M4 10h16M10 4v16"/></svg><span>Grade book</span></button><button id="out" type="button"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"/><path d="M10 17l5-5-5-5M15 12H3"/></svg><span>Sign out</span></button></nav></div></header>
 <main id="main"></main>
 <div class="toast" id="toast" hidden role="status"></div>
 <script>
@@ -115,7 +204,7 @@ function wireExamBar(){document.querySelectorAll("[data-exopen]").forEach(b=>b.o
   b.disabled=true;try{const r=await call({action:"teacherExamOpen",exam:MID,value:nv});if(r.ok){L.open=r.value;toast(nv==="No"?"Midterm closed":"Midterm open");grades()}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}b.disabled=false})}
 function grades(){const st=act(),R=st.map(gradeRow);
  $("#main").innerHTML=`<h1>Grade book</h1>${batchBar()}<p class="muted" style="margin-top:8px">One row per active learner${BATCH?` in ${esc(BATCH)}`:""}. <b>E</b> = exit ticket mark out of 10 · <b>Q</b> = best practice-quiz score · <b>W</b> = workbook (your mark × 10, or the auto score). Midterm: Parts A–C are marked automatically; type the Part D mark (out of 40) and press Enter. Final: type the mark out of 40 and press Enter. <button class="lnk" id="csv" type="button">Download CSV</button></p>
- ${examBar()}<div class="tablewrap" style="margin-top:14px"><table style="min-width:1400px"><thead><tr><th>Learner</th><th>Attendance</th><th>Exit avg /10</th><th>Quiz avg</th><th>Workbook avg</th><th>Midterm /100</th><th>Final /40</th>${GS.map(n=>`<th title="${esc(TITLES[n])}">S${n}</th>`).join("")}</tr></thead><tbody>
+ ${examPanel()}<div class="tablewrap" style="margin-top:14px"><table style="min-width:1400px"><thead><tr><th>Learner</th><th>Attendance</th><th>Exit avg /10</th><th>Quiz avg</th><th>Workbook avg</th><th>Midterm /100</th><th>Final /40</th>${GS.map(n=>`<th title="${esc(TITLES[n])}">S${n}</th>`).join("")}</tr></thead><tbody>
  ${R.map(r=>`<tr><td><button class="lnk" data-who="${esc(r.s.code)}" type="button">${esc(r.s.name)}</button><br><small class="muted">${esc(r.s.code)}${r.s.batch?" · "+esc(r.s.batch):""}</small></td>
  <td>${gv(r.att,"%")}</td><td><b>${gv(r.exAvg)}</b></td><td>${gv(r.qzAvg,"%")}</td><td>${gv(r.wbAvg,"%")}</td>
  <td style="white-space:nowrap">${r.mx?`A–C <b>${esc(r.mx.auto)}</b>/60<br>D <input class="f" style="width:58px;padding:4px 6px" inputmode="decimal" data-exd="${esc(r.s.code)}" value="${esc(r.mx.d)}" aria-label="Part D mark out of 40 for ${esc(r.s.name)}">/40<br>Total <b data-ext="${esc(r.s.code)}">${r.mx.total===""?"–":esc(r.mx.total)}</b>/100${r.mx.attempt>1?`<br><small class="muted">${r.mx.attempt} attempts</small>`:""}`:(r.mid!=null?`${esc(r.mid)}/40 <small class="muted">(paper)</small>`:'<span class="muted">Not taken</span>')}</td>
@@ -128,7 +217,7 @@ function grades(){const st=act(),R=st.map(gradeRow);
   if(v!==""&&!(Number(v)>=0&&Number(v)<=40))return toast("Give a mark from 0 to 40.");inp.disabled=true;
   try{const mk=v===""?"":String(Math.round(Number(v)/4*1000)/1000);const r=await call({action:"teacherMark",code,session:n,kind:"exit",mark:mk,comment:v===""?"":`${n===7?"Midterm":"Final"} exam: ${v} / 40`,paper:true});
    if(r.ok){const dd=((D.detail=D.detail||{})[code]=D.detail[code]||{}),list=(dd.exits=dd.exits||[]);let it=list.find(x=>x.n===n);if(!it){it={n,at:"",a1:"Done on paper",a2:"",a3:""};list.push(it)}it.mark=mk;it.comment=v===""?"":`${n===7?"Midterm":"Final"} exam: ${v} / 40`;toast(`${n===7?"Midterm":"Final"} mark saved`)}else toast(r.error||"Not saved")}catch(err){toast("No connection. Not saved.")}inp.disabled=false});
- wireExamBar();
+ wireExamPanel();
  document.querySelectorAll("[data-exd]").forEach(inp=>inp.onkeydown=async e=>{if(e.key!=="Enter")return;const v=inp.value.trim(),code=inp.dataset.exd;
   if(v!==""&&!(Number(v)>=0&&Number(v)<=40))return toast("Give a Part D mark from 0 to 40.");inp.disabled=true;
   try{const r=await call({action:"teacherExamMark",code,exam:MID,mark:v});if(r.ok){const m=D.exams.results[code][MID];m.d=v;m.total=r.total;const t=document.querySelector(`[data-ext="${code}"]`);if(t)t.textContent=r.total===""?"–":r.total;toast("Part D saved")}else toast(r.error||"Not saved")}catch(err){toast("No connection. Not saved.")}inp.disabled=false});
@@ -167,15 +256,50 @@ function remindText(s,t){const first=String(s.name||"").split(" ")[0],url=new UR
  return `Hello ${first}, this is Ms. Maria from Customer Care Management Level 5. A friendly reminder: ${t}. Course app: ${url} Thank you!`}
 function waLink(s,t){const txt=remindText(s,t),num=String(s.mobile||"").replace(/[^\d]/g,"");if(!txt||num.length<8)return "";
  return `<a class="lnk" href="https://wa.me/${num}?text=${encodeURIComponent(txt)}" target="_blank" rel="noopener" style="margin-right:10px">WhatsApp reminder</a>`}
-function dash(){const a=act(),n=needs(),open=openNs();
- $("#main").innerHTML=`<h1>Dashboard</h1>${batchBar()}<p class="muted" style="margin-top:8px">Level ${LEVEL}${BATCH?` · ${esc(BATCH)}`:""} · <button class="lnk" id="refresh" type="button">Refresh</button></p>
- <div class="grid" style="margin-top:14px"><div class="card stat"><b>${a.length}</b>Active learners</div><div class="card stat"><b>${open.length?open.join(", "):"–"}</b>Sessions open</div><div class="card stat"><b>${n.filter(x=>x[1].includes("to mark")).length}</b>Learners with work to mark</div><div class="card stat"><b>${n.length}</b>Items needing attention</div></div>
- <h2>Needs attention</h2>${n.length?n.map(([s,t])=>`<div class="need"><b>${esc(s.name.split(" ")[0])}</b><span style="flex:1">${esc(t)}</span>${waLink(s,t)}<button class="lnk" data-who="${esc(s.code)}" type="button">Open profile</button></div>`).join(""):`<p class="muted">Nothing needs attention right now.</p>`}
+const SV={users:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/>',open:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',mark:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>'};
+const svg=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SV[k]}</svg>`;
+const AVC=["#2A9D8F","#E76F51","#6D5BD0","#C9A24A","#1B2A4A","#3A7BD5"];
+const avc=c=>AVC[[...String(c)].reduce((a,ch)=>a+ch.charCodeAt(0),0)%AVC.length];
+const initials=n=>String(n||"?").split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");
+function groupNeeds(){const g={};needs().forEach(([s,t])=>{const k=s.code;(g[k]=g[k]||{s,ex:[],wb:[],quiz:[],mark:0,other:[]});let m;
+  if((m=t.match(/^No exit ticket for Session (\d+)/)))g[k].ex.push(+m[1]);else if((m=t.match(/^No e-workbook for Session (\d+)/)))g[k].wb.push(+m[1]);
+  else if((m=t.match(/^Practice quiz Session (\d+)/)))g[k].quiz.push(+m[1]);else if((m=t.match(/^(\d+) submissions? to mark/)))g[k].mark=+m[1];else g[k].other.push(t)});
+ return Object.values(g).sort((a,b)=>(b.mark-a.mark)||((b.ex.length+b.wb.length)-(a.ex.length+a.wb.length)))}
+function waGroup(x){const s=x.s,num=String(s.mobile||"").replace(/[^\d]/g,"");if(num.length<8)return "";const parts=[];
+ if(x.ex.length)parts.push(`the exit ticket${x.ex.length>1?"s":""} for Session${x.ex.length>1?"s":""} ${x.ex.join(", ")}`);
+ if(x.wb.length)parts.push(`the e-workbook${x.wb.length>1?"s":""} for Session${x.wb.length>1?"s":""} ${x.wb.join(", ")}`);
+ if(x.quiz.length)parts.push(`the practice quiz for Session${x.quiz.length>1?"s":""} ${x.quiz.join(", ")} again (aim for 8 or more)`);
+ const away=x.other.find(t=>/^Not active|^Has not used/.test(t));
+ if(!parts.length&&!away)return "";const url=new URL("index.html",location.href).href,first=String(s.name||"").split(" ")[0];
+ const txt=`Hello ${first}, this is Ms. Maria from Customer Care Management Level 5. A friendly reminder${parts.length?": please complete "+parts.join("; and "):""}.${away?" We have not seen you on the course app for a while.":""} Course app: ${url} Thank you!`;
+ return `<a class="btn wa" href="https://wa.me/${num}?text=${encodeURIComponent(txt)}" target="_blank" rel="noopener">WhatsApp reminder</a>`}
+function examState(){const L=((D.exams||{}).list||{})[MID];if(!L)return null;const v=L.open||"No",all=/^(yes|all)$/i.test(v),list=all||/^no$/i.test(v)||!v?[]:v.split(",").map(x=>x.trim()).filter(Boolean);return {L,all,list}}
+function examPanel(){const E=examState();if(!E)return `<div class="xp"><div class="xh"><b>Online midterm</b></div><p class="muted">Update the portal script to version 7 to open the online midterm here.</p></div>`;
+ const bl=batches(),on=b=>E.all||E.list.some(x=>sameB(x,b)),state=E.all?"Open for everyone":E.list.length?"Open for "+E.list.join(", "):"Closed";
+ const done=Object.values((D.exams||{}).results||{}).filter(r=>r[MID]).length;
+ return `<div class="xp${E.all||E.list.length?" live":""}"><div class="xh"><span class="xdot"></span><div style="flex:1"><b>Online midterm</b><small>${esc(state)} · ${done} submitted</small></div><button class="toggle ${E.all?"off":"on"}" type="button" data-xall="${E.all?"close":"open"}">${E.all?"Close for everyone":"Open for everyone"}</button></div>
+ ${bl.length?`<div class="bbar" style="margin-top:10px"><span class="muted" style="font-size:13px;font-weight:600">Open for:</span>${bl.map(b=>`<button type="button" class="chip${on(b)?" on":""}" data-xb="${esc(b)}" aria-pressed="${on(b)}"${E.all?" disabled":""}>${on(b)?"✓ ":""}${esc(b)}</button>`).join("")}</div>`:""}
+ <p class="muted" style="font-size:12.5px;margin-top:8px">Also open Session 7 for the same batch, so learners see the Start button. Students without a batch can take it only when it is open for everyone.</p></div>`}
+async function setExam(nv){try{const r=await call({action:"teacherExamOpen",exam:MID,value:nv});if(r.ok){D.exams.list[MID].open=r.value;toast(/^no$/i.test(r.value)?"Midterm closed":"Midterm open: "+(/^yes$/i.test(r.value)?"everyone":r.value))}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}render()}
+function wireExamPanel(){document.querySelectorAll("[data-xall]").forEach(b=>b.onclick=()=>{b.disabled=true;setExam(b.dataset.xall==="open"?"Yes":"No")});
+ document.querySelectorAll("[data-xb]").forEach(b=>b.onclick=()=>{const E=examState();let l=E.list.slice();const x=b.dataset.xb;l=l.some(y=>sameB(y,x))?l.filter(y=>!sameB(y,x)):[...l,x];b.disabled=true;setExam(l.length?l.join(", "):"No")})}
+function dash(){const a=act(),G=groupNeeds(),open=openNs(),toMark=G.filter(x=>x.mark).length,items=G.reduce((p,x)=>p+x.ex.length+x.wb.length+x.quiz.length+(x.mark?1:0)+x.other.length,0);
+ const h=new Date().getHours(),hi=h<12?"Good morning":h<17?"Good afternoon":"Good evening";
+ $("#main").innerHTML=`<div class="hello"><div><h1>${hi}, Ms. Maria</h1><p>${new Date().toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})} · Level ${LEVEL}${BATCH?` · ${esc(BATCH)}`:""}</p></div><button class="btn" id="refresh" type="button">Refresh</button></div>${batchBar()}
+ <div class="stats">
+  <div class="st" style="--k:var(--a);--kt:var(--a-t)"><div class="ico">${svg("users")}</div><b>${a.length}</b><span>Active learners</span></div>
+  <div class="st" style="--k:var(--c);--kt:var(--c-t)"><div class="ico">${svg("open")}</div>${open.length?`<div class="nums">${open.map(n=>`<i>${n}</i>`).join("")}</div>`:"<b>–</b>"}<span>Sessions open</span></div>
+  <div class="st" style="--k:var(--b);--kt:var(--b-t)"><div class="ico">${svg("mark")}</div><b>${toMark}</b><span>Learner${toMark===1?"":"s"} with work to mark</span></div>
+  <div class="st" style="--k:#C9A24A;--kt:var(--d-t)"><div class="ico">${svg("bell")}</div><b>${items}</b><span>Item${items===1?"":"s"} needing attention</span></div>
+ </div>
+ <h2>Exams</h2>${examPanel()}
+ <h2>Needs attention</h2>${G.length?`<div class="lc">${G.map(x=>{const s=x.s;return `<div class="lcard"><div class="top"><span class="av" style="--av:${avc(s.code)}">${esc(initials(s.name))}</span><div><b>${esc(s.name)}</b><small>${esc(s.code)}${s.batch?" · "+esc(s.batch):""}</small></div></div>
+  <div class="tags">${x.mark?`<span class="tag purple">${x.mark} to mark</span>`:""}${x.ex.length?`<span class="tag red">No exit ticket: S${x.ex.join(", S")}</span>`:""}${x.wb.length?`<span class="tag red">No workbook: S${x.wb.join(", S")}</span>`:""}${x.quiz.length?`<span class="tag gold">Low quiz: S${x.quiz.join(", S")}</span>`:""}${x.other.map(t=>`<span class="tag gold">${esc(t)}</span>`).join("")}</div>
+  <div class="acts"><button class="btn primary" data-who="${esc(s.code)}" type="button">${x.mark?"Mark work":"Open profile"}</button>${waGroup(x)}</div></div>`}).join("")}</div>`:`<div class="empty">Nothing needs attention right now. 🎉</div>`}
  <h2>Learners</h2><div class="tablewrap"><table><tr><th>Learner</th><th>Last active</th><th>Attendance</th><th>Capstone steps</th><th>Exit tickets</th><th>E-workbooks</th><th></th></tr>
- ${a.map(s=>{const d=det(s.code),la=(D.lastActive||{})[s.code],at=(D.attendance||{})[s.code]||{},vals=Object.values(at).filter(Boolean),pres=vals.filter(v=>v!=="Absent").length,p=(D.progress[s.code]||{}).steps||"";
-  return `<tr><td><b>${esc(s.name)}</b><br><span class="muted">${esc(s.code)}</span></td><td>${la?esc(la.text):'<span class="muted">Not yet</span>'}</td><td>${vals.length?`${Math.round(pres/vals.length*100)}% (${pres}/${vals.length})`:'<span class="muted">Not taken</span>'}</td><td>${p?esc(p):'<span class="muted">None</span>'}</td><td>${(d.exits||[]).length}</td><td>${(d.workbooks||[]).length}</td><td><button class="btn" data-who="${esc(s.code)}" type="button">Profile</button></td></tr>`}).join("")||`<tr><td colspan="7" class="muted">No active learners yet. Add them in Learners.</td></tr>`}</table></div>`;
- $("#refresh").onclick=load;wireBatchBar();document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;render()})}
-
+ ${a.map(s=>{const d=det(s.code),la=(D.lastActive||{})[s.code],at=(D.attendance||{})[s.code]||{},vals=Object.values(at).filter(Boolean),pres=vals.filter(v=>v!=="Absent").length,p=(D.progress[s.code]||{}).steps||"",pc=vals.length?Math.round(pres/vals.length*100):null,steps=String(p).split(",").filter(x=>x.trim()).length;
+  return `<tr><td><div style="display:flex;gap:10px;align-items:center"><span class="av" style="--av:${avc(s.code)};width:34px;height:34px;font-size:13px">${esc(initials(s.name))}</span><div><b>${esc(s.name)}</b><br><span class="muted" style="font-size:13px">${esc(s.code)}${s.batch?" · "+esc(s.batch):""}</span></div></div></td><td>${la?esc(la.text):'<span class="muted">Not yet</span>'}</td><td>${pc==null?'<span class="muted">Not taken</span>':`<div class="bar-p"><i style="width:${pc}%"></i></div><small class="muted">${pc}% (${pres}/${vals.length})</small>`}</td><td>${steps?`<div class="bar-p"><i style="width:${Math.round(steps/11*100)}%;background:var(--c)"></i></div><small class="muted">${steps} of 11</small>`:'<span class="muted">None</span>'}</td><td>${(d.exits||[]).length}</td><td>${(d.workbooks||[]).length}</td><td><button class="btn" data-who="${esc(s.code)}" type="button">Profile</button></td></tr>`}).join("")||`<tr><td colspan="7" class="muted">No active learners yet. Add them in Learners.</td></tr>`}</table></div>`;
+ $("#refresh").onclick=load;wireBatchBar();wireExamPanel();document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;render()})}
 function mats(n){const f=FILES[n]||{};const L=(ok,h,t)=>`<a class="${ok?"":"no"}" href="${ok?h:"#"}" target="_blank" rel="noopener">${t}</a>`;
  return `<div class="mat">${L(f.sl||f.pdf,`index.html#/session/${n}/slides`,"Slides")}${L(f.ho,(f.d||"")+"handout.pdf","Handout")}${L(f.sp,(f.d||"")+"supplement.pdf","Supplement")}${L(f.wb,(f.d||"")+"workbook.html","E-workbook")}${L(f.qz,(f.d||"")+"quiz.html","Practice quiz")}${L(f.ex,(f.d||"")+"exit.html","Exit ticket")}${L(true,`index.html#/session/${n}`,"Learner page")}</div>`}
 function regSum(n){const a=act(),at=D.attendance||{};let p=0,l=0,ab=0;a.forEach(s=>{const v=(at[s.code]||{})[n];if(v==="Present")p++;else if(v==="Late")l++;else if(v==="Absent")ab++});
@@ -190,13 +314,15 @@ function openHead(s){const any=openAny(s);return `<span class="pill ${any?"yes":
 function batchToggles(s){const l=batches();if(!l.length)return "";return `<div class="bbar" role="group" aria-label="Open Session ${s.n} for a batch"><span class="muted" style="font-size:13px;font-weight:600">Open for:</span>${l.map(b=>{const on=openFor(s,b);return `<button type="button" class="chip${on?" on":""}" data-ob="${s.n}" data-b="${esc(b)}" aria-pressed="${on}">${on?"✓ ":""}${esc(b)}</button>`}).join("")}</div>`}
 function applyOpen(s,value,batch,want){const v=String(value||"").trim();if(v){if(/^(yes|all)$/i.test(v)){s.open=true;s.openBatches=[]}else if(!v||/^no$/i.test(v)){s.open=false;s.openBatches=[]}else{s.open=false;s.openBatches=v.split(",").map(x=>x.trim()).filter(Boolean)}return}
  if(!batch){s.open=want;s.openBatches=[];return}let l=s.open?batches():[...(s.openBatches||[])];l=l.filter(x=>!sameB(x,batch));if(want)l.push(batch);s.open=false;s.openBatches=l}
-function sessions(){$("#main").innerHTML=`<h1>Sessions</h1><p class="muted">Tap <b>Open session</b> on the day of class${batches().length?", or open it for one batch at a time":""}. Learners see a session only when it is open for them. Upload files early; they stay hidden until you open the session. Faded links mean the file is not uploaded yet.</p>${batchBar()}${BATCH?`<p class="muted" style="font-size:13px;margin-top:6px">Attendance below shows ${esc(BATCH)} only.</p>`:""}<div class="sess" style="margin-top:14px">${D.sessions.map(s=>`<div class="card" data-n="${s.n}"><div class="head" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><b style="flex:1;min-width:200px">Session ${s.n} · ${esc(TITLES[s.n]||s.title)}</b>${openHead(s)}</div>${batchToggles(s)}
- ${mats(s.n)}
+const UH={1:["var(--a)","Unit A · Understanding the Customer","Sessions 1–3"],4:["var(--b)","Unit B · Leading and Measuring Service","Sessions 4–6"],7:["var(--navy)","Midterm","Session 7"],8:["var(--c)","Unit C · Communicating in Every Channel","Sessions 8–9"],10:["var(--d)","Unit D · Recovering and Retaining Customers","Sessions 10–11"],12:["var(--navy)","Final","Session 12"]};
+function unitHead(n){const u=UH[n];return u?`<div class="unit-h" style="--uc:${u[0]}"><i></i>${u[1]} <small>${u[2]}</small></div>`:""}
+function sessions(){$("#main").innerHTML=`<h1>Sessions</h1><p class="muted">Tap <b>Open session</b> on the day of class${batches().length?", or open it for one batch at a time":""}. Learners see a session only when it is open for them. Upload files early; they stay hidden until you open the session. Faded links mean the file is not uploaded yet.</p>${batchBar()}${BATCH?`<p class="muted" style="font-size:13px;margin-top:6px">Attendance below shows ${esc(BATCH)} only.</p>`:""}<div class="sess" style="margin-top:14px">${D.sessions.map(s=>`${unitHead(s.n)}<div class="card" data-n="${s.n}"><div class="head" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><b style="flex:1;min-width:200px">Session ${s.n} · ${esc(TITLES[s.n]||s.title)}</b>${openHead(s)}</div>${batchToggles(s)}
+ ${s.n===7?examPanel():""}${mats(s.n)}
  <details style="margin-top:10px" data-regbox="${s.n}"><summary style="cursor:pointer;font-weight:600">Attendance · <span data-regsum="${s.n}">${regSum(s.n)}</span></summary><div data-reg="${s.n}" style="margin-top:8px"></div></details>
  <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:600">Links and announcement</summary>
  <div class="two"><div><label class="l" for="sl${s.n}">Slides link (Canva, view-only)</label><input class="f" id="sl${s.n}" value="${esc(s.slides)}" placeholder="https://www.canva.com/design/…"></div><div><label class="l" for="nt${s.n}">Announcement</label><input class="f" id="nt${s.n}" value="${esc(s.note)}" placeholder="Shown at the top of the session page"></div></div>
  <div class="row" style="margin-top:10px"><button class="btn primary" type="button" data-save="${s.n}">Save</button></div></details></div>`).join("")}</div>`;
- wireBatchBar();
+ wireBatchBar();wireExamPanel();
  document.querySelectorAll("[data-regbox]").forEach(d=>d.ontoggle=()=>{if(d.open)register(+d.dataset.regbox)});
  document.querySelectorAll("[data-open]").forEach(b=>b.onclick=async()=>{const n=+b.dataset.open,s=D.sessions.find(x=>x.n===n),want=!s.open;b.disabled=true;b.textContent="Saving…";
   try{const r=await call({action:"teacherOpen",n,open:want});if(r.ok){applyOpen(s,r.value,"",want);toast(`Session ${n} is now ${want?"open":"closed"}${batches().length?" for all batches":""}`)}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}sessions()});
