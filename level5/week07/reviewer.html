@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F2547">
+<title>Midterm reviewer · Customer Care Management Level 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --navy:#14213d; --navy2:#22335c; --blush:#f6d6dc; --blush2:#fbecef; --rose:#d9778a;
+  --gold:#c9a227; --gold2:#fbf3d9; --teal:#2a9d8f; --teal2:#e3f4f1; --sky:#e8eefb;
+  --line:#dde2ec; --muted:#55607a; --bg:#ffffff; --soft:#f7f8fb; --red:#b3261e; --red2:#fdecea;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--navy);font-family:Poppins,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.55}
+button,input,select,textarea{font:inherit;color:var(--navy)}
+.hide{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.stripe{height:6px;background:linear-gradient(90deg,var(--navy) 0 40%,var(--rose) 40% 70%,var(--gold) 70% 100%)}
+header.brand{padding:18px 0 8px}
+.brand .kick{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);font-weight:600}
+.brand h1{margin:2px 0 0;font-size:1.7rem;line-height:1.2}
+.brand .sub{color:var(--muted);font-size:.95rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+.card.blush{background:var(--blush2);border-color:var(--blush)}
+.card.gold{background:var(--gold2);border-color:#efdf9f}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+.fact{border:1px solid var(--line);border-left:5px solid var(--rose);border-radius:10px;padding:10px 12px;background:#fff}
+.fact:nth-child(2){border-left-color:var(--gold)} .fact:nth-child(3){border-left-color:var(--teal)} .fact:nth-child(4){border-left-color:var(--navy)}
+.fact b{display:block;font-size:1.5rem;line-height:1.1}
+.fact span{font-size:.85rem;color:var(--muted)}
+label.f{display:block;font-weight:600;margin:10px 0 4px}
+input[type=text],input[type=email]{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--rose);outline-offset:1px;border-color:var(--rose)}
+.btn{border:0;border-radius:999px;padding:11px 22px;font-weight:600;cursor:pointer;background:var(--navy);color:#fff}
+.btn.pink{background:var(--rose)} .btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.err{color:var(--red);font-size:.9rem;margin-top:6px}
+ul.rules{margin:6px 0 0;padding-left:20px} ul.rules li{margin:3px 0}
+
+/* exam bar */
+.bar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(20,33,61,.06)}
+.bar .wrap{display:flex;align-items:center;gap:12px;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
+.bar .who{font-weight:600;flex:1;min-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .who small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.2rem;padding:6px 14px;border-radius:999px;background:var(--teal2);color:var(--navy)}
+.timer.warn{background:var(--gold2)} .timer.danger{background:var(--red2);color:var(--red)}
+.saved{font-size:.8rem;color:var(--muted)}
+.bar .tabs{display:none;gap:6px;padding:0 16px 8px}
+.tab{flex:1;border:1.5px solid var(--navy);background:#fff;border-radius:999px;padding:8px;font-weight:600;cursor:pointer}
+.tab.on{background:var(--navy);color:#fff}
+
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:start;padding-bottom:40px}
+.casecol{position:sticky;top:70px;max-height:calc(100vh - 84px);overflow:auto;padding-right:4px}
+.casecol h2,.qcol h2{font-size:1.15rem;margin:16px 0 6px}
+.casecol h3{font-size:1rem;margin:16px 0 4px;color:var(--navy2)}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 10px;border-radius:999px;background:var(--blush);color:var(--navy)}
+table.t{width:100%;border-collapse:collapse;margin:8px 0;font-size:.93rem}
+table.t th,table.t td{border:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+table.t th{background:var(--sky);font-weight:600}
+table.t td.n{text-align:center;font-variant-numeric:tabular-nums}
+.opt{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;background:#fff}
+.opt b.c{float:right;color:var(--rose)}
+.opt.a{border-left:5px solid var(--teal)} .opt.b{border-left:5px solid var(--gold)} .opt.c{border-left:5px solid var(--rose)}
+.note{font-size:.82rem;color:var(--muted)}
+
+.q{border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0;background:#fff}
+.q .qh{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.q .qn{font-weight:700;font-size:1.05rem}
+.q .mk{white-space:nowrap;font-weight:600;font-size:.85rem;background:var(--gold2);border:1px solid #efdf9f;border-radius:999px;padding:2px 10px}
+.q .model{font-size:.85rem;color:var(--muted);margin:2px 0 8px}
+.part{margin-top:12px}
+.part .pq{font-weight:500}
+textarea{width:100%;min-height:120px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;resize:vertical;line-height:1.5;background:#fff}
+.wc{font-size:.78rem;color:var(--muted);text-align:right}
+.gapin{width:5.5em;padding:6px;border:1.5px solid var(--line);border-radius:8px;text-align:center}
+.raci select{padding:6px;border:1.5px solid var(--line);border-radius:8px;background:#fff;min-width:3.6em}
+.raci td{text-align:center} .raci td:first-child{text-align:left}
+.tablewrap{overflow-x:auto}
+details.frames{border:1px dashed var(--rose);border-radius:12px;padding:10px 14px;background:var(--blush2);margin:12px 0}
+details.frames summary{cursor:pointer;font-weight:600}
+.submitrow{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin:18px 0}
+
+.modalbg{position:fixed;inset:0;background:rgba(20,33,61,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal{background:#fff;border-radius:16px;max-width:480px;width:100%;padding:22px;border-top:6px solid var(--rose)}
+.modal h3{margin:0 0 8px}
+.modal .row{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;z-index:60;font-size:.92rem;max-width:calc(100% - 32px);text-align:center}
+.done .big{font-size:1.4rem;font-weight:700}
+.status{padding:10px 12px;border-radius:10px;margin:10px 0;font-weight:500}
+.status.ok{background:var(--teal2)} .status.bad{background:var(--red2);color:var(--red)} .status.wait{background:var(--gold2)}
+
+@media (max-width:999px){
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .casecol{position:static;max-height:none;overflow:visible}
+  .bar .tabs{display:flex}
+  body.view-case .qcol{display:none} body.view-q .casecol{display:none}
+}
+@media (max-width:640px){
+  .facts{grid-template-columns:1fr 1fr}
+  .brand h1{font-size:1.35rem}
+  .timer{font-size:1.05rem;padding:5px 10px}
+}
+@media print{.bar,.tabs,.submitrow{display:none}}
+
+/* ---- v2 additions ---- */
+.parttable td:last-child{text-align:center;white-space:nowrap}
+.rev{border:1px solid var(--line);border-radius:14px;margin:10px 0;background:#fff;overflow:hidden}
+.rev summary{cursor:pointer;padding:12px 16px;font-weight:600;list-style:none;display:flex;gap:10px;align-items:center}
+.rev summary::-webkit-details-marker{display:none}
+.rev summary::before{content:"+";display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--blush);align-items:center;justify-content:center;flex:none;font-weight:700}
+.rev[open] summary::before{content:"−"}
+.rev summary small{font-weight:400;color:var(--muted);margin-left:auto;font-size:.78rem;white-space:nowrap}
+.rev .body{padding:0 16px 14px;border-top:1px solid var(--line)}
+.rev .body h4{margin:14px 0 4px;font-size:.98rem}
+.rev .body p,.rev .body li{font-size:.94rem}
+.rev .use{background:var(--teal2);border-radius:8px;padding:6px 10px;font-size:.92rem;margin:8px 0}
+.rev .mistake{background:var(--red2);border-radius:8px;padding:6px 10px;font-size:.92rem;margin:8px 0}
+.rev ol{padding-left:22px;margin:6px 0}
+h2.sec{font-size:1.2rem;margin:26px 0 4px}
+.partnav{display:flex;gap:6px;padding:0 16px 8px;max-width:1180px;margin:0 auto}
+.pbtn{flex:1;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:6px 4px;cursor:pointer;font-weight:600;line-height:1.2}
+.pbtn small{display:block;font-weight:400;font-size:.72rem;color:var(--muted)}
+.pbtn.on{border-color:var(--navy);background:var(--navy);color:#fff} .pbtn.on small{color:#dfe5f3}
+.phead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin:18px 0 4px}
+.phead h2{margin:0;font-size:1.25rem}
+.item{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;background:#fff}
+.item .num{display:inline-block;min-width:2.4em;font-weight:700;color:var(--rose)}
+.item input[type=text]{margin-top:8px}
+.item select.dd{margin:0 4px;padding:5px 8px;border:1.5px solid var(--rose);border-radius:8px;background:var(--blush2);font-weight:600;max-width:100%}
+.choices{display:grid;gap:6px;margin-top:8px}
+.choice{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer}
+.choice input{margin-top:5px;accent-color:var(--rose)}
+.choice:has(input:checked){border-color:var(--rose);background:var(--blush2)}
+.choice .L{font-weight:700;min-width:1.2em}
+.navrow{display:flex;justify-content:space-between;gap:10px;margin:18px 0 40px;flex-wrap:wrap}
+.qcol h2{font-size:1.15rem}
+@media (min-width:1000px){ .partD .tabsD{display:none} }
+.tabsD{display:flex;gap:6px;margin:8px 0}
+@media (max-width:999px){ body.view-case #partD .qcol{display:none} body.view-q #partD .casecol{display:none} }
+@media (max-width:640px){ .pbtn small{display:none} }
+/* ================= COURSE-SITE THEME (matches the Level 5 site) ================= */
+:root{ --navy:#1F2547; --ink:#1F2547; --muted:#5A6079; --page:#FAF8F5; --line:#ECE7E0; --soft:#F6F3EE;
+  --teal:#3BA38A; --teal2:#E4F2EE; --coral:#E36B55; --coral2:#FCE9E4; --purple:#7B4FD9; --purple2:#EEE8FB; --mustard:#E2B33F; --mustard2:#FBF2DA;
+  --gold:#E2B33F; --gold2:#FBF2DA; }
+html,body{background:var(--page);color:var(--ink)}
+body{font-size:15.5px}
+.stripe{display:none}
+.site{position:relative;background:#fff;border-bottom:1px solid var(--line)}
+.site::before{content:"";display:block;height:5px;background:linear-gradient(90deg,var(--teal) 0 25%,var(--coral) 25% 50%,var(--purple) 50% 75%,var(--mustard) 75% 100%)}
+.site .wrap{display:flex;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px}
+.site .logo{width:44px;height:44px;border-radius:12px;background:var(--navy);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 2px 6px rgba(31,37,71,.2)}
+.site .bt b{display:block;font-size:1.08rem;line-height:1.15;font-weight:700}
+.site .bt small{display:block;font-size:.85rem;color:var(--muted)}
+.site .lvl{background:var(--navy);color:#fff;border-radius:999px;padding:4px 12px;font-size:.82rem;font-weight:600;white-space:nowrap}
+.site .who-chip{margin-left:auto;border:1px solid var(--line);border-radius:12px;padding:8px 14px;font-weight:600;font-size:.9rem;background:#fff}
+.crumb{font-size:.92rem;color:var(--muted);margin:20px 0 0}
+.crumb span{margin:0 6px}
+.site-foot{border-top:1px solid var(--line);background:#fff;color:var(--muted);font-size:.82rem;text-align:center;padding:18px;margin-top:30px}
+/* hero like the session banner */
+.hero{display:flex;gap:22px;align-items:center;background:var(--teal2);border-radius:24px;padding:28px 30px;margin:16px 0 16px}
+.hero .bignum{font-size:4.6rem;font-weight:800;line-height:.9;letter-spacing:-.04em;flex:none}
+.hero .kick{display:inline-block;background:#fff;border-radius:999px;padding:4px 14px;font-size:.9rem;font-weight:600}
+.hero h1{margin:8px 0 4px;font-size:2.6rem;font-weight:800;line-height:1.05;letter-spacing:-.02em}
+.hero .sub{color:var(--muted);font-size:1.05rem}
+.hero .pill{display:none}
+/* stat tiles */
+.facts{gap:12px}
+.fact{background:#fff;border:1px solid var(--line)!important;border-radius:18px;padding:16px;box-shadow:none}
+.fact b{font-size:1.9rem;font-weight:800}
+.fact span{color:var(--muted);font-size:.85rem;font-weight:500}
+/* part cards */
+.pcards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0 6px}
+.pcard{background:var(--pc2);border:0;border-radius:20px;padding:16px;position:relative}
+.pcard .e{width:36px;height:36px;border-radius:50%;background:var(--pc);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.pcard b{display:block;margin-top:10px;font-size:1.05rem}
+.pcard span{display:block;font-size:.86rem;color:var(--muted)}
+.pcard .m{position:absolute;right:14px;top:18px;background:#fff;border-radius:999px;padding:2px 10px;font-size:.78rem;font-weight:700;color:var(--ink)}
+.pcard .m::after{content:" marks";font-weight:500}
+[data-c="A"]{--pc:var(--teal);--pc2:var(--teal2)} [data-c="B"]{--pc:var(--coral);--pc2:var(--coral2)} [data-c="C"]{--pc:var(--purple);--pc2:var(--purple2)} [data-c="D"]{--pc:#C9971F;--pc2:var(--mustard2)}
+/* section cards */
+h2.sec{display:flex;align-items:center;gap:10px;font-size:1.35rem;font-weight:700;margin:30px 0 6px}
+h2.sec .e{display:inline-flex}
+h2.sec svg{width:22px;height:22px}
+/* reviewer */
+.rev{border:1px solid var(--line);border-radius:18px;background:#fff}
+.rev summary{padding:14px 16px}
+.rev summary::before{content:none!important}
+.rev summary .ri{display:inline-flex;width:32px;height:32px;border-radius:50%;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;background:var(--pc2);flex:none}
+.rev summary small{color:var(--muted)}
+.rev summary .chev{margin-left:10px;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-weight:600;flex:none;transition:transform .2s}
+.rev[open] summary .chev{transform:rotate(45deg)}
+.rev .body{border-top:1px solid var(--line)}
+.rev .use{background:var(--teal2);border-radius:12px}
+.rev .mistake{background:var(--coral2);border-radius:12px}
+/* cards, inputs, buttons */
+.card{border-radius:20px;border:1px solid var(--line);box-shadow:none}
+.card.blush{background:var(--mustard2);border-color:#F1E2B8}
+input[type=text],input[type=email],textarea{border:1px solid #DCD6CC;border-radius:12px;background:#fff}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--teal);outline-offset:1px;border-color:var(--teal)}
+.btn{border-radius:12px;padding:11px 22px;font-weight:600;background:var(--navy);box-shadow:none}
+.btn.pink{background:var(--teal);color:#fff}
+.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+/* exam bar */
+.bar{background:#fff;box-shadow:none;border-bottom:1px solid var(--line)}
+.timer{background:#fff;border:1px solid var(--line);border-radius:12px;color:var(--ink);font-size:1.1rem}
+.timer.warn{background:var(--mustard2);border-color:#F1E2B8} .timer.danger{background:var(--coral2);border-color:#F4C6BA;color:#B23A26}
+.prog{max-width:1180px;margin:0 auto;padding:0 16px 10px;display:flex;align-items:center;gap:10px;font-size:.78rem;font-weight:600;color:var(--muted)}
+.prog .track{flex:1;height:6px;border-radius:999px;background:var(--soft);overflow:hidden}
+.prog .fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--teal),var(--coral),var(--purple),var(--mustard));transition:width .3s}
+.partnav{justify-content:center;gap:8px}
+.pbtn{flex:0 1 200px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 14px 5px 5px;text-align:left}
+.pbtn .e{display:inline-flex;width:32px;height:32px;border-radius:50%;background:var(--pc2);align-items:center;justify-content:center;font-weight:700;flex:none;margin:0}
+.pbtn small{color:var(--muted)!important;margin-left:auto}
+.pbtn.on{border-color:var(--pc);box-shadow:inset 0 0 0 1px var(--pc);background:#fff;color:var(--ink)}
+.pbtn.on .e{background:var(--pc);color:#fff}
+.pbtn.full small::after{content:" ✓";color:var(--teal)}
+/* part headers like session banner */
+.phead{display:flex;align-items:center;background:var(--pc2);border-radius:22px;padding:18px 20px;margin-top:20px;border:0}
+.phead h2{display:flex;align-items:center;gap:12px;font-size:1.5rem;font-weight:800;letter-spacing:-.01em}
+.phead .e{width:42px;height:42px;border-radius:50%;background:var(--pc);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem}
+.phead > span{background:#fff!important;border:0!important;border-radius:999px!important}
+/* items */
+.item{border:1px solid var(--line);border-radius:18px;padding:14px 16px;background:#fff;transition:border-color .2s}
+.item .num{display:inline-flex;align-items:center;justify-content:center;min-width:2.6em;height:1.9em;border-radius:999px;background:var(--soft);color:var(--ink)!important;font-size:.82rem;margin-right:8px;padding:0 8px}
+.item.ans{border-color:var(--pc)}
+.item.ans .num{background:var(--pc);color:#fff!important}
+.item select.dd{border:1px solid var(--pc);background:var(--pc2);border-radius:10px;font-weight:600}
+.choices{grid-template-columns:1fr 1fr}
+.choice{position:relative;border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px 12px}
+.choice:hover{background:var(--soft)}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice .L{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--soft);align-items:center;justify-content:center;flex:none;font-size:.85rem}
+.choice:has(input:checked){border-color:var(--pc);background:var(--pc2);box-shadow:inset 0 0 0 1px var(--pc)}
+.choice:has(input:checked) .L{background:var(--pc);color:#fff}
+.choice:has(input:focus-visible){outline:2px solid var(--pc);outline-offset:2px}
+/* part D */
+.q{border:1px solid var(--line);border-radius:20px}
+.q .mk{background:var(--mustard2)!important;border:0!important;border-radius:999px!important}
+.casecol{background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 18px 18px;margin-top:14px}
+.casecol .tag{background:var(--mustard2);border-radius:999px}
+.casecol h3{font-weight:700}
+table.t th{background:var(--soft)}
+table.t,table.t th,table.t td{border-color:var(--line)}
+.opt{border-radius:14px}
+.opt.a{border-left:5px solid var(--teal)} .opt.b{border-left:5px solid var(--coral)} .opt.c{border-left:5px solid var(--purple)}
+.opt b.c{color:var(--ink)}
+details.frames{border:1px solid #F1E2B8;border-radius:14px;background:var(--mustard2)}
+.tab{border:1px solid var(--line);border-radius:12px;background:#fff} .tab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.raci select{border:1px solid #DCD6CC;border-radius:8px}
+/* modal, done */
+.modal{border-radius:20px;border-top:5px solid var(--teal)}
+.toast{border-radius:12px;background:var(--navy)}
+.donehero{background:var(--teal2);border-radius:24px;text-align:center;padding:32px 18px;margin:20px 0 10px}
+.donehero .e{width:58px;height:58px;border-radius:50%;background:var(--teal);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:700}
+.donehero h1{margin:10px 0 2px;font-size:2rem;font-weight:800}
+.donehero .sub{color:var(--muted)}
+.status{border-radius:12px}
+.status.ok{background:var(--teal2)}
+@media (max-width:900px){ .pcards{grid-template-columns:1fr 1fr} .pbtn{padding-right:8px} }
+@media (max-width:640px){
+  .choices{grid-template-columns:1fr}
+  .hero{padding:20px;gap:14px;border-radius:20px} .hero .bignum{font-size:3rem} .hero h1{font-size:1.7rem}
+  .site .bt small{display:none} .site .who-chip{display:none}
+  .pbtn{justify-content:center;padding:4px} .pbtn .lbl,.pbtn small{display:none}
+  .rev summary small{display:none} .rev summary .chev{margin-left:auto}
+  .casecol{padding:4px 10px 12px} .casecol table.t{font-size:.84rem} .casecol table.t th,.casecol table.t td{padding:6px 5px}
+}
+
+/* ================= RESPONSIVE LAYER: phones, tablets, laptops, big screens ================= */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);overflow-x:hidden}
+img,svg,table{max-width:100%}
+.item,.pq,.q,.rev .body,.casecol,td,th,.choice span{overflow-wrap:anywhere;word-break:normal}
+/* iOS zooms into any field under 16px: keep every field at 16px */
+input,select,textarea{font-size:16px!important}
+/* comfortable touch targets */
+.btn,.pbtn,.tab{min-height:44px}
+.choice{min-height:46px;align-items:center}
+.item select.dd{min-height:40px}
+.raci select{min-height:40px;min-width:3.2em}
+.rev summary{min-height:52px}
+.gapin{min-height:40px}
+/* the sticky bar height is measured by the page, so the case panel never hides under it */
+.casecol{top:calc(var(--barH,120px) + 10px);max-height:calc(100vh - var(--barH,120px) - 20px);max-height:calc(100dvh - var(--barH,120px) - 20px)}
+.ppart,.q,.item{scroll-margin-top:calc(var(--barH,120px) + 12px)}
+.bar{padding-top:env(safe-area-inset-top)}
+.toast{bottom:calc(18px + env(safe-area-inset-bottom))}
+.modalbg{padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))}
+.modal{max-height:calc(100dvh - 32px);overflow:auto}
+.bar .who{min-width:0}
+/* hover effects only where there is a mouse */
+@media (hover:none){ .choice:hover{background:#fff} .rev summary:hover{background:inherit} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;scroll-behavior:auto!important} }
+
+/* big screens */
+@media (min-width:1600px){ .wrap,.partnav,.prog{max-width:1360px} body{font-size:16.5px} }
+@media (min-width:2200px){ .wrap,.partnav,.prog{max-width:1560px} body{font-size:17.5px} }
+
+/* tablets (iPad portrait, small laptops) */
+@media (min-width:641px) and (max-width:999px){
+  .pcards{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:2.2rem}
+}
+
+/* phones */
+@media (max-width:640px){
+  body{font-size:15px}
+  .wrap{padding-left:14px;padding-right:14px}
+  .site .wrap{gap:10px;padding-top:10px;padding-bottom:10px}
+  .site .logo{width:38px;height:38px;border-radius:10px}
+  .site .bt b{font-size:.98rem}
+  .crumb{font-size:.82rem;margin-top:14px}
+  /* exam bar: one row with name, timer and Submit */
+  .bar .wrap{flex-wrap:nowrap;gap:8px;padding-top:8px;padding-bottom:8px}
+  .bar .who{font-size:.92rem}
+  .bar .who small,.saved{display:none}
+  .timer{font-size:1rem;padding:6px 10px}
+  #submitTop{padding:9px 14px}
+  .partnav{gap:6px;padding-bottom:6px}
+  .pbtn{min-height:44px}
+  .prog{padding-bottom:8px}
+  .phead{padding:14px;border-radius:18px;flex-wrap:wrap;gap:8px}
+  .phead h2{font-size:1.2rem}
+  .phead .e{width:34px;height:34px}
+  .item{padding:12px;border-radius:16px}
+  .item select.dd{display:block;width:100%;margin:8px 0}
+  .navrow .btn{flex:1}
+  .facts{gap:8px} .fact{padding:12px} .fact b{font-size:1.5rem}
+  .pcards{gap:8px} .pcard{padding:12px;border-radius:16px} .pcard .m{top:12px;right:10px}
+  .card{padding:14px}
+  .q{padding:12px}
+  textarea{min-height:110px}
+  .submitrow .btn,.navrow .btn{min-height:48px}
+  /* RACI: one card per task, team selects in a 2 x 2 grid */
+  .raci,.raci tbody,.raci tr,.raci td{display:block;width:100%}
+  .raci tr:first-child{display:none}
+  .raci tr{border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0;background:#fff;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .raci td{border:0!important;padding:0!important;text-align:left!important}
+  .raci td:first-child{grid-column:1 / -1;font-weight:600}
+  .raci td[data-team]::before{content:attr(data-team);display:block;font-size:.78rem;color:var(--muted);margin-bottom:2px}
+  .raci select{width:100%}
+}
+/* very small phones (iPhone SE 1st gen, small Android) */
+@media (max-width:360px){
+  .site .lvl{display:none}
+  .hero{flex-direction:column;align-items:flex-start;gap:6px} .hero .bignum{font-size:2.6rem}
+  .facts,.pcards{grid-template-columns:1fr 1fr}
+  .timer{font-size:.95rem;padding:6px 8px}
+  #submitTop{padding:9px 10px}
+  table.t{font-size:.82rem} table.t th,table.t td{padding:5px 4px}
+  .gapin{width:4.2em}
+}
+/* phones turned sideways: keep the bar short so there is room to read */
+@media (max-height:500px) and (orientation:landscape){
+  .site{display:none}
+  .bar .wrap{flex-wrap:nowrap;padding-top:4px;padding-bottom:4px}
+  .bar .who small,.saved{display:none}
+  .prog{display:none}
+  .partnav{padding-bottom:4px}
+  .pbtn{min-height:38px;padding-top:2px;padding-bottom:2px}
+  .pbtn small{display:none}
+  .btn{min-height:40px}
+  .casecol{position:static;max-height:none;overflow:visible}
+}
+@media print{ .site,.bar,.prog,.navrow,.submitrow,.tabsD{display:none!important} .ppart.hide{display:block!important} }
+
+</style>
+</head>
+<body class="view-case">
+<header class="site"><div class="wrap"><div class="logo"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><g fill="none" stroke-width="3" stroke-linecap="round"><path d="M15 3a12 12 0 0 1 12 12" stroke="#3BA38A"/><path d="M27 15a12 12 0 0 1-12 12" stroke="#E36B55"/><path d="M15 27A12 12 0 0 1 3 15" stroke="#7B4FD9"/><path d="M3 15A12 12 0 0 1 15 3" stroke="#E2B33F"/></g><circle cx="11" cy="12.5" r="1.7" fill="#fff"/><circle cx="19" cy="12.5" r="1.7" fill="#fff"/><path d="M10 17.5q5 5 10 0" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></div><div class="bt"><b>Customer Care Management</b><small>Elevate with Ms. Maria</small></div><span class="lvl">Level 5</span><span class="who-chip">Reviewer</span></div></header>
+<div class="stripe"></div>
+<section class="wrap">
+  <p style="margin:14px 0 0"><a href="../index.html#/session/7" style="color:var(--navy);font-weight:600">← Back to Session 7</a></p>
+  <header class="hero">
+    <div class="bignum">07</div>
+    <div>
+    <div class="kick">Midterm · Sessions 1 to 6</div>
+    <h1>Midterm reviewer</h1>
+    <div class="sub">Customer Care Management · Level 5</div>
+    </div>
+  </header>
+  <div class="facts">
+    <div class="fact"><b>120</b><span>minutes</span></div>
+    <div class="fact"><b>100</b><span>marks</span></div>
+    <div class="fact"><b>4</b><span>parts</span></div>
+    <div class="fact"><b>1</b><span>attempt</span></div>
+  </div>
+  <div class="pcards">
+    <div class="pcard" data-c="A"><span class="m">15</span><div class="e">A</div><b>Part A</b><span>Identification · type the term · 15 items</span></div>
+    <div class="pcard" data-c="B"><span class="m">15</span><div class="e">B</div><b>Part B</b><span>Dropdown · choose the missing word · 15 items</span></div>
+    <div class="pcard" data-c="C"><span class="m">30</span><div class="e">C</div><b>Part C</b><span>Multiple choice · 30 items</span></div>
+    <div class="pcard" data-c="D"><span class="m">40</span><div class="e">D</div><b>Part D</b><span>Case analysis · 5 questions</span></div>
+  </div>
+  <p class="note">Tap each topic to open it. Revise all of them before the exam. On exam day, start the midterm from the Session 7 page.</p>
+  <div id="reviewer"></div>
+  <p class="note">Built &amp; Created by Ms. Maria F. Tongga</p>
+</section>
+<script>
+const REVIEWER = [
+ ["How to answer a case", "4 steps · Pass, Merit, Distinction", `
+  <ol><li><b>Analyse:</b> use the numbers from the case.</li><li><b>Evaluate:</b> compare the options.</li><li><b>Recommend:</b> one action, with a reason.</li><li><b>Risk:</b> one risk, and how to reduce it.</li></ol>
+  <table class="t"><tr><th>Level</th><th>What it needs</th></tr>
+  <tr><td>Pass</td><td>Explain and apply the model.</td></tr>
+  <tr><td>Merit</td><td>Pass, plus evidence: numbers from the case.</td></tr>
+  <tr><td>Distinction</td><td>Merit, plus evaluation: compare options, name a limit or risk, and say how to check the result.</td></tr></table>
+  <h4>Sentence frames</h4>
+  <p>Analyse: "Using ___, the evidence shows ___."<br>Evaluate: "Option ___ is better because ___. However, ___."<br>Recommend: "I recommend ___ because ___."<br>Risk: "One risk is ___, so I would ___."</p>`],
+ ["Session 1 · The Service-Profit Chain", "link staff, service and profit", `
+  <div class="use">Use it when you need to link staff, service and profit.</div>
+  <p><b>The six links:</b> support for staff → satisfied, loyal staff → better service value → satisfied customers → loyal customers → profit and growth. The chain starts with <b>support for staff</b>.</p>
+  <ol><li>Start at the end: what result does the business want?</li><li>Find the weakest link, with evidence.</li><li>Fix the weakest link first, and justify it.</li></ol>
+  <div class="mistake"><b>Common mistake:</b> fixing the symptom (apologising to customers) instead of the cause (no training or support for staff).</div>
+  <p><b>Internal customer:</b> a colleague in another team who receives your work.</p>`],
+ ["Session 2 · The Kano Model", "which features first", `
+  <div class="use">Use it when you must decide which features to invest in first.</div>
+  <ol><li>List the features of the service.</li><li>Sort each one: basic, performance or delighter.</li><li>Prioritise: basics first, then performance, then one delighter.</li></ol>
+  <table class="t"><tr><th>"If it disappeared tomorrow…"</th><th>Type</th></tr><tr><td>the customer would be angry</td><td><b>Basic</b></td></tr><tr><td>the customer would be less happy</td><td><b>Performance</b> (more is better)</td></tr><tr><td>the customer would not notice</td><td><b>Delighter</b></td></tr></table>
+  <p>Features move over time: delighter → performance → basic.</p>
+  <div class="mistake"><b>Common mistake:</b> spending on a delighter while a basic is failing. A delighter cannot save a missing basic.</div>`],
+ ["Session 3 · SERVQUAL and the Gap Model", "measure quality, find the gap", `
+  <div class="use">Use it when you must measure service quality and find where it falls short.</div>
+  <p><b>RATER:</b> <b>R</b>eliability (doing what you promised, correctly) · <b>A</b>ssurance (knowledge and trust) · <b>T</b>angibles (what customers can see) · <b>E</b>mpathy (caring, individual attention) · <b>R</b>esponsiveness (willing to help quickly).</p>
+  <ol><li>Measure what customers expect in each RATER area.</li><li>Measure what they actually experience.</li><li>Gap = experience − expectation. Close the biggest negative gap first.</li></ol>
+  <p>A <b>negative</b> gap means the service falls short. A <b>positive</b> gap means it already beats expectations.</p>
+  <p><b>The five-gap model</b> explains why: knowledge gap, standards gap, delivery gap, communication gap, then the customer gap.</p>
+  <div class="mistake"><b>Common mistake:</b> improving an area with a positive gap, for example new furniture when tangibles already beat expectations.</div>`],
+ ["Session 4 · Situational Leadership", "how to lead each person", `
+  <div class="use">Use it when you must choose how to lead each team member.</div>
+  <ol><li>Judge the person's skill and confidence for this task.</li><li>Match the style: directing, coaching, supporting or delegating.</li><li>Adapt the style as the person grows.</li></ol>
+  <table class="t"><tr><th>Style</th><th>For</th></tr><tr><td>Directing</td><td>new, low skill</td></tr><tr><td>Coaching</td><td>learning, losing confidence</td></tr><tr><td>Supporting</td><td>skilled but unsure</td></tr><tr><td>Delegating</td><td>skilled and confident</td></tr></table>
+  <p>Same person, different task, different style.</p>
+  <div class="mistake"><b>Common mistake:</b> using one style for everyone. New staff get too little help; experts feel micromanaged.</div>`],
+ ["Session 5 · The Balanced Scorecard", "choose KPIs, read performance", `
+  <div class="use">Use it when you must choose KPIs and read performance.</div>
+  <p><b>Four perspectives:</b> financial · customer · internal process · learning and growth.</p>
+  <ol><li>Choose one or two KPIs for each perspective.</li><li>Set a target with a date for each.</li><li>Review the trend monthly and act on the weakest.</li></ol>
+  <p><b>Leading KPIs</b> warn early (training hours, response time). <b>Lagging KPIs</b> report the past (profit, customers lost). Read from the bottom up and it is the Service-Profit Chain.</p>
+  <p>A good KPI has a number, a target and a date: "NPS from 10 to 25 by June 2027".</p>
+  <div class="mistake"><b>Common mistake:</b> watching one speed KPI with no quality KPI beside it. Staff learn to be fast, not helpful.</div>`],
+ ["Session 6 · The RACI chart", "fix a failing handover", `
+  <div class="use">Use it when a handover between teams keeps failing.</div>
+  <p><b>R</b> = responsible (does the work) · <b>A</b> = accountable (owns the result; only one) · <b>C</b> = consulted (asked before) · <b>I</b> = informed (told after).</p>
+  <ol><li>List the tasks in the handover, in order.</li><li>Give each team R, A, C or I for each task.</li><li>Check: exactly one A per task. Fix gaps first.</li></ol>
+  <p><b>Internal service agreement:</b> a promise one team makes to another team about its service.</p>
+  <div class="mistake"><b>Common mistake:</b> a task with no A, or with two As. When two people own it, nobody owns it.</div>`],
+ ["The six formulas", "write the formula, the numbers, the meaning", `
+  <div class="tablewrap"><table class="t"><tr><th>Calculation</th><th>Formula</th><th>Example</th></tr>
+  <tr><td>ROI</td><td>(Gain − Cost) ÷ Cost × 100</td><td>(30,000 − 20,000) ÷ 20,000 × 100 = 50%</td></tr>
+  <tr><td>SERVQUAL gap</td><td>Experience − Expectation</td><td>5.0 − 6.5 = −1.5</td></tr>
+  <tr><td>NPS</td><td>% promoters (9–10) − % detractors (0–6)</td><td>60 − 15 = 45</td></tr>
+  <tr><td>Percentage</td><td>Part ÷ Total × 100</td><td>320 ÷ 500 × 100 = 64%</td></tr>
+  <tr><td>Percentage points</td><td>New % − Old %</td><td>64% − 78% = −14 points</td></tr>
+  <tr><td>Percent change</td><td>(New − Old) ÷ Old × 100</td><td>(3.7 − 4.3) ÷ 4.3 × 100 = −14%</td></tr></table></div>
+  <h4>Four mistakes that lose marks</h4>
+  <ul><li>Counting passives (7–8) in NPS. Write 30, not 30%.</li><li>Gap the wrong way round. It is experience − expectation.</li><li>Not saying "points" or "percent".</li><li>A number with no meaning. Say what it means for the customer.</li></ul>`],
+ ["Exam technique", "five habits", `
+  <ol><li>Read the case twice. Underline every number.</li><li>Plan your time: about 45 minutes for Parts A to C, and 65 minutes for the case.</li><li>Name the model in the first line of your answer.</li><li>Show your working for every calculation.</li><li>Leave 10 minutes to check your answers and submit.</li></ol>`]
+];
+const $ = s => document.querySelector(s);
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function renderReviewer(){
+  const RI=["✓","1","2","3","4","5","6","×","→"], RC="DABCABCDA";
+  $("#reviewer").innerHTML = REVIEWER.map(([t,s,b],i)=>`<details class="rev" data-c="${RC[i]}"><summary><span class="ri">${RI[i]}</span>${esc(t)}<small>${esc(s)}</small><span class="chev">+</span></summary><div class="body">${b}</div></details>`).join("");
+}
+renderReviewer();
+</script>
+<footer class="site-foot">© 2026 Elevate with Ms. Maria · Learnovate Qatar</footer>
+</body>
+</html>
