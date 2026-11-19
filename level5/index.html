@@ -573,6 +573,7 @@ const DEESC=[
 {c:"\"I'm posting this on social media.\"",o:["That's your choice.","I understand why you're upset. I'd like to fix this first. Can I call you in ten minutes with a solution?","Please don't do that, it will hurt our business."],a:1,why:"Focus on solving the problem, not on stopping the post."},
 {c:"\"You charged me twice!\"",o:["I'm sorry about that. I can see both charges. I'm cancelling the second one now; you'll get a confirmation email within one hour.","The bank must have made a mistake.","It will probably correct itself."],a:0,why:"Confirm, act and give a clear time."}];
 
+const MIDTERM_URL=""; /* set on exam day */
 const REVIEWS={A:3,B:6,C:9,D:11}; /* unit review opens after this session; file: reviews/unitA.html etc. */
 const FILES=[["slides.pdf","Slides PDF"],["workbook.html","E-workbook"],["quiz.html","Practice quiz"]];
 const K={cap:"ccl5-capstone",lab:"ccl5-lab",big:"ccl5-big",auth:"ccl5-auth"};
@@ -665,7 +666,7 @@ session(n,sub){const s=S(n);if(!s)return V.notfound();if(!isOpen(n))return crumb
  return crumbs(["Sessions","#/sessions"],[`Session ${s.n}`])+strip(s.n)+`<div class="banner" style="background:${u.t}"><span class="num">${pad(s.n)}</span><div><span class="chip" style="background:#fff">${s.exam?"Exam session":"Unit "+s.u+" · "+u.name}</span><h1 style="margin:8px 0 0">${s.t}</h1>${MODELS[s.model]&&!s.exam?`<p class="muted" style="margin-top:4px">Level 5 model: ${MODELS[s.model].t}</p>`:""}</div></div>
  ${SHEET[s.n]&&SHEET[s.n].note?`<div class="sec" style="background:var(--gold-t);border-color:var(--gold)"><h2>Announcement from Ms. Maria</h2><p>${esc(SHEET[s.n].note)}</p></div>`:""}
  ${hasSlides(s.n)?`<div class="sec slidesec"><h2>${ic("sessions")}Slides <a class="tag" href="#/session/${s.n}/slides" style="margin-left:auto">Full page</a></h2>${slideBody(s.n)}</div>`:""}
- ${s.n===7?`<div class="sec" style="background:var(--gold-t);border-color:var(--gold)"><h2>${ic("check")}Midterm exam</h2><p>120 minutes · 100 marks · one attempt. Start only when Ms. Maria tells you to. The timer does not stop once you start.</p><div class="row" style="margin-top:12px">${AUTH&&AUTH.code?`<a class="btn primary" href="${API}?page=Midterm&code=${encodeURIComponent(AUTH.code)}" target="_blank" rel="noopener">Start the midterm</a>`:`<span class="muted">Sign in with your access code to take the exam.</span>`}</div></div>`:""}
+ ${s.n===7&&MIDTERM_URL?`<div class="sec" style="background:var(--gold-t);border-color:var(--gold)"><h2>${ic("check")}Midterm exam</h2><p>120 minutes · 100 marks · one attempt. Start only when Ms. Maria tells you to. The timer does not stop once you start.</p><div class="row" style="margin-top:12px"><a class="btn primary" href="${MIDTERM_URL}" target="_blank" rel="noopener">Start the midterm</a></div></div>`:""}
  <div class="sec"><h2>${ic("sessions")}Your materials</h2>${tiles(s.n)}</div>
  <div class="two">
   <div class="sec"><h2>${ic("book")}Core content <span class="tag">Handout</span></h2><p>Your handout and workbook from Ms. Maria cover the core content for this session.${avail[s.n]&&avail[s.n].ho?` <a href="${avail[s.n].dir}handout.pdf" target="_blank" rel="noopener">Open the handout PDF</a>.`:""}</p><p class="muted" style="margin-top:6px;font-size:.92em">Level 5 builds on it with the model, reading and capstone below.</p></div>
