@@ -198,6 +198,7 @@ details[open]>summary::before{transform:rotate(90deg)}
  .stack tr{display:block;background:#fff;border:1px solid #E8EAF0;border-radius:16px;padding:10px;margin-bottom:12px;box-shadow:var(--shadow)}
  .stack td{display:block;border:0;padding:4px 2px}.stack td input,.stack td select{min-width:0!important;width:100%}
 }
+.btn.teach{background:linear-gradient(135deg,#6D5BD0,#2A9D8F);color:#fff;border:0;min-height:40px}.btn.teach.big{min-height:44px;padding:8px 20px;font-size:15px}
 </style>
 </head>
 <body>
@@ -367,10 +368,12 @@ async function marking(){const Q=queue();if(MQ_I>=Q.length)MQ_I=Math.max(0,Q.len
 /* ---------- today's class ---------- */
 let TODAY=0;try{TODAY=+sessionStorage.getItem("ccm-today")||0}catch(e){}
 function todayN(){if(TODAY)return TODAY;const o=openNs();const mx=o.length?Math.max(...o):0;return Math.min(12,Math.max(1,o.length&&!D.sessions.some(s=>s.n===mx+1)?mx:mx+1))}
+const teachUrl=s=>`teach.html?n=${s.n}${s.slides?"&canva="+encodeURIComponent(s.slides):""}`;
+const teachBtn=(s,big)=>`<a class="btn teach${big?" big":""}" href="${teachUrl(s)}" target="_blank" rel="noopener">▶ Teach</a>`;
 function todayPanel(){const n=todayN(),s=D.sessions.find(x=>x.n===n);if(!s)return "";const isOpen=BATCH?openFor(s,BATCH):!!s.open,who=BATCH?esc(BATCH):(batches().length?"all batches":"learners"),lbl=BATCH?(isOpen?"Open for "+who:"Closed for "+who):openLabel(s);
  return `<div class="today"><div class="tsel"><span class="muted" style="font-size:13px;font-weight:600">Session:</span>${D.sessions.map(x=>`<button type="button" class="tn${x.n===n?" on":""}${(BATCH?openFor(x,BATCH):openAny(x))?" op":""}" data-tn="${x.n}" aria-label="Session ${x.n}">${x.n}</button>`).join("")}</div>
  <div class="thead"><div style="flex:1;min-width:220px"><small class="muted">Today’s class</small><h3>Session ${n} · ${esc(TITLES[n]||s.title)}</h3><span class="pill ${openAny(s)&&(isOpen||!BATCH)?"yes":"no"}">${esc(lbl)}</span></div>
- <button class="toggle ${isOpen?"off":"on"}" type="button" id="tOpen">${isOpen?"Close":"Open"} for ${who}</button></div>
+ <div class="row">${teachBtn(s,1)}<button class="toggle ${isOpen?"off":"on"}" type="button" id="tOpen">${isOpen?"Close":"Open"} for ${who}</button></div></div>
  ${n===7?examPanel():""}${mats(n)}
  <div class="tgrid"><div><b>Attendance</b> <small class="muted" data-regsum="${n}">${regSum(n)}</small><div data-reg="${n}" style="margin-top:6px"></div></div></div></div>`}
 function wireToday(){const n=todayN();document.querySelectorAll("[data-tn]").forEach(b=>b.onclick=()=>{TODAY=+b.dataset.tn;try{sessionStorage.setItem("ccm-today",TODAY)}catch(e){}render()});
@@ -413,7 +416,7 @@ const UH={1:["var(--a)","Unit A · Understanding the Customer","Sessions 1–3"]
 function unitHead(n){const u=UH[n];return u?`<div class="unit-h" style="--uc:${u[0]}"><i></i>${u[1]} <small>${u[2]}</small></div>`:""}
 let EXP=new Set();try{EXP=new Set(JSON.parse(sessionStorage.getItem("ccm-exp")||"[]"))}catch(e){}
 function fileSum(n){const f=FILES[n]||{};const k=[f.sl||f.pdf,f.ho,f.wb,f.qz,f.ex].filter(Boolean).length;return `${k} of 5 files`}
-function sessions(){$("#main").innerHTML=`<div class="hello"><div><h1>Sessions</h1><p>Tap a session to see its files, batches, attendance and links. Open it on the day of class.</p></div><div class="row"><button class="btn" id="expAll" type="button">Expand all</button><button class="btn" id="colAll" type="button">Collapse all</button></div></div>${batchBar()}${BATCH?`<p class="muted" style="font-size:13px;margin-top:6px">Attendance below shows ${esc(BATCH)} only.</p>`:""}<div class="sess" style="margin-top:14px">${D.sessions.map(s=>`${unitHead(s.n)}<div class="card${EXP.has(s.n)?" x":""}" data-n="${s.n}"><div class="head" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button type="button" class="exp" data-exp="${s.n}" aria-expanded="${EXP.has(s.n)}"><span class="num">${s.n}</span><span class="tt"><b>${esc(TITLES[s.n]||s.title)}</b><small>${fileSum(s.n)} · ${regSum(s.n)}</small></span></button>${openHead(s)}</div><div class="cbody">${batchToggles(s)}
+function sessions(){$("#main").innerHTML=`<div class="hello"><div><h1>Sessions</h1><p>Tap a session to see its files, batches, attendance and links. Open it on the day of class.</p></div><div class="row"><button class="btn" id="expAll" type="button">Expand all</button><button class="btn" id="colAll" type="button">Collapse all</button></div></div>${batchBar()}${BATCH?`<p class="muted" style="font-size:13px;margin-top:6px">Attendance below shows ${esc(BATCH)} only.</p>`:""}<div class="sess" style="margin-top:14px">${D.sessions.map(s=>`${unitHead(s.n)}<div class="card${EXP.has(s.n)?" x":""}" data-n="${s.n}"><div class="head" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button type="button" class="exp" data-exp="${s.n}" aria-expanded="${EXP.has(s.n)}"><span class="num">${s.n}</span><span class="tt"><b>${esc(TITLES[s.n]||s.title)}</b><small>${fileSum(s.n)} · ${regSum(s.n)}</small></span></button>${teachBtn(s)}${openHead(s)}</div><div class="cbody">${batchToggles(s)}
  ${s.n===7?examPanel():""}${mats(s.n)}
  <details style="margin-top:10px" data-regbox="${s.n}"><summary style="cursor:pointer;font-weight:600">Attendance · <span data-regsum="${s.n}">${regSum(s.n)}</span></summary><div data-reg="${s.n}" style="margin-top:8px"></div></details>
  <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:600">Links and announcement</summary>
