@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B2A4A">
+<meta name="robots" content="noindex">
+<title>Teacher portal · Customer Care Management</title>
+<link rel="icon" href="../icons/icon-192.png?v=logo2">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--ink2:#46557A;--paper:#FBFAF7;--line:#E3E6EE;--gold:#C9A24A;--a:#2A9D8F;--a-t:#E2F3F1;--b:#E76F51;--b-t:#FCE9E3;--c:#6D5BD0;--c-t:#ECE9FA;--d:#E9B44C;--d-t:#FBF2DC;--x-t:#EEF0F5;--ok:#1E7A55;--ok-t:#E3F4EC;--no:#B23A2B;--no-t:#FBE7E4}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:'Poppins','Segoe UI',system-ui,sans-serif;line-height:1.55;font-size:15px}
+p{margin:0}button,input,select,textarea{font:inherit;color:var(--navy)}
+:is(button,a,input,select,textarea):focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--navy);color:#fff}
+header::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+.bar{max-width:1180px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.bar b{font-size:16px}.bar small{opacity:.75}
+.tabs{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.tabs button{background:transparent;border:0;color:#C9D0E2;padding:9px 14px;border-radius:10px;font-weight:600;cursor:pointer}
+.tabs button[aria-selected="true"]{background:#fff;color:var(--navy)}
+main{max-width:1180px;margin:0 auto;padding:22px 18px 80px}
+h1{font-size:1.9rem;margin:0 0 6px;line-height:1.15}h2{font-size:1.2rem;margin:22px 0 10px}
+.muted{color:var(--ink2)}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.stat b{font-size:2rem;display:block;line-height:1.1}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 16px;border-radius:12px;border:1.5px solid var(--navy);background:#fff;font-weight:600;cursor:pointer;text-decoration:none;color:var(--navy)}
+.btn.primary{background:var(--navy);color:#fff}
+.btn:disabled{opacity:.5;cursor:wait}
+input.f,select.f,textarea.f{width:100%;min-height:44px;border:1.5px solid #B9BFCC;border-radius:11px;padding:8px 12px;background:#fff}
+textarea.f{min-height:70px;resize:vertical}
+label.l{display:block;font-size:13px;font-weight:600;margin:10px 0 4px}
+.tablewrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:18px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+th{background:var(--x-t);text-align:left;padding:10px 12px;font-weight:600;position:sticky;top:0}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px}
+.yes{background:var(--ok-t)}.no{background:var(--no-t)}
+.dots{display:flex;gap:3px;flex-wrap:wrap}
+.dots span{width:22px;height:22px;border-radius:6px;font-size:11px;font-weight:700;display:grid;place-items:center;background:var(--x-t);color:#8A93A8}
+.dots span.on{background:var(--a);color:#fff}
+.sess{display:grid;gap:12px}
+.sess .card{display:grid;gap:4px}
+.sess .head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px;font-weight:600;z-index:50;box-shadow:0 8px 24px rgba(27,42,74,.3)}
+.login{max-width:420px;margin:10vh auto 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:640px){.two{grid-template-columns:1fr}}
+.tabs button{white-space:nowrap}
+.att{display:flex;gap:4px}.att button{min-height:34px;padding:2px 10px;border-radius:9px;border:1.5px solid #B9BFCC;background:#fff;font:600 12.5px Poppins,system-ui,sans-serif;cursor:pointer}
+.att button[aria-pressed="true"].P{background:var(--ok-t);border-color:var(--ok)}.att button[aria-pressed="true"].L{background:var(--d-t);border-color:var(--d)}.att button[aria-pressed="true"].A{background:var(--no-t);border-color:var(--no)}
+.need{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid var(--line);margin-top:8px}
+.need b{flex-shrink:0;font-size:12px;padding:2px 9px;border-radius:999px;background:var(--no-t)}
+.bbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px}
+.chip{min-height:36px;padding:4px 14px;border-radius:999px;border:1.5px solid #B9BFCC;background:#fff;font:600 13.5px Poppins,system-ui,sans-serif;cursor:pointer;color:var(--navy)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip.on{background:var(--ok-t);border-color:var(--ok);color:var(--navy)}
+.toggle{min-width:120px;min-height:44px;border-radius:999px;border:0;font:700 14px Poppins,system-ui,sans-serif;cursor:pointer}
+.toggle.on{background:var(--ok);color:#fff}.toggle.off{background:#EEF0F5;color:var(--navy)}
+.mat{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.mat a{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);text-decoration:none;color:var(--navy)}
+.mat a.no{opacity:.45;pointer-events:none;border-style:dashed}
+.ans{background:var(--paper);border-radius:12px;padding:10px 12px;margin:6px 0;white-space:pre-wrap}
+.lnk{background:none;border:0;padding:0;font:inherit;color:var(--navy);text-decoration:underline;cursor:pointer;font-weight:600}
+</style>
+<style>
+/* ---------- 2026 refresh ---------- */
+:root{--paper:#F6F5F1;--shadow:0 1px 2px rgba(27,42,74,.06),0 6px 20px rgba(27,42,74,.06)}
+body{font-size:15px}
+header{background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);color:var(--navy);border-bottom:1px solid var(--line)}
+header::before{height:4px}
+.bar{padding:10px 18px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy)}
+.brand img{border-radius:10px;display:block}
+.brand b{display:block;font-size:16px;line-height:1.15}.brand small{display:block;font-size:12px;color:var(--ink2);opacity:1}
+.tabs{gap:6px;background:#EEF0F5;padding:5px;border-radius:14px}
+.tabs button{color:var(--ink2);padding:8px 14px;border-radius:10px;display:inline-flex;align-items:center;gap:7px;font-size:14px}
+.tabs button:hover{color:var(--navy);background:rgba(255,255,255,.6)}
+.tabs button[aria-selected="true"]{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(27,42,74,.15)}
+.tabs .ti{width:18px;height:18px;flex:none}
+#out{color:var(--no)!important}
+main{padding:26px 18px 90px}
+h1{font-size:1.85rem;letter-spacing:-.01em}
+h2{font-size:1.1rem;margin:28px 0 12px;display:flex;align-items:center;gap:8px}
+.card{border-radius:18px;box-shadow:var(--shadow);border-color:#E8EAF0}
+.tablewrap{box-shadow:var(--shadow);border-color:#E8EAF0}
+th{background:#F3F4F8;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2)}
+tr:hover td{background:#FAFAFC}
+.btn{border-radius:12px;transition:transform .08s,box-shadow .15s}
+.btn:hover{box-shadow:0 2px 8px rgba(27,42,74,.12)}
+.btn:active{transform:translateY(1px)}
+.chip{transition:background .15s}
+/* stats */
+.stats{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:16px}
+.st{position:relative;background:#fff;border-radius:18px;padding:16px 18px 16px 18px;box-shadow:var(--shadow);border:1px solid #E8EAF0;overflow:hidden}
+.st::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--k)}
+.st .ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--kt);color:var(--k);margin-bottom:10px}
+.st .ico svg{width:20px;height:20px}
+.st b{display:block;font-size:1.9rem;line-height:1.1}
+.st span{color:var(--ink2);font-size:13.5px}
+.st .nums{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 4px}.st .nums i{font-style:normal;font-weight:700;font-size:13px;min-width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--kt);color:var(--k)}
+.hello{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hello p{color:var(--ink2)}
+/* grouped needs */
+.lc{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.lcard{background:#fff;border:1px solid #E8EAF0;border-radius:18px;padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.lcard .top{display:flex;align-items:center;gap:12px}
+.av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;flex:none;background:var(--av,#6D5BD0)}
+.lcard .top b{display:block;line-height:1.2}.lcard .top small{color:var(--ink2)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:#F1F2F6;color:var(--navy)}
+.tag.red{background:var(--no-t);color:#8E2A1E}.tag.gold{background:var(--d-t);color:#7A5410}.tag.green{background:var(--ok-t);color:#155C40}.tag.purple{background:var(--c-t);color:#4B3BA8}
+.lcard .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.lcard .acts .btn{min-height:38px;padding:6px 12px;font-size:13.5px}
+.btn.wa{border-color:#25D366;color:#0E7A3C}
+.empty{background:#fff;border:1px dashed #CBD1DD;border-radius:18px;padding:22px;text-align:center;color:var(--ink2)}
+.bar-p{height:8px;border-radius:99px;background:#EEF0F5;overflow:hidden;min-width:80px}.bar-p i{display:block;height:100%;background:var(--a);border-radius:99px}
+/* sessions by unit */
+.unit-h{display:flex;align-items:center;gap:10px;margin:22px 0 2px;font-weight:700;font-size:15px}
+.unit-h i{width:12px;height:12px;border-radius:4px;background:var(--uc)}
+.unit-h small{color:var(--ink2);font-weight:500}
+.sess .card{border-left:6px solid var(--uc,#C6CBD8)}
+.sess .card[data-n="1"],.sess .card[data-n="2"],.sess .card[data-n="3"],.sess .card[data-n="4"]{--uc:var(--a)}
+.sess .card[data-n="5"],.sess .card[data-n="6"]{--uc:var(--b)}
+.sess .card[data-n="8"],.sess .card[data-n="9"]{--uc:var(--c)}
+.sess .card[data-n="10"],.sess .card[data-n="11"]{--uc:var(--d)}
+.sess .card[data-n="7"],.sess .card[data-n="12"]{--uc:var(--navy)}
+.mat a{background:#FAFAFC}
+.mat a:not(.no):hover{border-color:var(--navy)}
+details>summary{list-style:none}details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"▸";display:inline-block;margin-right:6px;transition:transform .15s;color:var(--ink2)}
+details[open]>summary::before{transform:rotate(90deg)}
+.login{max-width:440px;margin:9vh auto 0;padding:28px}
+.login::before{content:"";display:block;width:56px;height:56px;margin-bottom:14px;background:url(../icons/logo.svg) center/contain no-repeat}
+/* phone: bottom navigation */
+@media(max-width:760px){
+ header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+ .bar{justify-content:center}
+ .tabs{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));margin:0;justify-content:space-around;background:var(--navy);border-radius:20px;padding:6px;box-shadow:0 10px 30px rgba(27,42,74,.35);flex-wrap:nowrap}
+ .tabs button{flex-direction:column;gap:2px;font-size:11px;padding:6px 6px;color:#C9D0E2;flex:1}
+ .tabs button[aria-selected="true"]{background:#fff;color:var(--navy)}
+ #out{color:#F4B4AA!important}
+ .tabs .ti{width:21px;height:21px}
+ main{padding-bottom:120px}
+ h1{font-size:1.55rem}
+ .lc{grid-template-columns:1fr}
+}
+.xp{background:#fff;border:1px solid #E8EAF0;border-radius:18px;padding:16px 18px;box-shadow:var(--shadow);margin-top:10px}
+.xp.live{border-color:var(--ok);background:linear-gradient(0deg,#fff,#fff) padding-box}
+.xh{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.xh b{display:block}.xh small{color:var(--ink2)}
+.xdot{width:12px;height:12px;border-radius:50%;background:#C6CBD8;flex:none}.xp.live .xdot{background:var(--ok);box-shadow:0 0 0 5px var(--ok-t)}
+.chip:disabled{opacity:.6;cursor:default}
+@media(max-width:760px){.stats{grid-template-columns:1fr 1fr;gap:10px}.st{padding:12px 14px}.st .ico{width:32px;height:32px;margin-bottom:6px}.st b{font-size:1.5rem}.st span{font-size:12.5px}.hello .btn{min-height:38px}}
+.nb{font-style:normal;font-size:11px;font-weight:700;background:var(--b);color:#fff;border-radius:99px;padding:1px 7px;margin-left:2px}
+.st.click{cursor:pointer}.st.click:hover{transform:translateY(-1px)}
+/* marking */
+.mq{display:grid;grid-template-columns:260px 1fr;gap:16px;margin-top:16px;align-items:start}
+.mlist{display:flex;flex-direction:column;gap:6px;max-height:70vh;overflow:auto;position:sticky;top:90px}
+.mi{display:flex;gap:10px;align-items:center;text-align:left;background:#fff;border:1px solid #E8EAF0;border-radius:14px;padding:8px 10px;cursor:pointer}
+.mi .av{width:32px;height:32px;font-size:12px}.mi b{display:block;font-size:14px}.mi small{color:var(--ink2);font-size:12px}
+.mi.on{border-color:var(--navy);box-shadow:0 0 0 2px var(--navy) inset}
+.mhead{display:flex;gap:12px;align-items:center}.mhead b{display:block}.mhead small{color:var(--ink2)}
+.mbody{margin:16px 0;display:grid;gap:12px}
+.qq{font-weight:600;font-size:14px;margin-bottom:4px}
+.mbody .ans{background:#F7F8FB;border:1px solid #EEF0F5;font-size:15px}
+.mform{border-top:1px solid var(--line);padding-top:12px}
+.marks{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.marks .chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tag.qp{border:0;cursor:pointer}.tag.qp:hover{background:var(--c-t)}
+/* today */
+.today{background:#fff;border:1px solid #E8EAF0;border-radius:20px;padding:16px 18px;box-shadow:var(--shadow)}
+.tsel{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.tn{width:34px;height:34px;border-radius:10px;border:1.5px solid #D5DAE5;background:#fff;font:700 13px Poppins,system-ui,sans-serif;cursor:pointer;color:var(--ink2)}
+.tn.op{background:var(--ok-t);border-color:#BFE3D2;color:#155C40}.tn.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.thead{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.thead h3{margin:2px 0 6px;font-size:1.25rem}
+.tgrid{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+/* compact sessions */
+.exp{flex:1;min-width:220px;display:flex;gap:12px;align-items:center;background:none;border:0;padding:0;text-align:left;cursor:pointer}
+.exp .num{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-weight:700;background:var(--uc,#C6CBD8);color:#fff;flex:none}
+.exp .tt b{display:block;font-size:15.5px}.exp .tt small{color:var(--ink2);font-size:12.5px}
+.exp::after{content:"▾";margin-left:auto;color:var(--ink2);transition:transform .15s}
+.card.x .exp::after{transform:rotate(180deg)}
+.sess .card:not(.x) .cbody{display:none}
+.sess .card{padding:14px 16px}
+.sess{gap:10px}
+.gcards{display:none}
+.gk,.gk2{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.gk2{grid-template-columns:1fr auto;align-items:end}
+.gk small,.gk2 small{display:block;color:var(--ink2);font-size:11.5px}.gk b,.gk2 b{font-size:1.05rem}.gk i,.gk2 i{font-style:normal;color:var(--ink2);font-size:12px}
+@media(max-width:860px){.mq{grid-template-columns:1fr}.mlist{flex-direction:row;overflow-x:auto;position:static;max-height:none}.mi{flex:none}}
+@media(max-width:760px){
+ .tabs button{padding:6px 2px}.tabs button span{font-size:10.5px}.nb{position:absolute;margin:-6px 0 0 18px}.tabs button{position:relative}
+ .tablewrap:has(+ .gcards){display:none}.gcards{display:grid;gap:12px}
+ .tablewrap.stack{background:none;border:0;box-shadow:none}.stack table{min-width:0}.stack tr:first-child{display:none}
+ .stack tr{display:block;background:#fff;border:1px solid #E8EAF0;border-radius:16px;padding:10px;margin-bottom:12px;box-shadow:var(--shadow)}
+ .stack td{display:block;border:0;padding:4px 2px}.stack td input,.stack td select{min-width:0!important;width:100%}
+}
+.btn.teach{background:linear-gradient(135deg,#6D5BD0,#2A9D8F);color:#fff;border:0;min-height:40px}.btn.teach.big{min-height:44px;padding:8px 20px;font-size:15px}
+</style>
+</head>
+<body>
+<header><div class="bar"><a class="brand" href="index.html" title="Open the learner app"><img src="../icons/logo.svg" alt="" width="36" height="36"><span><b>Teacher portal</b><small>Customer Care · Level 4</small></span></a>
+<nav class="tabs" id="tabs" hidden role="tablist"><button role="tab" data-v="dash" aria-selected="true"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13h8V3H3zM13 21h8V11h-8zM3 21h8v-6H3zM13 3v6h8V3z"/></svg><span>Dashboard</span></button><button role="tab" data-v="sessions" aria-selected="false"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Sessions</span></button><button role="tab" data-v="marking" aria-selected="false"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Marking</span><em class="nb" id="mkCount" hidden></em></button><button role="tab" data-v="learners" aria-selected="false"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/><path d="M16 4a4 4 0 0 1 0 8M22 21c0-3-2-5-4-5.6"/></svg><span>Learners</span></button><button role="tab" data-v="grades" aria-selected="false"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M4 10h16M10 4v16"/></svg><span>Grade book</span></button><button id="out" type="button"><svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"/><path d="M10 17l5-5-5-5M15 12H3"/></svg><span>Sign out</span></button></nav></div></header>
+<main id="main"></main>
+<div class="toast" id="toast" hidden role="status"></div>
+<script>
+const API="https://script.google.com/macros/s/AKfycbwXO14ta925OHJMk9qjt3yT44cCfflZo62fEWj_v4rR8z_xDrgOOCvZbc5uMVwiSjhkaA/exec";
+const LEVEL="4";
+const TITLES={"1": "Customer care in context", "2": "The six satisfaction elements", "3": "Moments of truth and adding value", "4": "Getting to know your customers’ needs", "5": "Leadership and the customer-care environment", "6": "Monitoring and measuring performance", "7": "Midterm", "8": "Effective communication with customers", "9": "The internal customer", "10": "Complaints and problem solving", "11": "Building long-term customer relationships", "12": "Role-play assessment and final exam"};
+const CAPS=[1,2,3,4,5,6,8,9,10,11,12],EXAMS=[7,12];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pad=n=>String(n).padStart(2,"0");
+let PIN=null,D=null,view="dash",who=null,FILES={};
+try{PIN=sessionStorage.getItem("ccm-teacher")}catch(e){}
+function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2600)}
+async function call(b){const r=await fetch(API,{method:"POST",body:JSON.stringify(Object.assign({pin:PIN,level:LEVEL},b))});return r.json()}
+async function head(u){try{return (await fetch(u,{method:"HEAD",cache:"no-store"})).ok}catch(e){return false}}
+async function text(u){try{const r=await fetch(u,{cache:"no-store"});return r.ok?(await r.text()).trim():""}catch(e){return ""}}
+async function scanFiles(){await Promise.all(Object.keys(TITLES).map(async n=>{const d=`week${pad(n)}/`;const [ho,sp,wb,qz,ex,pdf,sl]=await Promise.all([head(d+"handout.pdf"),head(d+"supplement.pdf"),head(d+"workbook.html"),head(d+"quiz.html"),head(d+"exit.html"),head(d+"slides.pdf"),text(d+"slides.txt")]);FILES[n]={d,ho,sp,wb,qz,ex,pdf,sl:/^https:\/\//.test(sl)}}))}
+
+function loginView(msg){$("#tabs").hidden=true;$("#main").innerHTML=`<div class="login card"><h1>Teacher sign-in</h1><p class="muted">Enter the teacher PIN from the Settings tab of your Sheet.</p><label class="l" for="pin">Teacher PIN</label><input class="f" id="pin" type="password" autocomplete="current-password"><p id="msg" role="alert" style="min-height:1.4em;margin-top:8px;color:var(--no)">${esc(msg||"")}</p><button class="btn primary" id="go" type="button" style="width:100%">Sign in</button><p class="muted" style="margin-top:12px;font-size:13px">Tip: in Safari tap Share › Add to Home Screen to keep this portal as its own app.</p></div>`;
+ const go=async()=>{PIN=$("#pin").value.trim();if(!PIN)return;$("#go").disabled=true;$("#msg").textContent="Checking…";await load()};
+ $("#go").onclick=go;$("#pin").onkeydown=e=>{if(e.key==="Enter")go()};$("#pin").focus()}
+async function load(){try{const [r]=await Promise.all([call({action:"teacherDashboard"}),scanFiles()]);if(!r.ok){PIN=null;try{sessionStorage.removeItem("ccm-teacher")}catch(e){}return loginView(r.error)}
+ D=r;try{sessionStorage.setItem("ccm-teacher",PIN)}catch(e){}$("#tabs").hidden=false;render()}catch(e){loginView("Can't reach your teacher portal script. Check the internet and try again.")}}
+/* ---------- grade book ---------- */
+const GS=[1,2,3,4,5,6,8,9,10,11],MID="ccm4-midterm";
+function gradeRow(s){const c=s.code,dd=(D.detail||{})[c]||{},sc=(D.scores||{})[c]||{},at=(D.attendance||{})[c]||{};
+ const ex=n=>{const it=(dd.exits||[]).find(x=>x.n===n);return it&&it.mark!==""&&it.mark!=null?Number(it.mark):null};
+ const wb=n=>{const it=(dd.workbooks||[]).find(x=>x.n===n);if(!it)return null;if(it.mark!==""&&it.mark!=null)return Number(it.mark)*10;return it.total?Math.round(it.score/it.total*100):null};
+ const qz=n=>sc[n]&&sc[n].total?Math.round(sc[n].best/sc[n].total*100):null;
+ const avg=a=>{const v=a.filter(x=>x!=null);return v.length?Math.round(v.reduce((p,q)=>p+q,0)/v.length*10)/10:null};
+ const cells=GS.map(n=>({n,e:ex(n),q:qz(n),w:wb(n),a:at[n]||""}));
+ const held=Object.keys(at).length,pres=Object.values(at).filter(v=>v==="Present"||v==="Late").length;
+ const MX=(((D.exams||{}).results||{})[c]||{})[MID]||null,mid=ex(7),fin=ex(12);
+ return {s,cells,exAvg:avg(cells.map(x=>x.e)),qzAvg:avg(cells.map(x=>x.q)),wbAvg:avg(cells.map(x=>x.w)),att:held?Math.round(pres/held*100):null,mx:MX,mid:mid==null?null:Math.round(mid*4*10)/10,fin:fin==null?null:Math.round(fin*4*10)/10}}
+const gv=(v,suf="")=>v==null?'<span class="muted">–</span>':esc(v)+suf;
+function examBar(){const L=((D.exams||{}).list||{})[MID];if(!L)return `<p class="muted" style="margin-top:10px;font-size:13px">Online midterm: update the portal script to version 7 to use it.</p>`;
+ const v=L.open||"No",isAll=/^(yes|all)$/i.test(v),list=isAll||/^no$/i.test(v)||!v?[]:v.split(",").map(x=>x.trim()).filter(Boolean),here=BATCH&&list.some(x=>sameB(x,BATCH));
+ return `<div class="card" style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><b>Online midterm</b><span class="muted" style="flex:1">Now open for: ${isAll?"all batches":list.length?esc(list.join(", ")):"nobody"}</span>
+ ${BATCH?`<button class="btn" type="button" data-exopen="${here?"close-b":"open-b"}">${here?"Close":"Open"} for ${esc(BATCH)}</button>`:""}<button class="btn" type="button" data-exopen="${isAll?"close":"open"}">${isAll?"Close for everyone":"Open for all batches"}</button></div>`}
+function wireExamBar(){document.querySelectorAll("[data-exopen]").forEach(b=>b.onclick=async()=>{const L=D.exams.list[MID],v=L.open||"No",isAll=/^(yes|all)$/i.test(v);let list=isAll||/^no$/i.test(v)||!v?[]:v.split(",").map(x=>x.trim()).filter(Boolean);
+  const k=b.dataset.exopen;let nv;if(k==="open")nv="Yes";else if(k==="close")nv="No";else if(k==="open-b"){list.push(BATCH);nv=list.join(", ")}else{list=list.filter(x=>!sameB(x,BATCH));nv=list.length?list.join(", "):"No"}
+  b.disabled=true;try{const r=await call({action:"teacherExamOpen",exam:MID,value:nv});if(r.ok){L.open=r.value;toast(nv==="No"?"Midterm closed":"Midterm open");grades()}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}b.disabled=false})}
+function grades(){const st=act(),R=st.map(gradeRow);
+ $("#main").innerHTML=`<h1>Grade book</h1>${batchBar()}<p class="muted" style="margin-top:8px">One row per active learner${BATCH?` in ${esc(BATCH)}`:""}. <b>E</b> = exit ticket mark out of 10 · <b>Q</b> = best practice-quiz score · <b>W</b> = workbook (your mark × 10, or the auto score). Midterm: Parts A–C are marked automatically; type the Part D mark (out of 40) and press Enter. Final: type the mark out of 40 and press Enter. <button class="lnk" id="csv" type="button">Download CSV</button></p>
+ ${examPanel()}<div class="tablewrap" style="margin-top:14px"><table style="min-width:1400px"><thead><tr><th>Learner</th><th>Attendance</th><th>Exit avg /10</th><th>Quiz avg</th><th>Workbook avg</th><th>Midterm /100</th><th>Final /40</th>${GS.map(n=>`<th title="${esc(TITLES[n])}">S${n}</th>`).join("")}</tr></thead><tbody>
+ ${R.map(r=>`<tr><td><button class="lnk" data-who="${esc(r.s.code)}" type="button">${esc(r.s.name)}</button><br><small class="muted">${esc(r.s.code)}${r.s.batch?" · "+esc(r.s.batch):""}</small></td>
+ <td>${gv(r.att,"%")}</td><td><b>${gv(r.exAvg)}</b></td><td>${gv(r.qzAvg,"%")}</td><td>${gv(r.wbAvg,"%")}</td>
+ <td style="white-space:nowrap">${r.mx?`A–C <b>${esc(r.mx.auto)}</b>/60<br>D <input class="f" style="width:58px;padding:4px 6px" inputmode="decimal" data-exd="${esc(r.s.code)}" value="${esc(r.mx.d)}" aria-label="Part D mark out of 40 for ${esc(r.s.name)}">/40<br>Total <b data-ext="${esc(r.s.code)}">${r.mx.total===""?"–":esc(r.mx.total)}</b>/100${r.mx.attempt>1?`<br><small class="muted">${r.mx.attempt} attempts</small>`:""}`:(r.mid!=null?`${esc(r.mid)}/40 <small class="muted">(paper)</small>`:'<span class="muted">Not taken</span>')}</td>
+ <td><input class="f" style="width:74px;padding:6px 8px" inputmode="decimal" data-exam="12" data-code="${esc(r.s.code)}" value="${r.fin==null?"":r.fin}" aria-label="Final mark out of 40 for ${esc(r.s.name)}"></td>
+ ${r.cells.map(x=>`<td style="white-space:nowrap;font-size:12.5px">E ${gv(x.e)}<br>Q ${gv(x.q,"%")}<br>W ${gv(x.w,"%")}${x.a?`<br><span class="muted">${esc(x.a)}</span>`:""}</td>`).join("")}</tr>`).join("")||`<tr><td colspan="17" class="muted">No active learners${BATCH?" in this batch":""}.</td></tr>`}
+ </tbody></table></div>
+ <div class="gcards">${R.map(r=>`<div class="lcard"><div class="top"><span class="av" style="--av:${avc(r.s.code)}">${esc(initials(r.s.name))}</span><div style="flex:1"><b>${esc(r.s.name)}</b><small>${esc(r.s.code)}${r.s.batch?" · "+esc(r.s.batch):""}</small></div><button class="btn" data-who="${esc(r.s.code)}" type="button" style="min-height:36px">Profile</button></div>
+  <div class="gk"><div><small>Attendance</small><b>${gv(r.att,"%")}</b></div><div><small>Exit avg</small><b>${gv(r.exAvg)}<i>/10</i></b></div><div><small>Quiz avg</small><b>${gv(r.qzAvg,"%")}</b></div><div><small>Workbook</small><b>${gv(r.wbAvg,"%")}</b></div></div>
+  <div class="gk2"><div><small>Midterm</small>${r.mx?`<b>${esc(r.mx.auto)}<i>/60</i></b> + D <input class="f" inputmode="decimal" data-exd="${esc(r.s.code)}" value="${esc(r.mx.d)}" style="width:64px;min-height:36px;padding:4px 8px" aria-label="Part D mark"> = <b data-ext="${esc(r.s.code)}">${r.mx.total===""?"–":esc(r.mx.total)}</b><i>/100</i>`:(r.mid!=null?`<b>${esc(r.mid)}<i>/40 paper</i></b>`:'<span class="muted">Not taken</span>')}</div>
+  <div><small>Final /40</small><input class="f" inputmode="decimal" data-exam="12" data-code="${esc(r.s.code)}" value="${r.fin==null?"":r.fin}" style="width:74px;min-height:36px;padding:4px 8px" aria-label="Final mark"></div></div></div>`).join("")||`<div class="empty">No active learners.</div>`}</div>`;
+ wireBatchBar();
+ document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;render()});
+ document.querySelectorAll("[data-exam]").forEach(inp=>inp.onkeydown=async e=>{if(e.key!=="Enter")return;const v=inp.value.trim(),n=+inp.dataset.exam,code=inp.dataset.code;
+  if(v!==""&&!(Number(v)>=0&&Number(v)<=40))return toast("Give a mark from 0 to 40.");inp.disabled=true;
+  try{const mk=v===""?"":String(Math.round(Number(v)/4*1000)/1000);const r=await call({action:"teacherMark",code,session:n,kind:"exit",mark:mk,comment:v===""?"":`${n===7?"Midterm":"Final"} exam: ${v} / 40`,paper:true});
+   if(r.ok){const dd=((D.detail=D.detail||{})[code]=D.detail[code]||{}),list=(dd.exits=dd.exits||[]);let it=list.find(x=>x.n===n);if(!it){it={n,at:"",a1:"Done on paper",a2:"",a3:""};list.push(it)}it.mark=mk;it.comment=v===""?"":`${n===7?"Midterm":"Final"} exam: ${v} / 40`;toast(`${n===7?"Midterm":"Final"} mark saved`)}else toast(r.error||"Not saved")}catch(err){toast("No connection. Not saved.")}inp.disabled=false});
+ wireExamPanel();
+ document.querySelectorAll("[data-exd]").forEach(inp=>inp.onkeydown=async e=>{if(e.key!=="Enter")return;const v=inp.value.trim(),code=inp.dataset.exd;
+  if(v!==""&&!(Number(v)>=0&&Number(v)<=40))return toast("Give a Part D mark from 0 to 40.");inp.disabled=true;
+  try{const r=await call({action:"teacherExamMark",code,exam:MID,mark:v});if(r.ok){const m=D.exams.results[code][MID];m.d=v;m.total=r.total;document.querySelectorAll(`[data-ext="${code}"]`).forEach(t=>t.textContent=r.total===""?"–":r.total);document.querySelectorAll(`[data-exd="${code}"]`).forEach(t=>{if(t!==inp)t.value=v});toast("Part D saved")}else toast(r.error||"Not saved")}catch(err){toast("No connection. Not saved.")}inp.disabled=false});
+ $("#csv").onclick=()=>{const q=v=>`"${String(v==null?"":v).replace(/"/g,'""')}"`;const head=["Name","Code","Batch","Attendance %","Exit avg /10","Quiz avg %","Workbook avg %","Midterm A-C /60","Midterm D /40","Midterm total /100","Midterm paper /40","Final /40",...GS.flatMap(n=>[`S${n} exit /10`,`S${n} quiz %`,`S${n} workbook %`,`S${n} attendance`])];
+  const lines=[head.map(q).join(","),...R.map(r=>[r.s.name,r.s.code,r.s.batch,r.att,r.exAvg,r.qzAvg,r.wbAvg,r.mx?r.mx.auto:"",r.mx?r.mx.d:"",r.mx?r.mx.total:"",r.mid,r.fin,...r.cells.flatMap(x=>[x.e,x.q,x.w,x.a])].map(q).join(","))];
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["﻿"+lines.join("\n")],{type:"text/csv"}));a.download=`CCM-L5-gradebook${BATCH?"-"+BATCH:""}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}}
+function render(){document.querySelectorAll("#tabs [data-v]").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===(who?"learners":view)));if(who)return profile(who);({dash,sessions,learners,grades,marking})[view]();updCount();window.scrollTo(0,0)}
+document.querySelectorAll("#tabs [data-v]").forEach(b=>b.onclick=()=>{view=b.dataset.v;who=null;render()});
+$("#out").onclick=()=>{PIN=null;D=null;try{sessionStorage.removeItem("ccm-teacher")}catch(e){}loginView()};
+
+let BATCH="";try{BATCH=sessionStorage.getItem("ccm-batch")||""}catch(e){}
+const sameB=(a,b)=>String(a||"").trim().toLowerCase()===String(b||"").trim().toLowerCase();
+const batches=()=>{const l=[...(D.batches||[])];D.students.forEach(s=>{if(s.batch&&!l.some(x=>sameB(x,s.batch)))l.push(s.batch)});return l.sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}))};
+const openFor=(s,b)=>!!(s.open||(b&&(s.openBatches||[]).some(x=>sameB(x,b))));
+const openAny=s=>!!(s.open||(s.openBatches||[]).length);
+function setBatch(b){BATCH=b;try{sessionStorage.setItem("ccm-batch",b)}catch(e){}render()}
+function batchBar(){const l=batches();if(!l.length)return "";return `<div class="bbar" role="group" aria-label="Show batch"><span class="muted" style="font-size:13px;font-weight:600">Batch:</span>${[["","All batches"],...l.map(x=>[x,x])].map(([v,t])=>`<button type="button" class="chip" data-batch="${esc(v)}" aria-pressed="${sameB(v,BATCH)&&(v||!BATCH)?"true":"false"}">${esc(t)}</button>`).join("")}</div>`}
+function wireBatchBar(){document.querySelectorAll("[data-batch]").forEach(b=>b.onclick=()=>setBatch(b.dataset.batch))}
+const act=()=>D.students.filter(s=>String(s.level).indexOf(LEVEL)>-1&&s.active.toLowerCase()==="yes"&&(!BATCH||sameB(s.batch,BATCH)));
+const det=c=>(D.detail||{})[c]||{};
+const openNs=()=>D.sessions.filter(s=>BATCH?openFor(s,BATCH):openAny(s)).map(s=>s.n);
+function needs(){const out=[];const open=openNs();
+ act().forEach(s=>{const d=det(s.code),ex=(d.exits||[]).map(e=>e.n),wb=(d.workbooks||[]).map(w=>w.n),la=(D.lastActive||{})[s.code],sc=D.scores[s.code]||{};
+  open.filter(n=>!EXAMS.includes(n)).forEach(n=>{if(!ex.includes(n))out.push([s,`No exit ticket for Session ${n}`]);if(!wb.includes(n))out.push([s,`No e-workbook for Session ${n}`])});
+  if(!la)out.push([s,"Has not used the app yet"]);else if(la.days>=7)out.push([s,`Not active for ${la.days} days`]);
+  Object.entries(sc).forEach(([n,v])=>{if(v.total&&v.best/v.total<0.6)out.push([s,`Practice quiz Session ${n}: best ${v.best}/${v.total}`])});
+  const um=(d.exits||[]).filter(e=>!e.mark).length+(d.workbooks||[]).filter(w=>!w.mark).length;if(um)out.push([s,`${um} submission${um>1?"s":""} to mark`])});
+ return out}
+function remindText(s,t){const first=String(s.name||"").split(" ")[0],url=new URL("index.html",location.href).href;let m;
+ if((m=t.match(/^No exit ticket for Session (\d+)/)))t=`please complete the exit ticket for Session ${m[1]}`;
+ else if((m=t.match(/^No e-workbook for Session (\d+)/)))t=`please complete and submit the e-workbook for Session ${m[1]}`;
+ else if((m=t.match(/^Practice quiz Session (\d+)/)))t=`please try the practice quiz for Session ${m[1]} again. Aim for 8 or more`;
+ else if(/^Has not used the app/.test(t))t="please sign in to the course app with your access code";
+ else if(/^Not active/.test(t))t="we have not seen you on the course app for a while. Please catch up with the latest session";
+ else return "";
+ return `Hello ${first}, this is Ms. Maria from Customer Care Management Level 4. A friendly reminder: ${t}. Course app: ${url} Thank you!`}
+function waLink(s,t){const txt=remindText(s,t),num=String(s.mobile||"").replace(/[^\d]/g,"");if(!txt||num.length<8)return "";
+ return `<a class="lnk" href="https://wa.me/${num}?text=${encodeURIComponent(txt)}" target="_blank" rel="noopener" style="margin-right:10px">WhatsApp reminder</a>`}
+const SV={users:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/>',open:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',mark:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>'};
+const svg=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SV[k]}</svg>`;
+const AVC=["#2A9D8F","#E76F51","#6D5BD0","#C9A24A","#1B2A4A","#3A7BD5"];
+const avc=c=>AVC[[...String(c)].reduce((a,ch)=>a+ch.charCodeAt(0),0)%AVC.length];
+const initials=n=>String(n||"?").split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");
+function groupNeeds(){const g={};needs().forEach(([s,t])=>{const k=s.code;(g[k]=g[k]||{s,ex:[],wb:[],quiz:[],mark:0,other:[]});let m;
+  if((m=t.match(/^No exit ticket for Session (\d+)/)))g[k].ex.push(+m[1]);else if((m=t.match(/^No e-workbook for Session (\d+)/)))g[k].wb.push(+m[1]);
+  else if((m=t.match(/^Practice quiz Session (\d+)/)))g[k].quiz.push(+m[1]);else if((m=t.match(/^(\d+) submissions? to mark/)))g[k].mark=+m[1];else g[k].other.push(t)});
+ return Object.values(g).sort((a,b)=>(b.mark-a.mark)||((b.ex.length+b.wb.length)-(a.ex.length+a.wb.length)))}
+function waGroup(x){const s=x.s,num=String(s.mobile||"").replace(/[^\d]/g,"");if(num.length<8)return "";const parts=[];
+ if(x.ex.length)parts.push(`the exit ticket${x.ex.length>1?"s":""} for Session${x.ex.length>1?"s":""} ${x.ex.join(", ")}`);
+ if(x.wb.length)parts.push(`the e-workbook${x.wb.length>1?"s":""} for Session${x.wb.length>1?"s":""} ${x.wb.join(", ")}`);
+ if(x.quiz.length)parts.push(`the practice quiz for Session${x.quiz.length>1?"s":""} ${x.quiz.join(", ")} again (aim for 8 or more)`);
+ const away=x.other.find(t=>/^Not active|^Has not used/.test(t));
+ if(!parts.length&&!away)return "";const url=new URL("index.html",location.href).href,first=String(s.name||"").split(" ")[0];
+ const txt=`Hello ${first}, this is Ms. Maria from Customer Care Management Level 4. A friendly reminder${parts.length?": please complete "+parts.join("; and "):""}.${away?" We have not seen you on the course app for a while.":""} Course app: ${url} Thank you!`;
+ return `<a class="btn wa" href="https://wa.me/${num}?text=${encodeURIComponent(txt)}" target="_blank" rel="noopener">WhatsApp reminder</a>`}
+function examState(){const L=((D.exams||{}).list||{})[MID];if(!L)return null;const v=L.open||"No",all=/^(yes|all)$/i.test(v),list=all||/^no$/i.test(v)||!v?[]:v.split(",").map(x=>x.trim()).filter(Boolean);return {L,all,list}}
+function examPanel(){const E=examState();if(!E)return `<div class="xp"><div class="xh"><b>Online midterm</b></div><p class="muted">Update the portal script to version 7 to open the online midterm here.</p></div>`;
+ const bl=batches(),on=b=>E.all||E.list.some(x=>sameB(x,b)),state=E.all?"Open for everyone":E.list.length?"Open for "+E.list.join(", "):"Closed";
+ const done=Object.values((D.exams||{}).results||{}).filter(r=>r[MID]).length;
+ return `<div class="xp${E.all||E.list.length?" live":""}"><div class="xh"><span class="xdot"></span><div style="flex:1"><b>Online midterm</b><small>${esc(state)} · ${done} submitted</small></div><button class="toggle ${E.all?"off":"on"}" type="button" data-xall="${E.all?"close":"open"}">${E.all?"Close for everyone":"Open for everyone"}</button></div>
+ ${bl.length?`<div class="bbar" style="margin-top:10px"><span class="muted" style="font-size:13px;font-weight:600">Open for:</span>${bl.map(b=>`<button type="button" class="chip${on(b)?" on":""}" data-xb="${esc(b)}" aria-pressed="${on(b)}"${E.all?" disabled":""}>${on(b)?"✓ ":""}${esc(b)}</button>`).join("")}</div>`:""}
+ <p class="muted" style="font-size:12.5px;margin-top:8px">Also open Session 7 for the same batch, so learners see the Start button. Students without a batch can take it only when it is open for everyone.</p></div>`}
+async function setExam(nv){try{const r=await call({action:"teacherExamOpen",exam:MID,value:nv});if(r.ok){D.exams.list[MID].open=r.value;toast(/^no$/i.test(r.value)?"Midterm closed":"Midterm open: "+(/^yes$/i.test(r.value)?"everyone":r.value))}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}render()}
+function wireExamPanel(){document.querySelectorAll("[data-xall]").forEach(b=>b.onclick=()=>{b.disabled=true;setExam(b.dataset.xall==="open"?"Yes":"No")});
+ document.querySelectorAll("[data-xb]").forEach(b=>b.onclick=()=>{const E=examState();let l=E.list.slice();const x=b.dataset.xb;l=l.some(y=>sameB(y,x))?l.filter(y=>!sameB(y,x)):[...l,x];b.disabled=true;setExam(l.length?l.join(", "):"No")})}
+/* ---------- marking queue ---------- */
+const QS={};let MQ_I=0;
+async function exitQs(n){if(QS[n])return QS[n];try{const t=await text(`week${pad(n)}/exit.html`);const d=new DOMParser().parseFromString(t,"text/html");QS[n]=[...d.querySelectorAll("label.q")].map(x=>x.textContent.trim())}catch(e){QS[n]=[]}return QS[n]}
+function queue(){const out=[];act().forEach(s=>{const d=det(s.code);
+ (d.exits||[]).forEach(e=>{if(!e.mark&&!(e.a1==="Done on paper"&&!e.a2&&!e.a3)&&!EXAMS.includes(e.n))out.push({kind:"exit",s,n:e.n,it:e})});
+ (d.workbooks||[]).forEach(w=>{if(!w.mark&&w.total)out.push({kind:"workbook",s,n:w.n,it:w})})});
+ return out.sort((a,b)=>a.n-b.n||(a.kind<b.kind?-1:1)||a.s.name.localeCompare(b.s.name))}
+function updCount(){const el=$("#mkCount");if(!el||!D)return;const n=queue().length;el.hidden=!n;el.textContent=n>99?"99+":n}
+const QUICK=["Excellent work.","Good answer. Add one number from the case as evidence.","Name the model in your first sentence.","Add a risk and how to reduce it.","Use the sentence frame to make your answer clearer.","Please complete all three questions."];
+async function marking(){const Q=queue();if(MQ_I>=Q.length)MQ_I=Math.max(0,Q.length-1);
+ if(!Q.length){$("#main").innerHTML=`<h1>Marking</h1>${batchBar()}<div class="empty" style="margin-top:16px">All caught up. Nothing to mark${BATCH?" in "+esc(BATCH):""}. 🎉</div>`;wireBatchBar();return}
+ const x=Q[MQ_I],s=x.s,it=x.it,qs=x.kind==="exit"?await exitQs(x.n):[];
+ const body=x.kind==="exit"?[it.a1,it.a2,it.a3].map((a,i)=>`<div class="qa"><div class="qq">${esc(qs[i]||"Question "+(i+1))}</div><div class="ans">${esc(a||"—")}</div></div>`).join("")
+  :`<p class="muted" style="font-size:13px">Auto-checked tasks: <b>${it.score}/${it.total}</b></p><div class="ans" style="font-size:13px">${esc(it.tasks)}</div>${it.written?`<div class="qq" style="margin-top:12px">Written answers (portfolio)</div><div class="ans">${esc(it.written)}</div>`:""}`;
+ $("#main").innerHTML=`<div class="hello"><div><h1>Marking</h1><p>${Q.length} waiting${BATCH?" in "+esc(BATCH):""} · exit tickets and e-workbooks</p></div></div>${batchBar()}
+ <div class="mq">
+  <aside class="mlist">${Q.map((y,i)=>`<button type="button" class="mi${i===MQ_I?" on":""}" data-mi="${i}"><span class="av" style="--av:${avc(y.s.code)}">${esc(initials(y.s.name))}</span><span><b>${esc(y.s.name.split(" ")[0])}</b><small>S${y.n} · ${y.kind==="exit"?"Exit ticket":"E-workbook"}</small></span></button>`).join("")}</aside>
+  <section class="card mcard"><div class="mhead"><span class="av" style="--av:${avc(s.code)}">${esc(initials(s.name))}</span><div style="flex:1"><b>${esc(s.name)}</b><small>Session ${x.n} · ${esc(TITLES[x.n]||"")} · ${x.kind==="exit"?"Exit ticket":"E-workbook"}${it.at?" · sent "+esc(it.at):""}</small></div><span class="pill no">${MQ_I+1} of ${Q.length}</span></div>
+  <div class="mbody">${body}</div>
+  <div class="mform"><label class="l">Mark out of 10</label><div class="marks">${[5,6,7,8,9,10].map(v=>`<button type="button" class="chip" data-qm="${v}">${v}</button>`).join("")}<input class="f" id="mqMark" type="number" min="0" max="10" step="0.5" inputmode="decimal" placeholder="0–10" style="max-width:110px"></div>
+  <label class="l" for="mqCm">Comment for the learner <span class="muted" style="font-weight:400">(they see it on their Progress page)</span></label><textarea class="f" id="mqCm" rows="2"></textarea>
+  <div class="tags" style="margin-top:6px">${QUICK.map(q=>`<button type="button" class="tag qp" data-qp="${esc(q)}">${esc(q)}</button>`).join("")}</div>
+  <div class="row" style="margin-top:14px"><button class="btn primary" id="mqSave" type="button">Save & next</button><button class="btn" id="mqSkip" type="button">Skip</button><button class="lnk" data-who="${esc(s.code)}" type="button" style="margin-left:auto">Open profile</button></div></div></section>
+ </div>`;
+ wireBatchBar();
+ document.querySelectorAll("[data-mi]").forEach(b=>b.onclick=()=>{MQ_I=+b.dataset.mi;marking()});
+ document.querySelectorAll("[data-qm]").forEach(b=>b.onclick=()=>{$("#mqMark").value=b.dataset.qm;document.querySelectorAll("[data-qm]").forEach(c=>c.setAttribute("aria-pressed",c===b))});
+ document.querySelectorAll("[data-qp]").forEach(b=>b.onclick=()=>{const t=$("#mqCm");t.value=(t.value?t.value.trim()+" ":"")+b.dataset.qp});
+ document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;render()});
+ $("#mqSkip").onclick=()=>{MQ_I=(MQ_I+1)%Q.length;marking()};
+ $("#mqSave").onclick=async()=>{const mk=$("#mqMark").value.trim(),cm=$("#mqCm").value.trim();if(mk===""||!(Number(mk)>=0&&Number(mk)<=10))return toast("Give a mark from 0 to 10.");const b=$("#mqSave");b.disabled=true;b.textContent="Saving…";
+  try{const r=await call({action:"teacherMark",code:s.code,session:x.n,kind:x.kind,mark:mk,comment:cm});if(r.ok){it.mark=mk;it.comment=cm;toast(`${s.name.split(" ")[0]} · Session ${x.n}: ${mk}/10 saved`);updCount();marking()}else{toast(r.error||"Not saved");b.disabled=false;b.textContent="Save & next"}}catch(e){toast("No connection. Not saved.");b.disabled=false;b.textContent="Save & next"}};
+ $("#mqMark").onkeydown=e=>{if(e.key==="Enter")$("#mqSave").click()}}
+
+/* ---------- today's class ---------- */
+let TODAY=0;try{TODAY=+sessionStorage.getItem("ccm-today")||0}catch(e){}
+function todayN(){if(TODAY)return TODAY;const o=openNs();const mx=o.length?Math.max(...o):0;return Math.min(12,Math.max(1,o.length&&!D.sessions.some(s=>s.n===mx+1)?mx:mx+1))}
+const teachUrl=s=>`teach.html?n=${s.n}${s.slides?"&canva="+encodeURIComponent(s.slides):""}`;
+const teachBtn=(s,big)=>`<a class="btn teach${big?" big":""}" href="${teachUrl(s)}" target="_blank" rel="noopener">▶ Teach</a>`;
+function todayPanel(){const n=todayN(),s=D.sessions.find(x=>x.n===n);if(!s)return "";const isOpen=BATCH?openFor(s,BATCH):!!s.open,who=BATCH?esc(BATCH):(batches().length?"all batches":"learners"),lbl=BATCH?(isOpen?"Open for "+who:"Closed for "+who):openLabel(s);
+ return `<div class="today"><div class="tsel"><span class="muted" style="font-size:13px;font-weight:600">Session:</span>${D.sessions.map(x=>`<button type="button" class="tn${x.n===n?" on":""}${(BATCH?openFor(x,BATCH):openAny(x))?" op":""}" data-tn="${x.n}" aria-label="Session ${x.n}">${x.n}</button>`).join("")}</div>
+ <div class="thead"><div style="flex:1;min-width:220px"><small class="muted">Today’s class</small><h3>Session ${n} · ${esc(TITLES[n]||s.title)}</h3><span class="pill ${openAny(s)&&(isOpen||!BATCH)?"yes":"no"}">${esc(lbl)}</span></div>
+ <div class="row">${teachBtn(s,1)}<button class="toggle ${isOpen?"off":"on"}" type="button" id="tOpen">${isOpen?"Close":"Open"} for ${who}</button></div></div>
+ ${n===7?examPanel():""}${mats(n)}
+ <div class="tgrid"><div><b>Attendance</b> <small class="muted" data-regsum="${n}">${regSum(n)}</small><div data-reg="${n}" style="margin-top:6px"></div></div></div></div>`}
+function wireToday(){const n=todayN();document.querySelectorAll("[data-tn]").forEach(b=>b.onclick=()=>{TODAY=+b.dataset.tn;try{sessionStorage.setItem("ccm-today",TODAY)}catch(e){}render()});
+ if(document.querySelector(`[data-reg="${n}"]`))register(n);
+ const b=$("#tOpen");if(b)b.onclick=async()=>{TODAY=n;try{sessionStorage.setItem("ccm-today",n)}catch(e){}const s=D.sessions.find(x=>x.n===n),want=!(BATCH?openFor(s,BATCH):!!s.open);b.disabled=true;b.textContent="Saving…";
+  try{const r=BATCH?await call({action:"teacherOpen",n,open:want,batch:BATCH}):await call({action:"teacherOpen",n,open:want});if(r.ok){applyOpen(s,r.value,BATCH,want);toast(`Session ${n} is now ${want?"open":"closed"}${BATCH?" for "+BATCH:""}`)}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}render()}}
+function dash(){const a=act(),G=groupNeeds(),open=openNs(),toMark=G.filter(x=>x.mark).length,items=G.reduce((p,x)=>p+x.ex.length+x.wb.length+x.quiz.length+(x.mark?1:0)+x.other.length,0);
+ const h=new Date().getHours(),hi=h<12?"Good morning":h<17?"Good afternoon":"Good evening";
+ $("#main").innerHTML=`<div class="hello"><div><h1>${hi}, Ms. Maria</h1><p>${new Date().toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})} · Level ${LEVEL}${BATCH?` · ${esc(BATCH)}`:""}</p></div><button class="btn" id="refresh" type="button">Refresh</button></div>${batchBar()}
+ <h2>Today’s class</h2>${todayPanel()}
+ <div class="stats">
+  <div class="st" style="--k:var(--a);--kt:var(--a-t)"><div class="ico">${svg("users")}</div><b>${a.length}</b><span>Active learners</span></div>
+  <div class="st" style="--k:var(--c);--kt:var(--c-t)"><div class="ico">${svg("open")}</div>${open.length?`<div class="nums">${open.map(n=>`<i>${n}</i>`).join("")}</div>`:"<b>–</b>"}<span>Sessions open</span></div>
+  <div class="st click" data-go="marking" style="--k:var(--b);--kt:var(--b-t)"><div class="ico">${svg("mark")}</div><b>${toMark}</b><span>Learner${toMark===1?"":"s"} with work to mark</span></div>
+  <div class="st" style="--k:#C9A24A;--kt:var(--d-t)"><div class="ico">${svg("bell")}</div><b>${items}</b><span>Item${items===1?"":"s"} needing attention</span></div>
+ </div>
+ ${todayN()===7?"":`<h2>Exams</h2>${examPanel()}`}
+ <h2>Needs attention</h2>${G.length?`<div class="lc">${G.map(x=>{const s=x.s;return `<div class="lcard"><div class="top"><span class="av" style="--av:${avc(s.code)}">${esc(initials(s.name))}</span><div><b>${esc(s.name)}</b><small>${esc(s.code)}${s.batch?" · "+esc(s.batch):""}</small></div></div>
+  <div class="tags">${x.mark?`<span class="tag purple">${x.mark} to mark</span>`:""}${x.ex.length?`<span class="tag red">No exit ticket: S${x.ex.join(", S")}</span>`:""}${x.wb.length?`<span class="tag red">No workbook: S${x.wb.join(", S")}</span>`:""}${x.quiz.length?`<span class="tag gold">Low quiz: S${x.quiz.join(", S")}</span>`:""}${x.other.map(t=>`<span class="tag gold">${esc(t)}</span>`).join("")}</div>
+  <div class="acts">${x.mark?`<button class="btn primary" data-go="marking" type="button">Mark work</button><button class="btn" data-who="${esc(s.code)}" type="button">Profile</button>`:`<button class="btn primary" data-who="${esc(s.code)}" type="button">Open profile</button>`}${waGroup(x)}</div></div>`}).join("")}</div>`:`<div class="empty">Nothing needs attention right now. 🎉</div>`}
+ <h2>Learners</h2><div class="tablewrap"><table><tr><th>Learner</th><th>Last active</th><th>Attendance</th><th>Portfolio tasks</th><th>Exit tickets</th><th>E-workbooks</th><th></th></tr>
+ ${a.map(s=>{const d=det(s.code),la=(D.lastActive||{})[s.code],at=(D.attendance||{})[s.code]||{},vals=Object.values(at).filter(Boolean),pres=vals.filter(v=>v!=="Absent").length,p=(D.progress[s.code]||{}).steps||"",pc=vals.length?Math.round(pres/vals.length*100):null,steps=String(p).split(",").filter(x=>x.trim()).length;
+  return `<tr><td><div style="display:flex;gap:10px;align-items:center"><span class="av" style="--av:${avc(s.code)};width:34px;height:34px;font-size:13px">${esc(initials(s.name))}</span><div><b>${esc(s.name)}</b><br><span class="muted" style="font-size:13px">${esc(s.code)}${s.batch?" · "+esc(s.batch):""}</span></div></div></td><td>${la?esc(la.text):'<span class="muted">Not yet</span>'}</td><td>${pc==null?'<span class="muted">Not taken</span>':`<div class="bar-p"><i style="width:${pc}%"></i></div><small class="muted">${pc}% (${pres}/${vals.length})</small>`}</td><td>${steps?`<div class="bar-p"><i style="width:${Math.round(steps/11*100)}%;background:var(--c)"></i></div><small class="muted">${steps} of 11</small>`:'<span class="muted">None</span>'}</td><td>${(d.exits||[]).length}</td><td>${(d.workbooks||[]).length}</td><td><button class="btn" data-who="${esc(s.code)}" type="button">Profile</button></td></tr>`}).join("")||`<tr><td colspan="7" class="muted">No active learners yet. Add them in Learners.</td></tr>`}</table></div>`;
+ $("#refresh").onclick=load;wireBatchBar();wireExamPanel();wireToday();document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{view=b.dataset.go;render()});document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;render()})}
+function mats(n){const f=FILES[n]||{};const L=(ok,h,t)=>`<a class="${ok?"":"no"}" href="${ok?h:"#"}" target="_blank" rel="noopener">${t}</a>`;
+ return `<div class="mat">${L(f.sl||f.pdf,`index.html#/session/${n}/slides`,"Slides")}${L(f.ho,(f.d||"")+"handout.pdf","Handout")}${L(f.sp,(f.d||"")+"supplement.pdf","Supplement")}${L(f.wb,(f.d||"")+"workbook.html","E-workbook")}${L(f.qz,(f.d||"")+"quiz.html","Practice quiz")}${L(f.ex,(f.d||"")+"exit.html","Exit ticket")}${L(true,`index.html#/session/${n}`,"Learner page")}</div>`}
+function regSum(n){const a=act(),at=D.attendance||{};let p=0,l=0,ab=0;a.forEach(s=>{const v=(at[s.code]||{})[n];if(v==="Present")p++;else if(v==="Late")l++;else if(v==="Absent")ab++});
+ const left=a.length-p-l-ab;return a.length?`${p} present · ${l} late · ${ab} absent${left?` · ${left} not marked`:""}`:"no active learners"}
+function register(n){const box=document.querySelector(`[data-reg="${n}"]`),at=D.attendance||{};
+ box.innerHTML=act().map(s=>{const v=(at[s.code]||{})[n]||"";return `<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #E6E9F0"><span style="flex:1;min-width:140px;font-weight:600">${esc(s.name)}</span><div class="att" role="group" aria-label="Attendance for ${esc(s.name)}">${["Present","Late","Absent"].map(x=>`<button type="button" class="${x[0]}" data-rc="${esc(s.code)}" data-rv="${x}" aria-pressed="${v===x}">${x}</button>`).join("")}</div></div>`}).join("")||`<p class="muted">No active learners. Add them in Learners.</p>`;
+ box.querySelectorAll("[data-rc]").forEach(b=>b.onclick=async()=>{const code=b.dataset.rc,cur=(at[code]||{})[n]||"",v=cur===b.dataset.rv?"":b.dataset.rv;box.querySelectorAll(`[data-rc="${code}"]`).forEach(x=>x.disabled=true);
+  try{const r=await call({action:"teacherAttendance",code,session:n,status:v});if(r.ok){((D.attendance=D.attendance||{})[code]=at[code]||{})[n]=v;const nm=(D.students.find(x=>x.code===code)||{}).name||code;toast(v?`${nm}: ${v}`:`${nm}: cleared`)}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}
+  register(n);document.querySelector(`[data-regsum="${n}"]`).textContent=regSum(n)})}
+function openLabel(s){if(s.open)return batches().length?"Open to all batches":"Open to learners";const l=s.openBatches||[];return l.length?"Open: "+l.join(", "):"Closed"}
+function openHead(s){const any=openAny(s);return `<span class="pill ${any?"yes":"no"}">${esc(openLabel(s))}</span><button class="toggle ${s.open?"off":"on"}" data-open="${s.n}" type="button">${s.open?(batches().length?"Close for all":"Close session"):(batches().length?"Open for all":"Open session")}</button>`}
+function batchToggles(s){const l=batches();if(!l.length)return "";return `<div class="bbar" role="group" aria-label="Open Session ${s.n} for a batch"><span class="muted" style="font-size:13px;font-weight:600">Open for:</span>${l.map(b=>{const on=openFor(s,b);return `<button type="button" class="chip${on?" on":""}" data-ob="${s.n}" data-b="${esc(b)}" aria-pressed="${on}">${on?"✓ ":""}${esc(b)}</button>`}).join("")}</div>`}
+function applyOpen(s,value,batch,want){const v=String(value||"").trim();if(v){if(/^(yes|all)$/i.test(v)){s.open=true;s.openBatches=[]}else if(!v||/^no$/i.test(v)){s.open=false;s.openBatches=[]}else{s.open=false;s.openBatches=v.split(",").map(x=>x.trim()).filter(Boolean)}return}
+ if(!batch){s.open=want;s.openBatches=[];return}let l=s.open?batches():[...(s.openBatches||[])];l=l.filter(x=>!sameB(x,batch));if(want)l.push(batch);s.open=false;s.openBatches=l}
+const UH={1:["var(--a)","Unit A · Knowing the Customer","Sessions 1–4"],5:["var(--b)","Unit B · The Service Team","Sessions 5–6"],7:["var(--navy)","Midterm","Session 7"],8:["var(--c)","Unit C · Communicating Well","Sessions 8–9"],10:["var(--d)","Unit D · Problems and Loyalty","Sessions 10–11"],12:["var(--navy)","Final","Session 12"]};
+function unitHead(n){const u=UH[n];return u?`<div class="unit-h" style="--uc:${u[0]}"><i></i>${u[1]} <small>${u[2]}</small></div>`:""}
+let EXP=new Set();try{EXP=new Set(JSON.parse(sessionStorage.getItem("ccm-exp")||"[]"))}catch(e){}
+function fileSum(n){const f=FILES[n]||{};const k=[f.sl||f.pdf,f.ho,f.wb,f.qz,f.ex].filter(Boolean).length;return `${k} of 5 files`}
+function sessions(){$("#main").innerHTML=`<div class="hello"><div><h1>Sessions</h1><p>Tap a session to see its files, batches, attendance and links. Open it on the day of class.</p></div><div class="row"><button class="btn" id="expAll" type="button">Expand all</button><button class="btn" id="colAll" type="button">Collapse all</button></div></div>${batchBar()}${BATCH?`<p class="muted" style="font-size:13px;margin-top:6px">Attendance below shows ${esc(BATCH)} only.</p>`:""}<div class="sess" style="margin-top:14px">${D.sessions.map(s=>`${unitHead(s.n)}<div class="card${EXP.has(s.n)?" x":""}" data-n="${s.n}"><div class="head" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button type="button" class="exp" data-exp="${s.n}" aria-expanded="${EXP.has(s.n)}"><span class="num">${s.n}</span><span class="tt"><b>${esc(TITLES[s.n]||s.title)}</b><small>${fileSum(s.n)} · ${regSum(s.n)}</small></span></button>${teachBtn(s)}${openHead(s)}</div><div class="cbody">${batchToggles(s)}
+ ${s.n===7?examPanel():""}${mats(s.n)}
+ <details style="margin-top:10px" data-regbox="${s.n}"><summary style="cursor:pointer;font-weight:600">Attendance · <span data-regsum="${s.n}">${regSum(s.n)}</span></summary><div data-reg="${s.n}" style="margin-top:8px"></div></details>
+ <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:600">Links and announcement</summary>
+ <div class="two"><div><label class="l" for="sl${s.n}">Slides link (Canva, view-only)</label><input class="f" id="sl${s.n}" value="${esc(s.slides)}" placeholder="https://www.canva.com/design/…"></div><div><label class="l" for="nt${s.n}">Announcement</label><input class="f" id="nt${s.n}" value="${esc(s.note)}" placeholder="Shown at the top of the session page"></div></div>
+ <div class="row" style="margin-top:10px"><button class="btn primary" type="button" data-save="${s.n}">Save</button></div></details></div></div>`).join("")}</div>`;
+ wireBatchBar();wireExamPanel();
+ const saveExp=()=>{try{sessionStorage.setItem("ccm-exp",JSON.stringify([...EXP]))}catch(e){}};
+ document.querySelectorAll("[data-exp]").forEach(b=>b.onclick=()=>{const n=+b.dataset.exp,c=b.closest(".card");if(EXP.has(n))EXP.delete(n);else EXP.add(n);c.classList.toggle("x",EXP.has(n));b.setAttribute("aria-expanded",EXP.has(n));saveExp()});
+ $("#expAll").onclick=()=>{D.sessions.forEach(s=>EXP.add(s.n));saveExp();sessions()};$("#colAll").onclick=()=>{EXP.clear();saveExp();sessions()};
+ document.querySelectorAll("[data-regbox]").forEach(d=>d.ontoggle=()=>{if(d.open)register(+d.dataset.regbox)});
+ document.querySelectorAll("[data-open]").forEach(b=>b.onclick=async()=>{const n=+b.dataset.open,s=D.sessions.find(x=>x.n===n),want=!s.open;b.disabled=true;b.textContent="Saving…";
+  try{const r=await call({action:"teacherOpen",n,open:want});if(r.ok){applyOpen(s,r.value,"",want);toast(`Session ${n} is now ${want?"open":"closed"}${batches().length?" for all batches":""}`)}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}sessions()});
+ document.querySelectorAll("[data-ob]").forEach(b=>b.onclick=async()=>{const n=+b.dataset.ob,batch=b.dataset.b,s=D.sessions.find(x=>x.n===n),want=!openFor(s,batch);b.disabled=true;
+  try{const r=await call({action:"teacherOpen",n,open:want,batch});if(r.ok){if(r.value===undefined){toast("Update your Sheet script to version 5 to open sessions per batch.");b.disabled=false;return}applyOpen(s,r.value,batch,want);toast(`Session ${n} is now ${want?"open":"closed"} for ${batch}`)}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}sessions()});
+ document.querySelectorAll("[data-save]").forEach(b=>b.onclick=async()=>{const n=+b.dataset.save,s=D.sessions.find(x=>x.n===n);const body={action:"teacherSaveSession",n,slides:$("#sl"+n).value,note:$("#nt"+n).value};b.disabled=true;
+  try{const r=await call(body);if(r.ok){s.slides=body.slides;s.note=body.note;toast(`Session ${n} saved`)}else toast(r.error||"Not saved")}catch(e){toast("No connection. Not saved.")}b.disabled=false})}
+
+function markForm(kind,s,n,item,paper){return `<div class="two" style="margin-top:8px"><div><label class="l">Mark (0 to 10)</label><input class="f" type="number" min="0" max="10" step="0.5" data-mk="${kind}-${n}" value="${esc(item.mark)}"></div><div><label class="l">Comment for the learner</label><input class="f" data-cm="${kind}-${n}" value="${esc(item.comment)}" placeholder="The learner sees this on their Progress page"></div></div><div class="row" style="margin-top:8px"><button class="btn primary" type="button" data-mark="${kind}-${n}"${paper?' data-paper="1"':""}>${paper?"Save as done on paper":"Save mark"}</button>${paper?"":item.mark?`<span class="pill yes">Marked</span>`:`<span class="pill no">To mark</span>`}</div>`}
+function notSent(kind,s,n){return `<p class="muted">Not submitted in the app.</p><details style="margin-top:6px"><summary style="cursor:pointer;font-weight:600">Done on paper? Record it here</summary><p class="muted" style="font-size:13px;margin-top:6px">Use this when the learner did the work on paper or in class. The mark is optional.</p>${markForm(kind,s,n,{mark:"",comment:""},true)}</details>`}
+function profile(code){const s=D.students.find(x=>x.code===code);if(!s){who=null;return render()}const d=det(code),at=(D.attendance||{})[code]||{},la=(D.lastActive||{})[code],sc=D.scores[code]||{},pr=D.progress[code]||{};
+ let lab={};try{lab=JSON.parse(pr.lab||"{}")}catch(e){}
+ const open=openNs();const shown=Object.keys(TITLES).map(Number).filter(n=>open.includes(n)||(d.exits||[]).some(e=>e.n===n)||(d.workbooks||[]).some(w=>w.n===n)||at[n]);
+ $("#main").innerHTML=`<button class="lnk" id="back" type="button">‹ All learners</button><h1 style="margin-top:8px">${esc(s.name)}</h1><p class="muted">Code ${esc(code)} · Level ${esc(s.level)}${s.batch?` · ${esc(s.batch)}`:""} · Last active: ${la?esc(la.text):"not yet"}</p>
+ <div class="grid" style="margin-top:14px"><div class="card stat"><b>${String(pr.steps||"").split(",").filter(x=>x.trim()).length}/11</b>Portfolio tasks</div><div class="card stat"><b>${(d.exits||[]).length}</b>Exit tickets</div><div class="card stat"><b>${(d.workbooks||[]).length}</b>E-workbooks</div><div class="card stat"><b>${lab.chat?lab.chat+"%":"–"}</b>Live chat best</div></div>
+ <h2>Private notes</h2><div class="card"><textarea class="f" id="note" placeholder="Only you see this. For example: needs sentence frames for writing.">${esc((D.notes||{})[code]||"")}</textarea><div class="row" style="margin-top:8px"><button class="btn primary" id="saveNote" type="button">Save note</button></div></div>
+ <h2>Session by session</h2>${shown.length?shown.map(n=>{const ex=(d.exits||[]).find(e=>e.n===n),wb=(d.workbooks||[]).find(w=>w.n===n),q=sc[n];
+  return `<div class="card" style="margin-top:12px"><div class="head" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><b style="flex:1">Session ${n} · ${esc(TITLES[n])}</b><div class="att" role="group" aria-label="Attendance">${["Present","Late","Absent"].map(v=>`<button type="button" class="${v[0]}" data-att="${n}" data-v="${v}" aria-pressed="${at[n]===v}">${v}</button>`).join("")}</div></div>
+  <p class="muted" style="margin-top:6px">Practice quiz: ${q?`best ${q.best}/${q.total}`:"not taken"}</p>
+  <h3 style="margin-top:12px">Exit ticket</h3>${ex?(ex.a1==="Done on paper"&&!ex.a2&&!ex.a3?`<p class="muted" style="font-size:13px">Recorded ${esc(ex.at)}</p><div class="ans">Done on paper</div>`:`<p class="muted" style="font-size:13px">Sent ${esc(ex.at)}</p><div class="ans"><b>1.</b> ${esc(ex.a1)}</div><div class="ans"><b>2.</b> ${esc(ex.a2)}</div><div class="ans"><b>3.</b> ${esc(ex.a3)}</div>`)+`${markForm("exit",s,n,ex)}`:notSent("exit",s,n)}
+  <h3 style="margin-top:14px">E-workbook</h3>${wb?`<p class="muted" style="font-size:13px">${wb.total?"Sent":"Recorded"} ${esc(wb.at)}${wb.total?` · Score ${wb.score}/${wb.total}`:""}</p><div class="ans" style="font-size:13px">${esc(wb.tasks)}</div>${wb.written?`<div class="ans">${esc(wb.written)}</div>`:""}${markForm("workbook",s,n,wb)}`:notSent("workbook",s,n)}</div>`}).join(""):`<p class="muted">Open a session in Sessions to start tracking.</p>`}`;
+ $("#back").onclick=()=>{who=null;view="dash";render()};
+ $("#saveNote").onclick=async()=>{const v=$("#note").value;try{const r=await call({action:"teacherNote",code,note:v});if(r.ok){(D.notes=D.notes||{})[code]=v;toast("Note saved")}else toast(r.error)}catch(e){toast("No connection. Not saved.")}};
+ document.querySelectorAll("[data-att]").forEach(b=>b.onclick=async()=>{const n=+b.dataset.att,v=at[n]===b.dataset.v?"":b.dataset.v;try{const r=await call({action:"teacherAttendance",code,session:n,status:v});if(r.ok){((D.attendance=D.attendance||{})[code]=at)[n]=v;toast(v?`Session ${n}: ${v}`:`Session ${n}: cleared`);profile(code)}else toast(r.error)}catch(e){toast("No connection. Not saved.")}});
+ document.querySelectorAll("[data-mark]").forEach(b=>b.onclick=async()=>{const [kind,n]=b.dataset.mark.split("-"),mk=document.querySelector(`[data-mk="${b.dataset.mark}"]`).value,cm=document.querySelector(`[data-cm="${b.dataset.mark}"]`).value,paper=!!b.dataset.paper;b.disabled=true;
+  try{const r=await call({action:"teacherMark",code,session:+n,kind,mark:mk,comment:cm,paper});if(r.ok){const dd=((D.detail=D.detail||{})[code]=D.detail[code]||{}),key=kind==="exit"?"exits":"workbooks",list=(dd[key]=dd[key]||[]);let it=list.find(x=>x.n===+n);
+   if(!it){it=kind==="exit"?{n:+n,at:"just now",a1:"Done on paper",a2:"",a3:""}:{n:+n,at:"just now",score:0,total:0,tasks:"Done on paper",written:""};list.push(it)}
+   it.mark=mk;it.comment=cm;toast(paper?"Recorded as done on paper.":"Mark saved. The learner sees it on their Progress page.");profile(code)}else{toast(r.error);b.disabled=false}}catch(e){toast("No connection. Not saved.");b.disabled=false}})}
+
+function suggest(name){const ini=String(name).trim().split(/\s+/).map(w=>w[0]||"").join("").toUpperCase().replace(/[^A-Z]/g,"").slice(0,3)||"CC";let c;do{c=ini+String(Math.floor(10+Math.random()*90))}while(D.students.some(s=>s.code===c));return c}
+function learners(){const st=D.students.filter(s=>!BATCH||sameB(s.batch,BATCH));
+ $("#main").innerHTML=`<h1>Learners</h1><p class="muted">Change a name, mobile, email, level or access, then tap <b>Save</b> on that row. Tap <b>Profile</b> to see their work and attendance. The access code cannot change.</p>
+ <div class="card" style="margin-top:14px"><h2 style="margin-top:0">Add a learner</h2><div class="two"><div><label class="l" for="nn">Full name</label><input class="f" id="nn"></div><div><label class="l" for="nc">Access code</label><div class="row"><input class="f" id="nc" style="flex:1;text-transform:uppercase" maxlength="10"><button class="btn" id="sug" type="button">Suggest</button></div></div></div>
+ <div class="two"><div><label class="l" for="nm">Mobile (optional)</label><input class="f" id="nm" type="tel" inputmode="tel" autocomplete="off" placeholder="+974 5555 1234"></div><div><label class="l" for="ne">Email (optional)</label><input class="f" id="ne" type="email" inputmode="email" autocomplete="off" placeholder="name@example.com"></div></div>
+ <div class="two"><div><label class="l" for="nl">Level</label><select class="f" id="nl"><option>5</option><option>4</option><option>4 and 5</option></select></div><div><label class="l" for="nb">Batch (optional)</label><input class="f" id="nb" list="batchlist" autocomplete="off" placeholder="For example Batch 1" value="${esc(BATCH)}" maxlength="40"></div></div>
+ <div class="row" style="margin-top:12px"><button class="btn primary" id="add" type="button" style="width:100%">Add learner</button></div></div><datalist id="batchlist">${batches().map(b=>`<option value="${esc(b)}"></option>`).join("")}</datalist>
+ <div class="row" style="justify-content:space-between;align-items:center;margin-top:24px;flex-wrap:wrap;gap:8px"><h2 style="margin:0">All learners</h2><button class="btn" id="cpe" type="button">Copy all emails</button></div>${batchBar()}<div class="tablewrap stack"><table><tr><th>Name</th><th>Code</th><th>Batch</th><th>Mobile</th><th>Email</th><th>Level</th><th>Active</th><th></th></tr>${st.map((s,i)=>`<tr><td><input class="f" data-nm="${i}" value="${esc(s.name)}" aria-label="Name" style="min-width:180px"><button class="lnk" data-who="${esc(s.code)}" type="button" style="margin-top:4px">Profile ›</button></td><td><b>${esc(s.code)}</b></td><td><input class="f" data-bt="${i}" list="batchlist" value="${esc(s.batch||"")}" aria-label="Batch" maxlength="40" style="min-width:130px"></td><td><input class="f" data-m="${i}" type="tel" inputmode="tel" value="${esc(s.mobile||"")}" aria-label="Mobile" style="min-width:150px"></td><td><input class="f" data-e="${i}" type="email" inputmode="email" value="${esc(s.email||"")}" aria-label="Email" style="min-width:200px"></td><td><select class="f" data-l="${i}" style="min-width:110px">${["5","4","4 and 5"].map(o=>`<option${o===s.level?" selected":""}>${o}</option>`).join("")}</select></td><td><select class="f" data-a="${i}" style="min-width:90px"><option${s.active.toLowerCase()==="yes"?" selected":""}>Yes</option><option${s.active.toLowerCase()!=="yes"?" selected":""}>No</option></select></td><td><button class="btn" data-u="${i}" type="button">Save</button></td></tr>`).join("")||`<tr><td colspan="8" class="muted">${BATCH?"No learners in this batch.":"No learners yet."}</td></tr>`}</table></div>`;
+ $("#nn").oninput=()=>{if(!$("#nc").dataset.touched)$("#nc").value=$("#nn").value.trim()?suggest($("#nn").value):""};
+ $("#nc").oninput=()=>{$("#nc").dataset.touched=1};$("#sug").onclick=()=>{$("#nc").value=suggest($("#nn").value||"CC")};$("#cpe").onclick=copyEmails;wireBatchBar();
+ $("#add").onclick=async()=>{const b=$("#add");const body={action:"teacherSaveStudent",isNew:true,name:$("#nn").value,code:$("#nc").value.trim().toUpperCase(),level:$("#nl").value,active:"Yes",mobile:$("#nm").value.trim(),email:$("#ne").value.trim(),batch:$("#nb").value.trim()};b.disabled=true;
+  try{const r=await call(body);if(r.ok){D.students.push({name:body.name.trim(),code:body.code,level:body.level,active:"Yes",notes:"",mobile:body.mobile,email:body.email,batch:body.batch});toast(`${body.name.trim()} added · code ${body.code}`);learners()}else{toast(r.error);b.disabled=false}}catch(e){toast("No connection. Not saved.");b.disabled=false}};
+ document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;render()});
+ document.querySelectorAll("[data-u]").forEach(b=>b.onclick=async()=>{const i=+b.dataset.u,s=st[i];const nm=document.querySelector(`[data-nm="${i}"]`).value.trim();if(!nm){toast("Type the learner name.");return}
+  const body={action:"teacherSaveStudent",name:nm,code:s.code,level:document.querySelector(`[data-l="${i}"]`).value,active:document.querySelector(`[data-a="${i}"]`).value,mobile:document.querySelector(`[data-m="${i}"]`).value.trim(),email:document.querySelector(`[data-e="${i}"]`).value.trim(),batch:document.querySelector(`[data-bt="${i}"]`).value.trim()};b.disabled=true;
+  try{const r=await call(body);if(r.ok){s.name=nm;s.level=body.level;s.active=body.active;s.mobile=body.mobile;s.email=body.email;s.batch=body.batch;toast(`${nm} saved`)}else toast(r.error)}catch(e){toast("No connection. Not saved.")}b.disabled=false})}
+
+function copyEmails(){const list=D.students.filter(s=>s.email&&s.active.toLowerCase()==="yes"&&(!BATCH||sameB(s.batch,BATCH))).map(s=>s.email).join(", ");if(!list){toast("No emails saved yet");return}
+ const done=()=>toast("Emails copied. Paste them into the Bcc box of your email.");
+ const fb=()=>{const a=document.createElement("textarea");a.value=list;document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){toast("Could not copy")}a.remove()};
+ if(navigator.clipboard)navigator.clipboard.writeText(list).then(done,fb);else fb()}
+
+PIN?load():loginView();
+</script>
+</body>
+</html>

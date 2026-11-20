@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0F1830">
+<title>Teach · Customer Care Management Level 4</title>
+<link rel="icon" href="../icons/logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1830;--bg2:#17223F;--line:#2A3658;--txt:#E9ECF5;--mut:#9AA5C3;--a:#2A9D8F;--b:#E76F51;--c:#6D5BD0;--d:#E9B44C;--uc:#E9B44C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);font-family:Poppins,system-ui,sans-serif}
+button,a{font:inherit;color:inherit}
+:is(button,a):focus-visible{outline:3px solid var(--d);outline-offset:2px}
+.app{display:grid;grid-template-rows:auto 1fr auto;height:100vh;height:100dvh}
+.top{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.top::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--a) 0 25%,var(--b) 25% 50%,var(--c) 50% 75%,var(--d) 75%)}
+.num{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-weight:700;background:var(--uc);color:#fff;flex:none}
+.ttl{flex:1;min-width:180px}.ttl b{display:block;line-height:1.2}.ttl small{color:var(--mut)}
+.tb{display:flex;gap:6px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);text-decoration:none;cursor:pointer;font-weight:600;font-size:13.5px}
+.btn:hover{border-color:var(--mut)}
+.btn.off{opacity:.35;pointer-events:none}
+.btn.on{background:#fff;color:var(--bg)}
+.clock{font-variant-numeric:tabular-nums;font-weight:700;padding:6px 10px;border-radius:10px;background:var(--bg2);border:1px solid var(--line);cursor:pointer}
+.stage{position:relative;display:grid;place-items:center;min-height:0;padding:12px;overflow:hidden}
+.stage img{position:absolute;inset:0;margin:auto;max-width:calc(100% - 24px);max-height:calc(100% - 24px);object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.45);background:#fff;user-select:none}
+.stage iframe{width:100%;height:100%;border:0;border-radius:10px;background:#fff}
+.nav{position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:26px;cursor:pointer;opacity:.0;transition:opacity .2s}
+.stage:hover .nav{opacity:1}.nav:hover{background:rgba(255,255,255,.25)}
+.prev{left:16px}.next{right:16px}
+.blank{position:fixed;inset:0;background:#000;display:none;z-index:40;place-items:center;color:#333;font-size:13px}
+.blank.show{display:grid}
+.bot{display:flex;align-items:center;gap:12px;padding:8px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--mut)}
+.bar{flex:1;height:6px;border-radius:99px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:var(--uc);width:0;transition:width .2s}
+.cnt{font-weight:700;color:var(--txt);font-variant-numeric:tabular-nums}
+.thumbs{position:fixed;left:0;right:0;bottom:44px;background:rgba(15,24,48,.97);border-top:1px solid var(--line);display:none;gap:8px;overflow-x:auto;padding:10px 14px;z-index:30}
+.thumbs.show{display:flex}
+.thumbs button{flex:none;border:2px solid transparent;border-radius:6px;padding:0;background:none;cursor:pointer;position:relative}
+.thumbs button.on{border-color:var(--d)}
+.thumbs img{width:150px;aspect-ratio:16/9;object-fit:cover;border-radius:4px;display:block}
+.thumbs span{position:absolute;left:4px;bottom:4px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;padding:0 5px;border-radius:4px}
+.empty{max-width:520px;text-align:center;color:var(--mut)}
+.empty h2{color:var(--txt)}
+.keys{color:var(--mut)}.keys kbd{background:var(--bg2);border:1px solid var(--line);border-radius:5px;padding:0 5px;font:600 11px Poppins,sans-serif;color:var(--txt)}
+.app.full .top,.app.full .bot{display:none}.app.full{grid-template-rows:1fr}.app.full .stage{padding:0}.app.full .stage img{border-radius:0;box-shadow:none;max-width:100%;max-height:100%}
+@media(max-width:760px){.keys{display:none}.tb .lbl{display:none}.nav{opacity:.7;width:44px;height:44px}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+ <header class="top">
+  <span class="num" id="num">–</span>
+  <div class="ttl"><b id="title">Teach</b><small id="sub">Customer Care · Level 4</small></div>
+  <div class="tb" id="tb"></div>
+  <span class="clock" id="clock" title="Class timer · click to reset">0:00</span>
+ </header>
+ <main class="stage" id="stage"></main>
+ <footer class="bot">
+  <span class="cnt" id="cnt"></span><div class="bar"><i id="prog"></i></div>
+  <span class="keys"><kbd>←</kbd> <kbd>→</kbd> slides · <kbd>F</kbd> full screen · <kbd>B</kbd> black screen · <kbd>G</kbd> all slides</span>
+ </footer>
+</div>
+<div class="thumbs" id="thumbs"></div>
+<div class="blank" id="blank">Press B to show the slides again</div>
+<script>
+const TITLES={"1": "Customer care in context", "2": "The six satisfaction elements", "3": "Moments of truth and adding value", "4": "Getting to know your customers’ needs", "5": "Leadership and the customer-care environment", "6": "Monitoring and measuring performance", "7": "Midterm", "8": "Effective communication with customers", "9": "The internal customer", "10": "Complaints and problem solving", "11": "Building long-term customer relationships", "12": "Role-play assessment and final exam"};
+const UC=n=>n<=4?"var(--a)":n<=6?"var(--b)":n===7||n===12?"#1B2A4A":n<=9?"var(--c)":"var(--d)";
+const $=s=>document.querySelector(s),pad=n=>String(n).padStart(2,"0");
+const P=new URLSearchParams(location.search),N=Math.min(12,Math.max(1,parseInt(P.get("n"),10)||1)),DIR=`week${pad(N)}/`;
+function canvaEmbed(t){if(!t)return null;const m=String(t).trim().match(/https:\/\/(www\.)?canva\.com\/design\/([A-Za-z0-9_-]+)\/([A-Za-z0-9_-]+)/);
+ if(m)return `https://www.canva.com/design/${m[2]}/${m[3]}/view?embed`;const n=String(t).trim().match(/https:\/\/(www\.)?canva\.com\/design\/([A-Za-z0-9_-]+)/);return n?`https://www.canva.com/design/${n[2]}/view?embed`:null}
+async function head(u){try{return (await fetch(u,{method:"HEAD",cache:"no-store"})).ok}catch(e){return false}}
+async function text(u){try{const r=await fetch(u,{cache:"no-store"});return r.ok?(await r.text()).trim():""}catch(e){return ""}}
+let COUNT=0,I=1;
+document.documentElement.style.setProperty("--uc",UC(N));
+$("#num").textContent=N;$("#title").textContent=`Session ${N} · ${TITLES[N]}`;document.title=`Teach · Session ${N} · ${TITLES[N]}`;
+(async()=>{
+ const [cnt,ctxt,pdf,ho,sp,wb,qz,ex,rev]=await Promise.all([text(DIR+"slides/count.txt"),text(DIR+"slides.txt"),head(DIR+"slides.pdf"),head(DIR+"handout.pdf"),head(DIR+"supplement.pdf"),head(DIR+"workbook.html"),head(DIR+"quiz.html"),head(DIR+"exit.html"),N===7?head(DIR+"reviewer.html"):false]);
+ COUNT=parseInt(cnt,10)||0;
+ const canva=canvaEmbed(P.get("canva"))||canvaEmbed(ctxt);
+ const L=(ok,href,label,ic)=>`<a class="btn${ok?"":" off"}" href="${ok?href:"#"}" target="_blank" rel="noopener" title="${label}">${ic}<span class="lbl">${label}</span></a>`;
+ $("#tb").innerHTML=L(ho,DIR+"handout.pdf","Handout","📖")+(sp?L(true,DIR+"supplement.pdf","Supplement","📎"):"")+(rev?L(true,DIR+"reviewer.html","Reviewer","📝"):"")+L(wb,DIR+"workbook.html","Workbook","✏️")+L(qz,DIR+"quiz.html","Quiz","✅")+L(ex,DIR+"exit.html","Exit ticket","🎟️")+(COUNT||canva||pdf?`<button class="btn" id="fs" type="button" title="Full screen (F)">⛶<span class="lbl">Full screen</span></button>`:"")+`<a class="btn" href="teacher.html" title="Back to the teacher portal">✕<span class="lbl">Close</span></a>`;
+ const st=$("#stage");
+ if(COUNT){
+  st.innerHTML=`<img id="img" alt=""><button class="nav prev" id="prev" type="button" aria-label="Previous slide">‹</button><button class="nav next" id="next" type="button" aria-label="Next slide">›</button>`;
+  try{I=Math.min(COUNT,Math.max(1,+sessionStorage.getItem("teach-"+N)||1))}catch(e){}
+  $("#thumbs").innerHTML=[...Array(COUNT)].map((_,k)=>`<button type="button" data-k="${k+1}"><img loading="lazy" src="${DIR}slides/${pad(k+1)}.jpg" alt="Slide ${k+1}"><span>${k+1}</span></button>`).join("");
+  $("#thumbs").onclick=e=>{const b=e.target.closest("[data-k]");if(b){go(+b.dataset.k);$("#thumbs").classList.remove("show")}};
+  $("#prev").onclick=()=>go(I-1);$("#next").onclick=()=>go(I+1);
+  $("#img").onclick=e=>{const r=e.target.getBoundingClientRect();go(e.clientX<r.left+r.width/3?I-1:I+1)};
+  let sx=null;st.addEventListener("touchstart",e=>{sx=e.touches[0].clientX},{passive:true});st.addEventListener("touchend",e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)go(dx<0?I+1:I-1);sx=null});
+  go(I);
+ } else if(canva){
+  st.innerHTML=`<iframe src="${canva}" title="Session ${N} slides" allow="fullscreen" allowfullscreen></iframe>`;$("#cnt").textContent="Canva slides · use the arrows inside the slides";
+ } else if(pdf){
+  st.innerHTML=`<iframe src="${DIR}slides.pdf" title="Session ${N} slides"></iframe>`;$("#cnt").textContent="Slides PDF";
+ } else {
+  st.innerHTML=`<div class="empty"><h2>No slides for this session yet</h2><p>Upload the slides, or add a Canva link in the teacher portal (Sessions › Links). You can still open the handout, workbook, quiz and exit ticket from the buttons above.</p></div>`;
+ }
+ const fs=$("#fs");if(fs)fs.onclick=toggleFull;
+})();
+function go(k){if(!COUNT)return;I=Math.min(COUNT,Math.max(1,k));const img=$("#img");img.src=`${DIR}slides/${pad(I)}.jpg`;img.alt=`Slide ${I} of ${COUNT}`;
+ $("#cnt").textContent=`${I} / ${COUNT}`;$("#prog").style.width=(I/COUNT*100)+"%";
+ document.querySelectorAll("#thumbs [data-k]").forEach(b=>b.classList.toggle("on",+b.dataset.k===I));
+ if(I<COUNT){const n=new Image();n.src=`${DIR}slides/${pad(I+1)}.jpg`}
+ try{sessionStorage.setItem("teach-"+N,I)}catch(e){}}
+function toggleFull(){const a=document.documentElement;if(!document.fullscreenElement){(a.requestFullscreen||a.webkitRequestFullscreen||(()=>{})).call(a);$("#app").classList.add("full")}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document)}}
+document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement)$("#app").classList.remove("full")});
+document.addEventListener("keydown",e=>{if(e.target.closest("input,textarea"))return;const k=e.key;
+ if(["ArrowRight","PageDown"," ","Enter"].includes(k)){e.preventDefault();go(I+1)}
+ else if(["ArrowLeft","PageUp","Backspace"].includes(k)){e.preventDefault();go(I-1)}
+ else if(k==="Home")go(1);else if(k==="End")go(COUNT);
+ else if(k==="f"||k==="F")toggleFull();
+ else if(k==="b"||k==="B"||k==="."){$("#blank").classList.toggle("show")}
+ else if(k==="g"||k==="G"){if(COUNT)$("#thumbs").classList.toggle("show")}
+ else if(k==="Escape"){$("#thumbs").classList.remove("show");$("#blank").classList.remove("show")}});
+$("#blank").onclick=()=>$("#blank").classList.remove("show");
+let T0=Date.now();try{const t=+sessionStorage.getItem("teach-t0");if(t&&Date.now()-t<4*3600e3)T0=t;else sessionStorage.setItem("teach-t0",T0)}catch(e){}
+setInterval(()=>{const s=Math.floor((Date.now()-T0)/1000);$("#clock").textContent=`${Math.floor(s/3600)?Math.floor(s/3600)+":":""}${Math.floor(s/60)%60}:${String(s%60).padStart(2,"0")}`.replace(/^(\d+):(\d):/,"$1:0$2:")},1000);
+$("#clock").onclick=()=>{T0=Date.now();try{sessionStorage.setItem("teach-t0",T0)}catch(e){}};
+</script>
+</body>
+</html>
